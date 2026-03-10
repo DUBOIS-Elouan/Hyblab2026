@@ -3,158 +3,119 @@
 /* ------- is kept between 9/16 a,d 3/4 (portait orientation)         ----------- */
 
 /* Normalize margin and padding to ease elements positioning */
+
+@font-face {
+    font-family: Ivy;
+    src: url(../data/Polices-Labeleco/Ivystyle\ Sans\ Regular.otf);
+}
+
+@font-face {
+    font-family: IvyBold;
+    src: url(../data/Polices-Labeleco/Ivystyle\ Sans\ Bold.otf);
+}
+
+@font-face {
+    font-family: IvySemiBold;
+    src: url(../data/Polices-Labeleco/Ivystyle\ Sans\ Semibold.otf);
+}
+
+
 *{
     padding:0;
     margin:0;
 }
 
 body{
-    background-color: black;
-    color: white;
+    height: 100vh;
+    background-color: #1D0058;
     overflow: hidden;   /* to avoid slider bugs on some browsers */
     font-family: sans-serif;
 }
 
-/* -------------- Loader --------------*/
-#loader{
-    z-index: 2;
-    position:absolute;
+header{
+    height: 75px;
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
 }
 
-#loader-img{
-    top:40%;
-    left:40%;
+#logo{
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(70deg) brightness(100%) contrast(100%);
+    height: 75px;
+    width: 75px;
+}
+
+#headerButtonsNav{
+    display: flex;
+    justify-content: center;
+}
+
+#headerButton{
+    margin: 0;
+  background-color: #1D0058;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: IvySemiBold;
+}
+
+#headerButton:hover{
+    color: #FFD400;
+    text-decoration: solid underline #FFD400;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    padding: 85px;
+}
+
+#pinLayer{
     position: absolute;
+    width: 100vw;
+    height: 100vh;
 }
 
-#loader-text{
-    text-align: center;
-    font-size: 25%;
+#regionMap{
+    width: 75vw;
+    height: 75vh;
+}
+
+.entreprisePin{
     position: absolute;
-    top:60%;
-    width: 100%
-}
-/* -------------- End of Loader --------------*/
-
-/* Swiper slider. Need to fill the container */
-#mySwiper{
-    width: 100%;
-    height:100%;
-    position: absolute;
+    font-size: 25px;
 }
 
-/* white navigation bullets */
-.swiper-pagination-bullet-active {
-    background-color: white !important;
-}
-
-/* the slides and the loader should fill the whole 9:16 zone */
-.swiper-wrapper section, #loader{
-    background-color: dodgerblue;
-    width: 100%;
-    height: 100%;
-}
-
-/* Most of the elements in this demo are absolute positioned with percentages */
-#first-slide header, #second-slide header{
-    text-align: center;
-    width: 100%;
-    top: 10%;
-    position: absolute;
-    font-size: 30%;
-    z-index: 2;
-}
-
-#logo-hyblab{
-    text-align: center;
-    width: 50%;
-    left: 50%; /* center the logo, in interaction with the negative margin-left */
-    top: 50%;
-    margin-left:-25%; /* this is half the width */
-    margin-top:calc(-7.5% * 9 / 16 ); /* margins are relative to the element width... :-( */
-    position: absolute;
-    font-size: 50%;
-    z-index: 2;
-    cursor: pointer;
-}
-
-/* Last slide image is centered */
-#img-fini{
-    width: 50%;
-    left: 50%; /* center the logo, in interaction with the negative margin-left */
+#E1{
     top: 40%;
-    position: absolute;
-    margin-left:-25%; /* this is half the width */
-    margin-top:calc(-25% * 9 / 16 ); /* margins are relative to the element width... :-( */
+    left: 40%;
 }
 
-main > section{
-    background-image: url('../img/background.svg');
-    background-size: 100% auto; /* background is full width and height is proportional to width */
-    background-position: bottom; /* background is bottom aligned */
-}
-
-/* Footer of last slide is at the bottom and content is centered */
-#first-slide footer{
-    bottom: 5%;
-    position: absolute;
-    box-sizing: border-box; /* So that padding is not added to width (and width: 100% works) */
-    width: 100%; /* could also use  width: calc(100% - 2em) if not using box-sizing */
-    font-size: 20%;
-    text-align: center;
-    padding: 1em;
-    background-color: rgba(0, 0, 0, 0.5);
+#E2{
+    top: 15%;
+    left: 60%;
 }
 
 
-/* ---------- Positioning of logos on the last slide -------------------- */
-/* here we have a contraint on the height of the logos (not the width)     */
-/* so we cannot use % and use em (which are proportional to the size of the */
-/* slide because of body's font size rule at the end of this CSS           */
-#bandeau {
-    width:100%;
-    position: absolute;
-    bottom: 0;
-    background-color: white;
-    font-size: 20%;
-  }
+#E3{
+    top: 10%;
+    left: 20%;
+}
 
-  #bandeau li{
-    list-style-type: none;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 0.5em;
-  }
 
-  #bandeau img{
-    height: 2.5em;
-  }
+#E4{
+    top: 30%;
+    left: 80%;
+}
 
-  #bandeau #hyblab{
-    margin: 1em auto;
-    height: 3em;
-    display: block;
-  }
 
-  #bandeau #cc, #bandeau #opensource
-  {
-    height: 1em;
-  }
-
-  #bandeau .stacked{
-    display:block;
-  }
-
-  #bandeau ul{
-    text-align: center;
-    padding: 0 0;
-    margin: 0.5em auto;
-  }
-
-  #bandeau .institutionnel
-  {
-    height: 2em;
-  }
+#E5{
+    top: 45%;
+    left: 65%;
+}
 
 /* ---------- Important media queries for easy responsive content :-) ----------------- */
 /* Whatever the device used, the content will be displayed full width and height if      */
