@@ -1,9 +1,17 @@
 // Use strict mode
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const csv = require('csv-parser');
+
+// Load Sqlite3
+const sqlite3 = require('sqlite3').verbose(); 
+const dbPath = path.join(__dirname, 'database.sqlite');
+const csvPath = path.join(__dirname, 'db_clean.csv'); // Remplace par le nom exact de ton fichier
+
 // Load usefull expressjs and nodejs objects / modules
 const express = require('express');
-const path = require('path');
 
 // Create our application
 const app = express();
@@ -17,6 +25,77 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../__common-logos__')));
 
 // You can then add whatever routing code you need
+// database creation
+const db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        console.error('Error opening database:', err.message);
+    } else {
+        console.log('Connected to the SQLite database.');
+        
+        // db.serialize force l'exécution des requêtes les unes APRÈS les autres
+        db.serialize(() => {
+            // 1. Création de la table
+            db.run(`CREATE TABLE IF NOT EXISTS articles (
+                "ID" INTEGER PRIMARY KEY,
+                "Title" TEXT,
+                "Content" TEXT,
+                "Date" TEXT,
+                "Permalink" TEXT,
+                "Image URL" TEXT,
+                "Image Title" TEXT,
+                "Image Alt Text" TEXT,
+                "Image Featured" TEXT,
+                "Attachment URL" TEXT,
+                "Catégories" TEXT,
+                "Étiquettes" TEXT,
+                "_post_review_box_title" TEXT,
+                "_yoast_wpseo_primary_category" REAL,
+                "_yoast_wpseo_estimated-reading-time-minutes" REAL,
+                "_yoast_wpseo_content_score" REAL,
+                "_yoast_wpseo_metadesc" TEXT,
+                "_latlngmarker" TEXT,
+                "Slug" TEXT,
+                "Post Modified Date" TEXT
+            )`);
+            
+            console.log('Table "articles" prête.');
+
+            // 2. Préparation de la requête d'insertion
+            const stmt = db.prepare(`INSERT OR REPLACE INTO articles (
+                "ID", "Title", "Content", "Date", "Permalink", "Image URL", "Image Title", 
+                "Image Alt Text", "Image Featured", "Attachment URL", "Catégories", "Étiquettes", 
+                "_post_review_box_title", "_yoast_wpseo_primary_category", "_yoast_wpseo_estimated-reading-time-minutes", 
+                "_yoast_wpseo_content_score", "_yoast_wpseo_metadesc", "_latlngmarker", "Slug", "Post Modified Date"
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+
+            let rowCount = 0;
+
+            // 3. Lecture du CSV et insertion
+            fs.createReadStream(csvPath)
+                .pipe(csv())
+                .on('data', (row) => {
+                    stmt.run(
+                        row['ID'], row['Title'], row['Content'], row['Date'], row['Permalink'], 
+                        row['Image URL'], row['Image Title'], row['Image Alt Text'], row['Image Featured'], 
+                        row['Attachment URL'], row['Catégories'], row['Étiquettes'], row['_post_review_box_title'], 
+                        row['_yoast_wpseo_primary_category'] || null, 
+                        row['_yoast_wpseo_estimated-reading-time-minutes'] || null, 
+                        row['_yoast_wpseo_content_score'] || null, 
+                        row['_yoast_wpseo_metadesc'], row['_latlngmarker'], row['Slug'], row['Post Modified Date']
+                    );
+                    rowCount++;
+                })
+                .on('end', () => {
+                    stmt.finalize(); // Clôture la requête préparée
+                    console.log(`✅ Importation terminée : ${rowCount} articles insérés depuis le CSV.`);
+                })
+                .on('error', (error) => {
+                    console.error("Erreur de lecture du CSV:", error.message);
+                });
+        });
+    }
+});
+
 
 // This module is exported and served by the main server.js located
 // at the root of this set of projects. You can access it by lanching the main

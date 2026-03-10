@@ -13,5 +13,7 @@ app.get('/topic', function ( req, res ) {
     res.json({'topic':topic});
 } );
 
+
+
 // Export our API
 module.exports = app;
