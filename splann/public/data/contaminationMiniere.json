@@ -1,0 +1,51 @@
+{
+  "titreEnquete" : "Contamination Minière",
+  "chapeauEnquete" : "« Vous voyez cette poussière ? Nos animaux la boivent, nos enfants la respirent », s’inquiète une habitante de Glomel.",
+  "imgPath" :"img/mainDraw.jpg",
+  "nVolet": 2,
+  "volet" : {
+    "titreVolet" : "",
+    "nBullet" : 3,
+    "bullet" : [
+      "Une réserve naturelle, des ruisseaux protégés… et à quelques kilomètres, une grande mine à ciel ouvert déverse dans la nature des métaux lourds jusqu’à 60 fois supérieures aux valeurs guides.",
+      "« La mine d’Imérys utilise la réserve naturelle  régionale [Magoar Penvern] comme station d’épuration » résument certains riverains de Glomel.",
+      "La présence élevée d’arsenic et de cadmium, deux substances cancérigènes et toxiques, n’a pourtant jamais été signalée aux habitants par Imerys."
+    ],
+    "extendedContent": [
+      { "type" : "text",
+        "content" : "L'équipe de Splann ! a prélevé des sédiments dans un cours d'eau de la réserve naturelle régionale."
+      },
+      { "type" : "text",
+        "content" : "Nos analyses révèlent des concentrations de métaux lourds jusqu'à 60 fois supérieures aux valeurs guides pour un bon état écologique des sédiments."
+      },
+      {
+        "type" : "img",
+        "content" : "https://splann.org/wp-content/uploads/2024/11/Rejets-Imerys-800x441.png"
+      }
+      { "type" : "text",
+        "content" : "Les métaux lourds détectés dans les analyses comprennent notamment le nickel et le cobalt, jusqu'à vingt fois supérieures aux valeurs de référence."
+      },
+      { "type" : "text",
+        "content" : "Les prélèvements réalisés en amont du site industriel ne montrent aucune contamination notable. À l'inverse, les échantillons prélevés en aval présentent des niveaux de métaux lourds particulièrement élevés. "
+      },
+      { "type" : "text",
+        "content" : "La contamination se propage le long du cours d'eau. Plusieurs kilomètres en aval, les concentrations restent supérieures aux valeurs guides. Les ruisseaux qui serpentent dans les sous-bois transportent les particules contaminées."
+      },
+      { "type" : "text",
+        "content" : "Ces concentrations élevées de métaux lourds peuvent s'accumuler dans les sédiments et les organismes aquatiques."
+      },
+      { "type" : "text",
+        "content" : "Les scientifiques soulignent que ces niveaux de contamination sont incompatibles avec un bon état écologique des cours d'eau."
+      },
+      { "type" : "text",
+        "content" : "Imerys n'a pas informé la population de la présence d'arsenic et de cadmium, tous deux cancérigènes, mutagènes et reprotoxiques."
+      },
+      { "type" : "text",
+        "content" : "Ce manque de transparence sur les réels problèmes, enflamme le combat des riverains pour la vérité."
+      }
+    ]
+  },
+  "reponse" : "",
+  "auteur" : "Célia IZOARD",
+  "mainEnquete" : "https://splann.org/enquete/intoxication-miniere-en-bretagne/mine-imerys-contamine-reserve-naturelle-glomel/"
+}
