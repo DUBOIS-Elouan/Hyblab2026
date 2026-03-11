@@ -67,54 +67,93 @@ header{
     text-decoration: solid underline #FFD400;
 }
 
-main{
+main {
     display: flex;
     justify-content: center;
-    padding: 85px;
+    padding-top: 85px;
 }
 
-#pinLayer{
+#mapWrapper {
+    position: relative;
+}
+
+#region_map {
+    position: relative;
+    width: 100%;
+    max-width: calc(100vh * (naturalWidth / naturalHeight)); /* en JS */
+}
+
+#region_map img {
+    width: 100%;
+    height: auto;
+}
+
+#pinLayer {
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 
-#regionMap{
-    width: 75vw;
-    height: 75vh;
-}
-
-.entreprisePin{
+.Pin{
     position: absolute;
-    font-size: 25px;
 }
 
-#E1{
-    top: 40%;
-    left: 40%;
+.entreprisePin {
+    transform: translate(-50%, -100%); /* pointe du pin sur le point exact */
+    pointer-events: all;
+    cursor: pointer;
+    font-size: 2rem;
 }
 
-#E2{
-    top: 15%;
-    left: 60%;
+.villePin{
+    font-size: 14px;
+    font-family: IvyBold;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }
 
-
-#E3{
-    top: 10%;
-    left: 20%;
+.villePin p{
+    padding-top: 3px;
 }
 
-
-#E4{
-    top: 30%;
-    left: 80%;
+#title{
+    position: absolute;
+    font-family: IvyBold;
+    color: white;
+    font-size: 32px;
+    max-width: 365px;
+    left: 7.5%;
+    top: 75%;
 }
 
+#filters{
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+}
 
-#E5{
-    top: 45%;
-    left: 65%;
+#filters button{
+    background-color: #1D0058;
+    border: solid 1px white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: IvySemiBold;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+#filters #B5{
+    grid-column: 1/3;
 }
 
 /* ---------- Important media queries for easy responsive content :-) ----------------- */
