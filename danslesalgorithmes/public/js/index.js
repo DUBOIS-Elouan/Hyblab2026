@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const scroller = scrollama();
   let currentAudio = null;
 
+
   scroller
     .setup({
       step: "#scrolly article .step",
@@ -52,22 +53,33 @@ document.addEventListener('DOMContentLoaded', function() {
     options: document.querySelectorAll('#quiz-1 .option-btn'),
   };
 
-  function handleQuiz1(selectedButton) {
-    const isCorrect = selectedButton.dataset.correct === 'true';
-    selectedButton.textContent = isCorrect ? 'Effectivement' : 'Et non';
+// Variable globale pour suivre le bouton sélectionné
+let selectedButtonQuiz1 = null;
 
-    quiz1.options.forEach(button => {
-      if (button.dataset.correct === 'true') {
-        button.style.backgroundColor = '#5cb85c';
-      } else {
-        button.style.backgroundColor = '#d9534f';
-      }
-    });
+// Fonction pour gérer le quiz 1
+function handleQuiz1(selectedButton) {
+  // Réinitialise le bouton précédemment sélectionné (s'il y en a un)
+  if (selectedButtonQuiz1 !== null) {
+    selectedButtonQuiz1.textContent = selectedButtonQuiz1.dataset.originalText;
+    selectedButtonQuiz1.style.backgroundColor = '#fafafa';
   }
 
-  quiz1.options.forEach(button => {
-    button.addEventListener('click', () => handleQuiz1(button));
+  // Gère la réponse sélectionnée
+  const isCorrect = selectedButton.dataset.correct === 'true';
+  selectedButton.textContent = isCorrect ? 'Effectivement' : 'Et non';
+  selectedButton.style.backgroundColor = isCorrect ? '#5cb85c' : '#d9534f';
+
+  // Met à jour la variable globale
+  selectedButtonQuiz1 = selectedButton;
+}
+
+// Attache les écouteurs d'événements UNE SEULE FOIS (en dehors de la fonction)
+document.querySelectorAll('#quiz-1 .option-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    handleQuiz1(this);
   });
+});
+
 
   // --- Quizz 2 ---
   const quiz2 = {
