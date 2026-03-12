@@ -264,18 +264,25 @@ const onMapReady = (map) => {
 .restaurant-carousel-wrapper--detail {
     position: absolute;
     left: 0;
-    bottom: calc(max(0.75rem, env(safe-area-inset-bottom)));
+    bottom: 0;
+
     width: 100%;
-    height: auto;
-    z-index: 500;
+    height: 100%;
+
+    z-index: 1000;
+
     display: grid;
     grid-template-columns: auto minmax(0, 560px) auto;
     align-items: start;
     justify-content: center;
     gap: 0.65rem;
-    transform: translateY(-100%);
+
+    transform: translateY(0);
+
     background-color: #ffffff;
-    z-index: 1000;
+
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .restaurant-carousel-wrapper--detail .carousel-nav {
