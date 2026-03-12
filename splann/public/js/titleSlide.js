@@ -11,8 +11,7 @@ const initSlide1 = async function(){
 
   // Insert title
   const title = document.querySelector('.titre');
-  console.log(title)
-  title.innerHTML = `${data2.titreEnquete}`;
+  title.innerHTML = data2.titreEnquete;
 
   // Insert chapeau
   const chapeau = document.querySelector('.chapeau')
@@ -20,9 +19,10 @@ const initSlide1 = async function(){
 
   // Insert img
   const imgPrincipale = document.querySelector('.imgPrincipale')
-  console.log(imgPrincipale)
-  console.log(data2.imgPath)
   imgPrincipale.src = data2.imgPath
 
+  // Insert dessin
+  const dessinPrincipale = document.querySelector('.dessinPrincipale')
+  dessinPrincipale.src = data2.dessinPath
 
 };
