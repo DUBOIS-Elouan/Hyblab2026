@@ -64,14 +64,14 @@
 
 <script setup>
 import "leaflet/dist/leaflet.css"
-import { ref, watch, computed } from "vue"
+import { ref, watch, computed, onMounted } from "vue"
 import { control, divIcon } from "leaflet"
 import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet"
 import MapMarker from "./MapMarker.vue"
 import RestaurantMiniBox from "./RestaurantMiniBox.vue"
 import RestaurantDetail from "./RestaurantDetail.vue"
-import { userCoords } from "@/stores/mapStore"
-import { useFilterStore } from '@/stores/filterStore'
+import { userCoords, requestGeolocation } from "@/stores/mapStore"
+import { useFilterStore } from "@/stores/filterStore"
 
 const filterStore = useFilterStore()
 const restaurants = computed(() => filterStore.filteredRestaurants)
@@ -86,6 +86,10 @@ const markerIcon = divIcon({
     html: '<div class="user-dot"></div>',
     iconSize: [18, 18],
     iconAnchor: [9, 9],
+})
+
+onMounted(() => {
+    requestGeolocation()
 })
 
 const selectedIndex = ref(0)
@@ -125,8 +129,14 @@ const scrollToRestaurant = (index, smooth = true) => {
 }
 
 const centerMapToRestaurant = (index) => {
+    const list = restaurants.value
+    if (!list.length) return
+
     const map = mapRef.value.leafletObject
-    const restaurant = restaurants[index]
+    if (!map) return
+
+    const restaurant = list[index]
+    if (!restaurant) return
 
     map.flyTo([restaurant.latitude, restaurant.longitude], 14, {
         duration: 0.8,
@@ -134,6 +144,11 @@ const centerMapToRestaurant = (index) => {
 }
 
 const focusRestaurant = (index) => {
+    const list = restaurants.value
+    if (!list.length) return
+
+    if (index < 0 || index >= list.length) return
+
     const distance = Math.abs(index - selectedIndex.value)
     selectedIndex.value = index
     scrollToRestaurant(index, distance <= 1)
@@ -141,13 +156,14 @@ const focusRestaurant = (index) => {
 }
 
 const goPrevious = () => {
-    const nextIndex = (selectedIndex.value - 1 + restaurants.length) % restaurants.length
+    const nextIndex =
+        (selectedIndex.value - 1 + restaurants.value.length) % restaurants.value.length
     isClicked.value = false
     focusRestaurant(nextIndex)
 }
 
 const goNext = () => {
-    const nextIndex = (selectedIndex.value + 1) % restaurants.length
+    const nextIndex = (selectedIndex.value + 1) % restaurants.value.length
     isClicked.value = false
     focusRestaurant(nextIndex)
 }
@@ -194,12 +210,24 @@ const onMapReady = (map) => {
     zoomControlInstance = control.zoom({ position: "topright" })
     zoomControlInstance.addTo(map)
 }
+
+watch(restaurants, (list) => {
+    if (!list.length) {
+        selectedIndex.value = 0
+        isClicked.value = false
+        return
+    }
+
+    if (selectedIndex.value >= list.length) {
+        selectedIndex.value = list.length - 1
+    }
+})
 </script>
 
 <style scoped>
 .map-layout {
     height: 100%;
-    width: 100%;
+    width: 100%; /* here */
     position: relative;
     overflow: hidden;
 }
@@ -264,18 +292,25 @@ const onMapReady = (map) => {
 .restaurant-carousel-wrapper--detail {
     position: absolute;
     left: 0;
-    bottom: calc(max(0.75rem, env(safe-area-inset-bottom)));
+    bottom: 0;
+
     width: 100%;
-    height: auto;
-    z-index: 500;
+    height: 100%;
+
+    z-index: 1000;
+
     display: grid;
     grid-template-columns: auto minmax(0, 560px) auto;
     align-items: start;
     justify-content: center;
     gap: 0.65rem;
-    transform: translateY(-100%);
+
+    transform: translateY(0);
+
     background-color: #ffffff;
-    z-index: 1000;
+
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .restaurant-carousel-wrapper--detail .carousel-nav {
@@ -314,10 +349,6 @@ const onMapReady = (map) => {
 }
 
 @media (max-width: 700px) {
-    .map-canvas {
-        height: 600px;
-    }
-
     .restaurant-carousel-wrapper {
         width: 100%;
     }

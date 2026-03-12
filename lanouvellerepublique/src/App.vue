@@ -1,15 +1,18 @@
 <script setup>
-import { ref, onMounted } from "vue"
-import { RouterLink, RouterView } from "vue-router"
+import { ref, onMounted, computed } from "vue"
+import { RouterLink, RouterView, useRoute } from "vue-router"
 import { COLORS } from "@/assets/Couleurs/Coulleurs.js"
 import reglageIcon from "@/assets/Icones/Reglage.svg"
 import decouvrirIcon from "@/assets/Icones/Decouvrir.svg"
-import Header from "@/components/icons/Header.vue"
-import Filtres from "@/components/Filtres.vue"
+import Header from "@/components/Header.vue"
+import Filtres from "./components/Filtres.vue"
 import { useFilterStore } from "@/stores/filterStore"
 
 const filterStore = useFilterStore()
+const route = useRoute()
 const showFiltres = ref(false)
+
+const isListRoute = computed(() => route.path === "/")
 
 const onFiltersApply = (appliedFilters) => {
     filterStore.applyFilters(appliedFilters)
@@ -18,6 +21,7 @@ const onFiltersApply = (appliedFilters) => {
 onMounted(() => {
     filterStore.fetchRestaurantCategories()
 })
+
 const inactiveBg = "transparent"
 const inactiveColor = COLORS.switchTextBlue
 const activeBg = COLORS.pinkSwitch
@@ -25,20 +29,25 @@ const activeColor = COLORS.white
 const bottomBtnBg = COLORS.white
 const bottomBtnColor = COLORS.pinkSwitch
 const bottomBtnFilterColor = COLORS.switchTextBlue
+
+const isCarteActive = computed(() => route.path === "/carte")
 </script>
 
 <template>
     <div class="app-shell">
         <Header />
         <nav class="mini-nav" aria-label="Navigation des vues">
-            <span class="mini-nav__slider"></span>
+            <span
+                class="mini-nav__slider"
+                :class="{ 'mini-nav__slider--right': isCarteActive }"
+            ></span>
             <RouterLink to="/">Liste</RouterLink>
             <RouterLink to="/carte">Carte</RouterLink>
         </nav>
         <div class="view-container">
             <RouterView />
         </div>
-        <div class="global-actions">
+        <div class="global-actions" :class="{ 'ui-blocked': showFiltres, 'global-actions--list': isListRoute }">
             <button type="button" class="action-btn action-btn--filter" @click="showFiltres = true">
                 <span>Filtrer</span>
                 <img :src="reglageIcon" alt="" class="action-btn__icon" aria-hidden="true" />
@@ -61,7 +70,12 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
 }
 
 .view-container {
-    /* container is transparent, map-main handles its own positioning */
+    flex: 1;
+    min-height: 0;
+}
+
+.ui-blocked {
+    pointer-events: none;
 }
 
 .top-banner {
@@ -86,53 +100,54 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
     transform: translateX(-50%);
     z-index: 1000;
     display: flex;
-    gap: 0.5rem;
+    gap: 0;
     padding: 0.45rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(6px);
 }
 
+.mini-nav__slider {
+    position: absolute;
+    top: 0.45rem;
+    bottom: 0.45rem;
+    left: 0.45rem;
+    width: calc(50% - 0.45rem);
+    border-radius: 999px;
+    background: v-bind(activeBg);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.mini-nav__slider--right {
+    transform: translateX(100%);
+}
+
 .mini-nav a {
+    position: relative;
+    z-index: 1;
     display: inline-block;
+    flex: 1;
+    text-align: center;
     padding: 0.25rem 1.2rem;
     border-radius: 999px;
     text-decoration: none;
-    background: v-bind(inactiveBg);
+    background: transparent;
     color: v-bind(inactiveColor);
     font-size: 0.8rem;
     font-weight: 400;
+    transition: color 0.25s ease;
 }
 
 .mini-nav a.router-link-exact-active {
-    background: v-bind(activeBg);
+    background: transparent;
     color: v-bind(activeColor);
 }
-
 
 @media (min-width: 1024px) {
     .mini-nav {
         top: 4.75rem;
     }
-}
-
-.bottom-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 4.2rem;
-    text-align: center;
-    padding: 0 1rem;
-    background: #000;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
 }
 
 .global-actions {
@@ -145,7 +160,10 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
     grid-template-columns: 125px 235px;
     justify-content: center;
     gap: 0.6rem;
-    padding: 0.75rem 1.4rem 1rem;
+    padding: 0.75rem 1.4rem calc(1rem + env(safe-area-inset-bottom));
+}
+
+.global-actions--list {
     background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0) 0%,
