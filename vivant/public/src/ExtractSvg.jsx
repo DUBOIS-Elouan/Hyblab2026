@@ -1,5 +1,5 @@
 import path from '/path.svg?raw'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMotion } from 'react';
 
 const TestSvg = () => {
 
