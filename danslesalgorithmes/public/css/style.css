@@ -4,6 +4,12 @@ body, html {
     padding: 0;
     font-family: sans-serif;
     background-color: #f2efe9; 
+    max-width: 100%;
+}
+
+img, video, canvas {
+    max-width: 100%;
+    height: auto;
 }
 
 #scrolly {
@@ -154,8 +160,8 @@ article {
 .quiz-container .option-btn {
     padding: 10px 20px;
     font-size: 1rem;
-    background: #4CAF50;
-    color: white;
+    background: #f5f7f5;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -245,4 +251,8 @@ article {
     margin-top: 30px;
     font-size: 0.9rem;
     opacity: 0.8;
+}
+/* Selected quiz button */
+.option-btn.selected {
+    border: 1px solid #000;
 }
