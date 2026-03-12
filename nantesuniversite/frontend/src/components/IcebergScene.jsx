@@ -1,12 +1,8 @@
-import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Robot from './Robot';
 import ResourceCard from './ResourceCard';
 import DataIceberg from './DataIceberg';
+import ScrollArrow from './ScrollArrow';
 import data from '../data/data.json';
-
-gsap.registerPlugin(ScrollTrigger);
 
 import prixSvg from '../data/pictogramme/prix.svg';
 import articleSvg from '../data/pictogramme/article.svg';
@@ -71,30 +67,14 @@ const cardDocuments = data.researcher.documents;
 
 
 export default function IcebergScene() {
-  const containerRef = useRef(null);
-
-  useGSAP(() => {
-    const cards = gsap.utils.toArray('.class-resource-card');
-    cards.forEach((card) => {
-      gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 92%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 40,
-        duration: 0.55,
-        ease: 'power2.out',
-      });
-    });
-  }, { scope: containerRef });
-
   return (
-    <div ref={containerRef}>
+    <>
+
       <div className="absolute left-[45px] top-[775px] w-[1832px] h-[3200px]">
         <DataIceberg className="w-full h-full" />
       </div>
+
+
 
       {cardDocuments.map((doc, i) => (
         <ResourceCard
@@ -106,6 +86,6 @@ export default function IcebergScene() {
           {...CARD_POSITIONS[i]}
         />
       ))}
-    </div>
+    </>
   );
 }

@@ -9,7 +9,7 @@ import ScrollArrow from '../components/ScrollArrow';
 const DESIGN_WIDTH = 1920;
 const DESIGN_HEIGHT = 5438;
 
-export default function ResearcherPage({ scrollProgress = 0 }) {
+export default function ResearcherPage() {
   const [scale, setScale] = useState(() => window.innerWidth / DESIGN_WIDTH);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function ResearcherPage({ scrollProgress = 0 }) {
   return (
     <>
       <div className="fixed bottom-[33px] left-[33px] pointer-events-none z-50" style={{ zoom: 0.6 }}>
-        <ProgressBar level={scrollProgress} />
+        <ProgressBar level={0.2} />
       </div>
 
       <div className="fixed bottom-[33px] right-[60px] z-50">

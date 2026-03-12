@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Inter:ital,wght@0,400;0,700;1,400&family=Poppins:wght@800&display=swap');
 @import "tailwindcss";
-@import "../node_modules/lenis/dist/lenis.css";
 
 @font-face {
   font-family: 'OT Bulb Monoline';
