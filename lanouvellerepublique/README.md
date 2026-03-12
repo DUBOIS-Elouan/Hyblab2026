@@ -1,29 +1,71 @@
-# Descriptif du projet
+# test-media
 
-Porteur de projet :
+This template should help get you started developing with Vue 3 in Vite.
 
-Sujet :
+## Recommended IDE Setup
 
-Nom d'équipe :
+[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-Participants : 
+## Recommended Browser Setup
 
-- EDNA :
-- Polytech :  
+- Chromium-based browsers (Chrome, Edge, Brave, etc.):
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
+- Firefox:
+  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
 
+## Customize configuration
 
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-## A supprimer
+## Project Setup
 
-Ces instructions ne sont la que pour vous guider dans le développement de vos pages web. Elles seront à supprimer pour la soumission finale de votre code.
+```sh
+npm install
+```
 
-Le dossier de votre projet contient un squelette de code que vous devez modifier. 
+tralala
 
-- La partie `serveur.js`  ne doit a priori pas être touchée, si vous avez des entrées d'API à ajouter il faudra le faire dans le dossier `api`.
-- Le dossier `public`  contient la partie statique de votre site. Par défaut le fichier index.html charge un fichier `style.css` qui est destiné au format mobile (portrait). Si votre porteur de projet demande un site desktop, vous pouvez vous baser sur l'exemple `index-desktop.html` et le CSS associé `style-desktop.css` qui propose une page au format paysage.
+### Compile and Hot-Reload for Development
 
-Veuillez noter que le code fourni dans `public` n'est qu'un code d'exemple. Vous pouvez totalement le remplacer si c'est plus simple pour vous. Le code proposé fournit cependant une solution relativement simple pour gérer la variabilité des rapports hauteur:largeur en format desktop et mobile.
+```sh
+npm run dev
+```
 
-## Instructions de déploiement
+### Compile and Minify for Production
 
-Si votre projet nécessite des instructions spécifiques pour son déploiement, merci d'ajouter des explications ici.
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Run End-to-End Tests with [Playwright](https://playwright.dev)
+
+```sh
+# Install browsers for the first run
+npx playwright install
+
+# When testing on CI, must build the project first
+npm run build
+
+# Runs the end-to-end tests
+npm run test:e2e
+# Runs the tests only on Chromium
+npm run test:e2e -- --project=chromium
+# Runs the tests of a specific file
+npm run test:e2e -- tests/example.spec.ts
+# Runs the tests in debug mode
+npm run test:e2e -- --debug
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```

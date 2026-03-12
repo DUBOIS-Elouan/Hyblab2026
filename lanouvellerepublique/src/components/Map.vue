@@ -25,8 +25,7 @@
             </l-map>
         </div>
 
-        <div class="restaurant-carousel-wrapper"
-        :class="{ 'restaurant-carousel-wrapper--detail': isClicked }">
+        <div :class="{ 'restaurant-carousel-wrapper--detail': isClicked }">
             <button class="carousel-nav" type="button" @click="goPrevious">‹</button>
 
             <div
@@ -34,6 +33,7 @@
                 class="restaurant-carousel"
                 @scroll.passive="syncSelectedIndexFromScroll"
             >
+        </div>
         <div class="restaurant-carousel-wrapper">
             <div ref="carouselRef" class="restaurant-carousel" @scroll.passive="onCarouselScroll">
                 <div
@@ -72,7 +72,7 @@ import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet"
 import MapMarker from "./MapMarker.vue"
 import RestaurantMiniBox from "./RestaurantMiniBox.vue"
 import restaurants from "@/restaurants"
-import { useGeolocation } from '@vueuse/core'
+
 import RestaurantDetail from "./RestaurantDetail.vue"
 import { userCoords } from "@/stores/mapStore"
 
@@ -161,10 +161,6 @@ const syncSelectedIndexFromScroll = () => {
 
     scrollToRestaurant(selectedIndex.value, false, true)
 }
-
-onMounted(async () => {
-    await nextTick()
-})
 
 
 const onCarouselScroll = () => {
@@ -324,5 +320,6 @@ const onMapReady = (map) => {
     .restaurant-carousel-wrapper {
         width: 100%;
     }
+}
 }
 </style>
