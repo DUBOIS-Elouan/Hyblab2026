@@ -1,24 +1,38 @@
 import { motion, useScroll, useSpring, useMotionValue } from "framer-motion";
 import { useRef, useState, useEffect, useMemo } from "react";
-import path1Raw from '/paths/1.svg?raw';
-import path2Raw from '/paths/2.svg?raw';
-import path3Raw from '/paths/3.svg?raw';
+
+// Imports des SVGs pour extraction de données (raw) et pour affichage (URL)
+import path1Raw from './assets/paths/1.svg?raw';
+import path2Raw from './assets/paths/2.svg?raw';
+import path3Raw from './assets/paths/3.svg?raw';
+import path1Url from './assets/paths/1.svg';
+import path2Url from './assets/paths/2.svg';
+import path3Url from './assets/paths/3.svg';
+
+import up_straight from './assets/mr_patate/up_straight.svg';
+import up_left from     './assets/mr_patate/up_left.svg';
+import up_right from    './assets/mr_patate/up_right.svg';
+import down_straight from './assets/mr_patate/down_straight.svg';
+import down_left from   './assets/mr_patate/down_left.svg';
+import down_right from  './assets/mr_patate/down_right.svg';
+import right from       './assets/mr_patate/right.svg';
+import left from        './assets/mr_patate/left.svg';
 
 const dicoPaths = {
-  path1: { raw: path1Raw, svg: '/paths/1.svg' },
-  path2: { raw: path2Raw, svg: '/paths/2.svg' },
-  path3: { raw: path3Raw, svg: '/paths/3.svg' }
+  path1: { raw: path1Raw, svg: path1Url },
+  path2: { raw: path2Raw, svg: path2Url },
+  path3: { raw: path3Raw, svg: path3Url }
 };
 
 const posCyclist = {
-  up_straight: "/mr_patate/up_straight.svg",
-  up_left:     "/mr_patate/up_left.svg",
-  up_right:    "/mr_patate/up_right.svg",
-  down_straight: "/mr_patate/down_straight.svg",
-  down_left:   "/mr_patate/down_left.svg",
-  down_right:  "/mr_patate/down_right.svg",
-  right:       "/mr_patate/right.svg",
-  left:        "/mr_patate/left.svg",
+  up_straight,
+  up_left,
+  up_right,
+  down_straight,
+  down_left,
+  down_right,
+  right,
+  left,
 };
 
 const pathList = [
