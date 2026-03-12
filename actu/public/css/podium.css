@@ -73,11 +73,13 @@ html, body {
     font-size: 32px;
     font-weight: bold;
     font-family: sans-serif;
+
+    transform: translateY(30px);
 }
 
-.step-2 { height: 65%; }
-.step-1 { height: 100%; }
-.step-3 { height: 50%; }
+.step-2 { height: 80%; order: 1; }
+.step-1 { height: 100%; order: 2; }
+.step-3 { height: 65%; order: 3; }
 
 .step-img {
     position: absolute;
@@ -91,95 +93,200 @@ html, body {
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     margin-bottom: 5px;
+
+    /* animate */
+    
 }
+
+
 
 /* list */
+/* ===== LIST COMPONENT STYLES ===== */
+
+.list-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
 .list {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    width: 90%;
-    height: 100%;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    padding: 15px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    gap: 15px;
-    color: black; 
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
 }
 
+/* 列表项 */
 .list-item {
-    display: flex;
-    gap: 10px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.4s ease;
+  overflow: hidden;
 }
 
-.list-item:last-child {
-    border-bottom: none;
+.list-item.hidden {
+  display: none;
 }
 
+.list-item.fade-in {
+  animation: fadeInDown 0.35s ease forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 电影封面图 */
 .item-img {
-    width: 55px;
-    height: 75px;
-    border-radius: 5px;
-    object-fit: cover;
+  width: 48px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
+/* 内容区域 */
 .item-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-    padding-top: 2px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.item-top, .item-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .item-title {
-    font-weight: bold;
-    font-style: italic;
-    font-size: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
 }
 
 .item-circle {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
 }
 
 .bg-red {
-    background-color: #ff8a8a;
+  background-color: #e84040;
 }
 
-.item-percent {
-    font-weight: bold;
-    font-style: italic;
-    font-size: 16px;
-    margin-left: auto;
+.item-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .progress-bar {
-    height: 6px;
-    width: 60%;
-    border: 1px solid #000;
-    border-radius: 5px;
-    overflow: hidden;
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .progress-fill {
-    height: 100%;
-    background-color: #666;
+  height: 100%;
+  background: linear-gradient(90deg, #e84040, #ff7070);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.item-percent {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ===== 展开/收起按钮 ===== */
+.toggle-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 6px 0;
+  gap: 5px;
+  margin-top: 4px;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.toggle-btn .dot-line {
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.toggle-btn .arrow {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease, border-color 0.2s;
+}
+
+.toggle-btn .arrow svg {
+  width: 8px;
+  height: 8px;
+  fill: rgba(255, 255, 255, 0.6);
+  transition: transform 0.35s ease;
+}
+
+.toggle-btn:hover .arrow {
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.toggle-btn:hover .dot-line {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* 展开状态：箭头旋转 */
+.toggle-btn.expanded .arrow svg {
+  transform: rotate(180deg);
+}
+
+/* 加载状态 */
+.list-loading {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  padding: 16px 0;
 }
