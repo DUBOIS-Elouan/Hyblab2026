@@ -27,7 +27,7 @@
 
 body{
     height: 100vh;
-    background-color: #1D0058;
+    background-color: #17003F;
     overflow: hidden;   /* to avoid slider bugs on some browsers */
     font-family: sans-serif;
 }
@@ -52,7 +52,7 @@ header{
 
 #headerButton{
     margin: 0;
-  background-color: #1D0058;
+  background-color: #17003F;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -70,7 +70,7 @@ header{
 main {
     display: flex;
     justify-content: center;
-    padding-top: 85px;
+    padding-top: 40px;
 }
 
 #mapWrapper {
@@ -106,6 +106,7 @@ main {
     pointer-events: all;
     cursor: pointer;
     font-size: 2rem;
+    filter: brightness(0) saturate(100%) invert(89%) sepia(14%) saturate(6723%) hue-rotate(358deg) brightness(101%) contrast(105%);
 }
 
 .villePin{
@@ -127,32 +128,51 @@ main {
     color: white;
     font-size: 32px;
     max-width: 365px;
-    left: 7.5%;
+    left: 7%;
     top: 75%;
 }
 
-#filters{
+#GenZ_filters{
     position: absolute;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
     grid-template-rows: repeat(3, 1fr);
     gap: 20px;
+    top: 75%;
+    left: 73%;
+    width: 285px;
 }
 
-#filters button{
-    background-color: #1D0058;
+#GenZ_filters button:last-child {
+    grid-column: span 2;
+}
+
+#GenZ_filters button{
+    background-color: #17003F;
     border: solid 1px white;
     color: white;
-    padding: 15px 32px;
+    padding: 10px;
     text-align: center;
     font-size: 16px;
     cursor: pointer;
     font-family: IvySemiBold;
     border-radius: 10px;
     width: fit-content;
+    height: fit-content;
 }
 
-#filters #B5{
+#GenZ_filters button:hover{
+    color: #FFD400;
+    border-color: #FFD400;
+}
+
+#GenZ_filters button.active{
+    color: #FFD400;
+    border-color: #FFD400;
+}
+
+
+#GenZ_filters #B5{
     grid-column: 1/3;
 }
 

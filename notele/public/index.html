@@ -10,7 +10,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css" >
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="js/createEntreprise.js" defer></script>
   <script src="js/pinPosition.js" defer></script>
+  <script src="js/appearances.js" defer></script>
+
+
 </head>
 <body>
 <header>
@@ -26,43 +30,38 @@
   <div id="mapWrapper">
     <img src="img/map.svg" alt="carte wallonie picarde" id="regionMap">
     <div id="pinLayer">
-      <div class="entreprisePin Pin" id="E1">📍</div>
-      <div class="entreprisePin Pin" id="E2">📍</div>
-      <div class="entreprisePin Pin" id="E3">📍</div>
-      <div class="entreprisePin Pin" id="E4">📍</div>
-      <div class="entreprisePin Pin" id="E5">📍</div>
       <div class="villePin Pin" id="V1">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Comines</p>
       </div>
       <div class="villePin Pin" id="V2">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Mouscron</p>
       </div>
       <div class="villePin Pin" id="V3">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Tournai</p>
       </div>
       <div class="villePin Pin" id="V4">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Peruwiez</p>
       </div>
       <div class="villePin Pin" id="V5">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Lessines</p>
       </div>
       <div class="villePin Pin" id="V6">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Ath</p>
       </div>
       <div class="villePin Pin" id="V7">
-        <img  alt="pin_ville_Comines" src="img/pin_ville.svg">
+        <p>&#9679;</p>
         <p>Enghien</p>
       </div>
     </div>
   </div>
   <aside id="title">Explore autrement le tissus entreprenarial de ta région !</aside>
-  <nav id="filters">
+  <nav id="GenZ_filters">
     <button id="B1">Plot twist</button>
     <button id="B2">Affaire de famille</button>
     <button id="B3">Boss ladies</button>
