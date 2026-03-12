@@ -8,7 +8,9 @@ var app = express();
 var app_names = [];
 
 var hyblab2026_names = [
-	"rembobine" 
+	"actu", "danslesalgorithmes", "institutmontaigne", "lanouvellerepublique",
+	"lequipe", "metropolegrandlyon", "nantesuniversite", "notele", "ouestfrance",
+	"rembobine", "splann", "vivant"
 ];
 
 app_names.push.apply(app_names, hyblab2026_names);

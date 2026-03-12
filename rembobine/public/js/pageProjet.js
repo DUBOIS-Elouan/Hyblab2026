@@ -22,7 +22,17 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
   box.color = null; //In which group the box is a part of
   box.ngroup = null;//It's id in the group
 
+  box.addEventListener('click', () => {
+    // Do not trigger while choice buttons are still visible.
+    if (box.querySelector('button')) {
+      return;
+    }
 
+    const overlay = document.getElementById('popup-overlay');
+    const popupText = document.getElementById('popup-text');
+    popupText.textContent = box.querySelector('p') ? box.querySelector('p').textContent : '';
+    overlay.classList.remove('popup-hidden');
+  });
 
   for (let rowIndex = 0; rowIndex < 2; rowIndex += 1) {
     const row = document.createElement("div");
@@ -34,6 +44,25 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
       button.id = `button${buttonNumber}`;
 
       button.textContent = ` ${buttonNumber} `;
+
+      switch (buttonNumber) {
+        case 1:
+          button.className ="jud"; // Change color as desired
+          break;
+        case 2:
+          button.className ="med"; // Change color as desired 
+          break;
+        case 3:
+          button.className ="pub";
+          break;
+        case 4:
+          button.className ="inst";
+          break;
+        default:
+          button.style.backgroundColor = '#d5d5d5d1';
+          break;
+      }
+
       row.appendChild(button);
       if(State[button.textContent] === true){button.disabled = true; console.log(button.disabled);}
       box.appendChild(row);
@@ -47,26 +76,24 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
 
 
   box.querySelectorAll('button').forEach(option => {
-    option.addEventListener('click', async () => {
-        // Send the user's choice to our API
+    option.addEventListener('click', async (event) => {
+      // Prevent this click from bubbling to the box click handler.
+      event.stopPropagation();
 
-        const value = option.textContent;
-        
-        
-        //const box = option.parentElement.parentElement;
+      const value = option.textContent;
 
-        //remove all
-        option.parentElement.querySelectorAll('button').forEach(btn => btn.remove());
+      //const box = option.parentElement.parentElement;
+      // Remove all buttons
+      option.parentElement.querySelectorAll('button').forEach(btn => btn.remove());
 
-        // Remove all rows
-        box.querySelectorAll('.row').forEach(row => row.remove());
+      // Remove all rows
+      box.querySelectorAll('.row').forEach(row => row.remove());
 
         // Change box background color
         const textDisplay = document.createElement('p');
         textDisplay.id = "base";
         switch (parseInt(value)) {
           case 1:
-            box.style.backgroundColor = '#ff2ba3d1'; // Change color as desired
             box.color = 1;
             box.ngroup = count_public;
             count_public ++;
@@ -85,7 +112,6 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             
             break;
           case 2:
-            box.style.backgroundColor = '#fff700d1'; // Change color as desired
             box.color = 2;
             box.ngroup = count_mediatique;
             count_mediatique ++;
@@ -103,7 +129,6 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
 
             break;
           case 3:
-            box.style.backgroundColor = '#643ff793';
             box.color = 3;
             box.ngroup = count_institutionnel;
             count_institutionnel ++;
@@ -121,7 +146,6 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             
             break;
           case 4:
-            box.style.backgroundColor = '#2bff55d1';
             box.color = 4;
             box.ngroup = count_judiciaire;
             count_judiciaire ++;
@@ -146,24 +170,57 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
         box.appendChild(textDisplay);
         console.log(textDisplay);
 
-        if(getBoxByPosition(box.row + 1, box.column) == null) {
-          console.log("====================== add row ==========================");
-          addEmptyRow(box.row + 1);
-        }
+      if (getBoxByPosition(box.row + 1, box.column) == null) {
+        addEmptyRow(box.row + 1);
+      }
 
-        const boxsFreeList = getFreeAdgacentBox(box);
+      const boxsFreeList = getFreeAdgacentBox(box);
+      if (boxsFreeList.length === 0) {
+        console.warn('No free box available to move buttons.');
+        return;
+      }
 
-        const boxNum = Math.random() * (boxsFreeList.length - 0) + 0;
+      let boxNum = Math.floor(Math.random() * boxsFreeList.length);
 
-        let theChoosenBox = boxsFreeList[parseInt(boxNum)];
+      let theChoosenBox = boxsFreeList[boxNum];
+      while (theChoosenBox.row == box.row && theChoosenBox.column == box.column) {
+        console.warn('The chosen box is the same as the current box. Choosing another one.');
+        boxNum = Math.floor(Math.random() * boxsFreeList.length);
+        theChoosenBox = boxsFreeList[boxNum];
+      }
+      let newbox = createButtonBox(`box${theChoosenBox.row}${theChoosenBox.column}`, theChoosenBox.row, theChoosenBox.column)
 
-        //Create the new box and replace the chosen free one and scroll to it
-        const newBox = createButtonBox(`box${theChoosenBox.row}${theChoosenBox.column}`, theChoosenBox.row, theChoosenBox.column);
-        replaceBox(theChoosenBox, newBox);
-        newBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+      if(box.column>theChoosenBox.column) newbox.className +=" animate__animated animate__fadeInRight"
+      if(box.column<theChoosenBox.column) newbox.className +=" animate__animated animate__fadeInLeft"
+      if(box.row>theChoosenBox.row) newbox.className +=" animate__animated animate__fadeInUp"
+      if(box.row<theChoosenBox.row) newbox.className +=" animate__animated animate__fadeInDown"
+      
+      replaceBox(theChoosenBox,newbox)
+      newbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // box.parentElement.appendChild(createButtonBox(`box`));
+      box.className ="box text-box";
+      
+
+      switch (parseInt(value)) {
+        case 1:
+          box.className +=" jud"; // Change color as desired
+          break;
+        case 2:
+          box.className +=" med"; // Change color as desired 
+          break;
+        case 3:
+          box.className +=" pub";
+          break;
+        case 4:
+          box.className +=" inst";
+          break;
+        default:
+          box.style.backgroundColor = '#d5d5d5d1';
+          break;
+      }
+      
+      // box.parentElement.appendChild(createButtonBox(`box`));
     });
   });
 
@@ -180,6 +237,9 @@ function addEmptyRow(aRow = 1) {
   box1.className = "box";
   box1.row = aRow;
   box1.column = 1;
+  const text1 = document.createElement("p");
+  text1.textContent = "T";
+  box1.appendChild(text1);
 
   const box2 = document.createElement("div");
   box2.id = "boxFree";
@@ -187,6 +247,9 @@ function addEmptyRow(aRow = 1) {
   box2.className = "box";
   box2.row = aRow;
   box2.column = 2;
+  const text2 = document.createElement("p");
+  text2.textContent = "T";
+  box2.appendChild(text2);
 
   mapCol1.appendChild(box1);
   mapCol2.appendChild(box2);
@@ -207,34 +270,29 @@ function getFreeAdgacentBox(box) {
   const column = box.column;
   let boxList = [];
 
-  
+
   let boxUp = getBoxByPosition(row - 1, column);
-  if(boxUp != null && boxUp.isFree) {
+  if (boxUp != null && boxUp.isFree) {
     boxList.push(boxUp);
   }
   let boxDown = getBoxByPosition(row + 1, column);
-  if(boxDown != null && boxDown.isFree) {
+  if (boxDown != null && boxDown.isFree) {
     boxList.push(boxDown);
   }
   let boxLeft = getBoxByPosition(row, column - 1);
-  if(boxLeft != null && boxLeft.isFree) {
+  if (boxLeft != null && boxLeft.isFree) {
     boxList.push(boxLeft);
   }
   let boxRight = getBoxByPosition(row, column + 1);
-  if(boxRight != null && boxRight.isFree) {
+  if (boxRight != null && boxRight.isFree) {
     boxList.push(boxRight);
   }
-
 
   if (boxList.length == 0) {
     let boxs = document.querySelectorAll('.box');
 
-    console.log("================================================================================================");
-
-
-
     for (const box of boxs) {
-      if(box.isFree) {
+      if (box.isFree) {
         boxList.push(box);
       }
     }
@@ -250,10 +308,17 @@ function replaceBox(oldBox, newBox) {
 // async init function (because of the awaits on fetches)
 const initPageProjet = async function () {
 
+  const popupOverlay = document.getElementById('popup-overlay');
 
-  // Retrieve the partner's topic from our API
-  let response = await fetch('api/topic');
-  const data1 = await response.json();
+  document.getElementById('popup-close').addEventListener('click', () => {
+    popupOverlay.classList.add('popup-hidden');
+  });
+
+  popupOverlay.addEventListener('click', (event) => {
+    if (event.target === popupOverlay) {
+      popupOverlay.classList.add('popup-hidden');
+    }
+  });
 
   const response2 = (await fetch('/rembobine/data/article.json'));
   const article = await response2.json()
@@ -261,12 +326,6 @@ const initPageProjet = async function () {
   Mediatique = article.Mediatique;
   Public = article.Public;
   Judiciaire = article.Judiciaire;
-
-
-
-
-  const titre = document.getElementById('titre');
-  titre.textContent = `Our topic is "${data1.topic}".`;
 
   addEmptyRow();
 
