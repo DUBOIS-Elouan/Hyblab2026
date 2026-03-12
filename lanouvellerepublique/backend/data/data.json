@@ -1,0 +1,112 @@
+{
+  "Article": [
+    {
+      "id": 1,
+      "title": "Cuisine du terroir et saveurs caribéennes : on a testé le restaurant AP par Anglade Pierre",
+      "catch_phrase": "A REMPLIR",
+      "created_at": "27/02/2026"
+    }
+  ],
+  "Section": [
+    {
+      "id": 1,
+      "title": "Installé avenue de Grammont, l’établissement tenu par le chef Anglade Pierre éveille les papilles et fait voyager.",
+      "content": "<p>C’est une bien belle adresse qui se niche désormais au 38 bis, avenue Grammont&nbsp;! Le chef Anglade Pierre occupe depuis la fin janvier&nbsp;2026 les murs (à la place de l’ancien Bistrio) pour proposer une cuisine française du terroir, raffinée&nbsp;- du tout fait maison bien sûr&nbsp;- avec des saveurs des Caraïbes.</p><p>Avant de tester cette table, on a évidemment jeté un œil au CV de monsieur et avouons qu’on n’a pas franchement eu de doutes quant à ce qui nous attendrait dans l’assiette&nbsp;: originaire de l’île de Saint-Martin, Anglade Pierre a grandi dans une cuisine familiale, s’est rapidement fait un nom, a travaillé dans des établissements étoilés Michelin (en France et en Suisse) et a remporté la médaille d’argent au concours du Best of Gastronomie International en 2025.</p><img><p>Sur le papier, c’est bien et dans l’assiette, eh bien… c’est très bien aussi&nbsp;! Ce mardi, lors de notre passage, on a opté pour <a target=\"_blank\" href=\"https://anglade-pierre.fr/menu-anglade-pierre/\">la formule du midi qui s’affiche à 30&nbsp;€</a>, ou 25&nbsp;€ pour entrée plat. Confortablement installés (la salle est vraiment belle, lumineuse&nbsp;; le cadre bleu cosy et chaleureux), on déguste d’abord une petite mise en bouche du chef proposée dans une très jolie vaisselle, ce qui sera d’ailleurs une constante tout au long du repas.</p><img><p>Côté entrée, on a savouré <a target=\"_self\" href=\"https://www.lanouvellerepublique.fr/tmv/le-combat-des-franchises-poulet-notre-test-comparatif-1769444723\">des ailerons de poulet</a> au teriyaki posés sur un velouté de courge butternut. Une proposition qui s’écarte des racines créoles promises par la maison… mais celles-ci se retrouvent dans le plat qui suit. Un filet de daurade délicieux, rôti aux épices qui ajoutent beaucoup de saveur. La peau du poisson, croustillante comme il faut, apporte de la texture à l’ensemble, et le risotto tout doux finit de nous caler l’estomac&nbsp;!</p><p>À la carte ou avec le menu autour des Caraïbes, on peut aussi se laisser tenter par le magret de canard et sa purée de topinambour à la vanille, le tataki de bœuf au couac (de la semoule de manioc) avec ail noir et gel de citron, ou encore des associations avec du guavaberry, un fruit important dans le cœur des Saint-Martinois. Histoire de profiter pleinement du voyage.</p><p><it>☺ Le petit conseil de tmv&nbsp;: le soir, les inspirations caribéennes s’expriment davantage dans le menu «&nbsp;Voyage autour des Caraïbes&nbsp;». Le menu Terroir, lui, met surtout à l’honneur les produits locaux. Quant aux végétariens, ils ne sont pas oubliés, un menu spécial leur est proposé. À vous de choisir&nbsp;!</it></p>",
+      "article_fk": 1
+    }
+  ],
+  "Image": [
+    {
+      "id": 1,
+      "content": "blob",
+      "description": "Le jour de notre passage, c’était filet de daurade rôti aux épices et risotto au menu du midi.",
+      "auteur": "© (Photo tmv, Aurélien Germain)",
+      "article_fk": 1,
+      "section_fk": null
+    },
+    {
+      "id": 2,
+      "content": "blob",
+      "description": "La petite attention ? Une mise en bouche proposée par le chef Anglade Pierre.",
+      "auteur": "© (Photo tmv, Aurélien Germain)",
+      "article_fk": null,
+      "section_fk": 1
+    },
+    {
+      "id": 3,
+      "content": "blob",
+      "description": "Une entrée qui fait du bien à l’estomac !",
+      "auteur": "© (Photo tmv, Aurélien Germain)",
+      "article_fk": null,
+      "section_fk": 1
+    }
+  ],
+  "Restaurant": [
+    {
+      "id": 1,
+      "name": "AP",
+      "address": "L’adresse : AP par Anglade Pierre, au 38 bis avenue de Grammont à Tours. Ouvert du mardi au samedi, de 12 h à 14 h et de 19 h à 21 h 30.",
+      "latitude": 47.386353,
+      "longitude": 0.690665,
+      "contact": "Le contact : 02.47.05.34.00",
+      "carte": "L’addition : Menu du jour à 25 € (entrée plat) ou 30 € (complet). Menu végétarien à 35 €, menu enfant à 23 €. Le soir, menus à 50 ou 75 € (autour des Caraïbes). À la carte, entrées à partir de 14 € et plats à partir de 29 €.",
+      "top_pick": 0,
+      "article_fk": 1
+    }
+  ],
+  "Social_media": [
+    {
+      "id": 1,
+      "name": "Facebook",
+      "link": "https://www.facebook.com/people/AP-par-Anglade-Pierre/61581736157504/#",
+      "restaurant_fk": 1
+    },
+    {
+      "id": 2,
+      "name": "Instagram",
+      "link": "https://www.instagram.com/ap_par_anglade_pierre/",
+      "restaurant_fk": 1
+    }
+  ],
+  "Diet": [
+    {
+      "id": 1,
+      "vegan": 0,
+      "vegetarien": 0,
+      "gluten_free": 0,
+      "halal": 1
+    }
+  ],
+  "Cuisine_type": [
+    {
+      "id": 1,
+      "french": 0,
+      "asian": 0,
+      "italian": 0,
+      "american": 0,
+      "middle_eastern": 0,
+      "mediterranean": 0,
+      "indian": 0,
+      "world_cuisine": 0,
+      "traditional": 0,
+      "street_food": 0
+    }
+  ],
+  "Client_type": [
+    {
+      "id": 1,
+      "romantic": 0,
+      "family": 0,
+      "friends": 0,
+      "professional": 0
+    }
+  ],
+  "Service": [
+    {
+      "id": 1,
+      "on_site": 0,
+      "takeaway": 0,
+      "delivery": 0
+    }
+  ]
+}

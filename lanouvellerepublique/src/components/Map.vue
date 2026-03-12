@@ -25,6 +25,15 @@
             </l-map>
         </div>
 
+        <div class="restaurant-carousel-wrapper"
+        :class="{ 'restaurant-carousel-wrapper--detail': isClicked }">
+            <button class="carousel-nav" type="button" @click="goPrevious">‹</button>
+
+            <div
+                ref="carouselRef"
+                class="restaurant-carousel"
+                @scroll.passive="syncSelectedIndexFromScroll"
+            >
         <div class="restaurant-carousel-wrapper">
             <div ref="carouselRef" class="restaurant-carousel" @scroll.passive="onCarouselScroll">
                 <div
@@ -34,12 +43,20 @@
                     @click="focusRestaurant(index)"
                 >
                     <RestaurantMiniBox
+                        @click="openDetail(loopIndex)"
                         :name="r.name"
                         :image="buildRestaurantImage(r.name)"
                         :latitude="r.latitude"
                         :longitude="r.longitude"
                         :is-active="selectedIndex === index"
                         @focus-box="focusRestaurant(index)"
+                    />
+                    <RestaurantDetail
+                        v-if="isClicked && selectedIndex === loopIndex"
+                        :name="r.name"
+                        :image="buildRestaurantImage(r.name)"
+                        :latitude="r.latitude"
+                        :longitude="r.longitude"
                     />
                 </div>
             </div>
@@ -55,6 +72,8 @@ import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet"
 import MapMarker from "./MapMarker.vue"
 import RestaurantMiniBox from "./RestaurantMiniBox.vue"
 import restaurants from "@/restaurants"
+import { useGeolocation } from '@vueuse/core'
+import RestaurantDetail from "./RestaurantDetail.vue"
 import { userCoords } from "@/stores/mapStore"
 
 const API_KEY = "b4BxT11KjV5Zzm2lo2V1"
@@ -73,6 +92,12 @@ const selectedIndex = ref(0)
 const mapRef = ref(null)
 const carouselRef = ref(null)
 const zoom = ref(13)
+const isClicked = ref(false)
+
+const openDetail = (index) => {
+  isClicked.value = !isClicked.value
+  focusRestaurant(index)
+}
 let zoomControlInstance = null
 let scrollEndTimer = null
 
@@ -114,6 +139,33 @@ const focusRestaurant = (index) => {
     scrollToRestaurant(index, distance <= 1)
     centerMapToRestaurant(index)
 }
+
+const goPrevious = () => {
+    const nextIndex = (selectedIndex.value - 1 + restaurants.length) % restaurants.length
+    isClicked.value = false
+    focusRestaurant(nextIndex)
+}
+
+const goNext = () => {
+    const nextIndex = (selectedIndex.value + 1) % restaurants.length;
+    isClicked.value = false
+    focusRestaurant(nextIndex)
+}
+
+const syncSelectedIndexFromScroll = () => {
+    const carousel = carouselRef.value
+
+    if (!carousel || carousel.clientWidth === 0) {
+        return
+    }
+
+    scrollToRestaurant(selectedIndex.value, false, true)
+}
+
+onMounted(async () => {
+    await nextTick()
+})
+
 
 const onCarouselScroll = () => {
     clearTimeout(scrollEndTimer)
@@ -162,6 +214,26 @@ const onMapReady = (map) => {
     width: 100%;
 }
 
+.restaurant-carousel-wrapper {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 560px) auto;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    transition: transform 0.4s ease-in-out;
+}
+
+.carousel-nav {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
 .map-canvas :deep(.leaflet-container) {
     width: 100%;
     height: 100%;
@@ -196,6 +268,27 @@ const onMapReady = (map) => {
     cursor: pointer;
 }
 
+.restaurant-carousel-wrapper--detail {
+    position: fixed;
+    display: grid;
+    grid-template-columns: auto minmax(0, 560px) auto;
+    align-items: start;
+    justify-content: center;
+    gap: 0.65rem;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(-83%);
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+}
+
+@media (max-width: 700px) {
+    .map-canvas {
+        height: 600px;
+    }
 .restaurant-carousel__slide :deep(.mini-box) {
     width: 100%;
     transition:

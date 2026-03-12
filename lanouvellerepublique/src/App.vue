@@ -1,16 +1,38 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router"
+import { COLORS } from '@/assets/Couleurs/Coulleurs.js'
+import reglageIcon from '@/assets/Icones/Reglage.svg'
+import decouvrirIcon from '@/assets/Icones/Decouvrir.svg'
+const inactiveBg = 'transparent'
+const inactiveColor = COLORS.switchTextBlue
+const activeBg = COLORS.pinkSwitch
+const activeColor = COLORS.white
+const bottomBtnBg = COLORS.white
+const bottomBtnColor = COLORS.pinkSwitch
+const bottomBtnFilterColor = COLORS.switchTextBlue
 </script>
 
 <template>
     <div class="app-shell">
+        <header class="top-banner">espace dédié pour leur site</header>
         <nav class="mini-nav" aria-label="Navigation des vues">
             <RouterLink to="/">Liste</RouterLink>
             <RouterLink to="/carte">Carte</RouterLink>
         </nav>
-
         <RouterView />
-    </div>
+        <div class="global-actions">
+            <button type="button" class="action-btn action-btn--filter">
+                <span>Filtrer</span>
+                <img :src="reglageIcon" alt="" class="action-btn__icon" aria-hidden="true">
+            </button>
+            <button type="button" class="action-btn">
+                <span>Fais-moi decouvrir</span>
+                <img :src="decouvrirIcon" alt="" class="action-btn__icon" aria-hidden="true">
+            </button>
+        </div>
+        <footer class="bottom-banner">espace dédié pour le navigateur
+        </footer>
+        </div>
 </template>
 
 <style scoped>
@@ -18,39 +40,113 @@ import { RouterLink, RouterView } from "vue-router"
     min-height: 100vh;
 }
 
+.top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #000;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
 .mini-nav {
     position: fixed;
-    top: 0.75rem;
-    left: 0.75rem;
+    top: 10.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
     display: flex;
-    gap: 0.4rem;
-    padding: 0.35rem;
+    gap: 0.5rem;
+    padding: 0.45rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #cbd5e1;
     backdrop-filter: blur(6px);
 }
 
 .mini-nav a {
     display: inline-block;
-    padding: 0.25rem 0.7rem;
+    padding: 0.55rem 2.4rem;
     border-radius: 999px;
     text-decoration: none;
-    color: #334155;
-    font-size: 0.8rem;
+    background: v-bind(inactiveBg);
+    color: v-bind(inactiveColor);
+    font-size: 1.25rem;
     font-weight: 600;
 }
 
 .mini-nav a.router-link-exact-active {
-    background: #ee04ff;
-    color: #ffffff;
+    background: v-bind(activeBg);
+    color: v-bind(activeColor);
 }
 
 @media (min-width: 1024px) {
     .mini-nav {
-        top: 1rem;
-        left: 1rem;
+        top: 4.75rem;
     }
+}
+
+.bottom-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.2rem;
+    text-align: center;
+    padding: 0 1rem;
+    background: #000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.global-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 4.2rem;
+    z-index: 1002;
+    display: grid;
+    grid-template-columns: 125px 235px;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.4rem 1rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 250, 244, 0.87) 46.15%, #FFF9F2 100%);
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border: none;
+    border-radius: 999px;
+    padding: 0.72rem 1.1rem;
+    background: v-bind(bottomBtnBg);
+    color: v-bind(bottomBtnColor);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.action-btn--filter {
+    color: v-bind(bottomBtnFilterColor);
+}
+
+.action-btn__icon {
+    width: 0.95rem;
+    height: 0.95rem;
+    object-fit: contain;
+    transform: translateY(2px);
 }
 </style>
