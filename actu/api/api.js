@@ -1,7 +1,7 @@
 'use strict';
 
 
-
+const fs = require("fs");
 const app = require( 'express' )();
 const path = require('path');
 const cookieParser = require("cookie-parser");
@@ -25,6 +25,53 @@ app.get('/init', async function ( req, res ) {
     res.json({'Ok':true});
 } );
 
+app.get('/poly', async function ( req, res ) {
+    if(!fs.existsSync("./actu/api/BDD/dataActu.json")){
+        fetch("https://api.actu.fr/posts?filter%5Bmarque%5D=87725", {
+            method: "GET",    
+            headers: {
+                "Content-Type": "application/json",
+                "user-agent": "Hyblab2026"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            fs.writeFileSync("./actu/api/BDD/dataActu.json", JSON.stringify(data, null, 2));
+
+            fs.readFile("./actu/api/BDD/dataActu.json", "utf8", function (err, fileData) {
+                if (err) {
+                    res.json({error:"Les données n'ont pas pu être récupérés !"});
+                    return;
+                }
+                res.json(JSON.parse(fileData));
+            });
+        });
+    }else{
+        fs.readFile("./actu/api/BDD/dataActu.json", "utf8", function (err, fileData) {
+                if (err) {
+                    res.json({error:"Les données n'ont pas pu être récupérés !"});
+                    return;
+                }
+                res.json(JSON.parse(fileData));
+        });
+    }  
+
+} );
+
+async function getCineActuHTML(){
+    const res = await fetch("http://localhost:8080/actu/api/poly");
+    const json = await res.json();
+
+    const values = Object.values(json);
+    const target = values[2];
+    const result = Object.values(target);
+    
+
+    return result.find(e=>e.id === 63923715)?.content;
+}
+getCineActuHTML().then(data => console.log(data));
+
+// ROUTES FILMS
 
 app.get('/film-week', async function ( req, res ) {
     const { last_date } = await GetLastDate();
