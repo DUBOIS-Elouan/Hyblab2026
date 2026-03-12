@@ -1,8 +1,22 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView } from "vue-router"
 import { COLORS } from '@/assets/Couleurs/Coulleurs.js'
 import reglageIcon from '@/assets/Icones/Reglage.svg'
 import decouvrirIcon from '@/assets/Icones/Decouvrir.svg'
+import Filtres from '@/components/Filtres.vue'
+import { useFilterStore } from '@/stores/filterStore'
+
+const filterStore = useFilterStore()
+const showFiltres = ref(false)
+
+const onFiltersApply = (appliedFilters) => {
+  filterStore.applyFilters(appliedFilters)
+}
+
+onMounted(() => {
+  filterStore.fetchRestaurantCategories()
+})
 const inactiveBg = 'transparent'
 const inactiveColor = COLORS.switchTextBlue
 const activeBg = COLORS.pinkSwitch
@@ -21,7 +35,7 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
         </nav>
         <RouterView />
         <div class="global-actions">
-            <button type="button" class="action-btn action-btn--filter">
+            <button type="button" class="action-btn action-btn--filter" @click="showFiltres = true">
                 <span>Filtrer</span>
                 <img :src="reglageIcon" alt="" class="action-btn__icon" aria-hidden="true">
             </button>
@@ -32,6 +46,7 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
         </div>
         <footer class="bottom-banner">espace dédié pour le navigateur
         </footer>
+        <Filtres :show="showFiltres" @close="showFiltres = false" @apply="onFiltersApply" />
         </div>
 </template>
 
