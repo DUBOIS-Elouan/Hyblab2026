@@ -1,9 +1,6 @@
 import DotPattern from './DotPattern';
-
-const portrait =
-  'https://www.figma.com/api/mcp/asset/71f39c43-afc9-468e-860f-28b1405167bf';
-const portraitOverlay =
-  'https://www.figma.com/api/mcp/asset/9b81ea1f-2ec9-4bb4-ac89-6d588af65991';
+import portrait from '../assets/colin.png';
+import portraitOverlay from '../assets/u_under_colin.svg';
 
 export default function ExpertQuote() {
   return (
