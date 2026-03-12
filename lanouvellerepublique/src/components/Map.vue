@@ -93,8 +93,8 @@ const zoom = ref(13)
 const isClicked = ref(false)
 
 const openDetail = (index) => {
-    isClicked.value = !isClicked.value
     focusRestaurant(index)
+    isClicked.value = !isClicked.value
 }
 let zoomControlInstance = null
 let scrollEndTimer = null
@@ -134,19 +134,18 @@ const centerMapToRestaurant = (index) => {
 const focusRestaurant = (index) => {
     const distance = Math.abs(index - selectedIndex.value)
     selectedIndex.value = index
+    isClicked.value = false
     scrollToRestaurant(index, distance <= 1)
     centerMapToRestaurant(index)
 }
 
 const goPrevious = () => {
     const nextIndex = (selectedIndex.value - 1 + restaurants.length) % restaurants.length
-    isClicked.value = false
     focusRestaurant(nextIndex)
 }
 
 const goNext = () => {
     const nextIndex = (selectedIndex.value + 1) % restaurants.length
-    isClicked.value = false
     focusRestaurant(nextIndex)
 }
 
@@ -196,7 +195,7 @@ const onMapReady = (map) => {
 
 <style scoped>
 .map-layout {
-    height: 100dvh;
+    height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -220,7 +219,7 @@ const onMapReady = (map) => {
     z-index: 500;
     display: grid;
     grid-template-columns: auto minmax(0, 560px) auto;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     gap: 0.65rem;
     transition: transform 0.4s ease-in-out;
@@ -260,17 +259,18 @@ const onMapReady = (map) => {
 }
 
 .restaurant-carousel-wrapper--detail {
-    position: fixed;
+    position: absolute;
+    left: 0;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    width: 100%;
+    z-index: 500;
     display: grid;
     grid-template-columns: auto minmax(0, 560px) auto;
     align-items: start;
     justify-content: center;
     gap: 0.65rem;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    transform: translateY(-83%);
+
+    transform: translateY(-25%);
     height: 100%;
     background-color: #ffffff;
     z-index: 1000;
