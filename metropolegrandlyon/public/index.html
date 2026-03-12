@@ -4,19 +4,30 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hyblab 2025</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="js/slide1.js" defer></script>
-  <script src="js/slide2.js" defer></script>
-  <script src="js/index.js" defer></script>
+  <script src="js/interactive.js" defer></script>
 </head>
 
 <body>
+  <img src="img/vélo.png" class="background">
+  <img src="img/chaise.PNg" class="interactive" id="C">
+  <img src="img/chaise.PNg" class="interactive" id="C2">
+  <img src="img/chaise.PNg" class="interactive" id="C3">
+  <img src="img/chaise.PNg" class="interactive" id="C4">
+
+  <div id="P" class="PopUp">
+    <div class="PopUpBloc">
+      <span id="close" class="close">&times;</span>
+      <p id="PopUpTxt">DESCRIPTION VIERGE</p>
+    </div>
+  </div>
+
   <!-- Le conteneur sert à vérouiller les proportions (aspect ratio) du contenu de la page (ici des slides) -->
   <main class="swiper-wrapper">
     <img src="./img/carte-monde-couleur.jpg" alt="img" id="img">
