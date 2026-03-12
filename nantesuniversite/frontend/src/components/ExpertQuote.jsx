@@ -1,9 +1,6 @@
 import DotPattern from './DotPattern';
-
-const portrait =
-  'https://www.figma.com/api/mcp/asset/0b03e29e-1713-4b7d-85d3-8e3dd7d58636';
-const portraitOverlay =
-  'https://www.figma.com/api/mcp/asset/9b81ea1f-2ec9-4bb4-ac89-6d588af65991';
+import portrait from '../assets/colin.png';
+import portraitOverlay from '../assets/u_under_colin.svg';
 
 
 // Section starts at absolute top=300; child positions are section-relative.
