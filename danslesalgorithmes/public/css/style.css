@@ -1,8 +1,4 @@
-/* ------- Important ! Please at least keep the last part of this CSS ----------- */
-/* ------- that adapts content width and height so that aspect ratio  ----------- */
-/* ------- is kept between 9/16 a,d 3/4 (portait orientation)         ----------- */
-body,
-html {
+body, html {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -13,78 +9,68 @@ html {
     position: relative;
 }
 
-/* L'image de fond fixe */
-figure {
+/* Une "scène" englobe un fond et ses textes associés */
+.scene {
+    position: relative;
+}
+
+/* Le conteneur du fond qui va rester collé pendant la lecture de sa scène */
+.bg-container {
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    margin: 0;
-    background-size: cover;
-    background-position: center;
-    transition: background-image 0.5s ease-in-out;
     z-index: 0;
-    overflow: hidden; /* NOUVEAU : Empêche la vidéo de déborder */
+    overflow: hidden;
 }
 
-/* --- NOUVEAU : La vidéo (cachée par défaut) --- */
-figure video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* L'image ou la vidéo */
+.bg-media {
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0; /* Transparente par défaut */
-    transition: opacity 0.5s ease-in-out; /* Fondu enchaîné */
-    z-index: 1; /* Se place au-dessus de l'image de fond... */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
 }
 
-/* --- NOUVEAU : Classe ajoutée par JS pour afficher la vidéo --- */
-figure video.is-visible {
-    opacity: 1;
-}
-
-/* Voile sombre pour que le texte reste lisible sur l'image ou la vidéo */
-figure::after {
-    content: '';
+/* Le voile sombre */
+.overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 2; /* ...mais le voile reste tout au-dessus ! */
 }
 
-/* Le conteneur principal du texte qui défile */
+/* Le bloc texte qui va passer par-dessus le fond */
 article {
     position: relative;
-    z-index: 3; /* Le texte passe par-dessus tout le reste */
-    padding: 0 20px;
-    margin-top: -100vh;
-    padding-bottom: 100vh;
+    z-index: 1;
+    text-align: center;
 }
 
-/* Chaque section qui prend 100% de la hauteur de l'écran */
 .step {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
-/* La boîte qui contient le texte */
+/* Les blocs de texte*/
 .step-content {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
     text-align: center;
+    padding: 0 20px;
 }
 
-/* L'option pour aligner la boîte à droite */
 .step.align-right .step-content {
     margin: 0 5% 0 auto;
     text-align: right;
@@ -98,7 +84,8 @@ article {
 
 .step p {
     font-size: 1.5rem;
-    background: rgba(0, 0, 0, 0.7);
+    background: #FCFAD4;
+    color: #001733;
     padding: 20px;
     border-radius: 8px;
     border: 2px solid transparent;
@@ -106,45 +93,117 @@ article {
 }
 
 .step.is-active p {
-    border-color: #ffcc00;
+    border-color: #001733;
 }
 
-/* =========================================
-   ADAPTATION POUR LES TÉLÉPHONES (MOBILE)
-   ========================================= */
+/* Adaptation pour le format mobile */
 @media (max-width: 768px) {
+    .step h1 { font-size: 2.5rem; }
+    .step p { font-size: 1.1rem; padding: 15px; }
+    .step.align-right .step-content { margin: 0 auto; text-align: center; }
+    
+    .bg-container, .step { height: 100dvh; }
 
-    /* 1. On réduit la taille des polices */
-    .step h1 {
-        font-size: 2.5rem;
-    }
-
-    .step p {
-        font-size: 1.1rem;
-        padding: 15px;
-    }
-
-    /* 2. On recentre tout */
-    .step.align-right .step-content {
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    /* 3. On modifie l'affichage de l'image de fond */
-    figure {
-        height: 100dvh;
-        background-size: contain; /* L'image s'adapte pour tenir en entier */
+    .bg-media {
+        background-size: contain;
         background-repeat: no-repeat;
+        object-fit: contain;
         background-color: #000;
-    }
-
-    /* --- NOUVEAU : On fait pareil pour la vidéo sur mobile --- */
-    figure video {
-        object-fit: contain; /* La vidéo s'adapte aussi sans être coupée ! */
-        background-color: #000;
-    }
-
-    .step {
-        height: 100dvh;
     }
 }
+.quiz-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    }
+
+    .quiz-container h2 {
+    margin-top: 0;
+    color: #333;
+    }
+
+    .quiz-container .question {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+    }
+
+    .quiz-container .options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    }
+
+    .quiz-container .option-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    }
+
+    .quiz-container .option-btn:hover {
+    background: #45a049;
+    }
+
+    .quiz-container .feedback {
+    min-height: 20px;
+    font-weight: bold;
+    color: #d9534f;
+    margin-bottom: 10px;
+    }
+
+    .quiz-container .next-btn {
+    padding: 10px 20px;
+    background: #337ab7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    .quiz-container .options {
+    display: flex;
+    flex-direction: column; /* Empile les boutons verticalement */
+    gap: 10px; /* Espace entre les boutons */
+    margin-bottom: 20px;
+    }
+
+    .quiz-container .option-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%; /* Prend toute la largeur */
+    }
+
+    .quiz-container .option-btn:hover {
+    background: #45a049;
+    }
+
+    .quiz-container .validate-btn {
+    padding: 10px 20px;
+    background: #f0ad4e; /* Orange pour le bouton de validation */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .quiz-container .validate-btn:hover {
+    background: #ec971f;
+    }
