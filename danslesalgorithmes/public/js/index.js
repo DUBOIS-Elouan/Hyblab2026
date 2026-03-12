@@ -140,3 +140,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+// Fonction pour gérer le Quizz 3
+  function handleQuiz3(selectedButton) {
+
+    // Désactive tous les boutons
+    document.querySelectorAll('#quiz-3 .option-btn').forEach(button => {
+      button.disabled = true;
+      button.style.backgroundColor = '#d9534f'; // Couleur orange pour indiquer la sélection
+  });
+}
+document.querySelectorAll('#quiz-3 .option-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    handleQuiz3(this);
+  });
+});
+
+  const quiz3 = {
+    container: document.getElementById('quiz-3'),
+    options: document.querySelectorAll('#quiz-3 .option-btn'),
+  };
