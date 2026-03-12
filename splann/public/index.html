@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css" >
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="js/slide1.js" defer></script>
-  <script src="js/slide2.js" defer></script>
+  <script src="js/titleSlide.js" defer></script>
+  <script src="js/creditSlide.js" defer></script>
   <script src="js/index.js" defer></script>
 </head>
 <body>
@@ -26,7 +26,9 @@
       <div id="mySwiper" class="swiper">
         <!-- le main est aussi le conteneur des différents slides (contenus à chaque fois dans des sections-->
         <main class = "swiper-wrapper">
-            <section id="first-slide" class="swiper-slide">
+
+            <!-- Slide de titre-->
+            <section id="title-slide" class="swiper-slide">
                 <header>
                     <h2 class="titre"></h2>
                     <p class="chapeau"></p>
@@ -34,13 +36,12 @@
                 </header>
                 <img class="imgPrincipale" alt="Image principale">
 
-
-                <!-- le footer sera rempli à partir de données lues dans un fichier Json-->
-                <footer>
-                  <p></p>
-                </footer>
             </section>
-            <section id="second-slide" class="swiper-slide">
+
+            <!-- Ici seront insérer des slides de contenu dynamiquement-->
+
+            <!-- Slide de fin-->
+            <section id="credit-slide" class="swiper-slide">
                 <header>
                   <h1>This was...</h1>
                 </header>
