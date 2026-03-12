@@ -17,3 +17,4 @@ app.use(function (req, res) {
 module.exports = app;
 
 // npm install && npm run build
+// pm2 restart hyblab
