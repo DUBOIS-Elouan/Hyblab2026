@@ -32,7 +32,7 @@ fetch('data/movies.json')
   .catch(error => console.error('failed to read json', error));
 
 
-function scoreToStars(score, max = 5) {
+function scoreToStars(score, max = 4) {
   const filled = Math.round((score / 100) * max);
   let html = '';
   for (let i = 0; i < max; i++) {

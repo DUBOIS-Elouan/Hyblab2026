@@ -72,14 +72,14 @@ html, body {
   background-color: white;
 }
 
-.podiumBack {
+/* .podiumBack {
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
   height: 100%;
-}
+} */
 
 .topPodium {
   margin: 0 auto;
@@ -89,14 +89,14 @@ html, body {
   background-color: white;
 }
 
-.bottomPodium {
+/* .bottomPodium {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   height: 70%;
   width: 100%;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.40));
-}
+} */
 
 .step {
   position: relative;
