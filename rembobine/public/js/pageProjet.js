@@ -20,19 +20,9 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
   box.row = aRow;
   box.column = aColumn;
   box.color = null; //In which group the box is a part of
-  box.ngroup = null;//It's id in the group
+  box.ngroup = null;//Its id in the group
 
-  box.addEventListener('click', () => {
-    // Do not trigger while choice buttons are still visible.
-    if (box.querySelector('button')) {
-      return;
-    }
-
-    const overlay = document.getElementById('popup-overlay');
-    const popupText = document.getElementById('popup-text');
-    popupText.textContent = box.querySelector('p') ? box.querySelector('p').textContent : '';
-    overlay.classList.remove('popup-hidden');
-  });
+  
 
   for (let rowIndex = 0; rowIndex < 2; rowIndex += 1) {
     const row = document.createElement("div");
@@ -95,10 +85,10 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
         switch (parseInt(value)) {
           case 1:
             box.color = 1;
-            box.ngroup = count_public;
-            count_public ++;
+            box.ngroup = count_judiciaire;
+            count_judiciaire ++;
 
-            if (box.ngroup >= Public.length){
+            if (box.ngroup >= Judiciaire.length){
 
               textDisplay.textContent = "Vous avez vu tout les impact !";
               State[value] = true;
@@ -106,7 +96,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
 
             } else{
 
-              textDisplay.textContent = Public[box.ngroup].Base;
+              textDisplay.textContent = Judiciaire[box.ngroup].Base;
 
             }
             
@@ -130,6 +120,23 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             break;
           case 3:
             box.color = 3;
+            box.ngroup = count_public;
+            count_public ++;
+
+            if (box.ngroup >= Public.length){
+
+              textDisplay.textContent = "Vous avez vu tout les impact !";
+              State[value] = true;
+
+            } else{
+
+              textDisplay.textContent = Public[box.ngroup].Base;
+
+            }
+            
+            break;
+          case 4:
+            box.color = 4;
             box.ngroup = count_institutionnel;
             count_institutionnel ++;
 
@@ -143,23 +150,6 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
               textDisplay.textContent = Institutionnel[box.ngroup].Base;
 
             }
-            
-            break;
-          case 4:
-            box.color = 4;
-            box.ngroup = count_judiciaire;
-            count_judiciaire ++;
-
-            if (box.ngroup >= Judiciaire.length){
-
-              textDisplay.textContent = "Vous avez vu tout les impact !";
-              State[value] = true;
-
-            } else{
-
-              textDisplay.textContent = Judiciaire[box.ngroup].Base;
-
-            }
 
             break;
           default: 
@@ -169,7 +159,34 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
         // Display clicked button text
         box.appendChild(textDisplay);
         console.log(textDisplay);
+      
 
+      box.addEventListener('click', () => {
+        // Do not trigger while choice buttons are still visible.
+        if (box.querySelector('button')) {
+          return;
+        }
+
+        const overlay = document.getElementById('popup-overlay');
+        const popupText = document.getElementById('popup-text');
+
+        switch (box.color){
+          case 1:
+            console.log(box.ngroup);
+            popupText.textContent = Judiciaire[box.ngroup].Texteplus;
+            break;
+          case 2:
+            popupText.textContent = Mediatique[box.ngroup].Texteplus;
+            break;
+          case 3:
+            popupText.textContent = Public[box.ngroup].Texteplus;
+            break;
+          case 4:
+            popupText.textContent = Institutionnel[box.ngroup].Texteplus;
+            break;
+        }
+      overlay.classList.remove('popup-hidden');
+      });
       if (getBoxByPosition(box.row + 1, box.column) == null) {
         addEmptyRow(box.row + 1);
       }
