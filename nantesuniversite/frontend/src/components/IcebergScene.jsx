@@ -16,45 +16,66 @@ const PICTOGRAMMES = {
   livre: livreSvg, podcast: podcastSvg, recherche: rechercheSvg,
 };
 
-// ─── Adjust these positions to move cards on the iceberg ───────────────────
-//  Positions from Figma (Calque_1 images, converted to absolute page coords)
-//  left: horizontal px  |  top: vertical px  (waterline ≈ y 1939)
+// ─── Adjust card positions here ────────────────────────────────────────────
+// Iceberg SVG 0 0 1890 3374, rendered at left=45 top=775 w=1832 h=3200.
+// Shape is NARROW at top & bottom, WIDEST around y=1700–1900.
+// Card width = 400px. Pictogram overflows 50px to the left.
+//
+// Usable left range at each depth (pictogram + card must stay inside):
+//   y=1100 → [450 –  920]     y=2100 → [215 – 1210]
+//   y=1300 → [310 – 1080]     y=2300 → [280 – 1170]
+//   y=1500 → [180 – 1250]     y=2500 → [415 – 1090]
+//   y=1700 → [150 – 1370] ←wide  y=2700 → [465 – 1080]
+//   y=1900 → [150 – 1290] ←wide  y=2900 → [545 – 1030]
+//                               y=3100 → [635 –  870]
+//                               y=3300 → [670 –  810]
+//
 const CARD_POSITIONS = [
-  { left:  459, top: 1406 }, // 1
-  { left:  960, top: 1735 }, // 2
-  { left:  212, top: 1884 }, // 3
-  { left:  980, top: 1993 }, // 4
-  { left:  268, top: 2126 }, // 5
-  { left:  758, top: 2189 }, // 6
-  { left: 1042, top: 2266 }, // 7
-  { left: 1068, top: 2506 }, // 8
-  { left:  583, top: 2508 }, // 9
-  { left:  109, top: 2630 }, // 10
-  { left:  338, top: 2780 }, // 11
-  { left: 1070, top: 3061 }, // 12
-  { left:  313, top: 3137 }, // 13
-  { left:  800, top: 3482 }, // 14
-  { left: 1037, top: 3731 }, // 15
+  // ── Narrow top ────────────────────────────────
+  { top: 1130, left: 680 }, //  1
+  { top: 1290, left: 430 }, //  2
+  { top: 1400, left: 960 }, //  3
+  // ── Widening ──────────────────────────────────
+  { top: 1490, left: 210 }, //  4
+  { top: 1550, left: 1220 }, //  5
+  { top: 1650, left: 590 }, //  6
+  // ── Widest zone ──
+  { top: 1730, left: 1240 }, //  7
+  { top: 1820, left: 155 }, //  8
+  { top: 1880, left: 660 }, //  9 
+  { top: 2000, left: 1200 }, // 10
+  { top: 2070, left: 190 }, // 11
+  { top: 2170, left: 1060 }, // 12
+  // ── Narrowing ─────────────────────────────────
+  { top: 2300, left: 370 }, // 13
+  { top: 2440, left: 995 }, // 14
+  { top: 2550, left: 465 }, // 15
+  { top: 2660, left: 945 }, // 16
+  { top: 2760, left: 530 }, // 17
+  // ── Lower ─────────────────────────────────────
+  { top: 2870, left: 900 }, // 18
+  { top: 2970, left: 565 }, // 19
+  { top: 3065, left: 840 }, // 20
+  // ── Narrow base ───────────────────────────────
+  { top: 3185, left: 635 }, // 21
+  { top: 3370, left: 720 }, // 22
 ];
 // ───────────────────────────────────────────────────────────────────────────
+// ───────────────────────────────────────────────────────────────────────────
 
-const cardDocuments = data.researcher.documents.slice(0, 15);
+const cardDocuments = data.researcher.documents;
 
 
 export default function IcebergScene() {
   return (
     <>
-      {/* Scroll down arrow — node 15:2: x=1032, y=853 → left=calc(50%+72px) */}
-      <ScrollArrow direction="down" left="calc(50% + 72px)" top={853} translateX="-50%" />
 
-      {/* Full iceberg: node 65:5 x=45, y=979, w=1832, h=3200 */}
-      <div className="absolute left-[45px] top-[979px] w-[1832px] h-[3200px]">
+      <div className="absolute left-[45px] top-[775px] w-[1832px] h-[3200px]">
         <DataIceberg className="w-full h-full" />
       </div>
 
 
 
-      {/* Resource cards at increasing iceberg depths */}
       {cardDocuments.map((doc, i) => (
         <ResourceCard
           key={doc.id}
