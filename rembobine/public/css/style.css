@@ -31,6 +31,10 @@
 :root {
   --color-white: #ffffff;
   --color-green: #1CB26B;
+  --color-pink: #F7A6DE;
+  --color-blue: #1F71DA;
+  --color-yellow: #FADD3D;
+  --color-red: #F14E20;
   --color-black: #000c2d;
   --color-light-gray: #f5f5f5;
   --color-gray: #687385;
@@ -254,6 +258,12 @@ article p {
 .row {
     height: auto;
 }
+
+.box {
+  height: 100px;
+  width: 100px;
+}
+
 
 button{
     font-size: 20%;
