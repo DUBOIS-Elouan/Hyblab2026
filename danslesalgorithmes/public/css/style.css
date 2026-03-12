@@ -25,9 +25,28 @@ figure {
     background-position: center;
     transition: background-image 0.5s ease-in-out;
     z-index: 0;
+    overflow: hidden; /* NOUVEAU : Empêche la vidéo de déborder */
 }
 
-/* Voile sombre pour que le texte reste lisible sur l'image */
+/* --- NOUVEAU : La vidéo (cachée par défaut) --- */
+figure video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; /* Transparente par défaut */
+    transition: opacity 0.5s ease-in-out; /* Fondu enchaîné */
+    z-index: 1; /* Se place au-dessus de l'image de fond... */
+}
+
+/* --- NOUVEAU : Classe ajoutée par JS pour afficher la vidéo --- */
+figure video.is-visible {
+    opacity: 1;
+}
+
+/* Voile sombre pour que le texte reste lisible sur l'image ou la vidéo */
 figure::after {
     content: '';
     position: absolute;
@@ -36,12 +55,13 @@ figure::after {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
+    z-index: 2; /* ...mais le voile reste tout au-dessus ! */
 }
 
 /* Le conteneur principal du texte qui défile */
 article {
     position: relative;
-    z-index: 1;
+    z-index: 3; /* Le texte passe par-dessus tout le reste */
     padding: 0 20px;
     margin-top: -100vh;
     padding-bottom: 100vh;
@@ -113,12 +133,15 @@ article {
     /* 3. On modifie l'affichage de l'image de fond */
     figure {
         height: 100dvh;
-        background-size: contain;
-        /* L'image s'adapte pour tenir en entier */
+        background-size: contain; /* L'image s'adapte pour tenir en entier */
         background-repeat: no-repeat;
-        /* Évite que l'image se répète si elle est plus petite que l'écran */
         background-color: #000;
-        /* Fond noir derrière l'image si elle ne remplit pas tout l'écran */
+    }
+
+    /* --- NOUVEAU : On fait pareil pour la vidéo sur mobile --- */
+    figure video {
+        object-fit: contain; /* La vidéo s'adapte aussi sans être coupée ! */
+        background-color: #000;
     }
 
     .step {

@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Scrollama - Projet Étudiant</title>
+    <title>Test Scrollama - Mix Image/Vidéo</title>
+    
     <link rel="stylesheet" href="css/style.css">
     <script src="js/index.js" defer></script>
-    
     <script src="https://unpkg.com/scrollama"></script>
-
-    <style>
-        
-    </style>
 </head>
 <body>
 
@@ -20,7 +16,9 @@
     </div>
 
     <section id="scrolly">
-        <figure id="background-figure"></figure>
+        <figure id="background-figure">
+            <video autoplay loop muted playsinline></video>
+        </figure>
 
         <article>
             <div class="step" data-image="img/foyer_benificiaire.png">
@@ -29,25 +27,26 @@
                     <p>hello world</p>
                 </div>
             </div>
+            
             <div class="step" data-image="img/foyer_benificiaire.png">
                 <div class="step-content">
                     <h1>La CAF c'est quoi</h1>
-                    <p>La Caisse d'Assurance Familliale</p>
+                    <p>La Caisse d'Allocations Familiales</p>
                 </div>
             </div>
             
-            <div class="step" data-image="img/fraude_comparaison.png">
+            <div class="step" data-video="video/PinVideoDownloader.net-video.mp4" data-audio="audio/son_amongUS.mp3">
                 <div class="step-content">
                     <p>Voici un deuxième paragraphe pour tester le défilement.</p>
                 </div>
             </div>
-
-            <div class="step align-right" data-image="img/polytech.jpg" data-audio="son_amongUS.mp3">
-                <div class="step-content">
-                    <h1>L'Équipe</h1>
-                    <p>Ce site a été mis en forme par des étudiants de Polytech et de l'École de Design.</p>
-                </div>
+            <div class="step align-right" data-image="img/polytech.jpg">
+              <div class="step-content">
+                <h1>L'Équipe</h1>
+                <p>Ce site a été mis en forme par des étudiants de Polytech et de l'École de Design.</p>
+              </div>
             </div>
+            
             <div class="step" data-image="img/IMG_3850.jpg">
                 <div class="step-content">
                     <p>Voici un dernier paragraphe pour tester le défilement.</p>
@@ -60,8 +59,5 @@
         <h2>Fin de la présentation</h2>
     </div>
 
-    <script>
-        
-    </script>
 </body>
 </html>
