@@ -1,13 +1,30 @@
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DotPattern from './DotPattern';
+import portrait from '../assets/colin.png';
+import portraitOverlay from '../assets/u_under_colin.svg';
 
-const portrait =
-  'https://www.figma.com/api/mcp/asset/0b03e29e-1713-4b7d-85d3-8e3dd7d58636';
-const portraitOverlay =
-  'https://www.figma.com/api/mcp/asset/9b81ea1f-2ec9-4bb4-ac89-6d588af65991';
+gsap.registerPlugin(ScrollTrigger);
 
 
 // Section starts at absolute top=300; child positions are section-relative.
 export default function ExpertQuote() {
+  const sectionRef = useRef(null);
+  const portraitRef = useRef(null);
+  const quoteRef = useRef(null);
+  const attributionRef = useRef(null);
+
+  useGSAP(() => {
+    // fires when section top crosses 80% down the viewport
+    const trigger = { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none reverse' };
+
+    gsap.from(portraitRef.current, { ...trigger, x: -60, opacity: 0, duration: 0.8, ease: 'power2.out' });            // slides in 60px from left
+    gsap.from(quoteRef.current, { ...trigger, x: 60, opacity: 0, duration: 0.8, ease: 'power2.out', delay: 0.15 }); // slides in 60px from right, 0.15s after portrait
+    gsap.from(attributionRef.current, { ...trigger, y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 }); // fades up 30px, 0.35s after portrait
+  }, { scope: sectionRef });
+
   return (
     <section className="absolute top-[300px] left-0 right-0">
       {/* Portrait photo: abs left=158, top=312 → section top=12 */}
