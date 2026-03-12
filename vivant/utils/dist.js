@@ -1,5 +1,3 @@
-// func(points,centre, rayon) --> boolean
-
 import * as turf from '@turf/turf';
 
 /**
@@ -8,6 +6,7 @@ import * as turf from '@turf/turf';
  * @param {*} field - Valeur du champ (string JSON, objet, ou null)
  * @returns {{lat: number|null, lng: number|null}}
  */
+
 function parseCoordinates(field) {
   // Cas 1: Déjà un objet avec lat/lng
   if (field && typeof field === 'object' && !Array.isArray(field)) {
