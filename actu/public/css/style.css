@@ -33,7 +33,9 @@
 
 .film > .affiche_front > img{
     /* max-width: 350px; */
+    z-index: -1;
     max-width: 120px;
+    position: absolute;
     
 }
 
@@ -66,4 +68,41 @@
 
 body{
     margin: 0;
+}
+
+
+
+
+/* /////////// */
+
+
+.zoon_contre{
+    --transparance_contre : 70%;
+    background: linear-gradient(90deg, red 69%, transparent var(--transparance_contre));
+    border-radius: 300px;
+
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    
+    width: 200px;
+
+    transform: translate(-70%,0);
+}
+
+
+.zoon_pour{
+    --transparance_pour : 30%;
+    background: linear-gradient(90deg, transparent var(--transparance_pour), green 31%);
+    border-radius: 300px;
+
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    right: 0;
+    
+    width: 200px;
+
+    transform: translate(70%,0);
 }
