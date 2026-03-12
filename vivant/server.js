@@ -76,7 +76,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
                 .pipe(csv())
                 .on('data', (row) => {
                     stmt.run(
-                        row['ID'], row['Title'], row['Content'], row['Date'], row['Permalink'], 
+                        (row['ID'] || row['\ufeffID'] || row['\uFEFFID']), row['Title'], row['Content'], row['Date'], row['Permalink'], 
                         row['Image URL'], row['Image Title'], row['Image Alt Text'], row['Image Featured'], 
                         row['Attachment URL'], row['Catégories'], row['Étiquettes'], row['categorie_tag'], row['_post_review_box_title'], 
                         row['_yoast_wpseo_primary_category'] || null, 

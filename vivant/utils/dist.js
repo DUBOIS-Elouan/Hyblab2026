@@ -142,6 +142,45 @@ export function findNearestArticles(articles, centre, limit = 10, coordField = '
   return filterArticlesByRadius(articles, centre, 99999, coordField).slice(0, limit);
 }
 
+/**
+ * Fonction utilitaire pour afficher proprement les résultats du filtre de rayon
+ * @param {Object} centre - Le point central de la recherche
+ * @param {number} rayon - Le rayon en km
+ * @param {Array} resultats - Les articles trouvés
+ */
+function afficherResultats(centre, rayon, resultats) {
+  console.log('====================================================');
+  console.log(`📍 CENTRE        : [${centre.latitude}, ${centre.longitude}]`);
+  console.log(`📏 RAYON         : ${rayon} km`);
+  console.log(`✅ TROUVÉS       : ${resultats.length} articles`);
+  console.log('====================================================');
+
+  if (resultats.length === 0) {
+    console.log("Aucun article dans ce périmètre.");
+    return;
+  }
+
+  resultats.forEach((article, index) => {
+    // Extraction locale des coordonnées pour l'affichage propre
+    let coordsText = "Coordonnées inconnues";
+    if (article._latlngmarker) {
+      const parsed = parseCoordinates(article._latlngmarker);
+      if (parsed.lat !== null && parsed.lng !== null) {
+        coordsText = `[${parsed.lat}, ${parsed.lng}]`;
+      }
+    } else if (article.latitude && article.longitude) {
+      const parsedLat = parseCoordinates(article.latitude);
+      const parsedLng = parseCoordinates(article.longitude);
+      if (parsedLat.lat !== null && parsedLng.lng !== null) {
+        coordsText = `[${parsedLat.lat}, ${parsedLng.lng}]`;
+      }
+    }
+
+    console.log(`${String(index + 1).padStart(2, ' ')} | ${article._distanceFromCentre.toFixed(2).padStart(5, ' ')} km | ${coordsText} | ${article.Title || article.Slug}`);
+  });
+  console.log('====================================================\n');
+}
+
 // test-fetch.js
 import fetch from 'node-fetch';           // omit if Node ≥18
 
@@ -151,16 +190,22 @@ const URL = 'http://localhost:8080/vivant/api/articles';
   try {
     const res = await fetch(URL);
     const articles = await res.json();
-    console.log(articles)
     console.log('received', articles.length, 'articles');
+
+    const centreTest = { latitude: 46.16164, longitude: -1.1079 };
+    const rayonTest = 50;
 
     // call one of your util functions just to be sure it works
     const near = filterArticlesByRadius(
       articles,
-      { latitude: 48.0, longitude: 2.0 },
-      50
+      centreTest,
+      rayonTest
     );
-    console.log('articles within 50 km:', near.length);
+
+    console.log(near)
+
+    //afficherResultats(centreTest, rayonTest, near);
+
   } catch (e) {
     console.error(e);
   }

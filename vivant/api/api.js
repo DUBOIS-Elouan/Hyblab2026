@@ -37,7 +37,6 @@ app.get('/articles', function ( req, res ) {
             console.error('Error fetching articles:', err.message);
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
-            console.log('Rows:', rows);
             res.json(rows);
         }
     });
