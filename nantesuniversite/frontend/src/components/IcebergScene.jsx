@@ -1,4 +1,3 @@
-import React from 'react';
 import Robot from './Robot';
 import ResourceCard from './ResourceCard';
 import DataIceberg from './DataIceberg';
@@ -17,46 +16,43 @@ const PICTOGRAMMES = {
   livre: livreSvg, podcast: podcastSvg, recherche: rechercheSvg,
 };
 
+// ─── Adjust these positions to move cards on the iceberg ───────────────────
+//  Positions from Figma (Calque_1 images, converted to absolute page coords)
+//  left: horizontal px  |  top: vertical px  (waterline ≈ y 1939)
 const CARD_POSITIONS = [
-  { left: 227, top: 1394 },
-  { left: 1003, top: 2150 },
-  { left: 523, top: 2901 },
+  { left:  459, top: 1406 }, // 1
+  { left:  960, top: 1735 }, // 2
+  { left:  212, top: 1884 }, // 3
+  { left:  980, top: 1993 }, // 4
+  { left:  268, top: 2126 }, // 5
+  { left:  758, top: 2189 }, // 6
+  { left: 1042, top: 2266 }, // 7
+  { left: 1068, top: 2506 }, // 8
+  { left:  583, top: 2508 }, // 9
+  { left:  109, top: 2630 }, // 10
+  { left:  338, top: 2780 }, // 11
+  { left: 1070, top: 3061 }, // 12
+  { left:  313, top: 3137 }, // 13
+  { left:  800, top: 3482 }, // 14
+  { left: 1037, top: 3731 }, // 15
 ];
+// ───────────────────────────────────────────────────────────────────────────
 
-const cardDocuments = data.researcher.documents.slice(0, 3);
+const cardDocuments = data.researcher.documents.slice(0, 15);
 
-const wavyLineSide =
-  'https://www.figma.com/api/mcp/asset/02a68ccd-a0df-4a73-b697-55f5605a5a10';
-const wavyLineCentre =
-  'https://www.figma.com/api/mcp/asset/a7cc859a-99ec-42b5-98df-bd06ed42cbbc';
 
 export default function IcebergScene() {
   return (
     <>
-      {/* Scroll down arrow — centred, node 15:2 */}
-      <ScrollArrow direction="down" left="50%" top={888} translateX="-50%" />
+      {/* Scroll down arrow — node 15:2: x=1032, y=853 → left=calc(50%+72px) */}
+      <ScrollArrow direction="down" left="calc(50% + 72px)" top={853} translateX="-50%" />
 
-
-      {/* Centre wavy line (47:346) — x=843, y=1036, w=234, h=18 */}
-      <div className="absolute left-[843px] top-[1036px] w-[234px] h-[18px]">
-        <img src={wavyLineCentre} alt="" className="w-full h-full" aria-hidden />
-      </div>
-
-      {/* full iceberg group exported from Figma */}
-      <div className="absolute left-[99px] top-[894px] w-[1588px] h-[2701px]">
+      {/* Full iceberg: node 65:5 x=45, y=979, w=1832, h=3200 */}
+      <div className="absolute left-[45px] top-[979px] w-[1832px] h-[3200px]">
         <DataIceberg className="w-full h-full" />
       </div>
 
-      {/* Side wavy lines at the waterline (47:339 right, 47:340 left) */}
-      <div className="absolute left-[1678px] top-[1488px] w-[242px] h-[9px]">
-        <img src={wavyLineSide} alt="" className="w-full h-full" aria-hidden />
-      </div>
-      <div className="absolute left-[-74px] top-[1644px] w-[242px] h-[9px]">
-        <img src={wavyLineSide} alt="" className="w-full h-full" aria-hidden />
-      </div>
 
-      {/* Robot on the waterline */}
-      <Robot />
 
       {/* Resource cards at increasing iceberg depths */}
       {cardDocuments.map((doc, i) => (

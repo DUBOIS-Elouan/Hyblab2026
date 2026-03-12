@@ -16,7 +16,7 @@ export default function Header() {
       </div>
 
       {/* Logo Nantes Université */}
-      <div className="absolute top-[27px] left-[806px] w-[200px] h-[69px]">
+      <div className="absolute top-[27px] left-[806px] w-[306px] h-[93px]">
         <img
           src={paroleExpertLogo}
           alt="Nantes Université"

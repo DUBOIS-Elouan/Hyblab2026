@@ -1,46 +1,49 @@
 import DotPattern from './DotPattern';
 
 const portrait =
-  'https://www.figma.com/api/mcp/asset/71f39c43-afc9-468e-860f-28b1405167bf';
+  'https://www.figma.com/api/mcp/asset/0b03e29e-1713-4b7d-85d3-8e3dd7d58636';
 const portraitOverlay =
   'https://www.figma.com/api/mcp/asset/9b81ea1f-2ec9-4bb4-ac89-6d588af65991';
 
+
+// Section starts at absolute top=300; child positions are section-relative.
 export default function ExpertQuote() {
   return (
     <section className="absolute top-[300px] left-0 right-0">
-      {/* Portrait – the image asset carries its own circular shape */}
-      <div className="absolute left-[176px] top-0 w-[430px] h-[300px] overflow-hidden">
+      {/* Portrait photo: abs left=158, top=312 → section top=12 */}
+      <div className="absolute left-[158px] top-[12px] w-[442px] h-[373px] overflow-hidden">
         <img src={portrait} alt="Portrait de Colin de la Higuera" className="w-full h-full object-cover" />
       </div>
 
-      {/* Colorful overlay on portrait */}
-      <div className="absolute left-[149px] top-[204px] w-[500px] h-[300px] pointer-events-none">
+      {/* Colorful overlay on portrait: abs left=134, top=514 → section top=214 */}
+      <div className="absolute left-[134px] top-[214px] w-[479px] h-[281px] pointer-events-none">
         <img src={portraitOverlay} alt="" className="w-full h-full object-cover" />
       </div>
 
-      {/* Left decorative dot pattern */}
-      <div className="absolute left-[583px] top-[29px] w-[143px] h-[119px] ">
-        <DotPattern dotSize={12} />
+      {/* Left decorative dot pattern: abs left=583, top=372 → section top=72 */}
+      <div className="absolute left-[583px] top-[72px]">
+        <DotPattern dotSize={22} />
       </div>
 
-      {/* Italic quote */}
-      <p className="absolute left-[735px] top-[61px] w-[960px] italic text-black text-[29px] leading-[normal] font-sans">
+      {/* Italic quote: abs left=736, top=410 → section top=110 */}
+      <p className="absolute left-[736px] top-[110px] w-[925px] h-[135px] italic text-black text-[36px] leading-normal font-sans">
         &thinsp;Je m&apos;en sors habituellement en observant que ce qu&apos;on
         entend par intelligence est mouvant et qu&apos;au fur du temps, des
         activités qu&apos;on tenait pour intelligentes ne le sont plus.&thinsp;
       </p>
 
-      {/* Attribution (right-aligned) */}
-      <div className="absolute left-[760px] top-[230px] w-[943px] text-right text-black font-sans">
-        <p className="font-bold text-[32px]">Colin de la Higuera</p>
-        <p className="text-[26px]">Professeur à l&apos;Université de Nantes</p>
-        <p className="text-[26px]">Titulaire de la Chaire UNESCO RELIA</p>
+      {/* Attribution: abs top=570 → section top=270; right edge at ~1639px, w=943 → left=696 */}
+      <div className="absolute left-[696px] top-[270px] w-[943px] text-right text-black font-sans">
+        <p className="font-bold text-[36px] mb-0">Colin de la Higuera</p>
+        <p className="text-[30px] underline mb-0">Professeur à l&apos;Université de Nantes</p>
+        <p className="text-[30px] underline">Titulaire de la Chaire UNESCO RELIA</p>
       </div>
 
-      {/* Right decorative dot pattern (mirrored) */}
-      <div className="absolute left-[1710px] top-[118px] w-[143px] h-[119px] ">
-        <DotPattern dotSize={12} mirror />
+      {/* Right decorative dot pattern: abs left=1673, top=461 → section top=161 */}
+      <div className="absolute left-[1673px] top-[161px]">
+        <DotPattern dotSize={22} mirror />
       </div>
+
     </section>
   );
 }
