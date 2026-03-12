@@ -124,18 +124,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- Quizz Chapitre 4 (Boutons avec paragraphes cachés) ---
   const quizChap4Buttons = document.querySelectorAll('.chap4-btn');
   
-  quizChap4Buttons.forEach(button => {
+quizChap4Buttons.forEach(button => {
       button.addEventListener('click', () => {
           const quizContainer = button.closest('.quiz-container');
           const answers = quizContainer.querySelectorAll('.quiz-answer');
+          const buttons = quizContainer.querySelectorAll(".chap4-btn");
           const targetId = button.getAttribute('data-target');
           const targetAnswer = quizContainer.querySelector('#' + targetId);
 
+          // hide answers
           answers.forEach(answer => answer.classList.remove('active'));
 
-          if (targetAnswer) {
-              targetAnswer.classList.add('active');
-          }
+          // remove button highlight
+          buttons.forEach(btn => btn.classList.remove("selected"));
+
+          // show selected answer
+          targetAnswer.classList.add("active");
+
+          // highlight clicked button
+          button.classList.add("selected");
+
       });
   });
 
