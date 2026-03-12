@@ -10,6 +10,8 @@ let count_mediatique = 0;
 let count_judiciaire = 0;
 let count_public = 0;
 
+let State = [false, false, false, false]; //[SInstitutionnel, SMediatique, SJudiciaire, SPublic]
+
 function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
   const box = document.createElement("div");
   box.id = boxId;
@@ -33,17 +35,19 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
 
       button.textContent = ` ${buttonNumber} `;
       row.appendChild(button);
+      if(State[button.textContent] === true){button.disabled = true; console.log(button.disabled);}
+      box.appendChild(row);
     }
 
-    box.appendChild(row);
+    
   }
+
 
   box.querySelectorAll('button').forEach(option => {
     option.addEventListener('click', async () => {
         // Send the user's choice to our API
 
         const value = option.textContent;
-
 
 
         //const box = option.parentElement.parentElement;
@@ -66,6 +70,8 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             if (box.ngroup >= Public.length){
 
               textDisplay.textContent = "Vous avez vu tout les impact !";
+              State[value] = true;
+
 
             } else{
 
@@ -83,6 +89,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             if (box.ngroup >= Mediatique.length){
 
               textDisplay.textContent = "Vous avez vu tout les impact !";
+              State[value] = true;
 
             } else{
 
@@ -100,6 +107,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             if (box.ngroup >= Institutionnel.length){
 
               textDisplay.textContent = "Vous avez vu tout les impact !";
+              State[value] = true;
 
             } else{
 
@@ -117,6 +125,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             if (box.ngroup >= Judiciaire.length){
 
               textDisplay.textContent = "Vous avez vu tout les impact !";
+              State[value] = true;
 
             } else{
 
