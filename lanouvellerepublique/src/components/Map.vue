@@ -198,7 +198,7 @@ const onMapReady = (map) => {
 
 <style scoped>
 .map-layout {
-    height: 100dvh;
+    height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -217,7 +217,7 @@ const onMapReady = (map) => {
 .restaurant-carousel-wrapper {
     position: absolute;
     left: 0;
-    bottom: calc(4.2rem + 4.2rem + max(0.75rem, env(safe-area-inset-bottom)));
+    bottom: calc(max(0.75rem, env(safe-area-inset-bottom)));
     width: 100%;
     z-index: 500;
     display: grid;
@@ -255,27 +255,31 @@ const onMapReady = (map) => {
 .restaurant-carousel__slide {
     flex: 0 0 92%;
     scroll-snap-align: center;
-    display: flex;
-    align-items: center;
+    display: grid;
+    align-items: start;
     justify-content: center;
     cursor: pointer;
 }
 
 .restaurant-carousel-wrapper--detail {
-    position: fixed;
+    position: absolute;
+    left: 0;
+    bottom: calc(max(0.75rem, env(safe-area-inset-bottom)));
+    width: 100%;
+    height: auto;
+    z-index: 500;
     display: grid;
     grid-template-columns: auto minmax(0, 560px) auto;
     align-items: start;
     justify-content: center;
     gap: 0.65rem;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    transform: translateY(-83%);
-    height: 100%;
+    transform: translateY(-100%);
     background-color: #ffffff;
     z-index: 1000;
+}
+
+.restaurant-carousel-wrapper--detail .carousel-nav {
+    visibility: hidden;
 }
 
 .restaurant-carousel__slide :deep(.mini-box) {

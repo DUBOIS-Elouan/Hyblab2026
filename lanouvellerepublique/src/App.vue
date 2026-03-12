@@ -31,6 +31,7 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
     <div class="app-shell">
         <Header />
         <nav class="mini-nav" aria-label="Navigation des vues">
+            <span class="mini-nav__slider"></span>
             <RouterLink to="/">Liste</RouterLink>
             <RouterLink to="/carte">Carte</RouterLink>
         </nav>
@@ -107,6 +108,7 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
     background: v-bind(activeBg);
     color: v-bind(activeColor);
 }
+
 
 @media (min-width: 1024px) {
     .mini-nav {
