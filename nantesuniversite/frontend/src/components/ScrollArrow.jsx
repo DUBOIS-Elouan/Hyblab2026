@@ -1,3 +1,5 @@
+import { getLenis } from '../lib/lenis';
+
 const ROTATIONS = {
   down:  '0deg',
   left:  '90deg',
@@ -7,24 +9,16 @@ const ROTATIONS = {
 
 const SCROLL_AMOUNT = 400;
 
-/**
- * ScrollArrow – a directional arrow indicator.
- *
- * Props:
- *   direction  {"up"|"down"|"left"|"right"}  Which way the arrow points (default "down")
- *   left       {number|string}               Absolute left position (for absolute placement)
- *   top        {number|string}               Absolute top position
- *   translateX {string}                      Optional CSS translateX (e.g. "-50%" to centre)
- *   scale      {number}                      Zoom factor (default 1 = natural size)
- */
 export default function ScrollArrow({ direction = 'down', left, top, translateX, scale = 1 }) {
   const rotation = ROTATIONS[direction] ?? '0deg';
 
   function handleClick() {
+    const lenis = getLenis();
     if (direction === 'up') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (direction === 'down') {
-      window.scrollBy({ top: SCROLL_AMOUNT, behavior: 'smooth' });
+      const target = window.scrollY + SCROLL_AMOUNT;
+      lenis ? lenis.scrollTo(target) : window.scrollBy({ top: SCROLL_AMOUNT, behavior: 'smooth' });
     }
   }
 
