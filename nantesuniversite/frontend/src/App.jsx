@@ -1,5 +1,5 @@
-import Ecran4 from './pages/Ecran4';
+import ResearcherPage from './pages/ResearcherPage';
 
 export default function App() {
-  return <Ecran4 />;
+  return <ResearcherPage />;
 }

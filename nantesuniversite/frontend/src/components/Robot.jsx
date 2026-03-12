@@ -3,15 +3,8 @@ const robotFigure =
 
 export default function Robot() {
   return (
-    <div
-      className="absolute"
-      style={{ left: 480, top: 844, width: 89, height: 205 }}
-    >
-      <img
-        src={robotFigure}
-        alt="Figure IA"
-        className="w-full h-full object-contain"
-      />
+    <div className="absolute left-[480px] top-[844px] w-[89px] h-[205px]">
+      <img src={robotFigure} alt="Figure IA" className="w-full h-full object-contain" />
     </div>
   );
 }
