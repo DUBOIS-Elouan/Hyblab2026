@@ -1,0 +1,182 @@
+{
+  "imagePath": "img/epstein2.png",
+  "hotspots": [
+    {
+      "id": "ordinateur",
+      "label": "Ordinateur",
+      "phi": 1.689,
+      "theta": -2.5746,
+      "article": {
+        "title": "Ordinateur",
+        "description": "L'écran de la « Epstein Library » : Un ordinateur affichant le portail du ministère de la Justice où sont hébergés les 3,5 millions de fichiers."
+      }
+    },
+    {
+      "id": "livre",
+      "label": "Livre",
+      "phi": 2.1619,
+      "theta": -1.371,
+      "article": {
+        "title": "Livre",
+        "description": "L'ouvrage autobiographique de Thysia Huisman, première victime à avoir porté plainte contre Jean-Luc Brunel en France."
+      }
+    },
+    {
+      "id": "tigre",
+      "label": "Tigre",
+      "phi": 1.8029,
+      "theta": 2.9054,
+      "article": {
+        "title": "Tigre",
+        "description": "Un animal grandeur nature trônant dans une salle de réception de l'appartement de Manhattan au 9 East 71st Street."
+      }
+    },
+    {
+      "id": "lampe",
+      "label": "Lampe",
+      "phi": 1.6062,
+      "theta": -3.0781,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Lampe",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "cheminee",
+      "label": "Cheminée",
+      "phi": 1.8285,
+      "theta": -1.6335,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Cheminée",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "fauteuil",
+      "label": "Fauteuil",
+      "phi": 1.9723,
+      "theta": -0.8785,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Fauteuil",
+        "description": "Les documents confidentiels sur le Vietnam et Singapour : Des dossiers que le prince Andrew est soupçonné d'avoir transmis à Epstein lors de ses missions commerciales."
+      }
+    },
+    {
+      "id": "table_basse",
+      "label": "Table basse",
+      "phi": 1.9077,
+      "theta": -0.4219,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Table basse",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "tapis_persan",
+      "label": "Tapis persan",
+      "phi": 2.3582,
+      "theta": 0.6514,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Tapis persan",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "canape_rouge",
+      "label": "Canapé rouge",
+      "phi": 1.8076,
+      "theta": -0.1755,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Canapé rouge",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "lampe_doree",
+      "label": "Lampe dorée",
+      "phi": 1.642,
+      "theta": 0.1429,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Lampe dorée",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "porte",
+      "label": "Porte",
+      "phi": 1.5087,
+      "theta": 1.5502,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Porte",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    },
+    {
+      "id": "documents",
+      "label": "Documents",
+      "phi": 1.8144,
+      "theta": -2.837,
+      "article": {
+        "category": "Catégorie · Sous-catégorie",
+        "title": "Documents",
+        "description": "Décrivez cet objet ici.",
+        "specs": [
+          { "label": "Spec 1", "value": "Valeur 1" },
+          { "label": "Spec 2", "value": "Valeur 2" },
+          { "label": "Spec 3", "value": "Valeur 3" },
+          { "label": "Spec 4", "value": "Valeur 4" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,77 +1,72 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <title>Hyblab 2025</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css" >
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="js/slide1.js" defer></script>
-  <script src="js/slide2.js" defer></script>
-  <script src="js/index.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viewer 360° Interactif</title>
+  <link rel="stylesheet" href="css/epstein-style.css" />
 </head>
 <body>
-    <!-- Le conteneur sert à vérouiller les proportions (aspect ratio) du contenu de la page (ici des slides) -->
-    <div id="container">
-      <!-- Le loader-->
-      <div id="loader">
-        <div id="loader-img" class="ld ld-ring ld-cycle"></div>
-        <p id="loader-text">Veuillez patienter...</p>
-      </div>
-      <div id="mySwiper" class="swiper">
-        <!-- le main est aussi le conteneur des différents slides (contenus à chaque fois dans des sections-->
-        <main class = "swiper-wrapper">
-            <section id="first-slide" class="swiper-slide">
-                <header>
-                    <h1 id="titre">Welcome to</h1>
-                </header>
-                
-                <img src="img/logo_hyblab.png" id="logo-hyblab" alt="logo hyblab">
 
+  <!-- ── Écran de chargement ── -->
+  <div id="loading">
+    <div id="loading-text">Chargement de la scène 360°…</div>
+    <div id="loading-bar-track"><div id="loading-bar"></div></div>
+  </div>
 
-                <!-- le footer sera rempli à partir de données lues dans un fichier Json-->
-                <footer>
-                  <p></p>
-                </footer>
-            </section>
-            <section id="second-slide" class="swiper-slide">
-                <header>
-                  <h1>This was...</h1>
-                </header>
-                <img id="img-fini" alt="logo hyblab" src="hyblab_2026.png">
-                <footer id="bandeau">
-                        <!-- Logo Hyblab -->
-                          <a href="http://www.hyblab.fr/"><img id="hyblab" src="logo_hyblab.png" alt="Hyblab DataSport"></a>
-                      
-                          <!-- Les organisateurs -->
-                          <ul>
-                            <li><a href="https://lecolededesign.com/"><img src="ecoles/logo_edna.png" alt="Ecole de Design Nantes Atlantique"></a></li>
-                            <li><a href="https://www.polytech.univ-nantes.fr/"><img src="ecoles/logo_polytech.png" alt="Polytech Nantes"></a></li>
-                            <!-- Les autres logos -->
-                          </ul>
-                          <ul>
-                            <li><a href="https://www.ouestmedialab.fr/"><img src="logo_oml.png" alt="Ouest Médialab"></a></li>
-                            <!-- Logos CC et opensource -->
-                            <li>
-                            <ul>
-                              <li class="stacked"><img id="cc" src="logo_cc.png" alt="Creative commons"></li>
-                              <li class="stacked"><img id="opensource" src="logo_opensource.png" alt="Open source"></li>
-                            </ul>
-                            </li>
-                            <!-- Logo de votre porteur de projet -->
-                            <li><a href="https://www.mon-porteur-de-projet.org"><img src="no-logo.png" alt="Logo de mon porteur de projet"></a></li>
-                            <!-- Partenaires institutionnels -->
-                            <li><a href="https://www.nantesmetropole.fr/"><img class="institutionnel" src="institutionnels/logo_nantesmetropole.png" alt="Nantes Métropole"></a></li>
-                          </ul>
-                </footer>
-            </section>
-        </main>
-        <div class="swiper-pagination"></div>
+  <!-- ── HUD ── -->
+  <div id="hud">
+    <h1>Salon Epstein</h1>
+  </div>
+
+  <!-- ── Bouton calibration ── -->
+  <button id="calib-toggle" title="Mode calibration">Calibrer</button>
+
+  <!-- ── Hint ── -->
+  <div id="hint">Glisser pour explorer · Cliquer sur un point pour l'article</div>
+
+  <!-- ── Réticule de calibration ── -->
+  <div id="calib-crosshair"></div>
+
+  <!-- ── Panneau de calibration ── -->
+  <div id="calib-panel">
+    <h3>MODE CALIBRATION — Cliquez sur un objet pour placer un hotspot</h3>
+    <div id="calib-coords">Cliquez sur n'importe quel objet dans la scène.</div>
+    <div id="calib-list"></div>
+    <div id="calib-actions">
+      <button class="calib-btn accent" id="calib-export">📋 Copier le code JS</button>
+      <button class="calib-btn" id="calib-clear">🗑 Effacer tout</button>
+      <button class="calib-btn" id="calib-close-btn">✕ Fermer</button>
     </div>
   </div>
+
+  <!-- ── Popup article ── -->
+  <div id="popup-overlay">
+    <div id="popup">
+      <div id="popup-close">×</div>
+      <div id="popup-header">
+        <div id="popup-category"></div>
+        <div id="popup-title"></div>
+      </div>
+      <div id="popup-body">
+        <div id="popup-description"></div>
+        <div id="popup-specs"></div>
+        <div id="popup-cta">
+          <button class="btn-primary">En savoir plus</button>
+          <button class="btn-secondary" id="btn-close-popup">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Librairies ── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- ── Application ── -->
+  <script src="js/main.js"></script>
+  <script src="js/calibrator.js"></script>
+  <script src="js/popup.js"></script>
+  <script src="js/controller.js"></script>
+
 </body>
 </html>
