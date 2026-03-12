@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwind from '@tailwindcss/vite'
 
 export default defineConfig({
+  base: '/vivant/',
   plugins: [react(), tailwind()],
   publicDir: 'assets', // On change le nom ici
   server: {
