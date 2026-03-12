@@ -95,11 +95,6 @@ body{
     margin-top:calc(-25% * 9 / 16 ); /* margins are relative to the element width... :-( */
 }
 
-main > section{
-    background-image: url('../img/background.svg');
-    background-size: 100% auto; /* background is full width and height is proportional to width */
-    background-position: bottom; /* background is bottom aligned */
-}
 
 /* Footer of last slide is at the bottom and content is centered */
 #first-slide footer{
