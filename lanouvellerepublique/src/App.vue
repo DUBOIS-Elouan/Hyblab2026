@@ -4,8 +4,8 @@ import { RouterLink, RouterView, useRoute } from "vue-router"
 import { COLORS } from "@/assets/Couleurs/Coulleurs.js"
 import reglageIcon from "@/assets/Icones/Reglage.svg"
 import decouvrirIcon from "@/assets/Icones/Decouvrir.svg"
-import Header from "@/components/icons/Header.vue"
-import Filtres from "@/components/Filtres.vue"
+import Header from "@/components/Header.vue"
+import Filtres from "./components/Filtres.vue"
 import { useFilterStore } from "@/stores/filterStore"
 
 const filterStore = useFilterStore()
@@ -21,6 +21,7 @@ const onFiltersApply = (appliedFilters) => {
 onMounted(() => {
     filterStore.fetchRestaurantCategories()
 })
+
 const inactiveBg = "transparent"
 const inactiveColor = COLORS.switchTextBlue
 const activeBg = COLORS.pinkSwitch
@@ -28,13 +29,19 @@ const activeColor = COLORS.white
 const bottomBtnBg = COLORS.white
 const bottomBtnColor = COLORS.pinkSwitch
 const bottomBtnFilterColor = COLORS.switchTextBlue
+
+const route = useRoute()
+const isCarteActive = computed(() => route.path === "/carte")
 </script>
 
 <template>
     <div class="app-shell">
         <Header />
         <nav class="mini-nav" aria-label="Navigation des vues">
-            <span class="mini-nav__slider"></span>
+            <span
+                class="mini-nav__slider"
+                :class="{ 'mini-nav__slider--right': isCarteActive }"
+            ></span>
             <RouterLink to="/">Liste</RouterLink>
             <RouterLink to="/carte">Carte</RouterLink>
         </nav>
@@ -64,7 +71,8 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
 }
 
 .view-container {
-    /* container is transparent, map-main handles its own positioning */
+    flex: 1;
+    min-height: 0;
 }
 
 .ui-blocked {
@@ -93,26 +101,47 @@ const bottomBtnFilterColor = COLORS.switchTextBlue
     transform: translateX(-50%);
     z-index: 1000;
     display: flex;
-    gap: 0.5rem;
+    gap: 0;
     padding: 0.45rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(6px);
 }
 
+.mini-nav__slider {
+    position: absolute;
+    top: 0.45rem;
+    bottom: 0.45rem;
+    left: 0.45rem;
+    width: calc(50% - 0.45rem);
+    border-radius: 999px;
+    background: v-bind(activeBg);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.mini-nav__slider--right {
+    transform: translateX(100%);
+}
+
 .mini-nav a {
+    position: relative;
+    z-index: 1;
     display: inline-block;
-    padding: 0.5rem 1.75rem;
+    flex: 1;
+    text-align: center;
+    padding: 0.25rem 1.2rem;
     border-radius: 999px;
     text-decoration: none;
-    background: v-bind(inactiveBg);
+    background: transparent;
     color: v-bind(inactiveColor);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 400;
+    transition: color 0.25s ease;
 }
 
 .mini-nav a.router-link-exact-active {
-    background: v-bind(activeBg);
+    background: transparent;
     color: v-bind(activeColor);
 }
 

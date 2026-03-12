@@ -1,12 +1,16 @@
-import { computed } from "vue"
-import { useGeolocation } from "@vueuse/core"
+import { ref } from "vue"
 
-const { coords } = useGeolocation()
+export const userCoords = ref(null)
 
-export const userCoords = computed(() => {
-    const { latitude, longitude } = coords.value
-    if (Number.isFinite(latitude) && Number.isFinite(longitude)) {
-        return [latitude, longitude]
-    }
-    return null
-})
+let requested = false
+
+export function requestGeolocation() {
+    if (requested || !navigator.geolocation) return
+    requested = true
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            userCoords.value = [pos.coords.latitude, pos.coords.longitude]
+        },
+        () => {}, // permission denied or error — silently ignore
+    )
+}

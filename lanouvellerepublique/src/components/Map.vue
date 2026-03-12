@@ -64,14 +64,14 @@
 
 <script setup>
 import "leaflet/dist/leaflet.css"
-import { ref, watch, computed } from "vue"
+import { ref, watch, computed, onMounted } from "vue"
 import { control, divIcon } from "leaflet"
 import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet"
 import MapMarker from "./MapMarker.vue"
 import RestaurantMiniBox from "./RestaurantMiniBox.vue"
 import RestaurantDetail from "./RestaurantDetail.vue"
-import { userCoords } from "@/stores/mapStore"
-import { useFilterStore } from '@/stores/filterStore'
+import { userCoords, requestGeolocation } from "@/stores/mapStore"
+import { useFilterStore } from "@/stores/filterStore"
 
 const filterStore = useFilterStore()
 const restaurants = computed(() => filterStore.filteredRestaurants)
@@ -86,6 +86,10 @@ const markerIcon = divIcon({
     html: '<div class="user-dot"></div>',
     iconSize: [18, 18],
     iconAnchor: [9, 9],
+})
+
+onMounted(() => {
+    requestGeolocation()
 })
 
 const selectedIndex = ref(0)
@@ -152,19 +156,14 @@ const focusRestaurant = (index) => {
 }
 
 const goPrevious = () => {
-    const total = restaurants.value.length
-    if (!total) return
-
-    const nextIndex = (selectedIndex.value - 1 + total) % total
+    const nextIndex =
+        (selectedIndex.value - 1 + restaurants.value.length) % restaurants.value.length
     isClicked.value = false
     focusRestaurant(nextIndex)
 }
 
 const goNext = () => {
-    const total = restaurants.value.length
-    if (!total) return
-
-    const nextIndex = (selectedIndex.value + 1) % total
+    const nextIndex = (selectedIndex.value + 1) % restaurants.value.length
     isClicked.value = false
     focusRestaurant(nextIndex)
 }
@@ -228,7 +227,7 @@ watch(restaurants, (list) => {
 <style scoped>
 .map-layout {
     height: 100%;
-    width: 100%;
+    width: 100%; /* here */
     position: relative;
     overflow: hidden;
 }
@@ -350,10 +349,6 @@ watch(restaurants, (list) => {
 }
 
 @media (max-width: 700px) {
-    .map-canvas {
-        height: 600px;
-    }
-
     .restaurant-carousel-wrapper {
         width: 100%;
     }

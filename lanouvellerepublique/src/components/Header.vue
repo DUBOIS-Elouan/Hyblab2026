@@ -104,8 +104,10 @@
 <style scoped>
 /* ── Header wrapper ── */
 .nrco-header {
-    position: sticky;
-    top: -0.5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: block;
     width: 100%;
     align-items: center;
@@ -113,12 +115,6 @@
     border-bottom: 0.1rem solid #c8c8c8;
     z-index: 1100;
     font-family: "Open Sans", sans-serif;
-}
-
-@media (max-width: 575.98px) {
-    .nrco-header {
-        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    }
 }
 
 /* ── Block icons (main flex row) ── */
