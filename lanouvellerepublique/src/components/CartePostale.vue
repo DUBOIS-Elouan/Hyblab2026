@@ -1,7 +1,7 @@
 <template>
-    <div class="list-item">
+    <div class="carte-postale">
         <div
-            class="list-item-image-div"
+            class="carte-postale-image-div"
             :style="{ backgroundImage: `url('${image}')` }"
             :title="title"
         >
@@ -11,7 +11,7 @@
                     {{ badge }}
                 </span>
             </div>
-            <div class="list-item-content">
+            <div class="carte-postale-content">
                 <div class="div-title">
                     <h3 class="title">{{ title }}</h3>
                 </div>
@@ -44,7 +44,7 @@ defineProps({
 </script>
 
 <style scoped>
-.list-item {
+.carte-postale {
     position: relative;
 
     display: flex;
@@ -65,7 +65,7 @@ defineProps({
     background-repeat: no-repeat;
 }
 
-.list-item-image-div {
+.carte-postale-image-div {
     display: flex;
     padding: 8px;
     flex-direction: column;
@@ -83,7 +83,7 @@ defineProps({
 
 }
 
-.list-item-content {
+.carte-postale-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
