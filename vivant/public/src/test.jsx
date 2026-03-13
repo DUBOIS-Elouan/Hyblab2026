@@ -75,9 +75,6 @@ const InfinitePath = () => {
   const location = useLocation();
   const initialState = location.state || {};
 
-<<<<<<< HEAD
-  const [articles, setArticles] = useState(initialState.articles ?? []);
-=======
   // ── État provenant du Router ──
   const [lat, setLat] = useState(initialState.lat ?? null);
   const [long, setLong] = useState(initialState.long ?? null);
@@ -105,7 +102,6 @@ const InfinitePath = () => {
       return [...prev, cat];
     });
   };
->>>>>>> f2d50e90298da4b7c6d820b49d07ae631a397758
 
   // --- CONFIG DES ARTICLES ---
   const mapObjectsConfig = useMemo(() => {
