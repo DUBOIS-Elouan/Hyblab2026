@@ -2,34 +2,6 @@
 
 window.scrollTo(0, 0);
 
-function createCard(nom,critique){
-  const section = document.createElement("section");
-  section.classList.add("film");
-
-  const front_div = document.createElement("div");
-  front_div.classList.add("affiche_front");
-
-  const affiche = document.createElement("img");
-  affiche.setAttribute("src", "./img/background.svg");
-
-  front_div.appendChild(affiche);
-
-  const back_div = document.createElement("div");
-  back_div.classList.add("affiche_back");
-
-  const film_title = document.createElement("h2");
-  film_title.innerText = nom;
-  const film_text = document.createElement("p");
-  film_text.innerText =critique;
-
-  back_div.appendChild(film_title);
-  back_div.appendChild(film_text);
-
-  section.appendChild(front_div);
-  section.appendChild(back_div);
-
-  return section
-}
 
 const affiches = document.querySelector(".affiches");
 
@@ -40,18 +12,25 @@ const film_cards = [];
 // generate affiche
 
 const nb_card = 13;
-let  nb_tours = Math.round(Math.random() * 30 + 10);
+let nb_tours = Math.round(Math.random() * 30 + 10);
 const distance = 1300;
 
-[...Array(nb_card).keys()].forEach(() => {
-  
-  const title = "Nom Film";
-  const critique = "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès";
-  const card = createCard(title,critique);
-  film_cards.push(card);
 
-  affiches.appendChild(card);
-})
+
+[...Array(nb_card).keys()].forEach((index) => {
+
+    const section = createCard(
+    "LE RETOUR DU PROJECTIONNISTE",
+    "Documentaire",
+    "Orkhan Aghazadeh",
+    "Un vieil homme propose de faire revivre le cinéma dans son village."
+  );
+
+    film_cards.push(section)
+
+
+    affiches.appendChild(section)
+  })
 
 
 //anmation card
@@ -248,20 +227,20 @@ Observer.create({
 
     const curent_index = (film_cards.length + (-nb_tours) % film_cards.length) % film_cards.length
 
-    const ang =(((2 * Math.PI) / film_cards.length) * ((curent_index + nb_tours) % film_cards.length)) + decalageY
-    const degangle = Math.round(ang*180 / Math.PI)
-    
-    
+    const ang = (((2 * Math.PI) / film_cards.length) * ((curent_index + nb_tours) % film_cards.length)) + decalageY
+    const degangle = Math.round(ang * 180 / Math.PI)
+
+
     const censibiliter = 10
 
     console.log("degangle : ", degangle)
-    console.log("25%",degangle / (censibiliter*2))
+    console.log("25%", degangle / (censibiliter * 2))
 
     if (degangle > censibiliter) {
-      nb_tours += Math.round(degangle / (censibiliter*2))
+      nb_tours += Math.round(degangle / (censibiliter * 2))
     }
     else if (degangle < -censibiliter) {
-      nb_tours -= Math.round(-degangle / (censibiliter*2))
+      nb_tours -= Math.round(-degangle / (censibiliter * 2))
     }
     console.log(nb_tours)
 
@@ -271,12 +250,12 @@ Observer.create({
       const angle = (((2 * Math.PI) / film_cards.length) * ((index + nb_tours) % film_cards.length))
 
       gsap.to(elem, {
-        duration : 0.2,
+        duration: 0.2,
         y: Math.sin(angle) * distance + (window.innerHeight / 2),
         z: Math.cos(angle) * distance,
         scale: ((Math.cos(angle) * distance + distance) * 0.8 / (distance * 2) + 0.2) * 2.5,
       });
-    
+
     })
   }
 
