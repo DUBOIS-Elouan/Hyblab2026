@@ -150,7 +150,7 @@ const handleInput = useCallback((e) => {
         <div className="relative z-20 w-full max-w-md mx-auto px-6 pointer-events-auto shadow-none align-center justify-center">
 
           <div className="text-center mb-10 text-sm">
-            D'où voulez-vous commencer votre exploration ?
+            De quelle commune du territoire souhaitez-vous démarrer? 
           </div>
 
           {/* Search Input */}
@@ -206,7 +206,6 @@ const handleInput = useCallback((e) => {
             </div>
           )}
         </div>
-      
     </dialog>
   );
 };
