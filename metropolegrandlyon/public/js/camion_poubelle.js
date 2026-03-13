@@ -22,30 +22,40 @@ function update() {
 
     let truckX, panX, workerOpacity, workerY;
 
-    if (progress < 0.15) {
-        const t = progress / 0.15;
+    if (progress < 0.10) {
+        const t = progress / 0.10;
         truckX = lerp(startX, stopX, t);
         panX = 0;
         workerOpacity = 0;
         workerY = 30;
-    } else if (progress < 0.65) {
-        const t = (progress - 0.15) / 0.50;
+    } else if (progress < 0.55) {
+        const t = (progress - 0.10) / 0.45;
         truckX = stopX;
         panX = lerp(0, maxPan, t);
         workerOpacity = 0;
         workerY = 30;
-    } else if (progress < 0.90) {
-        const t = (progress - 0.65) / 0.25;
+    } else if (progress < 0.70) {
+        const t = (progress - 0.55) / 0.15;
         truckX = lerp(stopX, halfOutX, t);
         panX = maxPan;
         workerOpacity = 0;
         workerY = 30;
-    } else {
-        const t = (progress - 0.90) / 0.10;
+    } else if (progress < 0.80) {
+        const t = (progress - 0.70) / 0.10;
         truckX = halfOutX;
         panX = maxPan;
         workerOpacity = Math.max(0, Math.min(1, t));
         workerY = lerp(30, 0, t);
+    }
+    else if (progress < 0.90) {
+
+    }
+    else {
+        const t = (progress - 0.90) / 0.10;
+        truckX = lerp(halfOutX, halfOutX + truckW / 2, t);
+        panX = maxPan;
+        workerOpacity = 1 - Math.max(0, Math.min(1, t));
+        workerY = lerp(0, 30, t);
     }
 
     truck.style.transform = `translateX(${truckX}px)`;
@@ -56,6 +66,6 @@ function update() {
 }
 
 window.addEventListener('scroll', update, { passive: true });
-window.addEventListener('resize', update);
+// window.addEventListener('resize', update);
 update();
 truck.style.display = "none";
