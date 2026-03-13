@@ -9,10 +9,60 @@
 }
 
 body{
-    background-color: black;
+    background-color: #000000; /* selon le code colorimétrique fourni */
     color: white;
     overflow: hidden;   /* to avoid slider bugs on some browsers */
     font-family: sans-serif;
+}
+
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 2000;
+}
+
+.logo-splann {
+    height: 50px;
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+
+.btn-icon:hover {
+    opacity: 0.7;
+}
+
+.icon-flag {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 1.5px solid #444;
+    display: block;
 }
 
 /* -------------- Loader --------------*/
@@ -161,6 +211,8 @@ main > section{
     height: 100%;   /* even on mobile devices with url or navigation bars */
     margin-left: calc((100vw - 100 * 3vh / 4) / 2); /* Add black bands on left and right */
     width: calc(100 * 3vh / 4); /* Force 3/4 aspect ratio */
+    margin-top: 70px; pour /* Pour que le contenu ne soit pas caché sous le header */
+
 }
 
 /* We set a default font size here. It will be the base for all other font sizes */
