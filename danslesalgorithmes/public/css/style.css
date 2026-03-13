@@ -610,44 +610,52 @@ article {
   z-index: 1;
 }
 
-#animation-argent{
-  position: relative;
-  width: 100%;
-  height: 60vh;
+/* ================= ANIMATION CIBLE & FLÉCHETTE ================= */
+.target-container {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 500px; 
+    height: 60dvh; 
+    z-index: 2; /* S'affiche par dessus l'image main.jpg */
+    pointer-events: none;
 }
 
-#marion-argent{
-  position:absolute;
-  bottom:0;
-  width:250px;
+.target-container img {
+    position: absolute; 
+    top: 50%;
+    left: 50%; 
+    height: auto; 
+    mix-blend-mode: multiply; /* Rend le fond blanc transparent */
 }
 
-#argent{
-  position:absolute;
-  bottom:120px;
-  left:15%;
-  width:120px;
-  opacity:0;
+/* Image 1 (La femme) */
+.img-femme {
+    width: 100%; 
+    transform: translate(-50%, -50%); 
+    opacity: 0; /* Invisible au début de la scène */
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1; 
 }
 
-/* état visible */
-#animation-argent.visible #argent{
-  animation: argentFly 3s ease forwards;
+/* Image 2 (La fléchette) */
+.img-flechette {
+    width: 30%; /* Taille de la fléchette */
+    z-index: 2; 
+    transform: translate(-50%, 200%); /* Cachée en bas */
+    opacity: 0; 
+    transition: transform 0.8s ease-out, opacity 0.5s ease-in; 
 }
 
-/* animation des billets */
-@keyframes argentFly{
-  0%{
-    transform: translateY(0) rotate(0deg);
-    opacity:0;
-  }
+/* État déclenché 1 : La femme apparaît */
+#target-animation.is-visible .img-femme {
+    opacity: 1; 
+}
 
-  20%{
-    opacity:1;
-  }
-
-  100%{
-    transform: translateY(-300px) rotate(360deg);
-    opacity:0;
-  }
+/* État déclenché 2 : La fléchette remonte et frappe */
+#target-animation.is-hit .img-flechette {
+    transform: translate(-50%, -50%); /* Remonte au centre */
+    opacity: 1; 
 }
