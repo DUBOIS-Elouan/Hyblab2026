@@ -5,7 +5,6 @@
             :style="{ backgroundImage: `url('${image}')` }"
             :title="title"
         >
-
             <div class="badges-panel">
                 <span v-for="badge in badges" :key="badge" class="badge">
                     {{ badge }}
@@ -22,24 +21,23 @@
 </template>
 
 <script setup>
-
 defineProps({
     title: {
         type: String,
-        default: 'Item Title'
+        default: "Item Title",
     },
     image: {
         type: String,
-        default: ''
+        default: "",
     },
     badges: {
         type: Array,
-        default: () => []
+        default: () => [],
     },
     date: {
         type: String,
-        default: ''
-    }
+        default: "",
+    },
 })
 </script>
 
@@ -59,8 +57,8 @@ defineProps({
     align-self: stretch;
 
     border-radius: 12px;
-    background-image: url('/lanouvellerepublique/img/Vector.png');
-    background-color: #FFF;
+    background-image: url("/img/Vector.png");
+    background-color: #fff;
     background-position: 50%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -77,13 +75,11 @@ defineProps({
     width: 319.5px;
     height: 195.5px;
 
-
     border-radius: 13.179px;
-    background-color: #FFFCF8;
+    background-color: #fffcf8;
     background-position: 50%;
     background-size: cover;
     background-repeat: no-repeat;
-
 }
 
 .mini-box-content {
@@ -100,7 +96,7 @@ defineProps({
     width: 56.568px;
     height: 12.432px;
 
-    color: #377DD1;
+    color: #377dd1;
     font-family: Abordage;
     font-size: 9.946px;
     font-style: normal;
@@ -117,13 +113,13 @@ defineProps({
     align-self: stretch;
 
     border-radius: 10px;
-    background: #FFF;
+    background: #fff;
 }
 
 .title {
     flex: 1 0 0;
 
-    color: #E815B2;
+    color: #e815b2;
     padding-top: 5px;
     font-family: Lalezar;
     font-size: 25px;

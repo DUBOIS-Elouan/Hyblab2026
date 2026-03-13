@@ -1,26 +1,25 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
     <div class="intro-liste">
         <div class="intro-liste-titre">
             <p class="intro-liste-titre__text">Les restos</p>
-            <img class="intro-liste-titre__logo" src="/lanouvellerepublique/img/tmv.png"/>
+            <img class="intro-liste-titre__logo" src="/img/tmv.png" />
         </div>
         <div class="intro-liste-text">
             <p class="intro-liste-text__text">
                 Envie de voyager (surtout dans votre assiette) ?
                 <br />
-                TMV vous écrit au dos d'une carte postale dénichée dans un quartier de Tours. Du bistrot
-                généreux à la petite table secrète, on vous partage nos bons plans et chroniques resto pour
-                vous faire découvrir les adresses sympas et gourmandes de la ville.
+                TMV vous écrit au dos d'une carte postale dénichée dans un quartier de Tours. Du
+                bistrot généreux à la petite table secrète, on vous partage nos bons plans et
+                chroniques resto pour vous faire découvrir les adresses sympas et gourmandes de la
+                ville.
                 <br />
                 Glissez ce mot dans votre poche,<br />votre prochaine escale est ici !
             </p>
         </div>
         <div class="intro-liste-badge">
-            <img src="/lanouvellerepublique/img/badge-coeur-tmv.svg"/>
+            <img src="/img/badge-coeur-tmv.svg" />
         </div>
     </div>
 </template>
@@ -48,8 +47,8 @@
     flex-shrink: 0;
 
     border-radius: 10px;
-    background: #FFF;
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.10);
+    background: #fff;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
 
     margin-bottom: -16px;
     z-index: 1;
@@ -59,7 +58,7 @@
     display: flex;
     align-items: center;
 
-    color: #E815B2;
+    color: #e815b2;
     font-family: Lalezar;
     font-size: 40px;
     font-style: normal;
@@ -72,7 +71,6 @@
     height: 33.016px;
     transform: rotate(4.934deg);
     aspect-ratio: 64/27;
-
 }
 
 .intro-liste-text {
@@ -83,8 +81,8 @@
     align-self: stretch;
 
     border-radius: 15px;
-    border: 2px dashed #E815B2;
-    background: #FFF;
+    border: 2px dashed #e815b2;
+    background: #fff;
 }
 
 .intro-liste-text__text {

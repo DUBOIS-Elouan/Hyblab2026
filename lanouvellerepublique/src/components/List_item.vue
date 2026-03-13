@@ -1,5 +1,12 @@
 <template>
-    <div class="list-item" role="button" tabindex="0" @click="emit('select')" @keydown.enter.prevent="emit('select')" @keydown.space.prevent="emit('select')">
+    <div
+        class="list-item"
+        role="button"
+        tabindex="0"
+        @click="emit('select')"
+        @keydown.enter.prevent="emit('select')"
+        @keydown.space.prevent="emit('select')"
+    >
         <div
             class="list-item-image-div"
             :style="{ backgroundImage: `url('${image}')` }"
@@ -122,7 +129,7 @@ const displayBadges = computed(() => {
     align-self: stretch;
 
     border-radius: 12px;
-    background-image: url("/lanouvellerepublique/img/Vector.png");
+    background-image: url("/img/Vector.png");
     background-color: #fff;
     background-position: 50%;
     background-size: cover;
