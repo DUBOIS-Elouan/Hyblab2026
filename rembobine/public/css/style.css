@@ -639,6 +639,13 @@ button{
   background-color : var(--color-green);
 }
 
+.jud-highlight {
+    background: linear-gradient(
+        transparent 50%,
+        #1CB26B59 50%
+    );
+}
+
 .jud #popup-text, .jud.text-box {
   text-shadow: var(--color-light-green) 1.5px 1.5px 0px;
 }
@@ -656,6 +663,13 @@ button{
   background-color : var(--color-light-blue);
 }
 
+.inst-highlight {
+    background: linear-gradient(
+        transparent 50%,
+        #62A6EF59 50%
+    );
+}
+
 .inst #popup-text, .inst.text-box {
   text-shadow: var(--color-lighter-blue) 1.5px 1.5px 0px;
 }
@@ -671,6 +685,13 @@ button{
 /* PUBLIC (ROSE) */
 .pub{
   background-color : var(--color-pink);
+}
+
+.pub-highlight{
+    background: linear-gradient(
+        transparent 50%,
+        #F7A6DE59 50%
+    );
 }
 
 .pub #popup-text, .pub.text-box {
@@ -692,6 +713,13 @@ button{
 
 .med #popup-text, .text-box.med{
   text-shadow: var(--color-light-yellow) 1.5px 1.5px 0px;
+}
+
+.med-highlight {
+    background: linear-gradient(
+        transparent 50%,
+        #f7f6c6c1 50%
+    );
 }
 
 #map .text-box.finished.med{
