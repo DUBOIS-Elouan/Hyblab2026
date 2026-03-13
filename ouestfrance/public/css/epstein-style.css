@@ -201,6 +201,7 @@ canvas:active { cursor: grabbing; }
   padding: 28px;
   transform: translateY(24px); opacity: 0;
   transition: transform 0.35s ease, opacity 0.35s ease;
+  position: relative;
 }
 #popup-overlay.visible #popup { transform: translateY(0); opacity: 1; }
 

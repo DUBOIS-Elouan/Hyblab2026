@@ -173,7 +173,7 @@ function setPolygonState(mesh, state) {
   const isRead  = readMeshes.has(mesh);
   if (state === 'idle') {
     mat.color.setHex(isRead ? CONFIG.clickColor : CONFIG.hoverColor);
-    mat.opacity = isRead ? 0.55 : 0;
+    mat.opacity = isRead ? 0.1 : 0;
   } else if (state === 'hover') {
     mat.color.setHex(isRead ? CONFIG.clickColor : CONFIG.hoverColor);
     mat.opacity = CONFIG.hoverOpacity;
