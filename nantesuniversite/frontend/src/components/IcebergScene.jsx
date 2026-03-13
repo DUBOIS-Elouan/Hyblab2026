@@ -70,7 +70,32 @@ const CARD_POSITIONS = [
 // ───────────────────────────────────────────────────────────────────────────
 
 const cardDocuments = data.researcher.documents;
+const NATURE_ORDER = ["general", "journalistique", "expert"];
 
+const levelRanges = NATURE_ORDER.reduce((ranges, nature) => {
+  const tops = cardDocuments
+    .map((doc, index) => ({
+      nature: doc.nature,
+      top: CARD_POSITIONS[index]?.top,
+    }))
+    .filter((entry) => entry.nature === nature && entry.top != null)
+    .map((entry) => entry.top);
+
+  if (tops.length === 0) {
+    return ranges;
+  }
+
+  const start = Math.min(...tops);
+  const end = Math.max(...tops);
+
+  ranges[nature] = {
+    start,
+    end,
+    center: Math.round((start + end) / 2),
+  };
+
+  return ranges;
+}, {});
 
 export default function IcebergScene() {
   const [openPopup, setOpenPopup] = useState(false);
@@ -88,7 +113,7 @@ export default function IcebergScene() {
         <DataIceberg className="w-full h-full" />
       </div>
 
-      <Robot />
+      <Robot levelRanges={levelRanges} />
 
 
 

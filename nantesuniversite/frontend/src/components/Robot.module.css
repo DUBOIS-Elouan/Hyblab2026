@@ -36,6 +36,11 @@
   z-index: 2;
 }
 
+.robotShellForm {
+  position: absolute;
+  inset: 0;
+}
+
 .robotShellHalo,
 .robotShellRing,
 .robotShellShadow {
