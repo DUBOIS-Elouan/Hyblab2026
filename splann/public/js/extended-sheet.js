@@ -6,14 +6,14 @@ const addExtend = async function(swiper){
   const instagramBoxs=document.querySelectorAll('#instagram-box');
   let isOpen=false;
   console.log(instagramBoxs);
-  for(let i=0;i<sheets.length;i++){
-    
-    let instagramBox=instagramBoxs[i];
-    let sheet=sheets[i];
-    if (sheet.dataset.initialized) return;
-      sheet.dataset.initialized = true; 
-    const handlebar = document.querySelector('.handle-bar');
-    const pagination = document.querySelector('.swiper-pagination');
+  for(let i = 0; i < sheets.length; i++){
+  let sheet = sheets[i];
+  
+  if (sheet.dataset.initialized) continue; 
+  sheet.dataset.initialized = true;
+  
+  const handlebar = sheet.querySelector('.handle-bar'); 
+  const pagination = document.querySelector('.swiper-pagination');
     let isOpen=false;
 
     
