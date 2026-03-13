@@ -19,13 +19,13 @@ import path3PointsRaw from './assets/paths/pathPoints/2.svg?raw'
 import path3Points from './assets/paths/pathPoints/3.svg'
 
 import up_straight from './assets/mr_patate/up_straight.svg';
-import up_left from './assets/mr_patate/up_left.svg';
-import up_right from './assets/mr_patate/up_right.svg';
+import up_left from     './assets/mr_patate/up_left.svg';
+import up_right from    './assets/mr_patate/up_right.svg';
 import down_straight from './assets/mr_patate/down_straight.svg';
-import down_left from './assets/mr_patate/down_left.svg';
-import down_right from './assets/mr_patate/down_right.svg';
-import right from './assets/mr_patate/right.svg';
-import left from './assets/mr_patate/left.svg';
+import down_left from   './assets/mr_patate/down_left.svg';
+import down_right from  './assets/mr_patate/down_right.svg';
+import right from       './assets/mr_patate/right.svg';
+import left from        './assets/mr_patate/left.svg';
 
 const treeFiles = import.meta.glob('./assets/elements/tree/*.svg', { eager: true, import: 'default' });
 const milestoneFiles = import.meta.glob('./assets/elements/milestone/*.svg', { eager: true, import: 'default' });
@@ -39,19 +39,14 @@ const elements = {
 
 console.log(elements)
 
+const ESPACEMENT = 0.10; 
+export const NB_ARTICLES = 10;
+
 const dicoPaths = {
   path1: { raw: path1Raw, svg: path1Url, points: path1Points, pointsRaw: path1PointsRaw },
   path2: { raw: path2Raw, svg: path2Url, points: path2Points, pointsRaw: path2PointsRaw },
   path3: { raw: path3Raw, svg: path3Url, points: path3Points, pointsRaw: path3PointsRaw }
 };
-
-const ESPACEMENT = 0.92;
-export const NB_ARTICLES = 10;
-
-const NB_PATH = Math.ceil(ESPACEMENT * NB_ARTICLES);
-
-console.log("salut ", NB_PATH)
-
 
 const posCyclist = {
   up_straight,
@@ -147,15 +142,15 @@ const InfinitePath = () => {
   const pathRefs = useRef([]);
   const [pathsData, setPathsData] = useState([]);
   const [pathsPointsData, setPathsPointsData] = useState([]);
-
+  
   const [cyclistX, setCyclistX] = useState("50%");
   const pathY = useMotionValue("calc(85vh - 100%)");
-
+ 
   const latestProgress = useRef(0);
   const isMovingUpRef = useRef(true);
   const currentSvgPos = useRef(posCyclist.up_right);
   const [cyclistSvgPos, setCyclistSvgPos] = useState(posCyclist.up_right);
-
+ 
   const [articlePositions, setArticlePositions] = useState({});
   const SignDecalage = 12;
 
@@ -164,19 +159,19 @@ const InfinitePath = () => {
   const activeArticleIdRef = useRef(null); 
  
   const SPEED_DESKTOP = 5000;
-  const SPEED_MOBILE = 2500;
-
+  const SPEED_MOBILE  = 2500;
+ 
   const dynamicHeight = useMemo(() => {
     const speed = isMobile ? SPEED_MOBILE : SPEED_DESKTOP;
     const multiplier = Math.max(1, pathList.length / 2);
     return `${multiplier * speed}vh`;
   }, [isMobile]);
-
+ 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
+ 
     const parser = new DOMParser();
     const extractedPaths = pathList.map(pathObj => {
       const doc = parser.parseFromString(pathObj.raw, "image/svg+xml");
@@ -185,7 +180,7 @@ const InfinitePath = () => {
       const viewBox = svgTag?.getAttribute("viewBox")?.split(" ") || [0, 0, 767.25, 7337.6];
       return {
         d: path?.getAttribute("d"),
-        width: parseFloat(viewBox[2]),
+        width:  parseFloat(viewBox[2]),
         height: parseFloat(viewBox[3])
       };
     });
@@ -216,28 +211,28 @@ const InfinitePath = () => {
     console.log(extractedPoints)
     setPathsData(extractedPaths)
     setPathsPointsData(extractedPoints)
-
+ 
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
+ 
   useEffect(() => {
     if (pathsData.length === 0) return;
     const timer = setTimeout(() => {
       const positions = {};
       mapObjectsConfig.forEach(obj => {
         const pathEl = pathRefs.current[obj.pathIndex];
-        const data = pathsData[obj.pathIndex];
+        const data   = pathsData[obj.pathIndex];
         if (!pathEl || !data) return;
-
+ 
         const length = pathEl.getTotalLength();
         const pStart = pathEl.getPointAtLength(0);
-        const pEnd = pathEl.getPointAtLength(length);
+        const pEnd   = pathEl.getPointAtLength(length);
         const isBottomToTop = pStart.y > pEnd.y;
         const t = isBottomToTop ? obj.progress : 1 - obj.progress;
         const point = pathEl.getPointAtLength(t * length);
-
+ 
         positions[obj.id] = {
-          xPercent: (point.x / data.width) * 100,
+          xPercent: (point.x / data.width)  * 100,
           yPercent: (point.y / data.height) * 100,
         };
       });
@@ -278,9 +273,9 @@ const InfinitePath = () => {
     restDelta: 0.000001,
     restSpeed: 0.000001
   });
-
+ 
   const activeProgress = isMobile ? scrollYProgress : smoothProgress;
-
+ 
   useEffect(() => {
     const unsubscribe = activeProgress.on("change", (latest) => {
       if (pathsData.length === 0) return;
@@ -290,18 +285,18 @@ const InfinitePath = () => {
       const maxIndex = Math.max(0, N - 1);
       const index = Math.min(Math.floor(globalPos), maxIndex);
       const localProgress = globalPos - index;
-
+ 
       const pathEl = pathRefs.current[index];
-      const data = pathsData[index];
+      const data   = pathsData[index];
       if (!pathEl || !data) return;
-
+ 
       const length = pathEl.getTotalLength();
       const pStart = pathEl.getPointAtLength(0);
-      const pEnd = pathEl.getPointAtLength(length);
+      const pEnd   = pathEl.getPointAtLength(length);
       const isDrawnBottomToTop = pStart.y > pEnd.y;
       const t = isDrawnBottomToTop ? localProgress : 1 - localProgress;
       const point = pathEl.getPointAtLength(t * length);
-
+ 
       setCyclistX(`${(point.x / data.width) * 100}%`);
 
       // --- NOUVEAU : DÉTECTION DE PROXIMITÉ ---
@@ -323,25 +318,25 @@ const InfinitePath = () => {
       // ----------------------------------------
  
       const diffScroll = latest - latestProgress.current;
-      if (diffScroll > 0.000001) isMovingUpRef.current = true;
+      if (diffScroll > 0.000001)       isMovingUpRef.current = true;
       else if (diffScroll < -0.000001) isMovingUpRef.current = false;
       const isMovingUp = isMovingUpRef.current;
       latestProgress.current = latest;
-
+ 
       const lp1 = Math.max(localProgress - 0.002, 0);
       const lp2 = Math.min(localProgress + 0.002, 1);
-      const t1 = isDrawnBottomToTop ? lp1 : 1 - lp1;
-      const t2 = isDrawnBottomToTop ? lp2 : 1 - lp2;
+      const t1  = isDrawnBottomToTop ? lp1 : 1 - lp1;
+      const t2  = isDrawnBottomToTop ? lp2 : 1 - lp2;
       const pt1 = pathEl.getPointAtLength(t1 * length);
       const pt2 = pathEl.getPointAtLength(t2 * length);
-      const dx = pt2.x - pt1.x;
-      const dy = pt2.y - pt1.y;
+      const dx   = pt2.x - pt1.x;
+      const dy   = pt2.y - pt1.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       const directionX = dist > 0 ? dx / dist : 0;
-      const absDirX = Math.abs(directionX);
+      const absDirX    = Math.abs(directionX);
       const SEUIL_STRAIGHT = 0.25;
-      const SEUIL_DIAG = 0.85;
-
+      const SEUIL_DIAG     = 0.85;
+ 
       let newImage;
       if (absDirX < SEUIL_STRAIGHT) {
         newImage = isMovingUp ? posCyclist.up_straight : posCyclist.down_straight;
@@ -358,11 +353,11 @@ const InfinitePath = () => {
         currentSvgPos.current = newImage;
         setCyclistSvgPos(newImage);
       }
-
+ 
       const percentY = ((N - 1 - index) + (point.y / data.height)) / N * 100;
       pathY.set(`calc(85vh - ${percentY}%)`);
     });
-
+ 
     return () => unsubscribe();
   }, [activeProgress, pathsData, mapObjectsConfig]);
  
@@ -570,5 +565,5 @@ const InfinitePath = () => {
     </>
   );
 };
-
+ 
 export default InfinitePath;

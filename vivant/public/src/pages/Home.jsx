@@ -59,7 +59,7 @@ const Home = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/vivant/api/articles')
+    fetch('/vivant/api/articles')
       .then(r => r.json())
       .then((data) => {setArticles(data)})
       .catch(err => console.error('Error fetching articles:', err));

@@ -12,15 +12,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-const dbPath = path.join(__dirname, '../database.sqlite');
+const db = require('../db');
 
-const db = new sqlite3.Database(dbPath, (err) => {
-    if (err) {
-        console.error("Erreur de connexion SQLite :", err.message);
-    } else {
-        console.log("API connectée à la base de données SQLite.");
-    }
-});
 
 // Sample endpoint that sends the partner's name
 app.get('/topic', function (req, res) {
