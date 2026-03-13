@@ -28,20 +28,20 @@ function update() {
         panX = 0;
         workerOpacity = 0;
         workerY = 30;
-    } else if (progress < 0.55) {
-        const t = (progress - 0.15) / 0.40;
+    } else if (progress < 0.65) {
+        const t = (progress - 0.15) / 0.50;
         truckX = stopX;
         panX = lerp(0, maxPan, t);
         workerOpacity = 0;
         workerY = 30;
-    } else if (progress < 0.75) {
-        const t = (progress - 0.55) / 0.20;
+    } else if (progress < 0.90) {
+        const t = (progress - 0.65) / 0.25;
         truckX = lerp(stopX, halfOutX, t);
         panX = maxPan;
         workerOpacity = 0;
         workerY = 30;
     } else {
-        const t = (progress - 0.75) / 0.25;
+        const t = (progress - 0.90) / 0.10;
         truckX = halfOutX;
         panX = maxPan;
         workerOpacity = Math.max(0, Math.min(1, t));
