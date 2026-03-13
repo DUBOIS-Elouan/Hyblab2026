@@ -539,6 +539,15 @@ button{
     height: 50px;
 }
 
+#top{
+  z-index: 999;
+  bottom: 10px;
+  right: 10px;
+  width: 40px;
+  border: #000c2d;
+  position: fixed
+
+}
 
 .finished
 {
