@@ -279,7 +279,7 @@ main {
 
 #GenZ_filters button.active{
     color: #17003F;
-    border-color: #FFD400;
+    background-color: #FFD400;
 }
 
 @keyframes tombe1 {
@@ -377,7 +377,38 @@ main {
 /*====================*/
 /* BUZZ OUT
 /*====================*/
+/*====================*/
+/* FAMILY
+/*====================*/
+#GenZ_filters button .family1 {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    font-size: 1.2em;
+    transform: scale(0) rotate(150deg);
+    transition: transform 0.3s cubic-bezier(0.34, 1.9, 0.64, 1);
+    pointer-events: none;
+}
 
+#GenZ_filters button .family2 {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    font-size: 1.2em;
+    transform: scale(0) rotate(150deg);
+    transition: transform 0.3s cubic-bezier(0.34, 1.9, 0.64, 1);
+    pointer-events: none;
+}
+
+#GenZ_filters button#B3:hover .family1 {
+    transform: scale(1.5);
+}
+#GenZ_filters button#B3:hover .family2 {
+    transform: scale(1.5);
+}
+/*====================*/
+/* FAMILY
+/*====================*/
 /*====================*/
 /* RUBAN
 /*====================*/
@@ -410,8 +441,9 @@ main {
 }
 
 @keyframes flip-text {
-    0%   { transform: translateX(-30px) rotateX(0deg) translateY(3px) rotate(-7deg); }
-    100% { transform: translateX(-30px) rotateX(-1080deg) translateY(3px) rotate(-7deg); }
+    0%   { transform: rotate(-7deg) translateX(-30px) translateY(0px) rotateX(0deg); }
+    100% { transform: rotate(-7deg) translateX(-30px) translateY(0px) rotateX(1080deg); }
+
 }
 /*====================*/
 /* TWIST
