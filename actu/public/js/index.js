@@ -260,11 +260,9 @@ Observer.create({
 
     if (degangle > censibiliter) {
       nb_tours += Math.round(degangle / (censibiliter*2))
-      console.log("ooooooooooooooo")
     }
     else if (degangle < -censibiliter) {
       nb_tours -= Math.round(-degangle / (censibiliter*2))
-      console.log("iiiiiiiiiiiiiii")
     }
     console.log(nb_tours)
 
@@ -307,9 +305,11 @@ Observer.create({
 
   onRelease() {
     if (decalageX > 250) {
+      decalageX = 0;
       console.log("DROIT")
     }
     else if (decalageX < -250) {
+      decalageX = 0;
       console.log("GAUCHE")
     }
     else {
