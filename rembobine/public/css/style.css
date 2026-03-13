@@ -44,6 +44,8 @@ main{
 
 /* ---------- Popup overlay ---------- */
 #popup-overlay {
+  
+  --animate-duration: 0.2s;
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.55);
@@ -51,7 +53,7 @@ main{
   align-items: center;
   justify-content: center;
   z-index: 100;
-  font-size: 3vw;
+  font-size: 16px;
 
 }
 
@@ -66,6 +68,8 @@ main{
 }
 
 #popup-box {
+  
+  --animate-duration: 0.2s;
   background-image: url("../img/triangle-.svg");
   background-size: cover;
   background-position: bottom left;
@@ -129,8 +133,8 @@ body {
 }
 
 .wrapper{
-    padding-left :5%;
-    padding-right :5%;
+    padding-left :7%;
+    padding-right :7%;
 }
 
 article p {
@@ -445,9 +449,9 @@ button{
 }
 
 #map .text-box {
-  justify-content: center;
-  align-items: center;
   display: flex;
+
+  align-items: flex-start;
 
   background-image: url("../img/triangle+.svg"); /*triangle +*/
   
@@ -495,7 +499,7 @@ button{
 }
 
 .jud #popup-text, .jud.text-box {
-  text-shadow: var(--color-light-green) 0.5px 0.5px 0px;
+  text-shadow: var(--color-light-green) 1.5px 1.5px 0px;
 }
 
 #map .text-box.finished.jud{
@@ -512,7 +516,7 @@ button{
 }
 
 .inst #popup-text, .inst.text-box {
-  text-shadow: var(--color-lighter-blue) 0.5px 0.5px 0px;
+  text-shadow: var(--color-lighter-blue) 1.5px 1.5px 0px;
 }
 
 #map .text-box.finished.inst{
@@ -529,7 +533,7 @@ button{
 }
 
 .pub #popup-text, .pub.text-box {
-  text-shadow: var(--color-light-pink) 0.5px 0.5px 0px;
+  text-shadow: var(--color-light-pink) 1.5px 1.5px 0px;
 }
 
 #map .text-box.finished.pub{
@@ -546,7 +550,7 @@ button{
 }
 
 .med #popup-text, .text-box.med{
-  text-shadow: var(--color-light-yellow) 0.5px 0.5px 0px;
+  text-shadow: var(--color-light-yellow) 1.5px 1.5px 0px;
 }
 
 #map .text-box.finished.med{
@@ -571,7 +575,7 @@ button{
 }
 
 .text-box.finished{
-  text-shadow: var(--color-light-gray) 0.5px 0.5px 0px;
+  text-shadow: var(--color-light-gray) 1.5px 1.5px 0px;
 }
 
 /* ================== COULEUR DES CASES CITATIONS ================== */
@@ -589,6 +593,11 @@ button{
 }
 
 /* ================== COULEUR DES CASES ACTIONS ================== */
+
 .box-action{
+
+}
+
+.action{
 
 }

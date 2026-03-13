@@ -195,6 +195,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
             popupText.textContent = Institutionnel[box.ngroup].Texteplus;
             break;
         }
+      popupBox.className += " animate__animated animate__slideInUp"
       overlay.classList.remove('popup-hidden');
       });
       if (getBoxByPosition(box.row + 1, box.column) == null) {
