@@ -3,7 +3,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-color: rgba(252, 250, 212, 1);
+    background-color: rgba(252, 250, 212, 1); /* Crème par défaut pour la suite */
     max-width: 100%;
 }
 
@@ -14,6 +14,7 @@ img, video, canvas {
 
 /* ================= L'EN-TÊTE FIXE ================= */
 .top-bar {
+    background-color: #fbf5cd; /* Le jaune pâle */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,20 +50,18 @@ img, video, canvas {
 }
 
 /* ================= LA ZONE BLANCHE AVEC TITRE ET DÉGRADÉ ================= */
-/* ================= LA ZONE BLANCHE AVEC TITRE ET DÉGRADÉ ================= */
 .hero {
+    /* Le blanc s'arrête plus tôt (40%) pour laisser place au fond crème */
     background: linear-gradient(
         to bottom,
         #ffffff 0%,
-        #ffffff 70%,
-        rgba(255,255,255,0) 100%
+        #ffffff 40%,
+        rgba(252, 250, 212, 0) 100%
     );
-    min-height: 140vh; 
+    min-height: 90vh; /* Hauteur réduite pour diminuer l'espace blanc */
     display: flex;
     flex-direction: column;
-    /* On change l'alignement vertical : de 'center' à 'flex-start' */
     justify-content: flex-start; 
-    /* On ajoute de l'espace en haut (15vh = 15% de l'écran) pour le décoller du bandeau jaune */
     padding: 15vh 20px 0 20px; 
     position: relative;
     z-index: 10;
@@ -106,7 +105,8 @@ img, video, canvas {
 
 .scroll-indicator {
     position: absolute;
-    bottom: 30px;
+    /* On remonte l'indicateur (ex: 15vh = 15% de l'écran en partant du bas) */
+    bottom: 15vh; 
     left: 50%;
     transform: translateX(-50%);
     color: #666;
@@ -137,7 +137,8 @@ img, video, canvas {
     height: 100dvh; 
     z-index: 0;
     overflow: hidden;
-    background-color: transparent; 
+    /* On force la couleur crème derrière toutes les scènes (photos transparentes, etc.) */
+    background-color: rgba(252, 250, 212, 1); 
 }
 
 .bg-media {
@@ -350,6 +351,10 @@ article {
   display: block;
 }
 
+/* Selected quiz button */
+.option-btn.selected {
+    border: 1px solid #000;
+}
 
 /* ================= SOURCES / FOOTER ================= */
 .credits {
@@ -395,12 +400,6 @@ article {
     font-size: 0.9rem;
     opacity: 0.8;
 }
-/* Selected quiz button */
-.option-btn.selected {
-    border: 1px solid #000;
-}
-
-
 
 /* ================= ANIMATION HACKER ================= */
 .hacker-container {
