@@ -36,8 +36,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
       const buttonNumber = rowIndex * 2 + columnIndex + 1;
       const button = document.createElement("button");
       button.id = `button${buttonNumber}`;
-
-      button.textContent = ` ${buttonNumber} `;
+      button.number = buttonNumber;
 
       const img = document.createElement("img");
       let path = "img/"
@@ -66,8 +65,8 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
       button.appendChild(img);
 
       row.appendChild(button);
-      if(State[button.textContent] === true){
-        button.disabled = true; console.log(button.disabled);
+      if (State[button.number] === true) {
+        button.disabled = true;
         button.className += " finished"
       }
       box.appendChild(row);
@@ -81,7 +80,7 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
       // Prevent this click from bubbling to the box click handler.
       event.stopPropagation();
 
-      const value = option.textContent;
+      const value = option.number;
 
       //const box = option.parentElement.parentElement;
       // Remove all buttons
