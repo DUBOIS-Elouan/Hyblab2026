@@ -1,26 +1,33 @@
 import tete from "../assets/tete.svg"
+
 export default function TopicTitle() {
   return (
     <>
-     {/*ICI J4AI CHANGE LE WIDTH ET L EHEIGHT*/}
-      <div className="absolute left-[71px] absolute top-[202px] w-[100px] h-[60px]">
-        <img src={tete} alt="Tete de robot" className="w-full h-full object-cover" />
+      {/* Topic icon */}
+      <div className="absolute left-[71px] top-[202px] w-[66px] h-[57px]">
+        <img src={tete} alt="Tete de robot" className="w-full h-full object-fill" />
       </div>
-        {/* Trait vertical bleu */}
 
-      <div className="absolute left-[153px] absolute top-[200px] w-[4px] h-[50px] bg-blue-600"></div>
-    
-      <p className="absolute left-[172px] top-[195px] text-brand-blue text-[29px] font-bold">
-      <span>Intelligence</span>
-      <span className="absolute top-[29px] left-0">Artificielle</span>
-    </p>
-      <p className="absolute left-[959px] top-[130px] w-[865px] h-[88px] text-brand-blue text-[80px] font-extrabold whitespace-nowrap"
->       {`COLIN DE LA HAGUERA`}
+      {/* Blue vertical bar */}
+      <div className="absolute left-[153px] top-[200px] w-[5px] h-[60px] bg-[#3452ff]" />
+
+      {/* Topic name */}
+      <div className="absolute left-[172px] top-[195px] w-[596px] h-[134px] text-[#3452ff] text-[36px] font-bold leading-[35px]">
+        <p className="m-0">Intelligence <br></br> Artificielle </p>
+      </div>
+
+      {/* Researcher name */}
+      <p
+        className="absolute left-[959px] top-[183px] w-[865px] h-[88px] text-[#3452ff] text-[80px] font-bold text-center leading-normal whitespace-nowrap"
+        style={{ fontFamily: "'Chakra Petch', sans-serif" }}
+      >
+        COLIN DE LA HIGUERA
       </p>
 
+      {/* Sub-topic */}
       <p
-        className="absolute left-[910px] top-[250px] w-[914px] h-[51px] text-brand-blue text-[32px] leading-normal not-italic whitespace-nowrap"
-        style={{ fontFamily: " sans-serif" }}
+        className="absolute left-[910px] top-[280px] w-[914px] h-[51px] text-[#3452ff] text-[32px] font-medium text-center leading-normal whitespace-nowrap"
+        style={{ fontFamily: "'Chakra Petch', sans-serif" }}
       >
         {`ACCOMPAGNER LE DÉPLOIEMENT DE L'IA DANS L'ÉDUCATION`}
       </p>
