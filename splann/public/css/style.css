@@ -218,8 +218,20 @@ p {
     font-size: 15%;
 }
 
-h3, h2 {
+h3 {
     font-size:20%;
+}
+
+#content-slide > h2 {
+    top:20%;
+    position:absolute;
+    font-size:20%;
+}
+
+#instagram-box{
+    top:25%;
+    position:absolute;
+    font-size:100%;
 }
 
 #topBar {
@@ -257,7 +269,7 @@ h3, h2 {
 /* Swiper slider. Need to fill the container */
 #mySwiper{
     width: 100%;
-    height:90%;
+    height:100%;
     position: absolute;
 }
 
