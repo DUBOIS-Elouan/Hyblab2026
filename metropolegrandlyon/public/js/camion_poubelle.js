@@ -15,7 +15,7 @@ function update() {
     const panoramaW = panorama.offsetWidth;
 
     const startX = -truckW - 10;
-    const stopX = -truckW / 1.5;
+    const stopX = -truckW / 1.2;
     const halfOutX = vw - truckW * 0.33;
     const maxPan = -panoramaW;
 
