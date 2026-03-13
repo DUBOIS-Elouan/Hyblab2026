@@ -512,3 +512,126 @@ body{
   rotate: 180deg;
 }
 
+/* ---- Slide d'ouverture vers d'autres articles -----*/
+
+#last-page {
+    background-color: white !important;
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.last-page-content {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.author-credits {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+/* Effet de surlignage sur les balises bold */
+#last-page b {
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#last-page b::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    width: 100%;
+    height: 12px;
+    background-color: #FD707D; 
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin: 25px 0 15px 0;
+}
+
+/* --- CARTES D'ENQUÊTES --- */
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.enquete-card {
+    background-color: #262b33;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    height: 100px;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    align-items: center;
+}
+
+.enquete-card:hover {
+    background-color: #313741; 
+    transform: translateY(-2px);
+}
+
+.card-text {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.card-text h3 {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    margin: 0;
+    font-weight: bold;
+}
+
+.card-img {
+    width: 120px;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* --- Réseaux sociaux --- */
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+    transition: opacity 0.2s ease;
+}
+
+.social-item:hover {
+    opacity: 0.7;
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
