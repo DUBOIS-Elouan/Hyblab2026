@@ -1,7 +1,7 @@
 <template>
-    <div class="mini-box">
+    <div class="carte-postale">
         <div
-            class="mini-box-image-div"
+            class="carte-postale-image-div"
             :style="{ backgroundImage: `url('${image}')` }"
             :title="title"
         >
@@ -11,7 +11,7 @@
                     {{ badge }}
                 </span>
             </div>
-            <div class="mini-box-content">
+            <div class="carte-postale-content">
                 <div class="div-title">
                     <h3 class="title">{{ title }}</h3>
                 </div>
@@ -44,17 +44,16 @@ defineProps({
 </script>
 
 <style scoped>
-.mini-box {
+.carte-postale {
     position: relative;
 
     display: flex;
-    height: 208px;
-    width: 332px;
-    padding: 6.25px;
-    gap: 6.25;
+    height: 400px;
+    padding: 8px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 8px;
     flex-shrink: 0;
     align-self: stretch;
 
@@ -66,7 +65,7 @@ defineProps({
     background-repeat: no-repeat;
 }
 
-.mini-box-image-div {
+.carte-postale-image-div {
     display: flex;
     padding: 8px;
     flex-direction: column;
@@ -74,8 +73,6 @@ defineProps({
     align-items: flex-start;
     flex: 1 0 0;
     align-self: stretch;
-    width: 319.5px;
-    height: 195.5px;
 
 
     border-radius: 13.179px;
@@ -86,7 +83,7 @@ defineProps({
 
 }
 
-.mini-box-content {
+.carte-postale-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

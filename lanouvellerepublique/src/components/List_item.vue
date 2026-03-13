@@ -15,9 +15,6 @@
                 />
             </div>
             <div class="list-item-content">
-                <div class="div-date">
-                    <p class="date">{{ date }}</p>
-                </div>
                 <div class="div-title">
                     <h3 class="title">{{ title }}</h3>
                 </div>
