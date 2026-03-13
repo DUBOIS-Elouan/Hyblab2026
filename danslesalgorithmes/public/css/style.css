@@ -392,6 +392,75 @@ article {
     border: 1px solid #000;
 }
 
+.flip-btn {
+  position: relative;
+  perspective: 1000px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.option-inner {
+  position: relative;
+  width: 100%;
+  min-height: 180px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-btn.is-flipped .option-inner {
+  transform: rotateY(180deg);
+}
+
+.option-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px 30px;
+  box-sizing: border-box;
+
+  border: 1px solid #222;
+  background: #f7f7f2;
+  color: #000;
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.option-front {
+  z-index: 2;
+}
+
+.option-back {
+  transform: rotateY(180deg);
+  font-weight: 700;
+  text-align: center;
+  justify-content: center;
+}
+
+.option-btn {
+  background-color: #fafafa;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.option-btn.is-correct {
+  background-color: #D9EDD7;
+  color: #000;
+}
+
+.option-btn.is-wrong {
+  background-color: #EDD7D7;
+  color: #000;
+}
+
 /* ================= SOURCES / FOOTER ================= */
 .credits {
     padding: 60px 20px;
