@@ -2,6 +2,34 @@
 
 window.scrollTo(0, 0);
 
+function createCard(nom,critique){
+  const section = document.createElement("section");
+  section.classList.add("film");
+
+  const front_div = document.createElement("div");
+  front_div.classList.add("affiche_front");
+
+  const affiche = document.createElement("img");
+  affiche.setAttribute("src", "./img/background.svg");
+
+  front_div.appendChild(affiche);
+
+  const back_div = document.createElement("div");
+  back_div.classList.add("affiche_back");
+
+  const film_title = document.createElement("h2");
+  film_title.innerText = nom;
+  const film_text = document.createElement("p");
+  film_text.innerText =critique;
+
+  back_div.appendChild(film_title);
+  back_div.appendChild(film_text);
+
+  section.appendChild(front_div);
+  section.appendChild(back_div);
+
+  return section
+}
 
 const affiches = document.querySelector(".affiches");
 
@@ -13,46 +41,17 @@ const film_cards = [];
 
 const nb_card = 13;
 let  nb_tours = Math.round(Math.random() * 30 + 10);
-const distance = 1300
+const distance = 1300;
 
+[...Array(nb_card).keys()].forEach(() => {
+  
+  const title = "Nom Film";
+  const critique = "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès";
+  const card = createCard(title,critique);
+  film_cards.push(card);
 
-
-  ;[...Array(nb_card).keys()].forEach((index) => {
-    const section = document.createElement("section");
-    section.classList.add("film")
-    section.setAttribute("id", index)
-
-
-    const front_div = document.createElement("div")
-    front_div.classList.add("affiche_front")
-
-    const affiche = document.createElement("img")
-    affiche.setAttribute("src", "./img/background.svg")
-    const text = document.createElement("h2")
-    text.innerText = index.toString()
-
-    front_div.appendChild(affiche)
-    front_div.appendChild(text)
-
-    const back_div = document.createElement("div")
-    back_div.classList.add("affiche_back")
-
-    const film_title = document.createElement("h2")
-    film_title.innerText = "Nom Film"
-    const film_text = document.createElement("p")
-    film_text.innerText = "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès"
-
-    back_div.appendChild(film_title)
-    back_div.appendChild(film_text)
-
-    section.appendChild(front_div)
-    section.appendChild(back_div)
-
-    film_cards.push(section)
-
-
-    affiches.appendChild(section)
-  })
+  affiches.appendChild(card);
+})
 
 
 //anmation card
