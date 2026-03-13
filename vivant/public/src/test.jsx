@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, useScroll } from "framer-motion";
 import { useRef, useState, useEffect, useMemo } from "react";
 
 // Imports des SVGs pour extraction de données (raw) et pour affichage (URL)
@@ -8,6 +8,10 @@ import path3Raw from './assets/paths/3.svg?raw';
 import path1Url from './assets/paths/1.svg';
 import path2Url from './assets/paths/2.svg';
 import path3Url from './assets/paths/3.svg';
+import path1PointsRaw from './assets/paths/pathPoints/1.svg?raw'
+import path1Points from './assets/paths/pathPoints/1.svg'
+// import path2Points from './assets/paths/pathPoints/2.svg'
+// import path3Points from './assets/paths/pathPoints/3.svg'
 
 import up_straight from './assets/mr_patate/up_straight.svg';
 import up_left from     './assets/mr_patate/up_left.svg';
@@ -18,10 +22,38 @@ import down_right from  './assets/mr_patate/down_right.svg';
 import right from       './assets/mr_patate/right.svg';
 import left from        './assets/mr_patate/left.svg';
 
+const treeFiles = import.meta.glob('./assets/elements/tree/*.svg', { eager: true, import: 'default' });
+const milestoneFiles = import.meta.glob('./assets/elements/milestone/*.svg', { eager: true, import: 'default' });
+const signFiles = import.meta.glob('./assets/elements/sign/*.svg', { eager: true, import: 'default' });
+
+const elements = {
+  tree: Object.values(treeFiles),
+  milestone: Object.values(milestoneFiles),
+  sign: Object.values(signFiles)
+};
+
+console.log(elements)
+
+const articles = [
+  { id: 101, nom: "Article 1", text: "Début de l'aventure" },
+  { id: 102, nom: "Article 2", text: "Le saviez-vous ?" },
+  { id: 103, nom: "Article 3", text: "Une belle découverte" },
+  { id: 104, nom: "Article 4", text: "On continue de grimper" },
+  { id: 105, nom: "Article 5", text: "Presque à la moitié" },
+  { id: 106, nom: "Article 6", text: "Un paysage magnifique" },
+  { id: 107, nom: "Article 7", text: "Attention au virage" },
+  { id: 108, nom: "Article 8", text: "La faune locale" },
+  { id: 109, nom: "Article 9", text: "La flore locale" },
+  { id: 110, nom: "Article 10", text: "Bientôt la fin du premier chemin !" },
+  { id: 111, nom: "Article 11", text: "On passe sur le 2ème chemin" },
+];
+
+const ESPACEMENT = 0.10;
+
 const dicoPaths = {
-  path1: { raw: path1Raw, svg: path1Url },
-  path2: { raw: path2Raw, svg: path2Url },
-  path3: { raw: path3Raw, svg: path3Url }
+  path1: { raw: path1Raw, svg: path1Url, points: path1Points, pointsRaw: path1PointsRaw },
+  path2: { raw: path2Raw, svg: path2Url, points: path1Points, pointsRaw: path1PointsRaw },
+  path3: { raw: path3Raw, svg: path3Url, points: path1Points, pointsRaw: path1PointsRaw }
 };
 
 const posCyclist = {
@@ -37,64 +69,121 @@ const posCyclist = {
 
 const pathList = [
   dicoPaths.path1,
-  dicoPaths.path2,
-  dicoPaths.path3,
-  dicoPaths.path2,
   dicoPaths.path1,
-  dicoPaths.path3
 ];
 
+const mapObjectsConfig = articles.map((article, index) => {
+  const globalPos = (index + 1) * ESPACEMENT;
+  const pathIndex = Math.floor(globalPos) % pathList.length;
+  const progress = globalPos % 1;
+  return { id: article.id, pathIndex, progress, articleData: article };
+});
+ 
 const InfinitePath = () => {
   const containerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const pathRefs = useRef([]);
   const [pathsData, setPathsData] = useState([]);
-
+  const [pathsPointsData, setPathsPointsData] = useState([]);
+ 
   const [cyclistX, setCyclistX] = useState("50%");
   const pathY = useMotionValue("calc(85vh - 100%)");
-
-  // NOUVEAU : isMovingUpRef pour "vérouiller" le sens quand le spring ralentit trop
+ 
   const latestProgress = useRef(0);
-  const isMovingUpRef = useRef(true); 
+  const isMovingUpRef = useRef(true);
   const currentSvgPos = useRef(posCyclist.up_right);
   const [cyclistSvgPos, setCyclistSvgPos] = useState(posCyclist.up_right);
-
+ 
+  const [articlePositions, setArticlePositions] = useState({});
+ 
   const SPEED_DESKTOP = 5000;
-  const SPEED_MOBILE = 2500;
-
+  const SPEED_MOBILE  = 2500;
+ 
   const dynamicHeight = useMemo(() => {
     const speed = isMobile ? SPEED_MOBILE : SPEED_DESKTOP;
     const multiplier = Math.max(1, pathList.length / 2);
     return `${multiplier * speed}vh`;
-  }, [isMobile, pathList.length]);
-
+  }, [isMobile]);
+ 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
+ 
     const parser = new DOMParser();
-    const extracted = pathList.map(pathObj => {
+    const extractedPaths = pathList.map(pathObj => {
       const doc = parser.parseFromString(pathObj.raw, "image/svg+xml");
       const path = doc.getElementById("cyclist-path");
       const svgTag = doc.querySelector("svg");
       const viewBox = svgTag?.getAttribute("viewBox")?.split(" ") || [0, 0, 767.25, 7337.6];
       return {
         d: path?.getAttribute("d"),
-        width: parseFloat(viewBox[2]),
+        width:  parseFloat(viewBox[2]),
         height: parseFloat(viewBox[3])
       };
     });
-    setPathsData(extracted);
 
+    const extractedPoints = pathList.map(pathObj => {
+      const doc = parser.parseFromString(pathObj.pointsRaw, "image/svg+xml");
+      const trees = Array.from(doc.getElementsByClassName("cls-1"))
+      const milestones = Array.from(doc.getElementsByClassName("cls-3"))
+      const svgTag = doc.querySelector("svg");
+      const viewBox = svgTag?.getAttribute("viewBox")?.split(" ") || [0, 0, 767.25, 7337.6];
+      return [
+        ...milestones.map(mile => ({
+          x: parseFloat(mile.getAttribute("cx")),
+          y: parseFloat(mile.getAttribute("cy")),
+          width: parseFloat(viewBox[2]),
+          height: parseFloat(viewBox[3]),
+          type: "milestone"
+        })),
+        ...trees.map(tree => ({
+          x: parseFloat(tree.getAttribute("cx")),
+          y: parseFloat(tree.getAttribute("cy")),
+          width: parseFloat(viewBox[2]),
+          height: parseFloat(viewBox[3]),
+          type: "tree"
+        }))
+      ];
+    });
+    console.log(extractedPoints)
+    setPathsData(extractedPaths)
+    setPathsPointsData(extractedPoints)
+ 
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
+ 
+  useEffect(() => {
+    if (pathsData.length === 0) return;
+    const timer = setTimeout(() => {
+      const positions = {};
+      mapObjectsConfig.forEach(obj => {
+        const pathEl = pathRefs.current[obj.pathIndex];
+        const data   = pathsData[obj.pathIndex];
+        if (!pathEl || !data) return;
+ 
+        const length = pathEl.getTotalLength();
+        const pStart = pathEl.getPointAtLength(0);
+        const pEnd   = pathEl.getPointAtLength(length);
+        const isBottomToTop = pStart.y > pEnd.y;
+        const t = isBottomToTop ? obj.progress : 1 - obj.progress;
+        const point = pathEl.getPointAtLength(t * length);
+ 
+        positions[obj.id] = {
+          xPercent: (point.x / data.width)  * 100,
+          yPercent: (point.y / data.height) * 100,
+        };
+      });
+      setArticlePositions(positions);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [pathsData]);
+ 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
-
+ 
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 50,
@@ -102,129 +191,167 @@ const InfinitePath = () => {
     restDelta: 0.000001,
     restSpeed: 0.000001
   });
-
+ 
   const activeProgress = isMobile ? scrollYProgress : smoothProgress;
-
+ 
   useEffect(() => {
     const unsubscribe = activeProgress.on("change", (latest) => {
       if (pathsData.length === 0) return;
 
-      const totalSegments = pathList.length;
-      const globalPos = latest * totalSegments;
-      const maxIndex = Math.max(0, pathList.length - 1);
+      const N = pathList.length;
+      const globalPos = latest * N;
+      const maxIndex = Math.max(0, N - 1);
       const index = Math.min(Math.floor(globalPos), maxIndex);
       const localProgress = globalPos - index;
-
+ 
       const pathEl = pathRefs.current[index];
-      const data = pathsData[index];
+      const data   = pathsData[index];
       if (!pathEl || !data) return;
-
+ 
       const length = pathEl.getTotalLength();
-
-      // Détecter le sens du path et forcer la lecture bas → haut
       const pStart = pathEl.getPointAtLength(0);
-      const pEnd = pathEl.getPointAtLength(length);
+      const pEnd   = pathEl.getPointAtLength(length);
       const isDrawnBottomToTop = pStart.y > pEnd.y;
       const t = isDrawnBottomToTop ? localProgress : 1 - localProgress;
-
       const point = pathEl.getPointAtLength(t * length);
-
-      // 1. POSITION X DU CYCLISTE
-      const xPercent = (point.x / data.width) * 100;
-      setCyclistX(`${xPercent}%`);
-
-      // 2. GESTION DU SCROLL HAUT/BAS (Ultra sensible)
+ 
+      setCyclistX(`${(point.x / data.width) * 100}%`);
+ 
       const diffScroll = latest - latestProgress.current;
-      
-      // On baisse le seuil drastiquement (1e-6) : 
-      // Il captera les scrolls lents instantanément, mais ignorera les micro-erreurs mathématiques.
-      if (diffScroll > 0.000001) {
-        isMovingUpRef.current = true;
-      } else if (diffScroll < -0.000001) {
-        isMovingUpRef.current = false;
-      }
-      
+      if (diffScroll > 0.000001)       isMovingUpRef.current = true;
+      else if (diffScroll < -0.000001) isMovingUpRef.current = false;
       const isMovingUp = isMovingUpRef.current;
       latestProgress.current = latest;
-
-      // 3. LA MAGIE GÉOMÉTRIQUE : Calculer l'angle RÉEL du chemin
+ 
       const lp1 = Math.max(localProgress - 0.002, 0);
       const lp2 = Math.min(localProgress + 0.002, 1);
-      
-      const t1 = isDrawnBottomToTop ? lp1 : 1 - lp1;
-      const t2 = isDrawnBottomToTop ? lp2 : 1 - lp2;
-      
+      const t1  = isDrawnBottomToTop ? lp1 : 1 - lp1;
+      const t2  = isDrawnBottomToTop ? lp2 : 1 - lp2;
       const pt1 = pathEl.getPointAtLength(t1 * length);
       const pt2 = pathEl.getPointAtLength(t2 * length);
-      
-      const dx = pt2.x - pt1.x;
-      const dy = pt2.y - pt1.y;
+      const dx   = pt2.x - pt1.x;
+      const dy   = pt2.y - pt1.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      
-      // directionX représente l'inclinaison physique du chemin (> 0 = droite, < 0 = gauche)
-      let directionX = dist > 0 ? dx / dist : 0;
-      const absDirX = Math.abs(directionX);
-
-      // Seuils d'angle (0.25 = léger virage, 0.6 = virage fort)
-      const SEUIL_STRAIGHT = 0.25; 
-      const SEUIL_DIAG = 0.85;      
-
+      const directionX = dist > 0 ? dx / dist : 0;
+      const absDirX    = Math.abs(directionX);
+      const SEUIL_STRAIGHT = 0.25;
+      const SEUIL_DIAG     = 0.85;
+ 
       let newImage;
-      
       if (absDirX < SEUIL_STRAIGHT) {
-        // Ligne droite verticale
         newImage = isMovingUp ? posCyclist.up_straight : posCyclist.down_straight;
       } else if (directionX > 0) {
-        // Le chemin monte vers la DROITE ( ↗ )
-        if (isMovingUp) {
-          newImage = absDirX < SEUIL_DIAG ? posCyclist.up_right : posCyclist.right;
-        } else {
-          // Si on recule sur ce chemin, on va vers le BAS à GAUCHE ( ↙ )
-          newImage = absDirX < SEUIL_DIAG ? posCyclist.down_left : posCyclist.left;
-        }
+        newImage = isMovingUp
+          ? (absDirX < SEUIL_DIAG ? posCyclist.up_right : posCyclist.right)
+          : (absDirX < SEUIL_DIAG ? posCyclist.down_left : posCyclist.left);
       } else {
-        // Le chemin monte vers la GAUCHE ( ↖ )
-        if (isMovingUp) {
-          newImage = absDirX < SEUIL_DIAG ? posCyclist.up_left : posCyclist.left;
-        } else {
-          // Si on recule sur ce chemin, on va vers le BAS à DROITE ( ↘ )
-          newImage = absDirX < SEUIL_DIAG ? posCyclist.down_right : posCyclist.right;
-        }
+        newImage = isMovingUp
+          ? (absDirX < SEUIL_DIAG ? posCyclist.up_left : posCyclist.left)
+          : (absDirX < SEUIL_DIAG ? posCyclist.down_right : posCyclist.right);
       }
-
-      // Mise à jour de React SEULEMENT si on a vraiment changé d'image
       if (newImage !== currentSvgPos.current) {
         currentSvgPos.current = newImage;
         setCyclistSvgPos(newImage);
       }
-
-      // 4. POSITION Y DU DÉCOR
-      const N = pathList.length;
+ 
       const percentY = ((N - 1 - index) + (point.y / data.height)) / N * 100;
       pathY.set(`calc(85vh - ${percentY}%)`);
     });
-
+ 
     return () => unsubscribe();
-  }, [activeProgress, pathsData, pathList.length]);
-
+  }, [activeProgress, pathsData]);
+ 
   return (
     <div ref={containerRef} className="relative" style={{ height: dynamicHeight }}>
-      <div className="sticky top-0 mask-y-from-75% mask-y-to-90% h-screen overflow-hidden flex justify-center [perspective:1200px]">
+      <div className="sticky top-0 mask-y-from-75% mask-y-to-90% h-screen overflow-hidden flex justify-center [perspective:1200px]" >
         <div
-          className="xl:w-[50vw] relative w-[110vw] flex-none"
+          className="xl:w-[50vw] relative w-[100vw] flex-none"
           style={{ transform: "rotateX(50deg)", transformStyle: "preserve-3d" }}
         >
+          {/*
+            preserve-3d doit être propagé sur toute la chaîne :
+            motion.div → div(path) → div(article)
+            Sans ça, le translateZ de l'article est aplati (flat) et n'a aucun effet.
+          */}
           <motion.div
             className="flex flex-col-reverse w-full will-change-transform"
-            style={{ y: pathY }}
+            style={{ y: pathY, transformStyle: "preserve-3d" }}
           >
             {pathList.map((pathObj, i) => (
-              <div key={i} className="relative w-full">
+              <div
+                key={i}
+                className="relative w-full"
+                style={{ transformStyle: "preserve-3d" }}
+              >
                 <img
                   src={pathObj.svg}
                   className="w-full h-full object-cover -mt-1"
                   alt={`Path ${i}`}
                 />
+                {pathsPointsData[i] && pathsPointsData[i].map((c, index) => {
+                  // 1. On calcule la position en pourcentage pour que ce soit responsive
+                  const xPercent = (c.x / c.width) * 100;
+                  const yPercent = (c.y / c.height) * 100;
+                  
+                  // 2. On pioche un arbre dans ton tableau (on boucle avec le modulo s'il y a plus de points que d'arbres)
+                  const treeSvg = elements.tree[index % elements.tree.length];
+                  const mileSvg = elements.milestone[index % elements.milestone.length];
+
+                  return (
+                    <div
+                      key={`${c.type}.-${i}-${index}`}
+                      className="absolute z-20 pointer-events-none flex justify-center"
+                      style={{
+                        left: `${xPercent}%`,
+                        top: `${yPercent}%`,
+                        // On redresse l'arbre en 3D pour qu'il tienne debout sur la route !
+                        transform: "translate(-50%, -100%) rotateX(-50deg) translateZ(10px)",
+                        transformOrigin: "bottom center",
+                        transformStyle: "preserve-3d"
+                      }}
+                    >
+                      <img 
+                        src={c.type === "tree" ? treeSvg : mileSvg} 
+                        alt="element" 
+                        className="xl:h-[40%] xl:w-[40%] w-[30%] h-[30%] object-contain drop-shadow-md" // Ajuste w-24 h-24 selon la taille voulue
+                      />
+                    </div>
+                  );
+                })}
+
+                {mapObjectsConfig
+                  .filter(obj => obj.pathIndex === i)
+                  .map(obj => {
+                    const pos = articlePositions[obj.id];
+                    const signSvg = elements.sign[0];
+                    if (!pos) return null;
+                    return (
+                      <div
+                        key={obj.id}
+                        className="absolute z-40 cursor-pointer flex flex-col items-center gap-20"
+                        style={{
+                          left:            `${pos.xPercent + (pos.xPercent > 50 ? 10 : -10)}%`,
+                          top:             `${pos.yPercent}%`,
+                          transform:       "rotateX(-50deg) translateZ(10px)",
+                          transformStyle:  "preserve-3d",
+                          transformOrigin: "center bottom",
+                          willChange:      "transform",
+                        }}
+                      > 
+                        
+
+                        <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl border-2 border-gray-300 w-48 text-center text-black hover:scale-110 transition-transform shadow-lg">
+                          <h3 className="font-bold text-sm mb-1">{obj.articleData.nom}</h3>
+                          <p className="text-xs text-gray-600">{obj.articleData.text}</p>
+                        </div>
+                        <img 
+                          src={signSvg} 
+                          alt="element" 
+                          className="xl:h-[30%] xl:w-[30%] w-[20%] h-[20%] object-contain drop-shadow-md" // Ajuste w-24 h-24 selon la taille voulue
+                        />
+                      </div>
+                    );
+                  })}
                 {pathsData[i] && (
                   <svg
                     viewBox={`0 0 ${pathsData[i].width} ${pathsData[i].height}`}
@@ -239,16 +366,32 @@ const InfinitePath = () => {
                     />
                   </svg>
                 )}
+
+                
+ 
+                {/*
+                  Chaque article est placé sur le sol du chemin avec left/top (%),
+                  puis translateZ(120px) le "pousse" vers le spectateur dans l'axe
+                  Z du monde 3D — il se dresse hors du plan incliné comme un panneau.
+ 
+                  - translate(-50%, 0%)  → centre sur le point, base au sol
+                  - translateZ(120px)    → élève la carte dans l'espace 3D
+                  - transformOrigin bottom center → le pied reste ancré au sol
+ 
+                  Tweaker translateZ pour ajuster la hauteur apparente.
+                */}
+                
+                  
               </div>
             ))}
           </motion.div>
-
+ 
           {/* VÉLO */}
           <motion.div
             className="absolute bottom-[8.5%] z-50 xl:w-35 xl:h-35 w-20 h-20 pointer-events-none"
             style={{
-              left: cyclistX,
-              transform: "translateX(-50%) translateZ(20px) rotateX(-50deg)",
+              left:            cyclistX,
+              transform:       "translateX(-50%) translateZ(20px) rotateX(-50deg)",
               transformOrigin: "bottom center"
             }}
           >
@@ -263,5 +406,5 @@ const InfinitePath = () => {
     </div>
   );
 };
-
+ 
 export default InfinitePath;
