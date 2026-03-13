@@ -66,6 +66,11 @@ body {
   /* Force le navigateur à ne gérer que l'axe vertical sans fioritures */
   -webkit-overflow-scrolling: auto;
   /* Désactive le momentum natif iOS qui cause souvent ce lag en inversion */
+  transform: scaleY(-1);
+}
+
+.scroll-container > * {
+  transform: scaleY(-1);
 }
 
 * {

@@ -10,8 +10,7 @@ import { Carte } from './pages/Carte';
 
 // Component wrapper for the old structure to be accessible via /test
 const OldTestComponents = () => (
-  <div className="p-8">
-    <h1 className="text-3xl font-bold mb-8">Test Zone</h1>
+  <div>
     <ImageCrawl />
     <TestSvg />
   </div>
