@@ -75,35 +75,7 @@ const createEmptyContent = async function(){
             bottom_sheet.appendChild(content)
             content.id = "extended-content"
             content.className="content"
-            console.log(data.volet[i].extendedContent)//a mettre dans le sheet
-
-            
-            // à décaler dans un fichier à part
-            //pour le téléphone portable
-            /*const sheet = bottom_sheet;
-            if (sheet.dataset.initialized) return;
-                sheet.dataset.initialized = true; 
-            const handlebar = handle_bar;
-            const pagination = document.querySelector('.swiper-pagination');
-            let isOpen=false;
-
-            sheet.addEventListener('scroll', () => {swiper.allowTouchMove = false;});
-            sheet.addEventListener('scroll', () => {swiper.allowTouchMove = true;});
-            //pour le pc
-            sheet.addEventListener('mouseenter', () => {console.log("entrée");swiper.allowTouchMove = false;swiper.params.simulateTouch = true;swiper.mousewheel.disable();console.log(swiper.allowTouchMove)});
-            sheet.addEventListener('mouseleave', () => {console.log("sortie");swiper.allowTouchMove = true;swiper.params.simulateTouch = true;swiper.mousewheel.enable();console.log(swiper.allowTouchMove)});
-            handlebar.addEventListener('click', () => {
-                isOpen=!isOpen;
-                sheet.classList.toggle('open',isOpen);
-                pagination.classList.toggle('hidden',isOpen);
-            });
-            swiper.on('slideChange', function () {
-                isOpen=false;
-                sheet.classList.remove('open');
-                pagination.classList.remove('hidden');
-            });*/
-            
-            //fin du décalage ds un fichier à part
+            console.log(data.volet[i].extendedContent)//
 
 
 
