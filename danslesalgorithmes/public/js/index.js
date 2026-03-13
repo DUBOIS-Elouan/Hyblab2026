@@ -73,6 +73,33 @@ document.addEventListener('DOMContentLoaded', function() {
           if(bgVideo) bgVideo.style.opacity = '0';
       }
 
+      // 3.5 --- LOGIQUE POUR L'ANIMATION CIBLE ET FLÉCHETTE ---
+      const targetScene = document.querySelector('#target-animation')?.closest('.scene');
+      
+      if (targetScene && response.element.closest('.scene') === targetScene) {
+          const targetAnim = document.getElementById('target-animation');
+          const sceneSteps = Array.from(targetScene.querySelectorAll('.step'));
+          const currentIndex = sceneSteps.indexOf(response.element);
+          
+          const showFemmeIndex = sceneSteps.findIndex(s => s.classList.contains('step-femme-show'));
+          const hitFlechetteIndex = sceneSteps.findIndex(s => s.classList.contains('step-flechette-hit'));
+
+          if (currentIndex < showFemmeIndex) {
+              // Avant le texte sur les critères : tout est caché
+              targetAnim.classList.remove('is-visible');
+              targetAnim.classList.remove('is-hit');
+          } 
+          else if (currentIndex >= showFemmeIndex && currentIndex < hitFlechetteIndex) {
+              // Pendant le texte sur les critères : la femme apparaît
+              targetAnim.classList.add('is-visible');
+              targetAnim.classList.remove('is-hit');
+          } 
+          else if (currentIndex >= hitFlechetteIndex) {
+              // "La conséquence..." : la fléchette frappe !
+              targetAnim.classList.add('is-visible');
+              targetAnim.classList.add('is-hit');
+          }
+      }
       // 4. --- LOGIQUE POUR LES SPHÈRES ANIMÉES ---
       const spheresAnim = document.getElementById('spheres-animation');
       if (response.element.classList.contains('step-meres')) {
