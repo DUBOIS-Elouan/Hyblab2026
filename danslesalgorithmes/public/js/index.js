@@ -87,14 +87,23 @@ document.addEventListener('DOMContentLoaded', function() {
               targetAnim.classList.add('is-hit');
           }
       }
-      // 4. --- LOGIQUE POUR LES SPHÈRES ANIMÉES ---
+// 4. --- LOGIQUE POUR LES SPHÈRES ANIMÉES ---
       const spheresAnim = document.getElementById('spheres-animation');
-      if (response.element.classList.contains('step-meres')) {
-          if (spheresAnim) spheresAnim.classList.add('is-transformed');
-      } else if (response.element.classList.contains('step-caf')) {
-          if (spheresAnim) spheresAnim.classList.remove('is-transformed');
+      
+      if (spheresAnim) {
+          if (response.element.classList.contains('step-caf')) {
+              // Étape 1 : On affiche les allocataires (pas encore de transformation)
+              spheresAnim.classList.add('is-visible');
+              spheresAnim.classList.remove('is-transformed');
+          } else if (response.element.classList.contains('step-meres')) {
+              // Étape 2 : On transforme pour montrer les mères isolées
+              spheresAnim.classList.add('is-visible');
+              spheresAnim.classList.add('is-transformed');
+          } else {
+              // Dès qu'on scroll sur une autre étape (avant ou après), on cache l'animation
+              spheresAnim.classList.remove('is-visible');
+          }
       }
-
       // 5. --- LOGIQUE POUR L'AUDIO ---
       const newAudioFile = response.element.querySelector(".step-content")?.getAttribute("data-audio");
       if (currentAudio) {
@@ -255,4 +264,34 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 
+});
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { 
+    threshold: 0,
+    rootMargin: '0px 0px -50px 0px' // Se déclenche 50px avant le bas du viewport
+});
+
+document.querySelectorAll('.image-side').forEach(el => observer.observe(el));
+
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { 
+        threshold: 0,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.image-side').forEach(el => observer.observe(el));
 });
