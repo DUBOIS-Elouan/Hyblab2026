@@ -1,0 +1,106 @@
+.robotShell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+}
+
+.robotShellStage0 .robotShellHalo {
+  opacity: 0.42;
+  transform: translate(-50%, -50%) scale(0.86);
+}
+
+.robotShellStage1 .robotShellHalo {
+  opacity: 0.62;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.robotShellStage2 .robotShellHalo {
+  opacity: 0.82;
+  transform: translate(-50%, -50%) scale(1.14);
+}
+
+.robotShellStage1 .robotShellRingInner,
+.robotShellStage2 .robotShellRingInner {
+  animation: driftRing 6s linear infinite;
+}
+
+.robotShellStage2 .robotShellRingOuter {
+  opacity: 0.42;
+  animation: driftRing 8s linear infinite reverse;
+}
+
+.robotShellMotion {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.robotShellHalo,
+.robotShellRing,
+.robotShellShadow {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.robotShellShadow {
+  top: calc(100% - 10px);
+  width: 96px;
+  height: 20px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(6, 14, 66, 0.34) 0%, rgba(6, 14, 66, 0.14) 58%, rgba(6, 14, 66, 0) 100%);
+  filter: blur(7px);
+  opacity: 0.24;
+  z-index: 0;
+}
+
+.robotShellHalo,
+.robotShellRing {
+  border-radius: 999px;
+}
+
+.robotShellHalo {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(96, 203, 235, 0.36) 0%, rgba(96, 203, 235, 0.08) 55%, rgba(96, 203, 235, 0) 100%);
+  filter: blur(10px);
+  opacity: 0.55;
+}
+
+.robotShellRing {
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  opacity: 0.24;
+}
+
+.robotShellRingInner {
+  width: 110px;
+  height: 110px;
+}
+
+.robotShellRingOuter {
+  width: 148px;
+  height: 148px;
+}
+
+.robotShellPart {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@keyframes driftRing {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

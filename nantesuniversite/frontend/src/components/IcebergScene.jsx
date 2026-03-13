@@ -88,6 +88,8 @@ export default function IcebergScene() {
         <DataIceberg className="w-full h-full" />
       </div>
 
+      <Robot />
+
 
 
       {cardDocuments.map((doc, i) => (
