@@ -35,15 +35,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const hackerScene = document.querySelector('#hacker-animation')?.closest('.scene');
       const bgVideo = document.getElementById('temoignage-video');
       
-      // On vérifie si l'utilisateur est en train de scroller DANS la scène 3
       if (hackerScene && response.element.closest('.scene') === hackerScene) {
           const hackerAnim = document.getElementById('hacker-animation');
           const sceneSteps = Array.from(hackerScene.querySelectorAll('.step'));
           const currentIndex = sceneSteps.indexOf(response.element);
           
-          // On repère où se trouvent les déclencheurs clés
           const triggerIndex = sceneSteps.findIndex(s => s.classList.contains('step-anon-trigger'));
           const endIndex = sceneSteps.findIndex(s => s.classList.contains('step-hacker-end'));
+          const photoIndex = sceneSteps.findIndex(s => s.classList.contains('step-marion-photos'));
 
           if (currentIndex < triggerIndex) {
               // Étape A : Avant l'animation (Tout est caché)
@@ -57,12 +56,17 @@ document.addEventListener('DOMContentLoaded', function() {
               hackerAnim.classList.remove('is-scrolling-up');
               if(bgVideo) bgVideo.style.opacity = '0';
           } 
-          else if (currentIndex >= endIndex) {
-              // Étape C : "Écoutons un témoignage" ET TOUT CE QUI SUIT. 
-              // Les images restent bloquées en haut, la vidéo reste allumée !
+          else if (currentIndex >= endIndex && currentIndex < photoIndex) {
+              // Étape C : "Écoutons un témoignage" -> La vidéo s'allume !
               hackerAnim.classList.add('is-hacked');
               hackerAnim.classList.add('is-scrolling-up');
               if(bgVideo) bgVideo.style.opacity = '1';
+          }
+          else if (currentIndex >= photoIndex) {
+              // Étape D : Arrivée sur les photos et suite -> La vidéo s'éteint !
+              hackerAnim.classList.add('is-hacked');
+              hackerAnim.classList.add('is-scrolling-up');
+              if(bgVideo) bgVideo.style.opacity = '0';
           }
       } else {
           // Si on quitte complètement la scène 3, on s'assure de cacher la vidéo

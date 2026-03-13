@@ -14,7 +14,7 @@ img, video, canvas {
 
 /* ================= L'EN-TÊTE FIXE ================= */
 .top-bar {
-    background-color: #fbf5cd; /* Le jaune pâle */
+    background-color: #fbf5cd;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -51,14 +51,13 @@ img, video, canvas {
 
 /* ================= LA ZONE BLANCHE AVEC TITRE ET DÉGRADÉ ================= */
 .hero {
-    /* Le blanc s'arrête plus tôt (40%) pour laisser place au fond crème */
     background: linear-gradient(
         to bottom,
         #ffffff 0%,
         #ffffff 40%,
         rgba(252, 250, 212, 0) 100%
     );
-    min-height: 90vh; /* Hauteur réduite pour diminuer l'espace blanc */
+    min-height: 90vh; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start; 
@@ -105,8 +104,7 @@ img, video, canvas {
 
 .scroll-indicator {
     position: absolute;
-    /* On remonte l'indicateur (ex: 15vh = 15% de l'écran en partant du bas) */
-    bottom: 15vh; 
+    bottom: 15vh; /* Ajusté plus haut ! */
     left: 50%;
     transform: translateX(-50%);
     color: #666;
@@ -137,7 +135,6 @@ img, video, canvas {
     height: 100dvh; 
     z-index: 0;
     overflow: hidden;
-    /* On force la couleur crème derrière toutes les scènes (photos transparentes, etc.) */
     background-color: rgba(252, 250, 212, 1); 
 }
 
@@ -240,22 +237,19 @@ article {
 }
 
 /* ================= QUIZ INLINE ================= */
-/* ================= QUIZ (CONDENSE) ================= */
-/* Conteneur principal du quiz */
 .quiz-container {
   width: 80%;
   margin: 20px auto;
-  padding: 40px 20px 20px; /* Padding-top augmenté pour le badge */
+  padding: 40px 20px 20px; 
   background: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   font-family: Arial, sans-serif;
   text-align: center;
   color: #333;
-  position: relative; /* Pour le positionnement du badge */
+  position: relative; 
 }
 
-/* Badge "QUIZ" en haut à gauche */
 .quiz-badge {
   position: absolute;
   top: -20px;
@@ -273,7 +267,6 @@ article {
   transform: rotate(-30deg);
 }
 
-/* En-tête du quiz (titre + question) */
 .quiz-header {
   margin-top: 20px;
 }
@@ -292,7 +285,6 @@ article {
   padding: 0;
 }
 
-/* Options de réponse */
 .quiz-container .options {
   display: flex;
   flex-direction: column;
@@ -305,7 +297,7 @@ article {
   font-size: 1rem;
   background: #fafafa;
   color: #000;
-  border: 1px solid #000; /* Bordure noire visible */
+  border: 1px solid #000; 
   border-radius: 5px;
   cursor: pointer;
   text-align: left;
@@ -314,10 +306,9 @@ article {
 }
 
 .quiz-container .option-btn:hover {
-  background: #eee; /* Gris clair au survol */
+  background: #eee; 
 }
 
-/* Bouton de validation */
 .quiz-container .validate-btn {
   padding: 10px 20px;
   background: #f0ad4e;
@@ -333,7 +324,6 @@ article {
   background: #ec971f;
 }
 
-/* Feedback et réponses */
 .quiz-container .feedback {
   min-height: 20px;
   font-weight: bold;
@@ -351,7 +341,6 @@ article {
   display: block;
 }
 
-/* Selected quiz button */
 .option-btn.selected {
     border: 1px solid #000;
 }
@@ -421,7 +410,6 @@ article {
     mix-blend-mode: multiply; 
 }
 
-/* Photo 1 (Marion) */
 .img-mere_hack {
     width: 100%; 
     transform: translate(-50%, -50%); 
@@ -429,24 +417,44 @@ article {
     z-index: 1; 
 }
 
-/* Photo 2 (Le masque Anonymous) */
 .img-anonymous {
     width: 20%; 
     z-index: 2; 
-    /* Caché en bas ET invisible (opacity: 0) au départ */
     transform: translate(-50%, 200%); 
     opacity: 0; 
-    /* On anime le mouvement ET l'apparition en même temps */
     transition: transform 0.8s ease-out, opacity 0.5s ease-in; 
 }
 
-/* État 1 : Le masque se pose sur le visage ET devient visible (opacity: 1) */
 #hacker-animation.is-hacked .img-anonymous {
     transform: translate(-50%, -100%); 
     opacity: 1; 
 }
 
-/* État 2 : Toutes les images remontent hors de l'écran */
 #hacker-animation.is-scrolling-up {
     transform: translateY(-150vh); 
+}
+
+/* ================= PHOTOS DE MARION (DLA-1) ================= */
+.marion-photos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.marion-photos img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+    .marion-photos {
+        flex-direction: row;
+        justify-content: center;
+    }
+    .marion-photos img {
+        width: 48%;
+    }
 }
