@@ -22,28 +22,40 @@ const createEmptyContent = async function(){
             // Ajout du contenu
 
             let bulletContent = data.volet[i].bullet[j]
+            let titleSlide = false;
+            
             console.log(i)
             console.log(bulletContent)
+
+            instaBox = document.createElement("section")
+            instaBox.id = "instagram-box"
             for(let k=0; k<bulletContent.length; k++){
                 if(bulletContent[k].type == "title"){
                     let title = document.createElement("h3");
                     title.innerHTML = bulletContent[k].content
-                    slide.appendChild(title)
+                    instaBox.appendChild(title)
+                    titleSlide = true;
                 }
                 else if(bulletContent[k].type == "paragraph"){
                     let paragraph = document.createElement("p");
                     paragraph.innerHTML = bulletContent[k].content
-                    slide.appendChild(paragraph)
+                    instaBox.appendChild(paragraph)
                 }
                 else if(bulletContent[k].type == "img"){
                     let img = document.createElement("img");
                     img.src = bulletContent[k].content
-                    slide.appendChild(img)
+                    instaBox.appendChild(img)
                 }
             }
-            
-            
 
+            if(!titleSlide){
+                let voletTitle = document.createElement("h2");
+                voletTitle.innerHTML = data.volet[i].titreVolet
+                slide.appendChild(voletTitle)
+            }
+
+            slide.appendChild(instaBox)
+            
             sliderWrapper.insertBefore(slide, endSlide);
             }
             let extend = document.createElement("section")

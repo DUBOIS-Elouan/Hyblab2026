@@ -6,7 +6,7 @@
   "nVolet": 2,
   "volet" : [
     {
-    "titreVolet" : "La mine d’Imerys contamine la réserve naturelle de Glomel",
+    "titreVolet" : "La mine d’Imerys contamine la réserve naturelle",
     "nBullet" : 3,
     "bullet" : [
       [{"type" : "title", "content" : "La mine d’Imerys contamine la réserve naturelle de Glomel"},
