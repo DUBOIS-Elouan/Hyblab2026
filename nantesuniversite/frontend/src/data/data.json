@@ -1,5 +1,3 @@
-
-
 {
   "researcher": {
     "id": "1",
@@ -161,7 +159,7 @@
         "nature": "General",
         "type":"Video",
         "author": "Colin de la Higuera",
-        "title": "L'intelligence artificielle, l'école, les enseignant.es. Partie 1",
+        "title": "L’intelligence artificielle, l’école, les enseignant.es. Partie 1",
         "description": "L’intelligence artificielle est déjà là dans de nombreux secteurs. L’école ne fait pas exception. Lors de cet atelier, Colin et Margarida échangent au sujet de l’intelligence artificielle, de ses différentes interactions dans l’école et à l’extérieur de celle-ci. La discussion porte en particulier sur les questions de pensée critique et de citoyenneté numérique, ainsi que sur le rôle que l’IA peut jouer à l’école.",
         "date": "2022",
         "origine":"external link",
@@ -174,7 +172,7 @@
         "nature": "General",
         "type":"Video",
         "author": "Colin de la Higuera",
-        "title": "L'intelligence artificielle, l'école, les enseignant.es. Partie 2",
+        "title": "L’intelligence artificielle, l’école, les enseignant.es. Partie 2",
         "description": "L’intelligence artificielle est déjà là dans de nombreux secteurs. L’école ne fait pas exception. Lors de cet atelier, Colin et Margarida échangent au sujet de l’intelligence artificielle, de ses différentes interactions dans l’école et à l’extérieur de celle-ci. La discussion porte en particulier sur les questions d’éthique et sur la formation de toutes et tous à l’intelligence artificielle.",
         "date": "2022",
         "origine":"external link",
@@ -294,6 +292,72 @@
         "date": "2023",
         "url": "https://podeduc.apps.education.fr/video/17490-les-ia-generatives-bousculent-leducation-quels-impacts-sur-levaluation/",
         "pictogramme": "./pictogramme/conference.svg"
+      },
+      {
+        "id": "4",
+        "category": "article",
+        "nature": "expert",
+        "author": "Colin de la Higuera",
+        "title": "A bibliographical study of grammatical inference",
+        "description": "Cet article présente l’inférence grammaticale, un domaine du machine learning qui consiste à apprendre automatiquement des grammaires ou des modèles à partir de données structurées (mots, chaînes, arbres). Ces modèles servent à analyser, classifier ou compresser des données, avec des applications en linguistique, reconnaissance vocale, biologie et intelligence artificielle.",
+        "date": "September 2005",
+        "url": "https://www.sciencedirect.com/science/article/abs/pii/S0031320305000221",
+        "pictogramme": "./pictogramme/recherche.svg"
+      },
+      {
+        "id": "5",
+        "category": "article",
+        "nature": "expert",
+        "author": "Colin de la Higuera",
+        "title": "Topology of strings: Median string is NP-complete",
+        "description": "Cet article étudie le problème de la chaîne médiane, qui consiste à trouver la chaîne la plus proche d’un ensemble de chaînes, un problème NP-difficile utilisé en reconnaissance vocale et biologie computationnelle.",
+        "date": "6 January 2000",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0304397597002405",
+        "pictogramme": "./pictogramme/recherche.svg"
+      },
+      {
+        "id": "6",
+        "category": "article",
+        "nature": "expert",
+        "author": "Colin de la Higuera",
+        "title": "Characteristic Sets for Polynomial Grammatical Inference",
+        "description": "Cet article analyse l’efficacité de l’inférence grammaticale et montre que plusieurs classes de langages ne peuvent pas être apprises efficacement en temps polynomial.",
+        "date": "Mai 1997",
+        "url": "https://link.springer.com/article/10.1023/A:1007353007695",
+        "pictogramme": "./pictogramme/recherche.svg"
+      },
+      {
+        "id": "7",
+        "category": "article",
+        "nature": "expert",
+        "author": "Colin de la Higuera",
+        "title": "Computational Complexity of Problems on Probabilistic Grammars and Transducers",
+        "description": "Cet article montre que trouver la chaîne la plus probable dans des grammaires stochastiques est un problème NP-difficile, sans solution efficace en temps polynomial.",
+        "date": "",
+        "url": "https://link.springer.com/chapter/10.1007/978-3-540-45257-7_2",
+        "pictogramme": "./pictogramme/recherche.svg"
+      },
+      {
+        "id": "8",
+        "category": "article",
+        "nature": "expert",
+        "author": "Colin de la Higuera",
+        "title": "Marginal Inference queries in Hidden Markov Models under context-free grammar constraints",
+        "description": "Cet article étudie l’inférence probabiliste dans les modèles de Markov cachés avec contraintes de grammaires, montrant que le problème est NP-difficile et proposant un algorithme d’approximation.",
+        "date": "26 Jun 2022",
+        "url": "https://arxiv.org/abs/2206.12862",
+        "pictogramme": "./pictogramme/recherche.svg"
+      },
+      {
+        "id": "18",
+        "category": "livre",
+        "nature": "expert",
+        "author": "Colin de la Higuera, Jotsna Iyer",
+        "title": "IA pour les enseignants : un manuel ouvert",
+        "description": "",
+        "date": "",
+        "url": "./documents/expert/IA-pour-les-enseignants-un-manuel-ouvert-1729161531.pdf",
+        "pictogramme": "./pictogramme/livre.svg"
       }
     ]
   }

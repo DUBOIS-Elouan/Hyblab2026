@@ -1,70 +1,91 @@
 import Robot from './Robot';
 import ResourceCard from './ResourceCard';
+import DataIceberg from './DataIceberg';
+import ScrollArrow from './ScrollArrow';
+import data from '../data/data.json';
 
-// Iceberg layers (Figma nodes 47:248, 47:252, 47:274)
-const icebergOutline =
-  'https://www.figma.com/api/mcp/asset/5269f595-e74b-4e55-afe5-a7554468a35e';
-const icebergFill =
-  'https://www.figma.com/api/mcp/asset/e0dd227c-79e9-4ec8-ab24-ca8d1e2d240b';
-const icebergOutline2 =
-  'https://www.figma.com/api/mcp/asset/32052552-9008-407e-b009-4f0f62e864ab';
+import prixSvg from '../data/pictogramme/prix.svg';
+import articleSvg from '../data/pictogramme/article.svg';
+import conferenceSvg from '../data/pictogramme/conference.svg';
+import livreSvg from '../data/pictogramme/livre.svg';
+import podcastSvg from '../data/pictogramme/podcast.svg';
+import rechercheSvg from '../data/pictogramme/recherche.svg';
 
-// Decorative lines (47:339/340 = Vector2 side waves, 47:346 = Vector3 centre wave)
-const wavyLineSide =
-  'https://www.figma.com/api/mcp/asset/02a68ccd-a0df-4a73-b697-55f5605a5a10';
-const wavyLineCentre =
-  'https://www.figma.com/api/mcp/asset/a7cc859a-99ec-42b5-98df-bd06ed42cbbc';
+const PICTOGRAMMES = {
+  prix: prixSvg, article: articleSvg, conference: conferenceSvg,
+  livre: livreSvg, podcast: podcastSvg, recherche: rechercheSvg,
+};
 
-const arrowDown =
-  'https://www.figma.com/api/mcp/asset/ec378145-d58a-484a-bcba-965252b4e421';
+// ─── Adjust card positions here ────────────────────────────────────────────
+// Iceberg SVG 0 0 1890 3374, rendered at left=45 top=775 w=1832 h=3200.
+// Shape is NARROW at top & bottom, WIDEST around y=1700–1900.
+// Card width = 400px. Pictogram overflows 50px to the left.
+//
+// Usable left range at each depth (pictogram + card must stay inside):
+//   y=1100 → [450 –  920]     y=2100 → [215 – 1210]
+//   y=1300 → [310 – 1080]     y=2300 → [280 – 1170]
+//   y=1500 → [180 – 1250]     y=2500 → [415 – 1090]
+//   y=1700 → [150 – 1370] ←wide  y=2700 → [465 – 1080]
+//   y=1900 → [150 – 1290] ←wide  y=2900 → [545 – 1030]
+//                               y=3100 → [635 –  870]
+//                               y=3300 → [670 –  810]
+//
+const CARD_POSITIONS = [
+  // ── Narrow top ────────────────────────────────
+  { top: 1130, left: 680 }, //  1
+  { top: 1290, left: 430 }, //  2
+  { top: 1400, left: 960 }, //  3
+  // ── Widening ──────────────────────────────────
+  { top: 1490, left: 210 }, //  4
+  { top: 1550, left: 1220 }, //  5
+  { top: 1650, left: 590 }, //  6
+  // ── Widest zone ──
+  { top: 1730, left: 1240 }, //  7
+  { top: 1820, left: 155 }, //  8
+  { top: 1880, left: 660 }, //  9 
+  { top: 2000, left: 1200 }, // 10
+  { top: 2070, left: 190 }, // 11
+  { top: 2170, left: 1060 }, // 12
+  // ── Narrowing ─────────────────────────────────
+  { top: 2300, left: 370 }, // 13
+  { top: 2440, left: 995 }, // 14
+  { top: 2550, left: 465 }, // 15
+  { top: 2660, left: 945 }, // 16
+  { top: 2760, left: 530 }, // 17
+  // ── Lower ─────────────────────────────────────
+  { top: 2870, left: 900 }, // 18
+  { top: 2970, left: 565 }, // 19
+  { top: 3065, left: 840 }, // 20
+  // ── Narrow base ───────────────────────────────
+  { top: 3185, left: 635 }, // 21
+  { top: 3370, left: 720 }, // 22
+];
+// ───────────────────────────────────────────────────────────────────────────
+// ───────────────────────────────────────────────────────────────────────────
 
-// Resource card images (47:343, 47:341, 47:342)
-const image17 =
-  'https://www.figma.com/api/mcp/asset/4d251bfd-e1d5-40e9-8248-8d08578a4585';
-const image12 =
-  'https://www.figma.com/api/mcp/asset/703c4fca-2356-4f83-bb57-028ed556b97c';
-const image14 =
-  'https://www.figma.com/api/mcp/asset/492d21de-de8d-4a0f-b1dc-188e200354d4';
+const cardDocuments = data.researcher.documents;
+
 
 export default function IcebergScene() {
   return (
     <>
-      {/* Scroll arrow (47:246) — x=960, y=888, h=101 */}
-      <div className="absolute left-1/2 top-[888px] -translate-x-1/2">
-        <img src={arrowDown} alt="Défiler vers le bas" className="w-[34px] h-[101px]" />
+
+      <div className="absolute left-[45px] top-[775px] w-[1832px] h-[3200px]">
+        <DataIceberg className="w-full h-full" />
       </div>
 
-      {/* Centre wavy line (47:346) — x=843, y=1036, w=234, h=18 */}
-      <div className="absolute left-[843px] top-[1036px] w-[234px] h-[18px]">
-        <img src={wavyLineCentre} alt="" className="w-full h-full" aria-hidden />
-      </div>
 
-      {/* Iceberg layers (47:248, 47:252, 47:274) — x=99, y=894, w=1588, h=2701 */}
-      <div className="absolute left-[99px] top-[894px] w-[1588px] h-[2701px]">
-        <img src={icebergOutline} alt="Iceberg" className="w-full h-full object-contain" />
-      </div>
-      <div className="absolute left-[99px] top-[894px] w-[1588px] h-[2701px]">
-        <img src={icebergFill} alt="" className="w-full h-full object-contain" aria-hidden />
-      </div>
-      <div className="absolute left-[99px] top-[894px] w-[1588px] h-[2701px]">
-        <img src={icebergOutline2} alt="" className="w-full h-full object-contain" aria-hidden />
-      </div>
 
-      {/* Side wavy lines at the waterline (47:339 right, 47:340 left) */}
-      <div className="absolute left-[1678px] top-[1488px] w-[242px] h-[9px]">
-        <img src={wavyLineSide} alt="" className="w-full h-full" aria-hidden />
-      </div>
-      <div className="absolute left-[-74px] top-[1644px] w-[242px] h-[9px]">
-        <img src={wavyLineSide} alt="" className="w-full h-full" aria-hidden />
-      </div>
-
-      {/* Robot on the waterline */}
-      <Robot />
-
-      {/* Resource cards at increasing iceberg depths (47:343, 47:341, 47:342) */}
-      <ResourceCard src={image17} alt="Ressource – surface" left={227}  top={1394} width={617} height={189} />
-      <ResourceCard src={image12} alt="Ressource – milieu"  left={1003} top={2150} />
-      <ResourceCard src={image14} alt="Ressource – fond"    left={523}  top={2901} />
+      {cardDocuments.map((doc, i) => (
+        <ResourceCard
+          key={doc.id}
+          pictogramme={PICTOGRAMMES[doc.category]}
+          category={doc.category}
+          title={doc.title}
+          description={doc.description}
+          {...CARD_POSITIONS[i]}
+        />
+      ))}
     </>
   );
 }
