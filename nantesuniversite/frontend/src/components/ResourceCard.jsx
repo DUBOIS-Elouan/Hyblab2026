@@ -31,7 +31,7 @@ export default function ResourceCard({
   description = null,
   onClick,
 }) {
-  const color = CATEGORY_COLORS[category] ?? "#3552ff";
+  const color = CATEGORY_COLORS[category.toLowerCase()] ?? "#3552ff";
   const label = category.charAt(0).toUpperCase() + category.slice(1);
 
   return (

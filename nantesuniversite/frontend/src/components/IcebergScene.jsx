@@ -94,8 +94,8 @@ export default function IcebergScene() {
       {cardDocuments.map((doc, i) => (
         <ResourceCard
           key={doc.id}
-          pictogramme={PICTOGRAMMES[doc.category]}
-          category={doc.category}
+          pictogramme={PICTOGRAMMES[doc.category.toLowerCase()]}
+          category={doc.category.toLowerCase()}
           title={doc.title}
           description={doc.description}
           {...CARD_POSITIONS[i]}
@@ -105,7 +105,7 @@ export default function IcebergScene() {
 
       {openPopup && selectedDoc ? (
         <Popup
-          pictogramme={PICTOGRAMMES[selectedDoc.category]}
+          pictogramme={PICTOGRAMMES[selectedDoc.category.toLowerCase()]}
           type={selectedDoc.type}
           url={selectedDoc.url}
           title={selectedDoc.title}
