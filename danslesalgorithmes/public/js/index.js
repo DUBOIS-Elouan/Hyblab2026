@@ -28,13 +28,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       // Audio
-      const newAudioFile = response.element.getAttribute('data-audio');
+      const newAudioFile = response.element.querySelector(".step-content")?.getAttribute("data-audio");
       if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0; 
         currentAudio = null;
       }
       if (newAudioFile) {
+        console.log("aaa")
         currentAudio = new Audio(newAudioFile);
         currentAudio.play().catch(erreur => {
           console.warn("Son bloqué (interaction requise sur mobile) :", erreur);
