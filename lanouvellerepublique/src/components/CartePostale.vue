@@ -1,22 +1,19 @@
 <template>
-    <div class="mini-box">
+    <div class="carte-postale">
         <div
-            class="mini-box-image-div"
-            :style="{ backgroundImage: `url('${displayImage}')` }"
-            :title="props.title"
+            class="carte-postale-image-div"
+            :style="{ backgroundImage: `url('${image}')` }"
+            :title="title"
         >
 
             <div class="badges-panel">
-                <span v-for="badge in props.badges" :key="badge" class="badge">
+                <span v-for="badge in badges" :key="badge" class="badge">
                     {{ badge }}
                 </span>
             </div>
-            <div class="mini-box-content">
-                <div class="div-date">
-                    <p class="date">{{ date }}</p>
-                </div>
+            <div class="carte-postale-content">
                 <div class="div-title">
-                    <h3 class="title">{{ props.title }}</h3>
+                    <h3 class="title">{{ title }}</h3>
                 </div>
             </div>
         </div>
@@ -26,11 +23,9 @@
 
 <script setup>
 
-import { computed } from "vue"
-
 const vectorBgUrl = `url('${import.meta.env.BASE_URL}img/Vector.png')`
 
-const props = defineProps({
+defineProps({
     title: {
         type: String,
         default: 'Item Title'
@@ -48,25 +43,19 @@ const props = defineProps({
         default: ''
     }
 })
-
-const displayImage = computed(() => {
-    if (!props.image) return ""
-    return encodeURI(String(props.image))
-})
 </script>
 
 <style scoped>
-.mini-box {
+.carte-postale {
     position: relative;
 
     display: flex;
-    height: 208px;
-    width: 332px;
-    padding: 6.25px;
-    gap: 6.25;
+    height: 400px;
+    padding: 8px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 8px;
     flex-shrink: 0;
     align-self: stretch;
 
@@ -78,7 +67,7 @@ const displayImage = computed(() => {
     background-repeat: no-repeat;
 }
 
-.mini-box-image-div {
+.carte-postale-image-div {
     display: flex;
     padding: 8px;
     flex-direction: column;
@@ -86,8 +75,6 @@ const displayImage = computed(() => {
     align-items: flex-start;
     flex: 1 0 0;
     align-self: stretch;
-    width: 319.5px;
-    height: 195.5px;
 
 
     border-radius: 13.179px;
@@ -98,7 +85,7 @@ const displayImage = computed(() => {
 
 }
 
-.mini-box-content {
+.carte-postale-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -106,17 +93,6 @@ const displayImage = computed(() => {
     align-self: stretch;
 
     box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.15);
-}
-
-.div-date {
-    display: flex;
-    padding: 1.865px 6.216px;
-    align-items: center;
-    gap: 6.216px;
-
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
 }
 
 .date {

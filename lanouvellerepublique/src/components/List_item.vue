@@ -2,7 +2,7 @@
     <div class="list-item" role="button" tabindex="0" @click="emit('select')" @keydown.enter.prevent="emit('select')" @keydown.space.prevent="emit('select')">
         <div
             class="list-item-image-div"
-            :style="{ backgroundImage: `url('${image}')` }"
+            :style="{ backgroundImage: `url('${displayImage}')` }"
             :title="title"
         >
             <div class="badges-panel">
@@ -54,6 +54,8 @@ const props = defineProps({
         default: "",
     },
 })
+
+const vectorBgUrl = `url('${import.meta.env.BASE_URL}img/Vector.png')`
 
 const badgeAssets = import.meta.glob("../assets/badges/*.svg", {
     eager: true,
@@ -107,6 +109,11 @@ const displayBadges = computed(() => {
         .map((badge) => ({ key: badge, src: loadSVG(badge) }))
         .filter((badge) => badge.src)
 })
+
+const displayImage = computed(() => {
+    if (!props.image) return ""
+    return encodeURI(String(props.image))
+})
 </script>
 
 <style scoped>
@@ -125,7 +132,7 @@ const displayBadges = computed(() => {
     align-self: stretch;
 
     border-radius: 12px;
-    background-image: url("/lanouvellerepublique/img/Vector.png");
+    background-image: v-bind(vectorBgUrl);
     background-color: #fff;
     background-position: 50%;
     background-size: cover;
