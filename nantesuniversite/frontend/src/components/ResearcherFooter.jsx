@@ -1,4 +1,7 @@
 import LinkedResearcherCard from './LinkedResearcherCard';
+import portraitPhilippeMoreau from '../assets/Philippe-Moreau.png';
+import portraitMargotDelon from '../assets/MargotDelon.jpg';
+import portraitPierreAntoineGourraud from '../assets/PierreAntoineGourraud.jpg';
 
 // Placeholder portrait used for "CHERCHEURS À LA UNE" cards (Figma node 77:6/15/18)
 const placeholderPortrait =
@@ -8,27 +11,29 @@ const placeholderPortrait =
  * Placeholder researcher entries for the "CHERCHEURS À LA UNE" section.
  * Replace with real data once the multi-researcher API is available.
  */
+
 const LINKED_RESEARCHERS = [
   {
     top: 4835,
-    name: 'Arnaud Guével',
-    role: "Vice-président Formation et éducation ouverte, extrait journée d'étude 1er février 2024 \"ce que l'intelligence artificielle change à l'Université\"",
-    url: 'https://www.univ-nantes.fr/universite/vision-strategie-et-grands-projets/open-education-leducation-ouverte-a-nantes-universite',
-    portrait: placeholderPortrait,
+    name: "Philippe Moreau",
+    role: "Classé parmi les chercheurs les plus cités au monde, il transforme la lutte contre le myélome multiple grâce à l'excellence clinique nantaise.",
+    url: "https://www.chu-nantes.fr/nantes-philippe-moreau-parmi-les-chercheurs-les-plus-cites-du-monde-1",
+    portrait: portraitPhilippeMoreau
   },
+
   {
     top: 4967,
-    name: 'Arnaud Guével',
-    role: "Vice-président Formation et éducation ouverte, extrait journée d'étude 1er février 2024 \"ce que l'intelligence artificielle change à l'Université\"",
-    url: 'https://www.univ-nantes.fr/universite/vision-strategie-et-grands-projets/open-education-leducation-ouverte-a-nantes-universite',
-    portrait: placeholderPortrait,
+    name: 'Margot Delon',
+    role: "Sociologue au CNRS, elle explore « l'autre histoire des inégalités urbaines » à travers le parcours des enfants des bidonvilles.",
+    url: 'https://bu.univ-nantes.fr/animations-culturelles/chercheurs-a-la-bu-lettres',
+    portrait: portraitMargotDelon,
   },
   {
     top: 5099,
-    name: 'Arnaud Guével',
-    role: "Vice-président Formation et éducation ouverte, extrait journée d'étude 1er février 2024 \"ce que l'intelligence artificielle change à l'Université\"",
-    url: 'https://www.univ-nantes.fr/universite/vision-strategie-et-grands-projets/open-education-leducation-ouverte-a-nantes-universite',
-    portrait: placeholderPortrait,
+    name: 'Pierre-Antoine Gourraud',
+    role: "« L'utilisation de nos données médicales pourrait permettre aux médecins de nous guérir plus efficacement et de prévenir l'apparition de maladies. »",
+    url: 'https://fondation.univ-nantes.fr/accueil/big-data-en-sante-a-nantes-les-chercheurs-utilisent-nos-donnees-pour-proposer-un-meilleur-traitement-aux-patients',
+    portrait: portraitPierreAntoineGourraud,
   },
 ];
 
@@ -83,7 +88,7 @@ export default function ResearcherFooter() {
         {`AU-DELÀ DE \nL'ICEBERG`}
       </p>
 
-      {/* "OU" separator */}
+      {/* "OU" separator 
       <p
         className="absolute not-italic m-0 text-white"
         style={{
@@ -100,7 +105,7 @@ export default function ResearcherFooter() {
         OU
       </p>
 
-      {/* "DANS LA MÊME THÉMATIQUE" */}
+       "DANS LA MÊME THÉMATIQUE" *
       <p
         className="absolute not-italic m-0 text-white"
         style={{
@@ -116,7 +121,7 @@ export default function ResearcherFooter() {
         }}
       >
         DANS LA MÊME THÉMATIQUE
-      </p>
+      </p>*/}
     </>
   );
 }
