@@ -187,14 +187,14 @@ article {
 }
 
 .step p {
-    font-size: 0.8rem;
-    line-height: 1.5;
+    font-size: 1.2rem; /* <-- C'est ici qu'on augmente la taille (au lieu de 0.8rem) */
+    line-height: 1.6;  /* Un peu plus d'espace entre les lignes pour que ce soit lisible */
     background: rgb(255, 255, 255);
     text-align: left;
     padding: 15px;
+    border-radius: 8px; /* Optionnel : arrondit les angles du fond blanc */
     transition: border-color 0.3s;
 }
-
 /* ================= SPHÈRES ANIMÉES ================= */
 .spheres-container {
     position: relative; 
