@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import ListItem from '@/components/List_item.vue'
+import IntroListe from '@/components/intro_liste.vue'
 import { COLORS } from '@/assets/Couleurs/Coulleurs.js'
 import { useFilterStore } from '@/stores/filterStore'
 
@@ -27,6 +28,7 @@ const sortedRestaurants = computed(() =>
 
 <template>
   <main class="list-view">
+    <IntroListe />
     <ListItem
       v-for="restaurant in sortedRestaurants"
       :key="restaurant.name"
@@ -42,7 +44,7 @@ const sortedRestaurants = computed(() =>
 <style scoped>
 .list-view {
   min-height: 100vh;
-  padding: 5rem 1.25rem 10rem;
+  padding: 8.6rem 1.25rem 10rem;
   background: v-bind(listBg);
   display: flex;
   flex-direction: column;
@@ -57,6 +59,7 @@ const sortedRestaurants = computed(() =>
 
 @media (min-width: 768px) {
   .list-view {
+    padding-top: 8.2rem;
     padding-bottom: 1.25rem;
   }
 }
