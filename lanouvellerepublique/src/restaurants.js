@@ -1,4 +1,4 @@
-const restaurants = [
+export default [
     {
         "id": 1,
         "name": "Yumi Ramen",
@@ -12,7 +12,7 @@ const restaurants = [
         "date": "03/12/2025",
         "hook": "A deux pas de la place Plumereau, on a testé Yumi Ramen",
         "coupDeCoeur": true,
-        "image": "lanouvellerepublique/public/img/resto ramen.jpg",
+        "image": "/lanouvellerepublique/img/resto ramen.jpg",
         "article": {
             "title": "A deux pas de la place Plumereau, on a testé Yumi Ramen",
             "catch_phrase": "A REMPLIR",
@@ -29,7 +29,7 @@ const restaurants = [
             ],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto ramen.jpg",
+                    "content": "/lanouvellerepublique/img/resto ramen.jpg",
                     "description": "Sur place ou à emporter, les amateurs de ramen ont le choix.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
@@ -41,10 +41,13 @@ const restaurants = [
                 "link": "https://www.instagram.com/yumiramen.tours"
             }
         ],
-        "diet": ["vegetarien"],
-        "cuisine_type": ["asian", "street_food"],
-        "client_type": ["family", "friends"],
-        "service": ["on_site", "takeaway", "delivery"]
+        "categories" : {
+            "diet": ["vegetarien"],
+            "cuisine_type": ["asian", "street_food"],
+            "ambiance": ["family", "friends"],
+            "service": ["on_site", "takeaway", "delivery"]
+
+        },
     },
     {
         "id": 2,
@@ -59,7 +62,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "Street food japonaise : on a testé Nobi Nobi",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto nobi nobi.jpg",
+        "image": "/lanouvellerepublique/img/resto nobi nobi.jpg",
         "article": {
             "title": "Street food japonaise : on a testé Nobi Nobi",
             "catch_phrase": "A REMPLIR",
@@ -76,7 +79,7 @@ const restaurants = [
             ],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto nobi nobi.jpg",
+                    "content": "/lanouvellerepublique/img/resto nobi nobi.jpg",
                     "description": "Street japonaise au menu de Nobi Nobi, installé rue Nationale à Tours.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
@@ -88,10 +91,13 @@ const restaurants = [
                 "link": "https://www.instagram.com/nobinobi_france"
             }
         ],
-        "diet": ["vegetarien"],
-        "cuisine_type": ["asian", "street_food"],
-        "client_type": ["family", "friends"],
-        "service": ["on_site", "takeaway", "delivery"]
+        "categories" : {
+            "diet": ["vegetarien"],
+            "cuisine_type": ["asian", "street_food"],
+            "ambiance": ["family", "friends"],
+            "service": ["on_site", "takeaway", "delivery"]
+
+        },
     },
     {
         "id": 3,
@@ -106,7 +112,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "Rue de la Rôtisserie, on a testé le restaurant Miettes",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto miettes.jpg",
+        "image": "/lanouvellerepublique/img/resto miettes.jpg",
         "article": {
             "title": "Rue de la Rôtisserie, on a testé le restaurant Miettes",
             "catch_phrase": "A REMPLIR",
@@ -123,7 +129,7 @@ const restaurants = [
             ],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto miettes.jpg",
+                    "content": "/lanouvellerepublique/img/resto miettes.jpg",
                     "description": "Paul, aux fourneaux, amène une touche d'originalité qui réveille gentiment les papilles.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
@@ -135,10 +141,13 @@ const restaurants = [
                 "link": "https://www.instagram.com/miettes.tours"
             }
         ],
-        "diet": ["vegetarien"],
-        "cuisine_type": ["french"],
-        "client_type": ["romantic", "friends"],
-        "service": ["on_site"]
+        "categories" : {
+            "diet": ["vegetarien"],
+            "cuisine_type": ["french"],
+            "ambiance": ["romantic", "friends"],
+            "service": ["on_site"]
+
+        },
     },
     {
         "id": 4,
@@ -153,7 +162,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "Crêpes sucrées et galettes salées : on a testé Le Chalet",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto le chalet.jpg",
+        "image": "/lanouvellerepublique/img/resto le chalet.jpg",
         "article": {
             "title": "Crêpes sucrées et galettes salées : on a testé Le Chalet",
             "catch_phrase": "A REMPLIR",
@@ -168,7 +177,7 @@ const restaurants = [
                     "content": "À la carte, on retrouve bien sûr la galette au sarrasin classique, avec jambon, œuf et emmental, ou sa variante à base de poulet. Mais on peut opter pour « la préférée des marins » avec saumon, emmental, feuille d'épinard, feta ; la chèvre-miel ; « la plus gourmande » avec de la saucisse ou encore celle du jour suivant l'humeur du chef et une option veggie à base d'œuf, oignon confit, emmental, salade.\n\nDe notre côté, c'est une story du compte Instagram du restaurant qui nous a poussés à tester la galette avec bœuf, cheddar, confit d'oignon et salade. Et qu'on se le dise, non seulement c'est bon, mais c'est aussi gourmand et généreux. Niveau garniture, il y a de quoi se remplir l'estomac ! La galette est bien croustillante et on a adoré cette grosse dose de cheddar, notre péché mignon.\n\nQu'on se rassure, les crêpes sucrées sont également au rendez-vous et sous différentes formes : nature, beurre, sucre ou confiture, Nutella, miel et caramel salé. De quoi contenter normalement tout le monde. Quant à nous, après ce test réussi, on s'est juré d'y retourner, car il y a une petite dernière qui nous fait de l'œil la galette jambon, emmental et truffe. Notre deuxième péché mignon.",
                     "images": [
                         {
-                            "content": "lanouvellerepublique/public/img/resto le chalet (2).jpg",
+                            "content": "/lanouvellerepublique/img/resto le chalet (2).jpg",
                             "description": "À TMV, on a opté pour la galette bœuf, confit d'oignons et cheddar.",
                             "auteur": "© (Photo tmv, Aurélien Germain)"
                         }
@@ -177,12 +186,12 @@ const restaurants = [
             ],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto le chalet.jpg",
+                    "content": "/lanouvellerepublique/img/resto le chalet.jpg",
                     "description": "Aucun souci si l'on veut manger en marchant, les galettes sont servies dans des cornets pratiques.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto le chalet (2).jpg",
+                    "content": "/lanouvellerepublique/img/resto le chalet (2).jpg",
                     "description": "À TMV, on a opté pour la galette bœuf, confit d'oignons et cheddar.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
@@ -194,10 +203,13 @@ const restaurants = [
                 "link": "https://www.instagram.com/lechalettours"
             }
         ],
-        "diet": ["vegetarien"],
-        "cuisine_type": ["french", "traditional"],
-        "client_type": ["family", "friends"],
-        "service": ["on_site", "takeaway"]
+        "categories" : {
+            "diet": ["vegetarien"],
+            "cuisine_type": ["french", "traditional"],
+            "ambiance": ["family", "friends"],
+            "service": ["on_site", "takeaway"]
+
+        },
     },
     {
         "id": 5,
@@ -212,7 +224,7 @@ const restaurants = [
         "date": "03/12/2025",
         "hook": "On a testé le Tours Bouillon",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto tours bouillon.jpg",
+        "image": "/lanouvellerepublique/img/resto tours bouillon.jpg",
         "article": {
             "title": "On a testé le Tours Bouillon",
             "catch_phrase": "A REMPLIR",
@@ -227,7 +239,7 @@ const restaurants = [
                     "content": "Pour enchaîner, on a failli tenter le filet de lieu noir, avec riz basmati et sa fondue de poireaux, mais pour préparer au mieux notre winter body, on a plutôt opté pour… le burger à la raclette ! Un plat plus que généreux, avec une sacrée dose de fromage bien fondant. C'est copieux comme il faut, avec également une portion de salade et des pommes de terre grenailles pour accompagner. De quoi repartir du Tours Bouillon le ventre bien rempli !\n\nUne cuisine simple, mais efficace et authentique, faite avec amour. Un petit lieu tout doux dont on aurait tort de se priver.",
                     "images": [
                         {
-                            "content": "lanouvellerepublique/public/img/resto tours bouillon (2).jpg",
+                            "content": "/lanouvellerepublique/img/resto tours bouillon (2).jpg",
                             "description": "Parfois, on ne s'interdit pas de sortir des plats traditionnels français. Cette semaine, on a goûté aux gambas laquées et salade asiatique.",
                             "auteur": "© (Photo tmv, Aurélien Germain)"
                         }
@@ -236,12 +248,12 @@ const restaurants = [
             ],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto tours bouillon.jpg",
+                    "content": "/lanouvellerepublique/img/resto tours bouillon.jpg",
                     "description": "Pour préparer notre winter body ? Rien de tel qu'un burger à la raclette et ses pommes de terre grenaille.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto tours bouillon (2).jpg",
+                    "content": "/lanouvellerepublique/img/resto tours bouillon (2).jpg",
                     "description": "Parfois, on ne s'interdit pas de sortir des plats traditionnels français. Cette semaine, on a goûté aux gambas laquées et salade asiatique.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
@@ -253,10 +265,13 @@ const restaurants = [
                 "link": "https://www.instagram.com/toursbouillon/"
             }
         ],
-        "diet": [],
-        "cuisine_type": ["french", "traditional"],
-        "client_type": ["family", "friends", "professional"],
-        "service": ["on_site"]
+        "categories" : {
+            "diet": [],
+            "cuisine_type": ["french", "traditional"],
+            "ambiance": ["family", "friends", "professional"],
+            "service": ["on_site"]
+
+        },
     },
     {
         "id": 6,
@@ -271,7 +286,7 @@ const restaurants = [
         "date": "06/01/2026",
         "hook": "Cuisine gastronomique, travaillée et raffinée : on a testé Mensa et Potus",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto mensa et potus.jpg",
+        "image": "/lanouvellerepublique/img/resto mensa et potus.jpg",
         "article": {
             "title": "Cuisine gastronomique, travaillée et raffinée : on a testé Mensa et Potus",
             "catch_phrase": "A REMPLIR",
@@ -286,7 +301,7 @@ const restaurants = [
                     "content": "Le chef a une sympathique attention en nous préparant, d'abord, un petit amuse-bouche, puis on passe aux choses sérieuses avec l'entrée : un œuf parfait qui porte bien son nom, reposant sur une délicieuse mousseline de patate douce aux noix. Servie dans une très jolie vaisselle – ce qui sera une constante tout au long du repas – cette mise en bouche fait déjà son effet !\n\nOn enchaîne avec le plat principal qu'on a littéralement dévoré jusqu'à la dernière miette (on aime rendre les assiettes propres…), un pulled pork au sirop d'érable, un vrai régal, avec une déclinaison de salsifis et sauce émulsionnée au curry rouge. Un éclat de saveurs, de bons produits, une cuisine maîtrisée et bien exécutée jusqu'au dessert, ce jour-là à base d'ananas, de glace et de mangue. Le tout, donc, pour une addition à 25 €, c'est ce qu'on appelle un parfait rapport qualité-prix. Ajoutez à ça un service impeccable, une équipe attentionnée et très bonne conseillère sur la carte des vins, c'est un sans-faute.\n\nReste désormais à retourner à Mensa et Potus pour essayer la partie bar à tapas qui nous fait de l'œil depuis des semaines : les croq morilles cheddar fumé et les croquetas à la pancetta nous appellent déjà…",
                     "images": [
                         {
-                            "content": "lanouvellerepublique/public/img/resto mensa et potus (2).jpg",
+                            "content": "/lanouvellerepublique/img/resto mensa et potus (2).jpg",
                             "description": "L'œuf parfait et sa mousseline de patate douce en guise d'entrée.",
                             "auteur": "© (Photo tmv, Aurélien Germain)"
                         }
@@ -295,12 +310,12 @@ const restaurants = [
             ],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto mensa et potus.jpg",
+                    "content": "/lanouvellerepublique/img/resto mensa et potus.jpg",
                     "description": "Une pause midi avec pulled pork au sirop d'érable et déclinaison de salsifis, on dit oui.Une pause midi avec pulled pork au sirop d'érable et déclinaison de salsifis, on dit oui.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto mensa et potus (2).jpg",
+                    "content": "/lanouvellerepublique/img/resto mensa et potus (2).jpg",
                     "description": "L'œuf parfait et sa mousseline de patate douce en guise d'entrée.",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
@@ -312,10 +327,13 @@ const restaurants = [
                 "link": "https://www.instagram.com/mensa_et_potus"
             }
         ],
-        "diet": [],
-        "cuisine_type": ["french"],
-        "client_type": ["romantic", "friends", "professional"],
-        "service": ["on_site"]
+        "categories" : {
+            "diet": [],
+            "cuisine_type": ["french"],
+            "ambiance": ["romantic", "friends", "professional"],
+            "service": ["on_site"]
+
+        },
     },
     {
         "id": 7,
@@ -330,7 +348,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "Du côté des Halles, on a testé L'Atelier crêpier artisan",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto artisan crepier.jpg",
+        "image": "/lanouvellerepublique/img/resto artisan crepier.jpg",
         "article": {
             "title": "Du côté des Halles, on a testé L'Atelier crêpier artisan",
             "catch_phrase": "A REMPLIR",
@@ -338,17 +356,20 @@ const restaurants = [
             "sections": [],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto artisan crepier.jpg",
+                    "content": "/lanouvellerepublique/img/resto artisan crepier.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
             ]
         },
         "social_media": [],
-        "diet": ["vegetarien"],
-        "cuisine_type": ["french", "traditional"],
-        "client_type": ["family", "friends", "professional"],
-        "service": ["on_site"]
+        "categories" : {
+            "diet": ["vegetarien"],
+            "cuisine_type": ["french", "traditional"],
+            "ambiance": ["family", "friends", "professional"],
+            "service": ["on_site"]
+
+        },
     },
     {
         "id": 8,
@@ -363,7 +384,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "On a testé le Bistrok, resto atypique et original où tout est à vendre… « sauf le personnel » !",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto bistrok.jpg",
+        "image": "/lanouvellerepublique/img/resto bistrok.jpg",
         "article": {
             "title": "On a testé le Bistrok, resto atypique et original où tout est à vendre… « sauf le personnel » !",
             "catch_phrase": "A REMPLIR",
@@ -371,22 +392,25 @@ const restaurants = [
             "sections": [],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto bistrok.jpg",
+                    "content": "/lanouvellerepublique/img/resto bistrok.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto bistrok (2).jpg",
+                    "content": "/lanouvellerepublique/img/resto bistrok (2).jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
             ]
         },
         "social_media": [],
-        "diet": ["vegetarien"],
-        "cuisine_type": ["french"],
-        "client_type": ["romantic", "friends"],
-        "service": ["on_site"]
+        "categories" : {
+            "diet": ["vegetarien"],
+            "cuisine_type": ["french"],
+            "ambiance": ["romantic", "friends"],
+            "service": ["on_site"]
+
+        },
     },
     {
         "id": 9,
@@ -401,7 +425,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "Le combat des franchises poulet : notre test comparatif",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto franchises poulet.jpg",
+        "image": "/lanouvellerepublique/img/resto franchises poulet.jpg",
         "article": {
             "title": "Le combat des franchises poulet : notre test comparatif",
             "catch_phrase": "A REMPLIR",
@@ -409,27 +433,30 @@ const restaurants = [
             "sections": [],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto franchises poulet.jpg",
+                    "content": "/lanouvellerepublique/img/resto franchises poulet.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto franchises poulet crousty game plat.jpg",
+                    "content": "/lanouvellerepublique/img/resto franchises poulet crousty game plat.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto franchises poulet pb poulet braisé plat.jpg",
+                    "content": "/lanouvellerepublique/img/resto franchises poulet pb poulet braisé plat.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
             ]
         },
         "social_media": [],
-        "diet": [],
-        "cuisine_type": ["street_food"],
-        "client_type": ["family", "friends"],
-        "service": ["on_site", "takeaway", "delivery"]
+        "categories" : {
+            "diet": [],
+            "cuisine_type": ["street_food"],
+            "ambiance": ["family", "friends"],
+            "service": ["on_site", "takeaway", "delivery"]
+
+        },
     },
     {
         "id": 10,
@@ -444,7 +471,7 @@ const restaurants = [
         "date": "12/03/2026",
         "hook": "Le combat des franchises poulet : notre test comparatif",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto franchises poulet.jpg",
+        "image": "/lanouvellerepublique/img/resto franchises poulet.jpg",
         "article": {
             "title": "Le combat des franchises poulet : notre test comparatif",
             "catch_phrase": "A REMPLIR",
@@ -452,27 +479,30 @@ const restaurants = [
             "sections": [],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto franchises poulet.jpg",
+                    "content": "/lanouvellerepublique/img/resto franchises poulet.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto franchises poulet crousty game plat.jpg",
+                    "content": "/lanouvellerepublique/img/resto franchises poulet crousty game plat.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto franchises poulet pb poulet braisé plat.jpg",
+                    "content": "/lanouvellerepublique/img/resto franchises poulet pb poulet braisé plat.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
             ]
         },
         "social_media": [],
-        "diet": [],
-        "cuisine_type": ["street_food"],
-        "client_type": ["family", "friends"],
-        "service": ["on_site", "takeaway", "delivery"]
+        "categories" : {
+            "diet": [],
+            "cuisine_type": ["street_food"],
+            "ambiance": ["family", "friends"],
+            "service": ["on_site", "takeaway", "delivery"]
+
+        },
     },
     {
         "id": 11,
@@ -487,7 +517,7 @@ const restaurants = [
         "date": "27/02/2026",
         "hook": "Cuisine du terroir et saveurs caribéennes : on a testé le restaurant AP par Anglade Pierre",
         "coupDeCoeur": false,
-        "image": "lanouvellerepublique/public/img/resto AP.jpg",
+        "image": "/lanouvellerepublique/img/resto AP.jpg",
         "article": {
             "title": "Cuisine du terroir et saveurs caribéennes : on a testé le restaurant AP par Anglade Pierre",
             "catch_phrase": "A REMPLIR",
@@ -495,26 +525,29 @@ const restaurants = [
             "sections": [],
             "images": [
                 {
-                    "content": "lanouvellerepublique/public/img/resto AP.jpg",
+                    "content": "/lanouvellerepublique/img/resto AP.jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto AP (2).jpg",
+                    "content": "/lanouvellerepublique/img/resto AP (2).jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 },
                 {
-                    "content": "lanouvellerepublique/public/img/resto AP (3).jpg",
+                    "content": "/lanouvellerepublique/img/resto AP (3).jpg",
                     "description": "",
                     "auteur": "© (Photo tmv, Aurélien Germain)"
                 }
             ]
         },
         "social_media": [],
-        "diet": ["vegetarien", "halal"],
-        "cuisine_type": ["french", "world_cuisine"],
-        "client_type": ["romantic", "family", "friends", "professional"],
-        "service": ["on_site"]
+        "categories" : {
+            "diet": ["vegetarien", "halal"],
+            "cuisine_type": ["french", "world_cuisine"],
+            "ambiance": ["romantic", "family", "friends", "professional"],
+            "service": ["on_site"]
+        }
+
     }
 ]
