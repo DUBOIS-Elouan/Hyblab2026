@@ -61,15 +61,27 @@ main{
   padding: 0 6px;
 }
 
+.main-question-text{
+  background: var(--color-purple);
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  text-decoration: underline;
+  text-decoration-color: var(--color-dark-purple);
+  text-decoration-thickness: 5px;
+  padding: 10px;
+  padding-left:15%;
+  padding-right:15%;
 
-.main-question-background{
+}
+.main-question{
+  padding-bottom: 170px;
+}
+.main-question-block{
   position: absolute;
-  z-index: -1;
   width: 130%;
   height: 100px;
-  background: var(--color-purple);
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
+
 
 
 /* ---------- Popup overlay ---------- */
@@ -769,6 +781,13 @@ button {
 /* ================== FOOTER ===================== */
 .footer {
   margin-top: 50px;
+  padding: 30px;
+  padding-bottom: 70px;
+  text-align: center;
+  color: var(--color-gray);
+  background-color: var(--color-white);
+  border-color: var(--color-dark-purple);
+  border-width: 10px;
   height: 50px;
 }
 
@@ -790,7 +809,7 @@ button {
   text-shadow: var(--color-light-gray) 1.5px 1.5px 0px;
 }
 
-/* ================== COULEUR DES CASES CITATIONS ================== */
+/* ================== CASES CITATIONS ET POSITION DU TEXTE ================== */
 .boxCitation {
   background-color: var(--color-transparent);
 
