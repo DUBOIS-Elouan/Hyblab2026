@@ -5,9 +5,10 @@ import ExpertQuote from '../components/ExpertQuote';
 import ProgressBar from '../components/ProgressBar';
 import IcebergScene from '../components/IcebergScene';
 import ScrollArrow from '../components/ScrollArrow';
+import ResearcherFooter from "../components/ResearcherFooter";
 
 const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 5438;
+const DESIGN_HEIGHT = 6000;
 
 export default function ResearcherPage() {
   const [scale, setScale] = useState(() => window.innerWidth / DESIGN_WIDTH);
@@ -17,6 +18,8 @@ export default function ResearcherPage() {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  // state (isPopup)
 
   return (
     <>
@@ -42,6 +45,7 @@ export default function ResearcherPage() {
         <TopicTitle />
         <ExpertQuote />
         <IcebergScene />
+        <ResearcherFooter />
       </div>
     </>
   );

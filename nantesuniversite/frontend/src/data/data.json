@@ -4,12 +4,16 @@
     "identity": {
       "full_name": "Colin de la Higuera",
       "title": "Spécialiste de l’apprentissage automatique, de l’intelligence artificielle et de l’Éducation Ouverte",
-      "quote": "Expert in  artificial intelligence with 15 years of experience in autonomous systems.",
+      "quote": "L'alphabétisation à l'intelligence artificielle n'est pas une option pour les experts, c'est une condition de la citoyenneté au XXIe siècle.",
+      "field": "Intelligence Artificielle",
       "contact": {
         "email": "jp.dupont@university.edu",
         "linkedIn": "https://www.linkedin.com/in/colin-de-la-higuera-3b30aa62/",
         "office_location": "Nantes"
-      }
+      },
+      "profession": "Professeur à l'Université de Nantes",
+      "position": "Titulaire de la Chaire UNESCO RELIA",
+      "goal": "ACCOMPAGNER LE DÉPLOIEMENT DE L'IA DANS L'ÉDUCATION"
     },
     "documents": [
       {
@@ -28,7 +32,9 @@
         "date": "2024",
         "origine":"external link",
         "url": "https://u-news.univ-nantes.fr/education-ouverte-colin-de-la-higuera-finaliste-des-prestigieux-open-education-global-awards-dans-la-categorie-leadership-1",
-        "pictogramme": "./pictogramme/prix.svg"
+        "pictogramme": "./pictogramme/prix.svg",
+        "type": "web"
+        
       },
       {
         "id": "2",
@@ -40,7 +46,8 @@
         "date": "2025",
         "origine":"external link",
         "url": "https://www.univ-nantes.fr/universite/vision-strategie-et-grands-projets/deux-chercheurs-de-nantes-universite-recompses-par-le-prestigieux-prix-merlot",
-        "pictogramme": "./pictogramme/prix.svg"
+        "pictogramme": "./pictogramme/prix.svg",
+        "type": "web"
       },
       {
         "id": "3",
@@ -53,7 +60,8 @@
         "date": "2025",
         "origine":"external link",
         "url": "https://www.lagazettedescommunes.com/984968/faire-en-sorte-que-lia-serve-a-mieux-apprendre/",
-        "pictogramme": "./pictogramme/article.svg"
+        "pictogramme": "./pictogramme/article.svg",
+        "type": "web"
       },
        {
         "id": "9",
@@ -66,7 +74,8 @@
         "date": "2026",
         "origine":"external link",
         "url": "https://chaireunescorelia.univ-nantes.fr/?s=La+triche%E2%80%A6+et+si+l%E2%80%99IA",
-        "pictogramme": "./pictogramme/article.svg"
+        "pictogramme": "./pictogramme/article.svg",
+        "type": "web"
       },
          
       {
@@ -80,7 +89,8 @@
         "date": "2024",
         "origine":"external link",
         "url": "https://www.epi.asso.fr/revue/articles/a2501c.htm",
-        "pictogramme": "./pictogramme/article.svg"
+        "pictogramme": "./pictogramme/article.svg",
+        "type": "web"
       },
       {
         "id": "11",
@@ -93,7 +103,8 @@
         "date": "2020",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/presenting-oeg-201-in-nantes/",
-        "pictogramme": "./pictogramme/conference.svg"
+        "pictogramme": "./pictogramme/conference.svg",
+        "type": "web"
       },
       {
         "id": "12",
@@ -106,7 +117,8 @@
         "date": "2022",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/gtnum-ia_eo-axe-3-atelier-du-11-mai-2022-lintelligence-artificielle-lecole-les-enseignantes-partie-1/",
-        "pictogramme": "./pictogramme/conference.svg"
+        "pictogramme": "./pictogramme/conference.svg",
+        "type": "web"
       },
       {
         "id": "13",
@@ -119,7 +131,8 @@
         "date": "2022",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/gtnum-ia_eo-axe-3-atelier-du-1er-juin-2022-lintelligence-artificielle-lecole-les-enseignantes-partie-2/",
-        "pictogramme": "./pictogramme/conference.svg"
+        "pictogramme": "./pictogramme/conference.svg",
+        "type": "web"
       },
        {
         "id": "14",
@@ -132,7 +145,8 @@
         "date": "2024",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/lancement-reseau-unitwin-unoe/",
-        "pictogramme": "./pictogramme/conference.svg"
+        "pictogramme": "./pictogramme/conference.svg",
+        "type": "web"
       },
       {
         "id": "15",
@@ -144,7 +158,8 @@
         "date": "2023",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/ia-les-femmes-table-ronde-comment-mettre-lia-au-service-de-lautonomisation-des-femmes-septembre-2023/",
-        "pictogramme": "./pictogramme/podcast.svg"
+        "pictogramme": "./pictogramme/podcast.svg",
+        "type": "web"
       },
       {
         "id": "16",
@@ -157,7 +172,8 @@
         "date": "2023",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/table-ronde-n2-les-ia-generatives-bousculent-leducation-quels-impacts-sur-levaluation/",
-        "pictogramme": "./pictogramme/podcast.svg"
+        "pictogramme": "./pictogramme/podcast.svg",
+        "type": "web"
       },
       {
         "id": "17",
@@ -170,7 +186,8 @@
         "date": "2021",
         "origine":"external link",
         "url": "https://mediaserver.univ-nantes.fr/videos/ressources-educatives-libres-pour-et-par-les-enseignants-dne-salon-educatec-educatice-novembre-2021/",
-        "pictogramme": "./pictogramme/podcast.svg"
+        "pictogramme": "./pictogramme/podcast.svg",
+        "type": "web"
       },
      
       {
@@ -232,7 +249,8 @@
         "description": "Cet article présente l’inférence grammaticale, un domaine du machine learning qui consiste à apprendre automatiquement des grammaires ou des modèles à partir de données structurées (mots, chaînes, arbres). Ces modèles servent à analyser, classifier ou compresser des données, avec des applications en linguistique, reconnaissance vocale, biologie et intelligence artificielle.",
         "date": "September 2005",
         "url": "https://www.sciencedirect.com/science/article/abs/pii/S0031320305000221",
-        "pictogramme": "./pictogramme/recherche.svg"
+        "pictogramme": "./pictogramme/recherche.svg",
+        "type": "web"
       },
       {
         "id": "5",
@@ -243,7 +261,8 @@
         "description": "Cet article étudie le problème de la chaîne médiane, qui consiste à trouver la chaîne la plus proche d’un ensemble de chaînes, un problème NP-difficile utilisé en reconnaissance vocale et biologie computationnelle.",
         "date": "6 January 2000",
         "url": "https://www.sciencedirect.com/science/article/pii/S0304397597002405",
-        "pictogramme": "./pictogramme/recherche.svg"
+        "pictogramme": "./pictogramme/recherche.svg",
+        "type": "web"
       },
       {
         "id": "6",
@@ -254,7 +273,8 @@
         "description": "Cet article analyse l’efficacité de l’inférence grammaticale et montre que plusieurs classes de langages ne peuvent pas être apprises efficacement en temps polynomial.",
         "date": "Mai 1997",
         "url": "https://link.springer.com/article/10.1023/A:1007353007695",
-        "pictogramme": "./pictogramme/recherche.svg"
+        "pictogramme": "./pictogramme/recherche.svg",
+        "type": "web"
       },
       {
         "id": "7",
@@ -265,7 +285,8 @@
         "description": "Cet article montre que trouver la chaîne la plus probable dans des grammaires stochastiques est un problème NP-difficile, sans solution efficace en temps polynomial.",
         "date": "",
         "url": "https://link.springer.com/chapter/10.1007/978-3-540-45257-7_2",
-        "pictogramme": "./pictogramme/recherche.svg"
+        "pictogramme": "./pictogramme/recherche.svg",
+        "type": "web"
       },
       {
         "id": "8",
@@ -276,7 +297,8 @@
         "description": "Cet article étudie l’inférence probabiliste dans les modèles de Markov cachés avec contraintes de grammaires, montrant que le problème est NP-difficile et proposant un algorithme d’approximation.",
         "date": "26 Jun 2022",
         "url": "https://arxiv.org/abs/2206.12862",
-        "pictogramme": "./pictogramme/recherche.svg"
+        "pictogramme": "./pictogramme/recherche.svg",
+        "type": "web"
       },
       {
         "id": "18",
@@ -287,7 +309,8 @@
         "description": "",
         "date": "",
         "url": "./documents/expert/IA-pour-les-enseignants-un-manuel-ouvert-1729161531.pdf",
-        "pictogramme": "./pictogramme/livre.svg"
+        "pictogramme": "./pictogramme/livre.svg",
+        "type": "pdf"
       }
     ]
   }
