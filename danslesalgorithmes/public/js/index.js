@@ -173,35 +173,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- Quizz 2 ---
   const quiz2 = {
+    container: document.getElementById('quiz-2'),
     options: document.querySelectorAll('#quiz-2 .option-btn'),
     feedback: document.getElementById('feedback-2'),
     validateButton: document.getElementById('validate-btn-2'),
   };
 
   function toggleSelection(button) {
-    if (button.classList.contains('selected')) {
-      button.classList.remove('selected');
-      button.style.backgroundColor = '#4CAF50';
-    } else {
-      button.classList.add('selected');
-      button.style.backgroundColor = '#5bc0de'; 
-    }
+    if (button.disabled) return;
+    button.classList.toggle('selected');
   }
 
   function validateQuiz2() {
-    const selectedOptions = document.querySelectorAll('#quiz-2 .option-btn.selected');
-    const allCorrectOptions = document.querySelectorAll('#quiz-2 .option-btn[data-correct="true"]');
+    const selectedOptions = quiz2.container.querySelectorAll('.option-btn.selected');
+    const allCorrectOptions = quiz2.container.querySelectorAll('.option-btn[data-correct="true"]');
 
     quiz2.options.forEach(button => {
       button.disabled = true;
+
       if (button.dataset.correct === 'true') {
-        button.style.backgroundColor = '#5cb85c'; 
+        button.classList.add('is-correct');
       } else if (button.classList.contains('selected')) {
-        button.style.backgroundColor = '#d9534f'; 
+        button.classList.add('is-wrong');
       }
     });
 
     let allCorrectSelected = true;
+
     allCorrectOptions.forEach(option => {
       if (!option.classList.contains('selected')) {
         allCorrectSelected = false;
@@ -209,19 +207,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     if (allCorrectSelected && selectedOptions.length === allCorrectOptions.length) {
-      quiz2.feedback.textContent = "Parfait ! Toutes les réponses sélectionnées sont correctes.";
-      quiz2.feedback.style.color = '#5cb85c';
+      quiz2.feedback.textContent = "Et bien cela peut-être l'une des trois raisons.";
+      quiz2.feedback.classList.add('is-success');
+      quiz2.feedback.classList.remove('is-error');
     } else {
-      quiz2.feedback.textContent = "Toutes les propositions étaient correctes.";
-      quiz2.feedback.style.color = '#5cb85c';
-    } 
+      quiz2.feedback.textContent = "Et bien cela peut-être l'une des trois raisons.";
+      quiz2.feedback.classList.add('is-success');
+      quiz2.feedback.classList.remove('is-error');
+    }
+
+    quiz2.feedback.classList.add('visible');
   }
 
   quiz2.options.forEach(button => {
     button.addEventListener('click', () => toggleSelection(button));
   });
-  if(quiz2.validateButton) quiz2.validateButton.addEventListener('click', validateQuiz2);
 
+  if (quiz2.validateButton) {
+    quiz2.validateButton.addEventListener('click', validateQuiz2);
+  }
+  
   // --- Quizz 3 ---
   let selectedButtonQuiz3 = null;
   const quiz3 = {

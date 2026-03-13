@@ -298,8 +298,8 @@ article {
   top: -20px;
   left: -20px;
   
-  background-color: #D9EDD7;
-  color: #000;
+  background-color: #000000;
+  color: #ffffff;
 
   padding: 10px 16px;
   border-radius: 40px;
@@ -358,31 +358,30 @@ article {
 
 .quiz-container .validate-btn {
   padding: 10px 20px ;
-  background: #f0ad4e;
+  background: #000000;
   font-size: 1rem;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 10px auto 0;
+  margin: 0px auto 20px;
   display: block;
 }
 
-.quiz-container .validate-btn:hover {
-  background: #ec971f;
-}
+
 
 .quiz-container .feedback {
-  min-height: 20px;
-  font-weight: bold;
-  color: #d9534f;
+  display: none;
   margin-bottom: 10px;
+}
+
+.quiz-container .feedback.visible {
+  display: block;
 }
 
 .quiz-answer {
   display: none;
   margin-top: 20px;
-  font-weight: bold;
 }
 
 .quiz-answer.active {
@@ -460,6 +459,53 @@ article {
 .option-btn.is-wrong {
   background-color: #EDD7D7;
   color: #000;
+}
+
+.quiz-container .option-btn {
+  padding: 15px 20px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #000;
+  border: 1px solid #000;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.quiz-container .option-btn:hover {
+  background: #f3f3f3;
+}
+
+.quiz-container .option-btn.selected {
+  background: rgba(252, 250, 212, 1);
+}
+
+.quiz-container .option-btn.is-correct {
+  background: #D9EDD7;
+}
+
+.quiz-container .option-btn.is-wrong {
+  background: #EDD7D7;
+}
+
+.quiz-container .option-btn:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.quiz-container .feedback {
+  min-height: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.quiz-container .feedback.is-success {
+  color: #000000;
+}
+
+.quiz-container .feedback.is-error {
+  color: #c62828;
 }
 
 /* ================= SOURCES / FOOTER ================= */
