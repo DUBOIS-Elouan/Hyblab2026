@@ -83,6 +83,8 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 1400;
     margin-bottom: 20px;
     padding: 15px;
     background:
@@ -95,11 +97,17 @@ nav {
     gap: 16px;
 }
 
+nav span {
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
 /* ---- Search bar ---- */
 .search-wrapper {
     position: relative;
     flex: 1;
     max-width: 340px;
+    z-index: 1450;
 }
 
 .search-input {
@@ -138,7 +146,7 @@ nav {
     list-style: none;
     margin: 0;
     padding: 4px 0;
-    z-index: 999;
+    z-index: 1600;
     max-height: 280px;
     overflow-y: auto;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -202,6 +210,8 @@ nav {
 }
 
 .eco-pulse-card {
+    position: relative;
+    z-index: 1;
     background-image:
         linear-gradient(120deg, rgba(23, 0, 63, 0.78), rgba(10, 0, 31, 0.76)),
         url('../img/labeleco.png');
@@ -357,6 +367,8 @@ body.eco-boost {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
+    padding-left: 0;
+    margin-left: 0;
 }
 
 .player-wrapper {
@@ -743,6 +755,8 @@ body.eco-boost {
     padding: 20px;
     border-radius: 10px;
     margin-top: 30px;
+    position: relative;
+    overflow: hidden;
 }
 
 .quiz-card h3 {
@@ -781,6 +795,7 @@ body.eco-boost {
     padding: 10px;
     border-radius: 5px;
     background: #17003f;
+    transition: background 0.3s ease;
 }
 
 .second-slide-layout {

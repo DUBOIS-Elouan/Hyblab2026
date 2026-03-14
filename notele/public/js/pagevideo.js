@@ -1,13 +1,16 @@
 // Catalogue de vidéos pour la barre de recherche
 const VIDEO_CATALOG = [
     { title: 'Ecofrost exporte la frite belge à travers le monde', tag: 'Label Eco', url: 'pagevideo.html' },
-    { title: 'Les coulisses de l’usine Ecofrost à Péruwelz', tag: 'Reportage', url: 'pagevideo.html' },
-    { title: 'Frites belges : de la pomme de terre à l’export', tag: 'Label Eco', url: 'pagevideo.html' },
-    { title: 'L’impact économique d’Ecofrost en Wallonie', tag: 'Décryptage', url: 'pagevideo.html' },
-    { title: 'Ecofrost : un modèle d’entreprise durable', tag: 'Label Eco', url: 'pagevideo.html' },
-    { title: 'La production à grande échelle vue de l’intérieur', tag: 'Reportage', url: 'pagevideo.html' },
-    { title: 'Agriculture et industrie : le duo gagnant belge', tag: 'Décryptage', url: 'pagevideo.html' },
-    { title: 'Retour sur le live Label Eco — émission #01', tag: 'Live', url: 'pagevideo.html' },
+    { title: 'Labeléco : La Brasserie des Carrières, culture de l ancrage local', tag: 'Vidéos similaires', url: 'pagevideo.html' },
+    { title: 'Labeléco : Bizzdev, l agence qui bouscule les codes', tag: 'Vidéos similaires', url: 'pagevideo.html' },
+    { title: 'Labeléco : Dépôt Vrac, l esprit du circuit court bio', tag: 'Vidéos similaires', url: 'pagevideo.html' },
+    { title: 'Pauline Jean - Directrice achat et matière première', tag: 'Reportages', url: 'pagevideo.html' },
+    { title: 'Lauraline - Guide de visite', tag: 'Reportages', url: 'pagevideo.html' },
+    { title: 'Antoine Van Wynsberghe - Agriculteur', tag: 'Reportages', url: 'pagevideo.html' },
+    { title: 'Claire Hoflack - CEO', tag: 'Reportages', url: 'pagevideo.html' },
+    { title: 'Olivier Maes - Production & R&D', tag: 'Reportages', url: 'pagevideo.html' },
+    { title: 'Les coulisses de l usine Ecofrost à Péruwelz', tag: 'Reportage', url: 'pagevideo.html' },
+    { title: 'Retour sur le live Label Eco - émission #01', tag: 'Live', url: 'pagevideo.html' },
 ];
 
 function initSearch() {
@@ -109,7 +112,7 @@ function initSearch() {
 const chapters = [
     {time:0, title:"Introduction - La frite belge qui s'exporte"},
     {time:130, title:'Une entreprise familiale devenue industrielle'},
-    {time:267, title:'D ou viennent les pommes de terre ?'},
+    {time:267, title:'D\'où viennent les pommes de terre ?'},
     {time:438, title:'Dans les coulisses de l usine'},
     {time:600, title:'Une production a grande echelle'},
     {time:744, title:'Les frites belges a l international'},
@@ -443,16 +446,19 @@ function initLiveComments() {
     });
 }
 
-// Vérification du Quiz
 function checkAnswer(isCorrect) {
     const result = document.getElementById('resultText');
-    if (isCorrect) {
-        result.innerHTML = " BIEN JOUÉ ! T'es un vrai expert de l'économie locale.";
-        result.style.color = "white";
-    } else {
-        result.innerHTML = " Oups... Re-regarde le clip 'Impact' !";
-        result.style.color = "white";
+    if (!result) {
+        return;
     }
+
+    if (isCorrect) {
+        result.textContent = "BIEN JOUE ! T'es un vrai expert de l'economie locale.";
+    } else {
+        result.textContent = "Oups... Re-regarde le clip 'Impact' !";
+    }
+
+    result.style.color = 'white';
 }
 
 // Populate chapters once DOM is ready.
