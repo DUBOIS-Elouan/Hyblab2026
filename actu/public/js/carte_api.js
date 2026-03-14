@@ -1,6 +1,6 @@
 'use strict'
 
-const API = "http://localhost:8080/actu/api" 
+const API = "https://hyblab.polytech.univ-nantes.fr/actu/api" 
 
 async function loadFilm(){
     const filmsResponse = await fetch(API + "/film-week", { //route a changer
