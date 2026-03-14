@@ -1,10 +1,28 @@
 
 
+.affiches{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+    margin : 8px;
+}
+
+body{
+    margin: 0;
+    overflow: hidden;
+    background-color: #F1F1F1;
+
+    touch-action: none;
+}
+
+/* /// */
 
 .film{
-
-   
-
+    transform-origin: top left;
     position: relative;
 
 }
@@ -12,26 +30,24 @@
 .film > div{
 
     
-    width: 97px;
-    height: 175px;
+    width: 335px;
+    height: 613px;
     
-    border-radius: 5.88px;
+    border-radius: 20px;
     overflow: hidden;
 
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
     
-    transform-style: preserve-3d;
 
-    box-shadow: 0 2.61px 1.45px 0 rgba(0, 0, 0, 0.25);
-
+    box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.25);
 
 }
 
 .film h3{
     font-family: "Black_italic",sans-serif;
-    font-size: 7px;
+    font-size: 24px;
 
 }
 
@@ -55,23 +71,23 @@
     flex-direction: column;
     gap: 1px;
 
-    margin: 6px 3px ;
+    margin: 13px 16px ;
 
     
 }
 
 .film > .affiche_front > img{
     /* max-width: 350px; */
-    border-radius: 6px;
+    border-radius: 20px;
     max-width: 335px;
-    box-shadow: 0 6px 4px 0 rgba(0, 0, 0, 0.40);
+    box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.25);
 
 }
 
 
-.film > .affiche_front  span{
+.film > .affiche_front span{
     font-family: "semi_blod_italic",sans-serif;
-    font-size: 4px;
+    font-size: 16px;
 }
 
 
@@ -102,22 +118,25 @@
 
     background-color: white;
     border-radius: 5.88px;
-    padding: 20px 10px 5px;
-    margin: 6px 5px;
+    padding: 66px 36px 15px;
+    margin: 20px;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.25);
+
 
     height: 65%;
 
     
 }
 .film > .affiche_back > div:first-of-type p{
-    font-size: 4px;
+    font-size: 14px;
 }
 .film > .affiche_back > div:first-of-type img{
-    width: 7px;
+    width: 26px;
 }
 
 
@@ -129,31 +148,10 @@
 }
 
 .film > .affiche_back > div:last-of-type img{
-    width: 16.24px;
-    height: 12.76px
+    width: 48px;
     
 }
 
-/* /// */
-
-.affiches{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-
-    transform-style: preserve-3d;
-    margin : 8px;
-}
-
-body{
-    margin: 0;
-    overflow: hidden;
-    background-color: #F1F1F1;
-
-    touch-action: none;
-}
 
 
 

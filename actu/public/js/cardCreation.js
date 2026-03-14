@@ -1,4 +1,4 @@
-function createFrontCard(titre, genre, realisateur){
+function createFrontCard(titre, genre, realisateur,index){
 
   const front = document.createElement("div");
   front.classList.add("affiche_front");
@@ -9,7 +9,7 @@ function createFrontCard(titre, genre, realisateur){
   const info = document.createElement("div");
 
   const title = document.createElement("h3");
-  title.innerText = titre;
+  title.innerText = titre+index;
 
   const genre_span = document.createElement("span");
   genre_span.innerText = genre;
@@ -78,12 +78,23 @@ function createBackCard(titre, description){
   return back;
 }
 
-function createCard(titre, genre, realisateur, description){
+function createCard(titre, genre, realisateur, description,index){
 
   const section = document.createElement("section");
   section.classList.add("film");
 
-  const front = createFrontCard(titre, genre, realisateur);
+  const init_scale = 0.3
+  const init_width = 335*init_scale
+  const init_height = 613*init_scale
+  const init_style = 
+    `transform: scale(${init_scale});
+    width: ${init_width}px;
+    height:  ${init_height}px;`
+
+    
+  section.setAttribute("style",init_style)
+
+  const front = createFrontCard(titre, genre, realisateur,index);
   const back = createBackCard(titre, description);
 
   section.appendChild(front);
