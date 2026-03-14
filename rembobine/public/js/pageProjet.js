@@ -567,3 +567,9 @@ console.log(sommet);
 sommet.addEventListener("click", () => {
   dest.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+const cross = document.querySelector(".green-bar-cross");
+const green_bar = document.querySelector("#announcement-bar-root");
+cross.addEventListener("click", () => {
+  green_bar.style.display = "none";
+})
