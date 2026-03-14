@@ -781,7 +781,7 @@ article {
 }
 
 #target-animation.is-hit .img-flechette {
-    transform: translate(-50%, -50%); 
+    transform: translate(-70%, 10%); 
     opacity: 1; 
 }
 
