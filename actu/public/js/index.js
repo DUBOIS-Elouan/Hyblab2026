@@ -50,7 +50,10 @@ loadFilm().then((filmsNodes) => {
   });
 }).finally(()=> {
   nb_card = film_cards.length;
-
+  if (film_cards.length === 0) {
+    window.location.href = "podium.html";
+    return;
+  }
   const rect_poss = Array(nb_card);
   let timelinesRestantes = 0;
   film_cards.forEach((elem, index) => {
@@ -328,7 +331,7 @@ function observer() {
             real_film: film_cards[curentX_film_index].dataset.filmReal || ""
           })
         });
-        
+
         film_cards.splice(curentX_film_index, 1);
 
         updateroue();
@@ -360,7 +363,9 @@ function observer() {
 
 
 function updateroue() {
-  console.log(film_cards.length)
+  if (film_cards.length === 0) {
+    window.location.href = "podium.html";
+  } 
   film_cards.forEach((elem, index) => {
     const angle = (((2 * Math.PI) / film_cards.length) * ((index + nb_tours) % film_cards.length))
 
