@@ -32,13 +32,13 @@ const milestoneFiles = import.meta.glob('./assets/elements/milestone/*.svg', { e
 const signFiles = import.meta.glob('./assets/elements/sign/*.svg', { eager: true, import: 'default' });
 
 const elements = {
-  tree: Object.values(treeFiles),
-  milestone: Object.values(milestoneFiles),
-  sign: Object.values(signFiles)
+  tree: { svg : Object.values(treeFiles), style : 'xl:scale-[95%] scale-[40%] origin-bottom'},
+  milestone:  { svg : Object.values(milestoneFiles), style : 'xl:scale-[60%]'},
+  sign: { svg : Object.values(signFiles)}
 };
 
 const ESPACEMENT = 0.33; 
-const OFFSET_DEPART = 0.33; // Décale le premier article pour ne pas qu'il soit au tout début
+const OFFSET_DEPART = 0.20; // Décale le premier article pour ne pas qu'il soit au tout début
 export const NB_ARTICLES = 10;
 const NB_PATH = Math.ceil(OFFSET_DEPART + (NB_ARTICLES * ESPACEMENT));
 console.log("nombre de chemin pour " + NB_ARTICLES + " articles : " + NB_PATH);
@@ -58,11 +58,6 @@ const posCyclist = {
   right,
   left,
 };
-
-// const pathList = [
-//   dicoPaths.path1,
-//   dicoPaths.path1,
-// ];
 
 const pathOptions = Object.values(dicoPaths);
 const pathList = Array.from({ length: NB_PATH }, () => 
@@ -124,6 +119,8 @@ const InfinitePath = () => {
       closestArticles = filteredAll.slice(0, NB_ARTICLES);
     }
 
+    const signLength = elements.sign.svg.length
+
     return closestArticles.map((article, index) => {
       const globalPos = OFFSET_DEPART + (index * ESPACEMENT);
       const pathIndex = Math.floor(globalPos) % pathList.length;
@@ -132,7 +129,7 @@ const InfinitePath = () => {
         id: article.ID, 
         pathIndex, 
         progress, 
-        globalPos, // <-- On stocke la position absolue pour calculer la distance plus tard !
+        globalPos,
         articleData: {
           nom: article.Title,
           text: `${article.Date}${article._distanceFromCentre != null ? ` - 📍 à ${article._distanceFromCentre} km` : ""}`,
@@ -140,7 +137,8 @@ const InfinitePath = () => {
           categories: article.Catégories,
           fullArticle: article,
           category_color: CategoryList[article.categorie_tag]
-        }
+        },
+        svg: elements.sign.svg[Math.floor(Math.random() * signLength)],
       };
     });
   }, [allArticles, selectedCats, lat, long]);
@@ -196,26 +194,32 @@ const InfinitePath = () => {
       };
     });
 
+    const milestoneLength = elements.milestone.svg.length
+    const treeLength = elements.tree.svg.length
+
     const extractedPoints = pathList.map(pathObj => {
       const doc = parser.parseFromString(pathObj.pointsRaw, "image/svg+xml");
       const trees = Array.from(doc.getElementsByClassName("cls-1"))
       const milestones = Array.from(doc.getElementsByClassName("cls-3"))
       const svgTag = doc.querySelector("svg");
       const viewBox = svgTag?.getAttribute("viewBox")?.split(" ") || [0, 0, 767.25, 7337.6];
+
       return [
         ...milestones.map(mile => ({
           x: parseFloat(mile.getAttribute("cx")),
           y: parseFloat(mile.getAttribute("cy")),
           width: parseFloat(viewBox[2]),
           height: parseFloat(viewBox[3]),
-          type: "milestone"
+          svg: elements.milestone.svg[Math.floor(Math.random() * milestoneLength)],
+          svgStyle: elements.milestone.style
         })),
         ...trees.map(tree => ({
           x: parseFloat(tree.getAttribute("cx")),
           y: parseFloat(tree.getAttribute("cy")),
           width: parseFloat(viewBox[2]),
           height: parseFloat(viewBox[3]),
-          type: "tree"
+          svg: elements.tree.svg[Math.floor(Math.random() * treeLength)],
+          svgStyle: elements.tree.style
         }))
       ];
     });
@@ -472,13 +476,9 @@ const InfinitePath = () => {
                   )}
 
                   {pathsPointsData[i] && pathsPointsData[i].map((c, index) => {
-                  const xPercent = (c.x / c.width) * 100;
-                  const yPercent = (c.y / c.height) * 100;
-                  
-                    const treeSvg = elements.tree[index % elements.tree.length];
-                    const mileSvg = elements.milestone[index % elements.milestone.length];
-
-                    return (
+                    const xPercent = (c.x / c.width) * 100;
+                    const yPercent = (c.y / c.height) * 100;
+                    return (  
                       <div
                       key={`${c.type}.-${i}-${index}`}
                         className="absolute z-20 pointer-events-none flex justify-center"
@@ -491,9 +491,9 @@ const InfinitePath = () => {
                         }}
                       >
                       <img 
-                        src={c.type === "tree" ? treeSvg : mileSvg} 
+                        src={c.svg} 
                         alt="element" 
-                        className="xl:h-[40%] xl:w-[40%] w-[15vw] h-[15vh] object-contain drop-shadow-md" 
+                        className={`${c.svgStyle} w-auto object-contain drop-shadow-md`}
                       />
                       </div>
                     );
@@ -503,7 +503,6 @@ const InfinitePath = () => {
                   .filter(obj => obj.pathIndex === i)
                   .map(obj => {
                     const pos = articlePositions[obj.id];
-                    const signSvg = elements.sign[obj.id % elements.sign.length];
                     if (!pos) return null;
                     const isOnRightSide = pos.xPercent > 50;
     
@@ -516,7 +515,7 @@ const InfinitePath = () => {
                         style={{
                           left:            `${safeLeft}%`,
                           top:             `${pos.yPercent}%`,
-                          transform:       "translate(-50%, -100%) rotateX(-50deg) translateZ(40px)",
+                          transform:       "translate(-50%, -100%) rotateX(-50deg) translateZ(20px)",
                           transformStyle:  "preserve-3d",
                           transformOrigin: "center bottom",
                           willChange:      "transform",
@@ -535,9 +534,9 @@ const InfinitePath = () => {
                         }
 
                         <img 
-                          src={signSvg} 
+                          src={obj.svg} 
                           alt="element" 
-                          className="xl:h-[7vh] xl:w-[7vw] w-[7vw] h-[7vh] object-contain drop-shadow-md" 
+                          className="xl:h-[8vh] xl:w-[8vw] h-[7vh] w-[7vw] object-contain drop-shadow-md" 
                         />
                       </div>
                     );
@@ -563,10 +562,10 @@ const InfinitePath = () => {
  
           {/* VÉLO */}
             <motion.div
-              className="absolute xl:bottom-[8.5vh] bottom-[10vh] z-50 xl:w-35 xl:h-35 w-20 h-20 pointer-events-none"
+              className="absolute xl:bottom-[10vh] bottom-[12vh] z-50 xl:w-35 xl:h-35 w-20 h-20 pointer-events-none"
             style={{
               left:            cyclistX,
-              transform:       "translateX(-50%) translateZ(20px) rotateX(-50deg)",
+              transform:       "translateX(-50%) rotateX(-50deg)",
               transformOrigin: "bottom center"
             }}
             >
@@ -593,14 +592,14 @@ const InfinitePath = () => {
         bottom: "14vh"
       }}
     >
-      <span className="text-sm font-semibold text-black bg-white/90 px-4 py-2 rounded-full shadow-md backdrop-blur-sm border border-gray-100">
+      <span className="text-sm font-semibold bg-white/90 px-4 py-2 rounded-full shadow-md backdrop-blur-sm border border-gray-100">
         Scrollez vers le haut
       </span>
 
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        className="w-12 h-12 bg-secondary text-black rounded-full flex items-center justify-center shadow-lg border border-secondary"
+        className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center shadow-lg border border-secondary"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" />
