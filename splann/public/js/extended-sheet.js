@@ -12,7 +12,7 @@ const addExtend = async function(swiper){
   if (sheet.dataset.initialized) continue; 
   sheet.dataset.initialized = true;
   
-  const handlebar = sheet.querySelector('.handle-bar'); 
+  const handlebars = sheet.querySelector('.handle-bar'); 
   const pagination = document.querySelector('.swiper-pagination');
   const contents = document.querySelectorAll('.content')
   const butts = document.querySelectorAll('.toggle-btn')

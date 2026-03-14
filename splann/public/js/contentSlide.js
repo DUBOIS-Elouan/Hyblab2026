@@ -48,7 +48,7 @@ const createEmptyContent = async function(){
             slide.appendChild(titleBar)
 
             instaBox = document.createElement("section")
-            //instaBox.id = "instagram-box"
+            instaBox.id = "instagram-content"
             for(let k=0; k<bulletContent.length; k++){
                 if(bulletContent[k].type == "title"){
                     let title = document.createElement("h1");
@@ -59,7 +59,6 @@ const createEmptyContent = async function(){
                 }
                 else if(bulletContent[k].type == "paragraph"){
                     let paragraph = document.createElement("p");
-                    paragraph.id = "instagram-content"
                     paragraph.innerHTML = bulletContent[k].content
                     instaBox.appendChild(paragraph)
                 }
@@ -69,12 +68,6 @@ const createEmptyContent = async function(){
                     img.src = bulletContent[k].content
                     instaBox.appendChild(img)
                 }
-            }
-
-            if(!titleSlide){
-                let voletTitle = document.createElement("h2");
-                voletTitle.innerHTML = data.volet[i].titreVolet
-                slide.appendChild(voletTitle)
             }
 
             slide.appendChild(instaBox)
