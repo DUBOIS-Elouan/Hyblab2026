@@ -13,6 +13,8 @@ import livreSvg from "../data/pictogramme/livre.svg";
 import podcastSvg from "../data/pictogramme/podcast.svg";
 import rechercheSvg from "../data/pictogramme/recherche.svg";
 import biographieSvg from "../data/pictogramme/biographie.svg";
+import jeuSvg from "../data/pictogramme/jeu.svg";
+import videoSvg from "../data/pictogramme/video.svg";
 import Popup from "./Popup";
 import Robot from "./Robot";
 
@@ -24,7 +26,9 @@ const PICTOGRAMMES = {
   livre: livreSvg,
   podcast: podcastSvg,
   recherche: rechercheSvg,
-  biographie:biographieSvg
+  biographie:biographieSvg,
+  jeu:jeuSvg,
+  video:videoSvg
 };
 
 // ─── Adjust card positions here ────────────────────────────────────────────
@@ -125,7 +129,15 @@ export default function IcebergScene() {
         {cardDocuments.map((doc, i) => (
           <ResourceCard
             key={doc.id}
-            pictogramme={PICTOGRAMMES[doc.category.split(" ")[0].toLowerCase()]}
+            //pictogramme={PICTOGRAMMES[doc.category.split(" ")[0].toLowerCase()]}
+            pictogramme={
+  ["conference", "podcast", "table ronde"].includes(doc.category.toLowerCase())
+    ? videoSvg
+    : PICTOGRAMMES[doc.category.split(" ")[0].toLowerCase()]
+}
+
+
+
             category={doc.category.toLowerCase()}
             title={doc.title}
             description={doc.description}
@@ -139,7 +151,16 @@ export default function IcebergScene() {
 
       {openPopup && selectedDoc ? (
         <Popup
-          pictogramme={PICTOGRAMMES[selectedDoc.category.toLowerCase()]}
+          //pictogramme={PICTOGRAMMES[selectedDoc.category.toLowerCase()]}
+          pictogramme={
+  ["conference", "podcast", "table ronde"].includes(selectedDoc.category.toLowerCase())
+    ? videoSvg
+    : PICTOGRAMMES[selectedDoc.category.split(" ")[0].toLowerCase()]
+}
+
+
+
+
           type={selectedDoc.type}
           url={selectedDoc.url}
           title={selectedDoc.title}
