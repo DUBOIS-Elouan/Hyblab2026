@@ -159,7 +159,7 @@ loadFilm().then((filmsNodes) => {
             duration: 1,
             "--transparance_pour": "30%"
           }, "<")
-      }
+      } 
 
 
     })
