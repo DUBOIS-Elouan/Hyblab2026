@@ -8,7 +8,7 @@ export default function Popup({ pictogramme, type, url, title, onClick }) {
     setAnimClass("close");
     setTimeout(() => {
       onClick();
-    }, 350);
+    }, 200);
   }
 
   function renderContent() {

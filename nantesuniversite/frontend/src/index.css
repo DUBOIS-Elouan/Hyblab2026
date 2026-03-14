@@ -137,7 +137,6 @@ body {
   flex-direction: column;
   gap: 12px;
 
-  transform: scaleX(0);
   transform-origin: center center;
 }
 
@@ -158,21 +157,21 @@ body {
 }
 
 .class-pupop.open {
-  animation: bookOpen 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: popupOpen 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .class-pupop.close {
-  animation: bookClose 0.35s cubic-bezier(0.55, 0, 0.78, 0) forwards;
+  animation: popupClose 0.2s cubic-bezier(0.55, 0, 0.78, 0) forwards;
 }
 
-@keyframes bookOpen {
-  0%   { transform: scaleX(0); opacity: 0.4; }
-  100% { transform: scaleX(1); opacity: 1; }
+@keyframes popupOpen {
+  0%   { transform: scale(0.88); opacity: 0; }
+  100% { transform: scale(1);    opacity: 1; }
 }
 
-@keyframes bookClose {
-  0%   { transform: scaleX(1); opacity: 1; }
-  100% { transform: scaleX(0); opacity: 0; }
+@keyframes popupClose {
+  0%   { transform: scale(1);    opacity: 1; }
+  100% { transform: scale(0.88); opacity: 0; }
 }
 
 .class-close-popup{
@@ -214,6 +213,7 @@ body {
 .biographie-portrait{
   width: 350px;
   height: 250px;
+  object-fit: contain;
 }
 
 .biographie-container{
@@ -250,4 +250,5 @@ body {
 .biographie-photo{
   width: 350px;
   height: 250px;
+  object-fit: contain;
 }
