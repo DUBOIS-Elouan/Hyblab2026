@@ -39,7 +39,7 @@ function degtoscale(angle) {
 
 loadFilm().then((filmsNodes) => {
 
-  if(filmsNodes.length == 0) {
+  if (filmsNodes.length == 0) {
     window.location.href = "podium.html"
   }
 
@@ -194,15 +194,14 @@ loadFilm().then((filmsNodes) => {
       yoyo: true,
       ease: "power1.inOut"
     }, "<")
-    .to(icon_pasinteresse,{
-      duration : 1,
-      x : "+=120",
-      rotate : 450,
-      repeat : 1,
-      yoyo:true,
+    .to(icon_pasinteresse, {
+      duration: 1,
+      x: "+=120",
+      rotate: 450,
+      repeat: 1,
+      yoyo: true,
       ease: "power1.inOut"
-
-    },"<")
+    }, "<")
 
 
     .to(current_elem, {
@@ -219,185 +218,204 @@ loadFilm().then((filmsNodes) => {
       yoyo: true,
       ease: "power1.inOut"
     }, "<")
-    .to(icon_interesse,{
-      duration : 1,
-      x : "-=120",
-      rotate : -450,
-      repeat : 1,
-      yoyo:true,
+    .to(icon_interesse, {
+      duration: 1,
+      x: "-=120",
+      rotate: -450,
+      repeat: 1,
+      yoyo: true,
       ease: "power1.inOut"
 
-    },"<");
- 
+    }, "<");
+
 
 })
 
 
 function observer() {
-    gsap.registerPlugin(Observer);
+  gsap.registerPlugin(Observer);
 
-    let decalageY = 0
-    Observer.create({
-      target: window,
-      type: "touch",
-      debounce: true,
+  let decalageY = 0
+  Observer.create({
+    target: window,
+    type: "touch",
+    debounce: true,
 
-      onChangeY(self) {
+    onChangeY(self) {
 
-        if (Math.abs(decalageX) < 70) {
+      if (Math.abs(decalageX) < 70) {
 
-          decalageY += self.deltaY / 400;
+        decalageY += self.deltaY / 400;
 
-          const getAngle = (i) => (((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length)) + decalageY
-          const current_index = get_current_index()
-          gsap.set(film_cards[current_index], {
+        const getAngle = (i) => (((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length)) + decalageY
+        const current_index = get_current_index()
+        gsap.set(film_cards[current_index], {
 
-            y: () => {
-              const angle = getAngle(current_index)
-              console.log(angle)
-              console.log(decalageY)
-              console.log((((2 * Math.PI) / film_cards.length) * ((current_index + nb_tours) % film_cards.length)))
-              console.log(Math.sin(angle) * distance + window.innerHeight / 2, window.innerHeight / 2)
-              return Math.sin(angle) * distance + window.innerHeight / 2
-            },
-
-
-          })
-
-        }
-
-      },
-
-      onRelease() {
-
-        const curent_index = get_current_index()
-
-        const ang = (((2 * Math.PI) / film_cards.length) * ((curent_index + nb_tours) % film_cards.length)) + decalageY
-        const degangle = Math.round(ang * 180 / Math.PI)
-        const censibiliter = 10
+          y: () => {
+            const angle = getAngle(current_index)
+            console.log(angle)
+            console.log(decalageY)
+            console.log((((2 * Math.PI) / film_cards.length) * ((current_index + nb_tours) % film_cards.length)))
+            console.log(Math.sin(angle) * distance + window.innerHeight / 2, window.innerHeight / 2)
+            return Math.sin(angle) * distance + window.innerHeight / 2
+          },
 
 
-        if (degangle > censibiliter) {
-          nb_tours += 1 //Math.round(degangle / (censibiliter * 2))
-        }
-        else if (degangle < -censibiliter) {
-          nb_tours -= 1 //Math.round(-degangle / (censibiliter * 2))
-        }
+        })
 
-        decalageY = 0;
-
-        if (Math.abs(decalageX) <= 100) {
-
-          const getAngle = (i) => (((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length))
-          gsap.to(film_cards, {
-            duration: 0.2,
-            y: (i) => {
-              const angle = getAngle(i)
-              return Math.sin(angle) * distance + window.innerHeight / 2
-            },
-
-            z: (i) => {
-              const angle = getAngle(i)
-              return Math.cos(angle) * distance
-            },
-
-          })
-        }
       }
-    });
 
-    let decalageX = 0;
+    },
 
-    let curentX_film_index = null
+    onRelease() {
 
-    Observer.create({
-      target: window,
-      type: "pointer,touch",
-      dragMinimum: 5,
+      const curent_index = get_current_index()
 
-      onChangeX(self) {
-        decalageX += self.deltaX
+      const ang = (((2 * Math.PI) / film_cards.length) * ((curent_index + nb_tours) % film_cards.length)) + decalageY
+      const degangle = Math.round(ang * 180 / Math.PI)
+      const censibiliter = 10
 
-        if (curentX_film_index == null) {
-          curentX_film_index = (film_cards.length + (-nb_tours) % film_cards.length) % film_cards.length
-        }
 
-        const curent_elem = film_cards[curentX_film_index]
+      if (degangle > censibiliter) {
+        nb_tours += 1 //Math.round(degangle / (censibiliter * 2))
+      }
+      else if (degangle < -censibiliter) {
+        nb_tours -= 1 //Math.round(-degangle / (censibiliter * 2))
+      }
 
-        gsap.set(curent_elem, {
-          x: decalageX + window.innerWidth / 2,
+      decalageY = 0;
+
+      if (Math.abs(decalageX) <= 100) {
+
+        const getAngle = (i) => (((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length))
+        gsap.to(film_cards, {
+          duration: 0.2,
+          y: (i) => {
+            const angle = getAngle(i)
+            return Math.sin(angle) * distance + window.innerHeight / 2
+          },
+
+          z: (i) => {
+            const angle = getAngle(i)
+            return Math.cos(angle) * distance
+          },
+
         })
-        gsap.set(zone_pour, {
-          "--transparance_pour": `${((-50) * (decalageX / (window.innerWidth / 2)) + 50)}%`
-        })
-        gsap.set(zone_contre, {
-          "--transparance_contre": `${((100 - 50) * (decalageX / (-window.innerWidth / 2)) + 50)}%`
-        })
-      },
+      }
+    }
+  });
 
-      async onRelease() {
-        const curent_elem = film_cards[curentX_film_index]
+  let decalageX = 0;
 
-        if (decalageX > 100) {
-          decalageX = window.innerWidth / 2 + 300;
-          console.log("DROIT");
-          await fetch(API + "/film-like", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              nom_film: film_cards[curentX_film_index].dataset.filmName || "",
-              real_film: film_cards[curentX_film_index].dataset.filmReal || ""
-            })
-          });
+  let curentX_film_index = null
 
-          film_cards.splice(curentX_film_index, 1);
-          updateroue();
-        }
-        else if (decalageX < -100) {
-          decalageX = -window.innerWidth / 2 - 300;
-          console.log("GAUCHE");
-          await fetch(API + "/film-unlike", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              nom_film: film_cards[curentX_film_index].dataset.filmName || "",
-              real_film: film_cards[curentX_film_index].dataset.filmReal || ""
-            })
-          });
+  Observer.create({
+    target: window,
+    type: "pointer,touch",
+    dragMinimum: 5,
 
-          film_cards.splice(curentX_film_index, 1);
+    onChangeX(self) {
+      decalageX += self.deltaX
 
-          updateroue();
-        } else {
+      if (curentX_film_index == null) {
+        curentX_film_index = (film_cards.length + (-nb_tours) % film_cards.length) % film_cards.length
+      }
+
+      const curent_elem = film_cards[curentX_film_index]
+
+      gsap.set(curent_elem, {
+        x: decalageX + window.innerWidth / 2,
+      })
+      gsap.set(zone_pour, {
+        "--transparance_pour": `${((-50) * (decalageX / (window.innerWidth / 2)) + 50)}%`
+      })
+      gsap.set(zone_contre, {
+        "--transparance_contre": `${((100 - 50) * (decalageX / (-window.innerWidth / 2)) + 50)}%`
+      })
+      gsap.set(icon_pasinteresse, {
+        x: `${((20 + 100) * (decalageX / (-window.innerWidth / 2))) - 100}`,
+        rotate: 450 * (decalageX / (-window.innerWidth / 2)),
+      })
+      gsap.set(icon_interesse, {
+        x: `${((-20 - 100) * (decalageX / (window.innerWidth / 2))) + 100}`,
+        rotate: -450 * (decalageX / (window.innerWidth / 2)),
+      })
+    },
+
+    async onRelease() {
+      const curent_elem = film_cards[curentX_film_index]
+
+      if (decalageX > 100) {
+        decalageX = window.innerWidth / 2 + 300;
+        console.log("DROIT");
+        await fetch(API + "/film-like", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nom_film: film_cards[curentX_film_index].dataset.filmName || "",
+            real_film: film_cards[curentX_film_index].dataset.filmReal || ""
+          })
+        });
+
+        film_cards.splice(curentX_film_index, 1);
+        updateroue();
+      }
+      else if (decalageX < -100) {
+        decalageX = -window.innerWidth / 2 - 300;
+        console.log("GAUCHE");
+        await fetch(API + "/film-unlike", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nom_film: film_cards[curentX_film_index].dataset.filmName || "",
+            real_film: film_cards[curentX_film_index].dataset.filmReal || ""
+          })
+        });
+
+        film_cards.splice(curentX_film_index, 1);
+
+        updateroue();
+      } else {
+        decalageX = 0;
+      }
+
+      gsap.timeline().to(curent_elem, {
+        duration: 0.2,
+        x: decalageX + window.innerWidth / 2,
+        onComplete() {
           decalageX = 0;
         }
-
-        gsap.timeline().to(curent_elem, {
+      })
+        .to(zone_pour, {
           duration: 0.2,
-          x: decalageX + window.innerWidth / 2,
-          onComplete() {
-            decalageX = 0;
-          }
-        })
-          .to(zone_pour, {
-            duration: 0.2,
-            "--transparance_pour": `${50}%`
-          }, "<")
-          .to(zone_contre, {
-            duration: 0.2,
-            "--transparance_contre": `${50}%`
-          }, "<")
+          "--transparance_pour": `${50}%`
+        }, "<")
+        .to(zone_contre, {
+          duration: 0.2,
+          "--transparance_contre": `${50}%`
+        }, "<")
+        .to(icon_interesse, {
+          duration: 0.2,
+          x: 100,
+          rotate:0,
+        }, "<")
+        .to(icon_pasinteresse, {
+          duration: 0.2,
+          x: -100,
+          rotate: 0,
+        }, "<")
+        
 
-        curentX_film_index = null
-      }
-    })
-  }
+      curentX_film_index = null
+    }
+  })
+}
 
 
 function updateroue() {
@@ -426,6 +444,6 @@ function updateroue() {
 }
 
 
-setTimeout(()=>{
+setTimeout(() => {
   window.scrollTo(0, 0);
-},1000)
+}, 1000)
