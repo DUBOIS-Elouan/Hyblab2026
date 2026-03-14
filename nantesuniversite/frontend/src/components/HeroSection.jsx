@@ -68,7 +68,7 @@ export default function HeroSection() {
       {/* ── Blue highlight rectangle behind "CHERCHEURS" ── */}
       <div
         className="absolute bg-[#3452ff]"
-        style={{ left: 641, top: 476, width: 672, height: 112 }}
+        style={{ left: 655, top: 476, width: 672, height: 112 }}
       />
 
       {/* ── Hero title ── */}
