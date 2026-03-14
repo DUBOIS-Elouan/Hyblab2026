@@ -292,14 +292,14 @@ function observer() {
       })
     },
 
-    onRelease() {
+    async onRelease() {
       const curent_elem = film_cards[curentX_film_index]
 
       if (decalageX > 100) {
         decalageX = window.innerWidth / 2 + 300;
         console.log(film_cards[curentX_film_index]);
         console.log("DROIT");
-        fetch(API + "/film-like", { 
+        await fetch(API + "/film-like", { 
           method: "POST",
           credentials: "include",
           headers: {
