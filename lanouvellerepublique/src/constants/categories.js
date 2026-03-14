@@ -6,8 +6,7 @@ export default {
         "halal" : "Halal",
     },
     cuisine_type:{
-        "french" : "Tourangelle",
-        "tourgangelle" : "Tourangelle",
+        "tourangelle" : "Tourangelle",
         "asian" : "Asiatique",
         "italian" : "Italienne",
         "american" : "Américaine",

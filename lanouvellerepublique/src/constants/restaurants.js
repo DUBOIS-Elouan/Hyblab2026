@@ -98,7 +98,7 @@ export default [
             },
         ],
         categories: {
-            diet: ["vegetarien"],
+            diet: ["vegetarien", "vegan"],
             cuisine_type: ["asian", "street_food"],
             ambiance: ["family", "friends"],
             service: ["on_site", "takeaway", "delivery"],
@@ -151,8 +151,8 @@ export default [
             },
         ],
         categories: {
-            diet: ["vegetarien"],
-            cuisine_type: ["french"],
+            diet: ["vegetarien", "vegan"],
+            cuisine_type: ["traditional"],
             ambiance: ["romantic", "friends"],
             service: ["on_site"],
             budget: ["budget_1_10", "budget_10_20"],
@@ -213,7 +213,7 @@ export default [
         ],
         categories: {
             diet: ["vegetarien"],
-            cuisine_type: ["french", "traditional"],
+            cuisine_type: ["traditional"],
             ambiance: ["family", "friends"],
             service: ["on_site", "takeaway"],
             budget: ["budget_1_10", "budget_10_20"],
@@ -274,7 +274,7 @@ export default [
         ],
         categories: {
             diet: [],
-            cuisine_type: ["french", "traditional"],
+            cuisine_type: ["traditional", "tourangelle"],
             ambiance: ["family", "friends", "professional"],
             service: ["on_site"],
             budget: ["budget_10_20", "budget_20_30"],
@@ -335,7 +335,7 @@ export default [
         ],
         categories: {
             diet: [],
-            cuisine_type: ["french"],
+            cuisine_type: ["traditional"],
             ambiance: ["romantic", "friends", "professional"],
             service: ["on_site"],
             budget: ["budget_20_30", "budget_30_plus"],
@@ -388,7 +388,7 @@ export default [
         ],
         categories: {
             diet: ["vegetarien"],
-            cuisine_type: ["french", "traditional"],
+            cuisine_type: ["traditional"],
             ambiance: ["family", "friends", "professional"],
             service: ["on_site"],
             budget: ["budget_1_10", "budget_10_20"],
@@ -448,7 +448,7 @@ export default [
         ],
         categories: {
             diet: ["vegetarien"],
-            cuisine_type: ["french"],
+            cuisine_type: ["traditional"],
             ambiance: ["romantic", "friends"],
             service: ["on_site"],
             budget: ["budget_10_20", "budget_20_30"],
@@ -589,7 +589,7 @@ export default [
         ],
         categories: {
             diet: ["vegetarien", "halal"],
-            cuisine_type: ["french", "world_cuisine"],
+            cuisine_type: ["traditional", "tourangelle", "world_cuisine"],
             ambiance: ["romantic", "family", "friends", "professional"],
             service: ["on_site"],
             budget: ["budget_20_30", "budget_30_plus"],

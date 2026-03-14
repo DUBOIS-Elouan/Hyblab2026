@@ -73,6 +73,7 @@ const badgeFileByKey = {
     family: "familial.svg",
     french: "tourangelle.svg",
     friends: "amical.svg",
+    gluten_free: "sans_gluten.svg",
     halal: "hallal.svg",
     indian: "indian.svg",
     italian: "italien.svg",
@@ -83,6 +84,8 @@ const badgeFileByKey = {
     romantic: "love.svg",
     street_food: "street_food.svg",
     traditional: "tradi.svg",
+    vegan: "vegan.svg",
+    vegetarien: "vege.svg",
     world_cuisine: "monde.svg",
     coeur_tmv: "coeur.svg",
 }
