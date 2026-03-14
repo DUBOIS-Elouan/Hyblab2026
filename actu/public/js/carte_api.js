@@ -1,6 +1,7 @@
 'use strict'
 
-const API = "https://hyblab.polytech.univ-nantes.fr/actu/api" 
+// const API = "https://hyblab.polytech.univ-nantes.fr/actu/api" 
+// const API = "http://localhost:8080/actu/api" 
 
 async function loadFilm(){
     const filmsResponse = await fetch(API + "/film-week", { //route a changer
@@ -10,7 +11,7 @@ async function loadFilm(){
 
     const films = await filmsResponse.json();
     let filmsNodes = films.map(film => {
-        const titre_film = film.titre;
+        const titre_film = film.nom;
         const realisateur = film.realisateur;
         const critique = film.critique;
         const etoiles = film.nb_etoile;

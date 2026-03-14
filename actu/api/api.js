@@ -37,7 +37,7 @@ let db;
 
 app.get('/init', async function ( req, res ) {
     await initialisation();
-    await test1();
+    // await test1();
     // await Test2Data();
     // await test2();
     res.json({'Ok':true});
@@ -113,27 +113,23 @@ function lastWednesday() {
 // ROUTES FILMS
 
 app.get('/film-week', async function ( req, res ) {
-    // const { last_date } = await GetLastDate();
-    // const films = await GetFilmsByDate(last_date);
-
 
     const lastDate = lastWednesday();
     const day = String(lastDate.getDate()).padStart(2, "0");
     const month = String(lastDate.getMonth()+1).padStart(2, "0");
     const year = String(lastDate.getFullYear()); 
 
-    if(!fs.existsSync(`./actu/api/BDD/Films/films-${year}-${month}-${day}.json`)){
+    const lastDateBD = await GetLastDate();
+
+    if(`${year}-${month}-${day}`!=lastDateBD){
         
         const ficheObjs = await recuperation_film_site();
-        fs.writeFileSync(`./actu/api/BDD/Films/films-${year}-${month}-${day}.json`, JSON.stringify(ficheObjs, null, 2));
+        ficheObjs.forEach((fiche)=>{
+            ajoutFilm(fiche.titre,fiche.affiche,fiche.bande_annonce,fiche.critique,fiche.nb_etoile,"",fiche.realisateur,fiche.date);
+        })
     }
-    fs.readFile(`./actu/api/BDD/Films/films-${year}-${month}-${day}.json`, "utf8", function (err, fileData) {
-        if (err) {
-            res.json({error:"Les données n'ont pas pu être récupérés !"});
-            return;
-        }
-        res.json(JSON.parse(fileData));
-    });
+    const data = await GetFilmsByDate(lastDateBD);
+    res.json(data);
 } );
 
 app.get('/film-like', async (req, res) => {
@@ -224,7 +220,6 @@ app.get("/create-user", async (req,res)=>{
         user = await GetUserByToken(token);
     }
 
-    console.log(user);
     if(!user){
         console.log("Création de token chez le client");
         token = generateToken();
@@ -370,7 +365,7 @@ async function recuperation_film_site(){
                 "nb_etoile" : etoiles?.length,
                 "bande_annonce" : bande_annonce,
                 "affiche":ficheObj?.affiche,
-                "date":ficheObj?.date
+                "date":year+ "-" +month + "-" + day//ficheObj?.date !=null? new Date(ficheObj?.date).toISOString().split("T")[0]:year+ "-" +month + "-" + day
             }
             films.push(attributs_film);
         }
@@ -384,17 +379,31 @@ async function recuperation_film_site(){
 
 //ajouter un film aimé
 app.post("/film-like", async(req, res) => {
-    const {id_film, id_utilisateur} = req.body;
-    if (!id_film || !id_utilisateur){
-        res.status(400).json({ error: 'champs vide' });
+    const {nom_film,real_film} = req.body;
+
+    let token = req.cookies.token;
+    let user = null;
+
+    if(token){
+        user = await GetUserByToken(token);
     }
 
-    const film = await ajoutFilmAime(id_film, id_utilisateur);
+    if(!user){
+        res.status(400).json({ error: 'Utilisateur non identifié' });
+    }
+    if (!nom_film || !real_film){
+        res.status(400).json({ error: 'Champs vide' });
+    }
+    const film = await GetFilmByNomAndReal(nom_film,real_film);
     if(!film){
-        res.status(400).json({error: "erreur d'insertion"});
+        res.status(400).json({ error: 'Film non identifié' });
+    }
+    const filmID = await ajoutFilmAime(film?.id, user?.id);
+    if(!filmID){
+        res.status(400).json({error: "Le like n'a pas été pris en compte"});
     }
     else{
-        res.json({message : "film insérer avec succès voici son id :" + film})
+        res.json({message : "Film inséré avec succès voici son id :" + filmID})
     }
 });
 
@@ -748,16 +757,26 @@ async function GetLastDate(){
 
     const result = await db.get(query, []);
 
-    return result;
+    return result?.last_date;
 }
 
 // --- FILMS --- 
 
-async function GetFilmsByDate(date){
+async function GetFilmByNomAndReal(nom,real){
     const db = await getDB();
     
     const query = `
-        SELECT * FROM Film WHERE date_sortie = ?
+        SELECT * FROM Film WHERE nom LIKE ? and realisateur LIKE ?
+    `;
+    const result = await db.get(query, [nom,real]);
+
+    return result;
+}
+async function  GetFilmsByDate(date){
+    const db = await getDB();
+    
+    const query = `
+        SELECT * FROM Film WHERE date_sortie LIKE ?
     `;
     const result = await db.all(query, [date]);
 

@@ -297,15 +297,29 @@ function observer() {
 
       if (decalageX > 100) {
         decalageX = window.innerWidth / 2 + 300;
-        film_cards.pop(curentX_film_index);
-        console.log("DROIT")
-        updateroue()
+        console.log(film_cards[curentX_film_index]);
+        console.log("DROIT");
+        fetch(API + "/film-like", { 
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nom_film: film_cards[curentX_film_index].dataset.filmName || "",
+            real_film: film_cards[curentX_film_index].dataset.filmReal || ""
+          })
+        });
+        
+        film_cards.splice(curentX_film_index, 1);
+        updateroue();
       }
       else if (decalageX < -100) {
         decalageX = -window.innerWidth / 2 - 300;
-        console.log("GAUCHE")
-        film_cards.pop(curentX_film_index);
-        updateroue()
+        console.log("GAUCHE");
+        film_cards.splice(curentX_film_index, 1);
+
+        updateroue();
       } else {
         decalageX = 0;
       }
@@ -346,3 +360,7 @@ function updateroue() {
     });
   })
 }
+
+
+
+// function sendLike()

@@ -105,6 +105,8 @@ function createCard(titre,affiche, genre, realisateur, critique,nb_etoile,lien_b
 
   const section = document.createElement("section");
   section.classList.add("film");
+  section.setAttribute("data-film-name",titre);
+  section.setAttribute("data-film-real",realisateur);
 
   const front = createFrontCard(titre,affiche==null?"img/affiche-cine.png":affiche, genre==null?"Film":genre, realisateur);
   const back = createBackCard(titre, affiche==null?"img/affiche-cine.png":affiche, critique,nb_etoile,lien_bande_annonce, lien_article);
