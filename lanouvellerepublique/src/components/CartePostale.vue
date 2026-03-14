@@ -90,7 +90,7 @@ defineProps({
 .carte-postale-image-div {
     display: flex;
     padding: 16px;
-    // padding: 8px;
+    /* padding: 8px; */
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
