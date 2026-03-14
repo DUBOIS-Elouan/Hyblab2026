@@ -27,23 +27,26 @@
 </template>
 
 <script setup>
+
+const vectorBgUrl = `url('${import.meta.env.BASE_URL}img/Vector.png')`
+
 defineProps({
     title: {
         type: String,
-        default: "Item Title",
+        default: 'Item Title'
     },
     image: {
         type: String,
-        default: "",
+        default: ''
     },
     badges: {
         type: Array,
-        default: () => [],
+        default: () => []
     },
     date: {
         type: String,
-        default: "",
-    },
+        default: ''
+    }
 })
 </script>
 
@@ -61,19 +64,24 @@ defineProps({
     position: relative;
 
     display: flex;
-    width: 398px;
-    height: 257.71px;
-    padding: 6px;
+    height: 400px;
+    padding: 8px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 11.81px;
+    gap: 8px;
     flex-shrink: 0;
+    /*
+    width: 398px;
+    height: 257.71px;
+    padding: 6px;
+    gap: 11.81px;
+    */
     align-self: stretch;
 
     border-radius: 12px;
-    background-image: url("/img/Vector.png");
-    background-color: #fff;
+    background-image: v-bind(vectorBgUrl);
+    background-color: #FFF;
     background-position: 50%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -82,6 +90,7 @@ defineProps({
 .carte-postale-image-div {
     display: flex;
     padding: 16px;
+    // padding: 8px;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
@@ -111,7 +120,7 @@ defineProps({
     width: 56.568px;
     height: 12.432px;
 
-    color: #377dd1;
+    color: #377DD1;
     font-family: Abordage;
     font-size: 9.946px;
     font-style: normal;
@@ -128,13 +137,13 @@ defineProps({
     align-self: stretch;
 
     border-radius: 10px;
-    background: #fff;
+    background: #FFF;
 }
 
 .title {
     flex: 1 0 0;
 
-    color: #e815b2;
+    color: #E815B2;
     padding-top: 5px;
     font-family: Lalezar;
     font-size: 25px;

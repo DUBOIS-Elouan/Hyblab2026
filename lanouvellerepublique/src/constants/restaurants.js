@@ -1,11 +1,11 @@
-export default [
+const restaurants = [
     {
         name: "Yumi Ramen",
         address: "21 rue de la Monnaie à Tours.",
         opening_hours:
             "Ouvert tous les jours (sauf le mardi), de midi à 14 h 15 et de 19 h à 22 h 15.",
-        latitude: 47.39442358843276,
-        longitude: 0.6821830966686332,
+        latitude: 47.394452668692615,
+        longitude: 0.6823118460312717,
         contact_web: "",
         contact_tel: "09.80.77.40.14",
         carte: "Entrées entre 4 et 7 €. Ramen bowls à 15,50 €, bibimbap et mazesoba à 15,50 €.",
@@ -56,8 +56,8 @@ export default [
         name: "Nobi Nobi",
         address: "46 rue Nationale à Tours.",
         opening_hours: "Ouvert tous les jours de 11 h à 23 h.",
-        latitude: 47.39414919627798,
-        longitude: 0.6875319093899888,
+        latitude: 47.394466363320134,
+        longitude: 0.6890796181412185,
         contact_web: "nobinobi-streetfood.com",
         contact_tel: "",
         carte: "Sides entre 3,90 € et 4,90 € ; plats de 8,90 € à 10,90 €.",
@@ -109,8 +109,8 @@ export default [
         name: "MIETTES",
         address: "8 rue de la Rôtisserie à Tours.",
         opening_hours: "Ouvert du mercredi au samedi (midi/soir) et mardi soir.",
-        latitude: 47.39403357371746,
-        longitude: 0.6814853311265712,
+        latitude: 47.39405446623635,
+        longitude: 0.6817615362422491,
         contact_web: "",
         contact_tel: "02.34.36.34.97",
         carte: "20 € la formule 3 plats. Le soir, assiettes à partager de 6 à 16 €.",
@@ -162,8 +162,8 @@ export default [
         name: "Le Chalet",
         address: "27 rue Constantine à Tours.",
         opening_hours: "Ouvert du mardi au dimanche, de midi à 14 h et de 19 h 30 à 22 h 30.",
-        latitude: 47.39743504637095,
-        longitude: 0.6870343037763887,
+        latitude: 47.39521178521063,
+        longitude: 0.6844165920921605,
         contact_web: "",
         contact_tel: "",
         carte: "Galettes salées de 8,50 à 13 € ; crêpes sucrées de 2 à 5 €.",
@@ -223,8 +223,8 @@ export default [
         name: "Tours Bouillon",
         address: "6 rue des Fusillés à Tours.",
         opening_hours: "Du mardi au samedi, de 11 h 30 à 15 h 30.",
-        latitude: 47.39516438561861,
-        longitude: 0.6857600350967166,
+        latitude: 47.395204522459004,
+        longitude: 0.6869807838816627,
         contact_web: "",
         contact_tel: "02.47.20.50.60",
         carte: "Menu du jour à 25 € (complet), 20 € (E+P) ou 16 € (plat seul).",
@@ -284,8 +284,8 @@ export default [
         name: "Mensa et Potus",
         address: "23 rue du Commerce à Tours.",
         opening_hours: "Ouvert du mardi au vendredi, midi et soir et le samedi de 17 h à 22 h.",
-        latitude: 47.39545716298089,
-        longitude: 0.6849842966687121,
+        latitude: 47.395435403653195,
+        longitude: 0.6851130460312616,
         contact_web: "mensa-et-potus.fr",
         contact_tel: "02.47.05.71.21",
         carte: "menus 4 séquences à 62 €, 6 séquences à 84 €, et 8 séquences à 108 €. À la carte, entrées de 16 à 20 €, plats de 22 à 35 €, desserts de 13 à 18 €. Menu du midi à 25 € (entrée/plat/dessert) ou 23 € (entrée/plat). Tapas entre 6 et 12 €. Vin au verre à partir de 7 €.",
@@ -345,8 +345,8 @@ export default [
         name: "L'Atelier Artisan Crêpier",
         address: "31 place Gaston-Paillhou, à Tours.",
         opening_hours: "Ouvert tous les jours, de 11 h à 23 h en continu. Terrasse extérieure.",
-        latitude: 47.396092095364246,
-        longitude: 0.6794546176834312,
+        latitude: 47.39098316007925,
+        longitude: 0.6811306018515754,
         contact_web: "artisancrepier.com",
         contact_tel: "02.47.60.15.25",
         carte: "Galettes signatures de 12,90 € à 15,90 € ; galettes tradition à 10,90 € ; galette duo à 19,90 €. Crêpes traditions à 9-10 € en moyenne et tradition à partir de 4,50 €. Formule du midi à 16,90 € (verre de cidre ou jus de pomme + galette et crêpe tradition) ou menu à 22,90 € (verre de cidre ou jus de pommes + galette et crêpe signature). Menu enfant à 9,90 €.",
@@ -398,8 +398,8 @@ export default [
         name: "Le Bistrok",
         address: "3 rue Berthelot à Tours.",
         opening_hours: "Ouvert du mardi au samedi, midi et soir.",
-        latitude: 47.39680189149334,
-        longitude: 0.6871143625654882,
+        latitude: 47.39477238692607,
+        longitude: 0.6872946023707668,
         contact_web: "",
         contact_tel: "06.73.77.52.32",
         carte: "Formule du midi (plat + dessert) à 26 €. À la carte, les plats vont de 15,50 € à 29,50 €. Desserts à 7,50 €. Pour notre venue, nous en avons eu pour 26,50 € avec la rainbow pasta (à 19,50 €) et un verre de vin de 12 cl.",
@@ -459,8 +459,8 @@ export default [
         multiple_articles: true,
         address: "17 place du Grand-Market / 60, rue du Grand-Marché à Tours.",
         opening_hours: "Ouvert tous les jours, de 11 h à 2 h du matin / de 11 h 30 à 23 h.",
-        latitude: 47.394067,
-        longitude: 0.67989,
+        latitude: 47.393984365948725,
+        longitude: 0.6805542111133607,
         contact_web: "",
         contact_tel: "",
         carte: "Crousty gratiné à 11 € / Formule wings à 14,50 €.",
@@ -533,8 +533,8 @@ export default [
         name: "AP par Anglade Pierre",
         address: "38 bis avenue de Grammont à Tours.",
         opening_hours: "Ouvert du mardi au samedi, de 12 h à 14 h et de 19 h à 21 h 30.",
-        latitude: 47.3865565340522,
-        longitude: 0.6907917985146481,
+        latitude: 47.386512106841835,
+        longitude: 0.6910711526585837,
         contact_web: "",
         contact_tel: "02.47.05.34.00",
         carte: "Menu du jour à 25 € (entrée plat) ou 30 € (complet). Menu végétarien à 35 €, menu enfant à 23 €. Le soir, menus à 50 ou 75 € (autour des Caraïbes). À la carte, entrées à partir de 14 € et plats à partir de 29 €.",
@@ -596,3 +596,44 @@ export default [
         },
     },
 ]
+
+const baseUrl = import.meta.env.BASE_URL || "/"
+
+const normalizePublicImagePath = (value) => {
+    if (!value) return value
+
+    const path = String(value).trim()
+    if (/^https?:\/\//i.test(path)) {
+        return path
+    }
+
+    const withoutPrefix = path.replace(/^\/lanouvellerepublique\//, "")
+    const withoutLeadingSlash = withoutPrefix.replace(/^\//, "")
+
+    return `${baseUrl}${withoutLeadingSlash}`
+}
+
+const mapArticleImages = (article) => {
+    if (!article) return article
+
+    return {
+        ...article,
+        images: (article.images || []).map((img) => ({
+            ...img,
+            content: normalizePublicImagePath(img.content),
+        })),
+        sections: (article.sections || []).map((section) => ({
+            ...section,
+            images: (section.images || []).map((img) => ({
+                ...img,
+                content: normalizePublicImagePath(img.content),
+            })),
+        })),
+    }
+}
+
+export default restaurants.map((restaurant) => ({
+    ...restaurant,
+    image: normalizePublicImagePath(restaurant.image),
+    article: mapArticleImages(restaurant.article),
+}))
