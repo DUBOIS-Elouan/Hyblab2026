@@ -67,7 +67,7 @@ body{
 
     display: flex;
     flex-direction: column;
-    border-radius: 6px;
+    border-radius: 20px;
 }
 
 .film > .affiche_front > div:last-child{
@@ -248,7 +248,7 @@ body{
 
 .text_intro > p{
     font-family: "semi_blod_italic";
-      font-weight: 300;
+    font-weight: 300;
 
     font-size: 14px;
 }

@@ -149,6 +149,7 @@ loadFilm().then((filmsNodes) => {
     xPercent: -50,
     yPercent: -50,
     scale: 1,
+    transformOrigin: "center center",
     onComplete: () => {
       gsap.set(film_cards, { clearProps: "scale" });
     }
@@ -180,13 +181,34 @@ loadFilm().then((filmsNodes) => {
 
   const current_elem = film_cards[get_current_index()]
 
-  tl.to(current_elem, {
-    duration: 1,
-    x: `-=${100}`, // aller à gauche
-    repeat: 1,      // revient automatiquement au centre
-    yoyo: true,
-    ease: "power1.inOut"
+
+
+
+  tl.to(current_elem.querySelector(".affiche_front"), {
+    duration:1,
+    rotationY: 180
   })
+    .to(current_elem.querySelector(".affiche_back"), {
+      duration: 1, rotationY: 0
+    },
+      "<")
+    .to(current_elem.querySelector(".affiche_front"), {
+      duration: 1,
+      rotationY: 0
+    })
+    .to(current_elem.querySelector(".affiche_back"), {
+      duration: 1,
+      rotationY: 180
+    },
+      "<")
+
+    .to(current_elem, {
+      duration: 1,
+      x: `-=${100}`, // aller à gauche
+      repeat: 1,      // revient automatiquement au centre
+      yoyo: true,
+      ease: "power1.inOut"
+    })
     .to(zone_contre, {
       duration: 1,
       "--transparance_contre": "100%",
@@ -227,7 +249,6 @@ loadFilm().then((filmsNodes) => {
       ease: "power1.inOut"
 
     }, "<");
-
 
 })
 
@@ -403,14 +424,14 @@ function observer() {
         .to(icon_interesse, {
           duration: 0.2,
           x: 100,
-          rotate:0,
+          rotate: 0,
         }, "<")
         .to(icon_pasinteresse, {
           duration: 0.2,
           x: -100,
           rotate: 0,
         }, "<")
-        
+
 
       curentX_film_index = null
     }
