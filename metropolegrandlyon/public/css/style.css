@@ -15,6 +15,7 @@ body {
     margin: 0;
     padding: 0;
     background: #000;
+    font-family: 'Poppins', sans-serif;
 }
 
 #scene-container {
@@ -206,7 +207,7 @@ body {
 .ecolier {
     position: fixed;
     bottom: -30vh;
-    left: -8vw;
+    left: 8vh;
     width: 260px;
 }
 
@@ -480,3 +481,221 @@ body {
     0%, 100% { transform: translateY(0);    opacity: 1; }
     50%       { transform: translateY(6px); opacity: 0.5; }
 }
+
+/*Phase biodiversité*/
+
+#fond{
+    position: fixed;
+    left:-240vw;
+    bottom: -70vh;
+    transform: scale(0.5);
+}
+
+#mec{
+    position: fixed;
+    left:-0vw;
+    bottom: -10vh;
+    transform: scale(0.6);
+}
+
+#arbre1{
+    position: fixed;
+    left:-8vw;
+    bottom: -70vh;
+    transform: scale(0.4);
+}
+
+#arbre2{
+    position: fixed;
+    left:-71vw;
+    bottom: -77vh;
+    transform: scale(0.4);
+}
+
+/*FIN*/
+
+.interactive {
+  position: fixed;
+  width:10vw;
+  cursor: pointer;
+  
+}
+
+#ciel_fin{
+    position: fixed;
+    height: 100vh;
+}
+
+#nuage_fin{
+    position: fixed;
+    top: 0.5vh;
+    width: 90vw;
+}
+
+#ville_fin{
+    position: fixed;
+    top:4vh;
+    width:110vw;
+}
+
+#arbre_fin{
+    position: fixed;
+    width: 80vw;
+    right:0vw;
+    top:10vh;
+}
+
+#musee_fin{
+    position: fixed;
+    width: 40vw;
+    left: 32vw;
+    top: 55vh;
+}
+
+#eau_fin{
+    position: fixed;
+    top: 53vh;
+    left:0vw;
+    width: 110vw;
+}
+
+#metro_fin{
+    position: fixed;
+    width: 35vw;
+    top: 30vh;
+    left: 0vw;
+}
+
+#travaux_fin{
+    position: fixed;
+    width: 24vw;
+    top: 68vh;
+    left: 25vw;
+
+}
+
+#poubelle_fin{
+    position: fixed;
+    width: 50vw;
+    bottom: 0vh;
+    left: -5vw;
+}
+
+#velo_fin{
+    position: fixed;
+    width:60vw;
+    bottom: 0vh;
+    right: -5vw;
+}
+
+
+
+#ciel_int{
+    right: 2vw;
+    top: 2vh;
+}
+
+#nuage_int{
+    left: 15vw;
+    top: 2vh;
+}
+
+#ville_int{
+    left: 60vw;
+    top: 5vh;
+}
+
+#arbre_int{
+    right: 2vw;
+    top: 13vh;
+}
+
+#musee_int{
+    left: 60vw;
+    top: 55vh;
+}
+
+#eau_int{
+    right: 5vw;
+    top: 50vh;
+}
+
+#metro_int{
+    left: 5vw;
+    top: 30vh;
+}
+
+#velo_int{
+    right: 5vw;
+    bottom: 30vh;
+}
+
+#travaux_int{
+    left: 35vw;
+    bottom: 30vh;
+}
+
+#poubelle_int{
+    left: 25vw;
+    bottom: 12vh;
+}
+
+#credit{
+    left: 45vw;
+    bottom: 0vh;
+}
+
+
+/*Pop-up*/
+.PopUp {
+  display: none; 
+  position: fixed; 
+  z-index: 100; 
+  left: 0;
+  top: 0;
+  width: 100vw; 
+  height: 100vh; 
+  overflow: auto;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.PopUpBloc {/*Bloc blanc du Pop-Up*/
+  background-color: rgba(230,0,41,0.7);
+  margin: 15% auto; 
+  padding: 5vw;
+  border-radius: 30px;
+  width: 60vw;
+  height: 80vh;
+  position:relative
+}
+
+#PopUpTxt{
+  font-size: 15px;
+  display: block;
+  color: black;
+  white-space: pre-line;
+  max-height: 80vh; 
+  overflow-y: auto;
+}
+
+#PopUpTitre{
+  font-size: 25px;
+  display: block;
+  color: black;
+  white-space: pre-line;
+  max-width: 60vh; 
+  overflow-y: auto;
+}
+
+.close {
+  position: absolute;
+  top: 0px;
+  right: 2px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
