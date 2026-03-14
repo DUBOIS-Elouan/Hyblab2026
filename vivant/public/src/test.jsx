@@ -15,7 +15,7 @@ import path1PointsRaw from './assets/paths/pathPoints/1.svg?raw'
 import path1Points from './assets/paths/pathPoints/1.svg'
 import path2PointsRaw from './assets/paths/pathPoints/2.svg?raw'
 import path2Points from './assets/paths/pathPoints/2.svg'
-import path3PointsRaw from './assets/paths/pathPoints/2.svg?raw'
+import path3PointsRaw from './assets/paths/pathPoints/3.svg?raw'
 import path3Points from './assets/paths/pathPoints/3.svg'
 
 import up_straight from './assets/mr_patate/up_straight.svg';
@@ -37,11 +37,11 @@ const elements = {
   sign: Object.values(signFiles)
 };
 
-console.log(elements)
-
-const ESPACEMENT = 0.10; 
+const ESPACEMENT = 0.33; 
+const OFFSET_DEPART = 0.33; // Décale le premier article pour ne pas qu'il soit au tout début
 export const NB_ARTICLES = 10;
-
+const NB_PATH = Math.ceil(OFFSET_DEPART + (NB_ARTICLES * ESPACEMENT));
+console.log("nombre de chemin pour " + NB_ARTICLES + " articles : " + NB_PATH);
 const dicoPaths = {
   path1: { raw: path1Raw, svg: path1Url, points: path1Points, pointsRaw: path1PointsRaw },
   path2: { raw: path2Raw, svg: path2Url, points: path2Points, pointsRaw: path2PointsRaw },
@@ -59,10 +59,18 @@ const posCyclist = {
   left,
 };
 
-const pathList = [
-  dicoPaths.path1,
-  dicoPaths.path1,
-];
+// const pathList = [
+//   dicoPaths.path1,
+//   dicoPaths.path1,
+// ];
+
+const pathOptions = Object.values(dicoPaths);
+const pathList = Array.from({ length: NB_PATH }, () => 
+  pathOptions[Math.floor(Math.random() * pathOptions.length)]
+);
+
+
+console.log(pathList)
 
 const CategoryList = {
    "Entrepreneuriat":"#DED491",
@@ -117,7 +125,7 @@ const InfinitePath = () => {
     }
 
     return closestArticles.map((article, index) => {
-      const globalPos = (index + 1) * ESPACEMENT;
+      const globalPos = OFFSET_DEPART + (index * ESPACEMENT);
       const pathIndex = Math.floor(globalPos) % pathList.length;
       const progress = globalPos % 1;
       return { 
@@ -406,20 +414,20 @@ const InfinitePath = () => {
     </div>
 
     <div 
-      ref={containerRef} 
-      className={`relative transition-all duration-700`} 
-      style={{ height: dynamicHeight }}
-    >
+        ref={containerRef} 
+      className={`relative transition-all duration-700 no-scrollbar`} 
+        style={{ height: dynamicHeight }}
+      >
       <div className="sticky top-0 mask-y-from-75% mask-y-to-90% h-screen overflow-hidden flex justify-center [perspective:1200px]" >
-        <div
-          className="xl:w-[50vw] relative w-[100vw] flex-none"
+          <div
+            className="xl:w-[50vw] relative w-[100vw] flex-none"
           style={{ transform: "rotateX(50deg)", transformStyle: "preserve-3d" }}
-        >
-          <motion.div
-            className="flex flex-col-reverse w-full will-change-transform"
-            style={{ y: pathY, transformStyle: "preserve-3d" }}
           >
-            {pathList.map((pathObj, i) => (
+            <motion.div
+              className="flex flex-col-reverse w-full will-change-transform"
+              style={{ y: pathY, transformStyle: "preserve-3d" }}
+            >
+              {pathList.map((pathObj, i) => (
               <div
                 key={i}
                 className="relative w-full"
@@ -433,54 +441,54 @@ const InfinitePath = () => {
 
                 {/* ── Marqueur de la ville de départ ── */}
                 {/* ── Marqueur de la ville de départ ── */}
-                {i === 0 && articlePositions['start_city'] && (
-                  <div
-                    className="absolute z-10 flex flex-col items-center pointer-events-none"
-                    style={{
-                      left: `${articlePositions['start_city'].xPercent}%`,
-                      top: `${articlePositions['start_city'].yPercent}%`,
-                      // On pousse vers le bas (50%) pour que ça apparaisse en-dessous du bout du chemin
-                      transform: "translate(-50%, 50%) rotateX(-50deg) translateZ(10px)",
-                      transformOrigin: "top center",
-                      transformStyle: "preserve-3d"
-                    }}
-                  >
-                    <div className="font-extrabold text-[18px] whitespace-nowrap flex items-center gap-2 drop-shadow-lg mt-5">
-                      <svg className="w-6 h-6 text-[#FF3B83]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                      </svg>
-                      {cityName}
-                    </div>
-                  </div>
-                )}
-
-                {pathsPointsData[i] && pathsPointsData[i].map((c, index) => {
-                  const xPercent = (c.x / c.width) * 100;
-                  const yPercent = (c.y / c.height) * 100;
-                  
-                  const treeSvg = elements.tree[index % elements.tree.length];
-                  const mileSvg = elements.milestone[index % elements.milestone.length];
-
-                  return (
+                  {i === 0 && articlePositions['start_city'] && (
                     <div
-                      key={`${c.type}.-${i}-${index}`}
-                      className="absolute z-20 pointer-events-none flex justify-center"
+                      className="absolute z-10 flex flex-col items-center pointer-events-none"
                       style={{
-                        left: `${xPercent}%`,
-                        top: `${yPercent}%`,
-                        transform: "translate(-50%, -100%) rotateX(-50deg) translateZ(10px)",
-                        transformOrigin: "bottom center",
+                        left: `${articlePositions['start_city'].xPercent}%`,
+                        top: `${articlePositions['start_city'].yPercent}%`,
+                      // On pousse vers le bas (50%) pour que ça apparaisse en-dessous du bout du chemin
+                        transform: "translate(-50%, 50%) rotateX(-50deg) translateZ(10px)",
+                        transformOrigin: "top center",
                         transformStyle: "preserve-3d"
                       }}
                     >
+                      <div className="font-extrabold text-[18px] whitespace-nowrap flex items-center gap-2 drop-shadow-lg mt-5">
+                      <svg className="w-6 h-6 text-[#FF3B83]" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                      </svg>
+                        {cityName}
+                      </div>
+                    </div>
+                  )}
+
+                  {pathsPointsData[i] && pathsPointsData[i].map((c, index) => {
+                  const xPercent = (c.x / c.width) * 100;
+                  const yPercent = (c.y / c.height) * 100;
+                  
+                    const treeSvg = elements.tree[index % elements.tree.length];
+                    const mileSvg = elements.milestone[index % elements.milestone.length];
+
+                    return (
+                      <div
+                      key={`${c.type}.-${i}-${index}`}
+                        className="absolute z-20 pointer-events-none flex justify-center"
+                        style={{
+                        left: `${xPercent}%`,
+                        top: `${yPercent}%`,
+                          transform: "translate(-50%, -100%) rotateX(-50deg) translateZ(10px)",
+                        transformOrigin: "bottom center",
+                        transformStyle: "preserve-3d"
+                        }}
+                      >
                       <img 
                         src={c.type === "tree" ? treeSvg : mileSvg} 
                         alt="element" 
                         className="xl:h-[40%] xl:w-[40%] w-[15vw] h-[15vh] object-contain drop-shadow-md" 
                       />
-                    </div>
-                  );
-                })}
+                      </div>
+                    );
+                  })}
 
                 {mapObjectsConfig
                   .filter(obj => obj.pathIndex === i)
@@ -495,7 +503,7 @@ const InfinitePath = () => {
                     return (
                       <div
                         key={obj.id}
-                        className={`absolute z-40 cursor-pointer flex flex-col items-center ${activeArticleId ? '' : 'gap-10'}`}
+                        className="absolute z-40 cursor-pointer flex flex-col items-center gap-1"
                         style={{
                           left:            `${safeLeft}%`,
                           top:             `${pos.yPercent}%`,
@@ -525,7 +533,7 @@ const InfinitePath = () => {
                       </div>
                     );
                   })}
-                {pathsData[i] && (
+                  {pathsData[i] && (
                   <svg
                     viewBox={`0 0 ${pathsData[i].width} ${pathsData[i].height}`}
                     preserveAspectRatio="none"
@@ -537,31 +545,31 @@ const InfinitePath = () => {
                       fill="none"
                       style={{ opacity: 0 }}
                     />
-                  </svg>
-                )}
+                    </svg>
+                  )}
                   
-              </div>
-            ))}
-          </motion.div>
+                </div>
+              ))}
+            </motion.div>
  
           {/* VÉLO */}
-          <motion.div
-            className="absolute xl:bottom-[8.5vh] bottom-[10vh] z-50 xl:w-35 xl:h-35 w-20 h-20 pointer-events-none"
+            <motion.div
+              className="absolute xl:bottom-[8.5vh] bottom-[10vh] z-50 xl:w-35 xl:h-35 w-20 h-20 pointer-events-none"
             style={{
               left:            cyclistX,
               transform:       "translateX(-50%) translateZ(20px) rotateX(-50deg)",
               transformOrigin: "bottom center"
             }}
-          >
+            >
             <img
               src={cyclistSvgPos}
               className="w-full h-full object-contain relative z-10"
               alt="vélo"
             />
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

@@ -44,8 +44,9 @@ body {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
-  background-color: #ffff;
+  color-scheme: light;
+  background-color: #ffffff;
+  color: #1a1a1a;
 }
 
 /* Masquer la scrollbar pour Chrome, Safari et Opera */
