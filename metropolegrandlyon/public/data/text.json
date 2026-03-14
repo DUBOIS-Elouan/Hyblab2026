@@ -1,6 +1,51 @@
 {
-    "C": "zeze",
-    "C2": "zédferereze",
-    "C3": "kofjdfuehuiehthrutghu",
-    "C4": "je suis en bas je suis en bas je suis en bas je suis en bas je suis en bas\nzezezrerr, je suis en bas je suis en bas je suis en bas je suis en bas je suis en bas\nzezezrerr, je suis en bas je suis en bas je suis en bas je suis en bas je suis en bas\nzezezrerr, je suis en bas je suis en bas je suis en bas je suis en bas je suis en bas\nzezezrerr, je suis en bas je suis en bas je suis en bas je suis en bas je suis en bas\nzezezrerr"
+  "nuage_int": {
+    "title": "<strong>Air — Quand la ville respire mieux, ses habitants aussi</strong>",
+    "text": "La <strong>qualité de l'air</strong> est un enjeu de santé publique majeur. Pour y répondre, la <strong>Métropole de Lyon</strong> a mis en place la <strong>Zone à Faibles Émissions (ZFE)</strong> : une zone où la circulation des véhicules les plus polluants est restreinte, 7j/7 et 24h/24.\n\n Concrètement, chaque véhicule doit afficher une <strong>vignette Crit'Air</strong> — un certificat qui classe les voitures selon leurs émissions de polluants. Plus la vignette est favorable, plus le véhicule est autorisé à circuler. Mais la Métropole ne se contente pas d'interdire. Elle accompagne : <strong>vélo</strong>, <strong>transports en commun</strong>, <strong>covoiturage</strong>, <strong>autopartage</strong>, <strong>parcs-relais</strong>.\n\n Des alternatives concrètes pour que chacun puisse se déplacer sans sacrifier la qualité de l'air de tous.",
+    "links": ["https://zfe.grandlyon.com"]
+  },
+
+  "musee_int": {
+    "title": "Culture — Une métropole qui investit dans ce qui rassemble",
+    "text": "<strong>La culture n'est pas un luxe</strong> — c'est ce qui fait vivre un territoire. La <strong>Métropole de Lyon</strong> en est convaincue et s'engage activement pour que chaque habitant, où qu'il vive, puisse y accéder. Elle gère directement deux équipements d'exception : <strong>Lugdunum</strong>, le musée et théâtres romains perché sur Fourvière, témoin vivant de l'héritage gallo-romain de la ville, et le <strong>Musée des Confluences</strong>, à la croisée des sciences et des civilisations. Au-delà de ses propres établissements, la Métropole soutient les <strong>grandes manifestations culturelles</strong> qui font rayonner le territoire.",
+    "links": [
+      "https://lugdunum.grandlyon.com",
+      "https://museedesconfluences.fr"
+    ]
+  },
+
+  "ville_int": {
+    "title": "Aménagement urbain — Penser la ville à long terme",
+    "text": "<strong>Aménager un territoire</strong>, c'est bien plus que construire des bâtiments. C'est anticiper les besoins de demain tout en préservant ce qui fait la valeur du territoire aujourd'hui. La <strong>Métropole de Lyon</strong> mène une politique d'aménagement qui articule <strong>développement urbain</strong> et <strong>protection des espaces naturels</strong>. Logement, mobilité, environnement, équipements publics, attractivité économique : chaque projet est pensé de manière globale, en concertation avec les communes, les partenaires publics et les acteurs privés. Pour garantir la cohérence de ces aménagements, la <strong>Charte des espaces publics</strong> fixe des principes clairs : <strong>adaptation au dérèglement climatique</strong>, rééquilibrage des usages, sécurité des usagers.",
+    "links": []
+  },
+
+  "metro_int": {
+    "title": "Maisons de la Métropole — Un accompagnement de proximité pour chaque situation",
+    "text": "Face aux difficultés du quotidien, personne ne devrait se retrouver seul sans savoir vers qui se tourner. Les <strong>Maisons de la Métropole de Lyon (MDML)</strong> sont ce premier point de contact : un lieu d'accueil, d'évaluation et d'orientation pour toutes les démarches liées au <strong>handicap</strong>, au <strong>vieillissement</strong>, à la <strong>petite enfance</strong> et à <strong>l'insertion sociale</strong>. Leurs équipes de professionnels accompagnent concrètement : accès aux droits, demande de <strong>RSA</strong>, soutien à l'autonomie, <strong>protection maternelle et infantile</strong>, agrément des assistants maternels. Chaque situation est prise en charge de manière personnalisée.",
+    "links": ["https://www.grandlyon.com"]
+  },
+
+  "arbre_int": {
+    "title": "Nature & Biodiversité — Protéger le vivant, c'est protéger les habitants",
+    "text": "La <strong>biodiversité</strong> n'est pas qu'une question d'environnement. C'est une question de <strong>santé</strong>, de <strong>résilience</strong> et de <strong>qualité de vie</strong>. La Métropole de Lyon en a fait une priorité concrète et mesurable. <strong>104 000 arbres</strong> sur les espaces publics, <strong>19 Espaces Naturels Sensibles</strong>, plus de <strong>1 000 km de sentiers de randonnée</strong> : les chiffres témoignent d'un engagement durable. La nature en ville est activement développée, à travers des aides à la végétalisation des copropriétés et une gestion écologique des espaces verts. La Métropole gère également cinq grands parcs — dont le <strong>Parc de Parilly</strong>, le <strong>Domaine de Lacroix-Laval</strong> et le <strong>Parc Porte des Alpes</strong> — reconnus par le label <strong>EcoJardin</strong>.",
+    "links": ["https://www.grandlyon.com"]
+  },
+   "poubelle_int": {
+    "title": "Déchets — Moins jeter, mieux trier, mieux vivre",
+    "text": "La <strong>gestion des déchets</strong> est un service du quotidien essentiel. La Métropole de Lyon assure cette mission avec un système de collecte et de traitement adapté à chaque type de déchet et à chaque type d'habitat. <strong>Collecte en porte-à-porte</strong>, silos à verre, bornes à compost, bornes textiles, <strong>déchèteries fixes et déchèteries mobiles</strong> à Lyon et Villeurbanne : le dispositif est conçu pour que le tri soit accessible à tous. La Métropole va plus loin que la simple collecte : elle encourage le <strong>réemploi</strong> grâce à ses <strong>15 donneries</strong>, où les objets encore utilisables trouvent une seconde vie.",
+    "links": []
+  },
+
+  "velo_int": {
+    "title": "Transports — Relier les habitants, faciliter les choix",
+    "text": "Se déplacer dans une métropole de <strong>1,4 million d'habitants</strong> demande des solutions variées et efficaces. La Métropole de Lyon coordonne un écosystème de mobilité complet : <strong>transports en commun gérés par SYTRAL Mobilités</strong>, réseau <strong>TER Auvergne-Rhône-Alpes</strong>, <strong>vélo</strong>, <strong>marche</strong>, <strong>covoiturage</strong> et <strong>autopartage</strong>. L'<strong>Agence des mobilités</strong> accompagne les habitants pour trouver la meilleure option de déplacement. L'ambition est claire : <strong>réduire la dépendance à la voiture individuelle</strong> et améliorer l'efficacité des transports collectifs.",
+    "links": []
+  },
+
+  "eau_int": {
+    "title": "Eau & Assainissement — Une ressource précieuse, gérée avec rigueur",
+    "text": "L'<strong>eau du robinet</strong> dans la Métropole de Lyon provient des nappes souterraines alimentées par le Rhône, captées sur le site de <strong>Crépieux-Charmy</strong>. Depuis janvier 2023, sa distribution est assurée par la régie publique <strong>Eau du Grand Lyon</strong>. Les eaux usées sont acheminées vers les <strong>12 stations d'épuration</strong> du territoire avant d'être rejetées dans les fleuves, afin de préserver le Rhône jusqu'à la Méditerranée. Un <strong>schéma général d'assainissement</strong> fixe les grandes orientations jusqu'en 2027 pour protéger l'environnement tout en maîtrisant les dépenses publiques.",
+    "links": ["https://eaudugrandlyon.com"]
+  }
 }

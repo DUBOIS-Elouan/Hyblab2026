@@ -12,8 +12,10 @@ function popUp(id){
   .then(data => {
     const PopUp = document.getElementById('P');
     const PopUpTxt = document.getElementById('PopUpTxt');
+    const PopUpTitre = document.getElementById('PopUpTitre');
 
-    PopUpTxt.textContent = data[id];//On affecte le texte au PopUp
+    PopUpTitre.innerHTML = data[id]["title"];
+    PopUpTxt.innerHTML = data[id]["text"];//On affecte le texte au PopUp
     PopUp.style.display = "flex";//On affiche le Pop-Up
 
     document.body.style.overflow = "hidden";//Bloquer le scroll

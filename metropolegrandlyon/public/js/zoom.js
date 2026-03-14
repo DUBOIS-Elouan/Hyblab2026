@@ -21,7 +21,7 @@ const scrollFinStep2 = 1200;
 const scrollDebutDescente = 1600;
 const scrollFinDescente = 1800;
 const scrollDebutMusee = 2200;
-const scrollDebutRuines = 2600;
+const scrollDebutRuines = 2500;
 const scrollDebutEcolier = 2800;
 
 //GIF
@@ -160,19 +160,19 @@ window.addEventListener("scroll", () => {
         }
 
         // apparition des éléments
-        if(scrollActuel > scrollDebutMusee  && scrollActuel < scrollDebutRuines){
+        if(scrollActuel > scrollDebutMusee-50  && scrollActuel < scrollDebutRuines){
             musee.classList.add("visible");
             const descente2 = avancement(scrollActuel, scrollDebutMusee, scrollDebutMusee+100);
             musee.style.transform = `translateY(${(-descente2*50)}vh)`;
         }
 
-        if(scrollActuel > scrollDebutRuines && scrollActuel < scrollDebutEcolier){
+        if(scrollActuel > scrollDebutRuines-50 && scrollActuel < scrollDebutEcolier){
             ruines.classList.add("visible");
             const descente3 = avancement(scrollActuel, scrollDebutRuines, scrollDebutRuines+100);
             ruines.style.transform = `translateY(${(-descente3*30)}vh)`;
         }
 
-        if(scrollActuel > scrollDebutEcolier && scrollActuel < scrollDebutEcolier +200){
+        if(scrollActuel > scrollDebutEcolier-50 && scrollActuel < scrollDebutEcolier +200){
             ecolier.classList.add("visible");
             //blocTexteMusee.classList.add("visible");
             const descente4 = avancement(scrollActuel, scrollDebutEcolier, scrollDebutEcolier+100);
