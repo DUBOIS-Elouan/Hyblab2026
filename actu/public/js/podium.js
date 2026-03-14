@@ -1,21 +1,28 @@
-fetch('data/movies.json')
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById('podium-container');
-    
-    const topThree = data.filter(item => item.rank === 1 || item.rank === 2 || item.rank === 3);
+const API = "http://localhost:8080/actu/api" 
 
-    let stepsHtmlString = '';
-    topThree.forEach(item => {
-      stepsHtmlString += `
-        <div class="step step-${item.rank}">
-          <img src="${item.image}" alt="${item.title}" class="step-img img-${item.rank}">
-          <span class="step-rank">${item.rank}</span>
-        </div>
-      `;
+async function loadpodium(){
+  const classementResponse = await fetch(API + "/film-ranking", {
+        method: "GET",
+        credentials: "include"
     });
+  const classement = await classementResponse.json();
+  const podium = classement.slice(0,3);
 
-    const fullPodiumHtml = `
+  const container = document.getElementById('podium-container');
+  
+  let stepsHtmlString = '';
+  let rank = 0;
+  podium.forEach(item => {
+    rank +=1;
+    stepsHtmlString += `
+      <div class="step step-${rank}">
+        <img src="${item.affiche}" alt="${item.titre}" class="step-img img-${rank}">
+        <span class="step-rank">${rank}</span>
+      </div>
+    `;
+  });
+
+  const fullPodiumHtml = `
       <img class="podium-svg" src="img/podium/podium.svg"></img>
       <div class="podium-steps">
         ${stepsHtmlString}
@@ -23,20 +30,63 @@ fetch('data/movies.json')
 
     `;
 
-    container.innerHTML = fullPodiumHtml;
+  container.innerHTML = fullPodiumHtml;
 
-    gsap.from(".step", {
-      y: 150,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: "back.out(1.7)"
-    });
+  gsap.from(".step", {
+    y: 150,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "back.out(1.7)"
+  });
 
-    buildBackSide(data);
-    initFlip();
-  })
-  .catch(error => console.error('failed to read json', error));
+  const classementCritiqueResponse = await 
+
+  buildBackSide(data);
+  initFlip();
+}
+
+loadpodium();
+
+// fetch('data/movies.json')
+//   .then(response => response.json())
+//   .then(data => {
+//     const container = document.getElementById('podium-container');
+    
+//     const topThree = data.filter(item => item.rank === 1 || item.rank === 2 || item.rank === 3);
+
+//     let stepsHtmlString = '';
+//     topThree.forEach(item => {
+//       stepsHtmlString += `
+//         <div class="step step-${item.rank}">
+//           <img src="${item.image}" alt="${item.title}" class="step-img img-${item.rank}">
+//           <span class="step-rank">${item.rank}</span>
+//         </div>
+//       `;
+//     });
+
+//     const fullPodiumHtml = `
+//       <img class="podium-svg" src="img/podium/podium.svg"></img>
+//       <div class="podium-steps">
+//         ${stepsHtmlString}
+//       </div>
+
+//     `;
+
+//     container.innerHTML = fullPodiumHtml;
+
+//     gsap.from(".step", {
+//       y: 150,
+//       opacity: 0,
+//       duration: 0.8,
+//       stagger: 0.2,
+//       ease: "back.out(1.7)"
+//     });
+
+//     buildBackSide(data);
+//     initFlip();
+//   })
+//   .catch(error => console.error('failed to read json', error));
 
 function scoreToStars(score, max = 4) {
   const filled = Math.round((score / 100) * max);
@@ -47,7 +97,7 @@ function scoreToStars(score, max = 4) {
   return html;
 }
 
-function buildBackSide(data) {
+function buildBackSide() {
   const heroImg = document.getElementById('back-hero-img');
   const backList = document.getElementById('back-list');
 
