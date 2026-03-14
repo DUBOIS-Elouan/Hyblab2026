@@ -36,7 +36,7 @@ const availableCategories = Object.keys(mapping_categories).reduce((acc, key) =>
 
 const clearAll = () => {
     coupDeCoeur.value = false
-    for (let k of selectedCategories.value) selectedCategories.value[k] = []
+    for (let k in selectedCategories.value) selectedCategories.value[k] = []
 }
 
 const apply = () => {
