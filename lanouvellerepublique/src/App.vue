@@ -37,8 +37,8 @@ const isCarteActive = computed(() => route.path === "/carte")
                 class="mini-nav__slider"
                 :class="{ 'mini-nav__slider--right': isCarteActive }"
             ></span>
-            <RouterLink to="/">Liste</RouterLink>
-            <RouterLink to="/carte">Carte</RouterLink>
+            <RouterLink to="/"><strong>Liste</strong></RouterLink>
+            <RouterLink to="/carte"><strong>Carte</strong></RouterLink>
         </nav>
         <div class="view-container">
             <RouterView />
@@ -98,43 +98,47 @@ const isCarteActive = computed(() => route.path === "/carte")
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+
     display: flex;
-    gap: 0;
-    padding: 0.45rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(6px);
+    gap: 8px;
+    border-radius: 50px;
+    background: #FFF;
+    box-shadow: 2px 4px 10.4px 0 rgba(213, 52, 173, 0.07);
+
+    font-family: "OpenSans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18px;
 }
 
 .mini-nav__slider {
     position: absolute;
-    top: 0.45rem;
-    bottom: 0.45rem;
-    left: 0.45rem;
-    width: calc(50% - 0.45rem);
-    border-radius: 999px;
+    top: 0;
+    bottom: 0;
+    width: calc(50% - 8px);
+    border-radius: 100px;
     background: v-bind(activeBg);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
 }
 
 .mini-nav__slider--right {
-    transform: translateX(100%);
+    transform: translateX(calc(100% + 16px));
 }
 
 .mini-nav a {
     position: relative;
-    z-index: 1;
-    display: inline-block;
-    flex: 1;
+    top: 0;
+    bottom: 0;
+    padding: 11px 60px;
+
     text-align: center;
-    padding: 0.25rem 1.2rem;
-    border-radius: 999px;
-    text-decoration: none;
+
+    border-radius: 30px;
+
     background: transparent;
     color: v-bind(inactiveColor);
-    font-size: 0.8rem;
-    font-weight: 400;
     transition: color 0.25s ease;
 }
 
