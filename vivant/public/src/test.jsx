@@ -1,4 +1,4 @@
-import { motion, useSpring, useMotionValue, useScroll } from "framer-motion";
+import { motion, useSpring, useMotionValue, useScroll, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useMemo } from "react";
 import { useLocation } from 'react-router-dom';
 import { findNearestArticles } from '../../utils/dist';
@@ -157,6 +157,9 @@ const InfinitePath = () => {
   // --- NOUVEAUX STATES POUR L'ARTICLE ACTIF (MOBILE) ---
   const [activeArticleId, setActiveArticleId] = useState(null);
   const activeArticleIdRef = useRef(null); 
+  
+  // --- INDICATION DE SCROLL ---
+  const [showScrollHint, setShowScrollHint] = useState(true);
  
   const SPEED_DESKTOP = 5000;
   const SPEED_MOBILE  = 2500;
@@ -298,6 +301,12 @@ const InfinitePath = () => {
       const point = pathEl.getPointAtLength(t * length);
  
       setCyclistX(`${(point.x / data.width) * 100}%`);
+
+      if (latest > 0.005) {
+        setShowScrollHint(false);
+      } else {
+        setShowScrollHint(true);
+      }
 
       // --- NOUVEAU : DÉTECTION DE PROXIMITÉ ---
       const ZONE_DETECTION = 0.03; // Zone de sensibilité autour de l'article (tu peux ajuster)
@@ -445,7 +454,7 @@ const InfinitePath = () => {
                       transformStyle: "preserve-3d"
                     }}
                   >
-                    <div className="font-extrabold text-[18px] whitespace-nowrap flex items-center gap-2 drop-shadow-lg mt-5">
+                    <div className="text-sm text-bold whitespace-nowrap flex items-center align-center justify-center gap-2 drop-shadow-lg mt-5" style={{position : "relative", left:"-6vw"}}>
                       <svg className="w-6 h-6 text-[#FF3B83]" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                       </svg>
@@ -562,6 +571,36 @@ const InfinitePath = () => {
         </div>
       </div>
     </div>
+
+    <AnimatePresence>
+  {showScrollHint && (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.4 }}
+      className="absolute z-[9999] flex flex-col items-center gap-3 pointer-events-none"
+      style={{
+        left: "20px",
+        bottom: "14vh"
+      }}
+    >
+      <span className="text-sm font-semibold text-black bg-white/90 px-4 py-2 rounded-full shadow-md backdrop-blur-sm border border-gray-100">
+        Scrollez vers le haut
+      </span>
+
+      <motion.div
+        animate={{ y: [0, -10, 0] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="w-12 h-12 bg-secondary text-black rounded-full flex items-center justify-center shadow-lg border border-secondary"
+      >
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </>
   );
 };
