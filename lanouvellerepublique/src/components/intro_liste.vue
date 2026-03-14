@@ -93,7 +93,7 @@
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
-    line-height: 22px;
+    line-height: 18px;
 }
 
 .intro-liste-badge {
@@ -104,7 +104,7 @@
     align-items: flex-end;
     gap: 10px;
     align-self: stretch;
-    margin-top: -65px;
+    margin-top: -60px;
     margin-bottom: -20px;
 }
 </style>

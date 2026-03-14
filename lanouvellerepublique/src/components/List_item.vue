@@ -22,6 +22,9 @@
                 />
             </div>
             <div class="list-item-content">
+                <div class="div-date">
+                    <p class="date">{{ date }}</p>
+                </div>
                 <div class="div-title">
                     <h3 class="title">{{ title }}</h3>
                 </div>
@@ -122,7 +125,7 @@ const displayBadges = computed(() => {
     cursor: pointer;
 
     display: flex;
-    height: 400px;
+    height: 300px;
     padding: 8px;
     flex-direction: column;
     justify-content: center;
