@@ -317,6 +317,18 @@ function observer() {
       else if (decalageX < -100) {
         decalageX = -window.innerWidth / 2 - 300;
         console.log("GAUCHE");
+        await fetch(API + "/film-unlike", { 
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nom_film: film_cards[curentX_film_index].dataset.filmName || "",
+            real_film: film_cards[curentX_film_index].dataset.filmReal || ""
+          })
+        });
+        
         film_cards.splice(curentX_film_index, 1);
 
         updateroue();

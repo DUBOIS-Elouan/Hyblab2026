@@ -433,9 +433,39 @@ app.post("/film-like", async(req, res) => {
         res.status(400).json({error: "Le like n'a pas été pris en compte"});
     }
     else{
-        res.json({message : "Film inséré avec succès voici son id :" + filmID})
+        res.json({message : "Like inséré avec succès voici son id :" + filmID})
     }
 });
+
+app.post("/film-unlike", async(req, res) => {
+    const {nom_film,real_film} = req.body;
+
+    let token = req.cookies.token;
+    let user = null;
+
+    if(token){
+        user = await GetUserByToken(token);
+    }
+
+    if(!user){
+        res.status(400).json({ error: 'Utilisateur non identifié' });
+    }
+    if (!nom_film || !real_film){
+        res.status(400).json({ error: 'Champs vide' });
+    }
+    const film = await GetFilmByNomAndReal(nom_film,real_film);
+    if(!film){
+        res.status(400).json({ error: 'Film non identifié' });
+    }
+    const filmID = await ajoutFilmAimePas(film?.id, user?.id);
+    if(!filmID){
+        res.status(400).json({error: "Le non like n'a pas été pris en compte"});
+    }
+    else{
+        res.json({message : "Like inséré avec succès voici son id :" + filmID})
+    }
+});
+
 
 
 //ajouter un film
@@ -551,6 +581,16 @@ async function initialisation(){
 
     await db.exec(`
         CREATE TABLE IF NOT EXISTS FilmAime(
+            id_film INTEGER,
+            id_utilisateur INTEGER,
+            PRIMARY KEY (id_film, id_utilisateur),
+            FOREIGN KEY (id_film) REFERENCES Film(id),
+            FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id)
+        );
+    `); 
+
+    await db.exec(`
+        CREATE TABLE IF NOT EXISTS FilmAimePas(
             id_film INTEGER,
             id_utilisateur INTEGER,
             PRIMARY KEY (id_film, id_utilisateur),
@@ -817,9 +857,9 @@ async function  GetFilmsByDateNewByUser(id_user, date){
     const db = await getDB();
     
     const query = `
-        SELECT * FROM Film F WHERE date_sortie LIKE ? and F.id not in (SELECT id_film FROM FilmAime FA where id_utilisateur = ?)
+        SELECT * FROM Film F WHERE date_sortie LIKE ? and F.id not in (SELECT id_film FROM FilmAime FA where id_utilisateur = ?) and F.id not in (SELECT id_film FROM FilmAimePas FA where id_utilisateur = ?)
     `;
-    const result = await db.all(query, [date,id_user]);
+    const result = await db.all(query, [date,id_user,id_user]);
 
     return result;
 }
@@ -925,6 +965,16 @@ async function ajoutFilmAime(id_film, id_utilisateur){
 
     const insert = await db.run(`
         INSERT OR IGNORE INTO FilmAime (id_film, id_utilisateur) VALUES (?,?)
+    `,[id_film, id_utilisateur]);
+
+    return insert.lastID;
+}
+
+async function ajoutFilmAimePas(id_film, id_utilisateur){
+    const db = await getDB();
+
+    const insert = await db.run(`
+        INSERT OR IGNORE INTO FilmAimePas (id_film, id_utilisateur) VALUES (?,?)
     `,[id_film, id_utilisateur]);
 
     return insert.lastID;
