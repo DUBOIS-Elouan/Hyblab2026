@@ -192,7 +192,4 @@ function card_apparition(affiche, titre, realisateur, critique, nb_etoile, lien_
       document.addEventListener("click", clickOutside);
     }
   })
-
-
-
 }
