@@ -85,6 +85,7 @@
 import { computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import restaurants from "@/constants/restaurants"
+import { sharePage } from "@/utils/share"
 
 const route = useRoute()
 const router = useRouter()
@@ -159,14 +160,6 @@ const goBack = async () => {
     await router.push("/")
 }
 
-const sharePage = async () => {
-  if (navigator.share) {
-    await navigator.share({
-      title: document.title,
-      url: window.location.href
-    })
-  }
-}
 </script>
 
 <style scoped>
