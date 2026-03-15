@@ -105,14 +105,25 @@ function createBackCard(titre, affiche, critique,nb_etoile,lien_bande_annonce, l
 
   const buttons = document.createElement("div");
 
-  const play = document.createElement("img");
-  play.src = "img/exemple/playbutton.png";
+  if (lien_bande_annonce){
+    const link_play = document.createElement("a")
+    link_play.href = lien_bande_annonce
+    const play = document.createElement("img");
+    play.src = "img/exemple/playbutton.png";
+    link_play.append(play)
+    buttons.appendChild(link_play);  
+  }
+  
 
-  const review = document.createElement("img");
-  review.src = "img/exemple/reviewbutton.png";
-
-  buttons.appendChild(play);
-  buttons.appendChild(review);
+  if (lien_article){
+    const link_review = document.createElement("a")
+    link_review.href = lien_article
+    const review = document.createElement("img");
+    review.src = "img/exemple/reviewbutton.png";
+    link_review.append(review)
+    buttons.appendChild(link_review);
+  }
+  
 
   back.appendChild(img);
   back.appendChild(info);

@@ -154,7 +154,7 @@ body{
 }
 
 .film > .affiche_back > div:last-of-type img{
-    width: 48px;
+    width: 56px;
     user-select: none;
 
 }

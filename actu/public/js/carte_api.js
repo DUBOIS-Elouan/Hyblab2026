@@ -14,7 +14,8 @@ async function loadFilm(){
         const etoiles = film.nb_etoile;
         const bande_annonce = film.bande_annonce;
         const affiche = film.affiche;
-
+        console.log("film")
+        console.log(film)
         let carte = createCard(titre_film,affiche, "genre", realisateur, critique,etoiles,bande_annonce,"#");
         return carte;
     });
