@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <button class="tmv-btn-circle" aria-label="Partager">
+            <button class="tmv-btn-circle" aria-label="Partager" @click="sharePage">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                     <polyline points="16 6 12 2 8 6"></polyline>
@@ -82,6 +82,17 @@
         </div>
         </header>
 </template>
+
+<script setup>
+const sharePage = async () => {
+  if (navigator.share) {
+    await navigator.share({
+      title: document.title,
+      url: window.location.href
+    })
+  }
+}
+</script>
 
 <style scoped>
 /* ── Header wrapper ── */
