@@ -200,10 +200,13 @@ const randomSelection = () => {
     padding: 1rem 1rem;
     background: v-bind(bottomBtnBg);
     color: v-bind(bottomBtnColor);
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1;
     cursor: pointer;
+
+    font-family: "OpenSans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 14px;
 }
 
 .action-btn--filter {
@@ -211,8 +214,8 @@ const randomSelection = () => {
 }
 
 .action-btn__icon {
-    width: 0.95rem;
-    height: 0.95rem;
+    width: 14px;
+    height: 14px;
     object-fit: contain;
 }
 </style>
