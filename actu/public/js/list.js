@@ -1,7 +1,7 @@
 const MovieList = (() => {
   let allMovies = [];
   let isExpanded = false;
-  const API = "http://localhost:8080/actu/api" ;
+  // const API = "http://localhost:8080/actu/api" ;
 
   //pour tester sans les données de la route /film-ranking
   // async function loadFilm() {
@@ -34,60 +34,60 @@ const MovieList = (() => {
   //   return films;
   // }
 
-  async function loadClassement(){
-    const classementResponse = await fetch(API + "/film-ranking", {
-        method: "GET",
-        credentials: "include"
-    });
-    const classement = await classementResponse.json();
-    allMovies = classement;
-    render();
-    const filmsAimeResponse = await fetch(API + "/film-ranking", {
-        method: "GET",
-        credentials: "include"
-    });
-    const filmsAime = await filmsAimeResponse.json();
+  // async function loadClassement(){
+  //   const classementResponse = await fetch(API + "/film-ranking", {
+  //       method: "GET",
+  //       credentials: "include"
+  //   });
+  //   const classement = await classementResponse.json();
+  //   allMovies = classement;
+  //   render();
+  //   const filmsAimeResponse = await fetch(API + "/film-ranking", {
+  //       method: "GET",
+  //       credentials: "include"
+  //   });
+  //   const filmsAime = await filmsAimeResponse.json();
 
-    let list = [];
-    let i= 0;
-    classement.forEach(async element => {
-        const rank = i;
-        i +=1;
-        const id_film = element.film;
-        const filmResponse = await fetch(API + "/film/"+id_film , {
-            method: "GET",
-            credentials: "include"
-        });
-        const _film = await filmResponse.json();
-        console.log(_film);
-        const titre = _film.titre;
-        const affiche = _film.affiche;
-        const realisateur = _film.realisateur;
-        const nb_like = element.nb_likes;
+  //   let list = [];
+  //   let i= 0;
+  //   classement.forEach(async element => {
+  //       const rank = i;
+  //       i +=1;
+  //       const id_film = element.film;
+  //       const filmResponse = await fetch(API + "/film/"+id_film , {
+  //           method: "GET",
+  //           credentials: "include"
+  //       });
+  //       const _film = await filmResponse.json();
+  //       console.log(_film);
+  //       const titre = _film.titre;
+  //       const affiche = _film.affiche;
+  //       const realisateur = _film.realisateur;
+  //       const nb_like = element.nb_likes;
 
-        const film = {
-          "titre" :titre,
-          "affiche" :affiche,
-          "realisateur" :realisateur,
-          "nb_like":nb_like,
-          "rank": i, 
-        }
+  //       const film = {
+  //         "titre" :titre,
+  //         "affiche" :affiche,
+  //         "realisateur" :realisateur,
+  //         "nb_like":nb_like,
+  //         "rank": i, 
+  //       }
 
-        filmsAime.forEach(film => {
-          if(element.titre == film.titre){
-            film[aime] = true;
-          }
-          else{
-            film[aime] = false;
-          }
-      })
-      console.log(film);
-      list.push(film);
+  //       filmsAime.forEach(film => {
+  //         if(element.titre == film.titre){
+  //           film[aime] = true;
+  //         }
+  //         else{
+  //           film[aime] = false;
+  //         }
+  //     })
+  //     console.log(film);
+  //     list.push(film);
 
-    })
-    render();
-    return list;
-  }
+  //   })
+  //   render();
+  //   return list;
+  // }
 
   //un item de la liste = un film
   function createItem(affiche, titre, realisateur, rank, nb_like, index, isNew = false) {
@@ -132,14 +132,10 @@ const MovieList = (() => {
     const list = document.querySelector('.list');
     if (!list) return;
 
+    const {userLikes, classement} = await loadClassement();
+
     //récupération des films liké par l'utilisateur
-    let likedMovies = [];
-    const filmsClassement = await loadClassement();
-    filmsClassement.forEach(e =>{
-      if (e.aime){
-        likedMovies.push(e);
-      }
-    })
+    const likedMovies =userLikes;
 
     const existingIds = new Set(
       [...list.querySelectorAll('.list-item')].map(el => el.dataset.id)
@@ -149,18 +145,18 @@ const MovieList = (() => {
 
     let i = likedMovies.length;
 
-    if (i = 1 ){
+    if (i === 1 ){
       const film = likedMovies[0];
-      const isNew = animate && !existingIds.has(String(movie.id));
-      const item = createItem(film.affiche, film.titre, film.realisateur, film.rank, film.nb_like, i, isNew);
-      item.dataset.id =5;
+      const isNew = animate && !existingIds.has(String(film.id));
+      const item = createItem(film?.affiche, film?.titre, film?.realisateur, film?.rank, film?.nb_like, i, isNew);
+      item.dataset.id =film.id;
       list.appendChild(item);
     }
     else if (i > 1 ){
       likedMovies.forEach(element => {
         const isNew = animate && !existingIds.has(String(movie.id));
-        const item = createItem(element.affiche, element.titre, element.realisateur, element.rank, element.nb_like, i, isNew);
-        item.dataset.id =5;
+        const item = createItem(element?.affiche, element?.titre, element?.realisateur, element?.rank, element?.nb_like, i, isNew);
+        item.dataset.id = element.id;
         list.appendChild(item);
       });
     }

@@ -164,7 +164,7 @@ app.get('/film-ranking', async (req, res) => {
         res.json(films);
     }
     else{
-        res.status(401).json({ error: "Aucun films" });
+        res.status(404).json({ error: "Aucun films" });
     }
 });
 
@@ -779,12 +779,12 @@ async function GetClassement(date){
     const db = await getDB();
     
     const query = `
-        SELECT F.nom, COUNT(FA.id_utilisateur) as nb_likes
+        SELECT F.*, COUNT(FA.id_utilisateur) AS nb_likes
         FROM film F
-        JOIN FilmAime FA ON F.id = FA.id_film
+        LEFT JOIN FilmAime FA ON F.id = FA.id_film
         WHERE F.date_sortie = ?
         GROUP BY F.id
-        ORDER BY nb_likes DESC
+        ORDER BY nb_likes DESC;
     `;
 
     const result = await db.all(query, [date]);
