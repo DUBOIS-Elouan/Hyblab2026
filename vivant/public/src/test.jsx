@@ -31,7 +31,7 @@ const treeFiles = import.meta.glob('./assets/elements/tree/*.svg', { eager: true
 const milestoneFiles = import.meta.glob('./assets/elements/milestone/*.svg', { eager: true, import: 'default' });
 const signFiles = import.meta.glob('./assets/elements/sign/*.svg', { eager: true, import: 'default' });
 
-const ESPACEMENT = 0.33; 
+const ESPACEMENT = 0.20; 
 const OFFSET_DEPART = 0.20; // Décale le premier article pour ne pas qu'il soit au tout début
 export const NB_ARTICLES = 10;
 const NB_PATH = Math.ceil(OFFSET_DEPART + (NB_ARTICLES * ESPACEMENT));
@@ -190,6 +190,8 @@ const InfinitePath = () => {
  
  
   useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+    
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -296,13 +298,24 @@ const InfinitePath = () => {
     offset: ["start start", "end end"]
   });
   
-  const smoothProgress = useSpring(scrollYProgress, {
+  const smoothProgress = useSpring(1, {
     stiffness: 100,
     damping: 50,
     mass: 1,
     restDelta: 0.000001,
     restSpeed: 0.000001
   });
+  
+  useEffect(() => {
+    return scrollYProgress.on("change", (v) => smoothProgress.set(v));
+  }, [scrollYProgress]);
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (latest) => {
+      setShowScrollHint(latest >= 0.995);
+    });
+  }, [scrollYProgress]);
+
  
   const activeProgress = isMobile ? scrollYProgress : smoothProgress;
  
@@ -311,7 +324,7 @@ const InfinitePath = () => {
       if (pathsData.length === 0) return;
 
       const N = pathList.length;
-      const globalPos = latest * N;
+      const globalPos = (1 - latest) * N;
       const maxIndex = Math.max(0, N - 1);
       const index = Math.min(Math.floor(globalPos), maxIndex);
       const localProgress = globalPos - index;
@@ -329,7 +342,7 @@ const InfinitePath = () => {
  
       setCyclistX(`${(point.x / data.width) * 100}%`);
 
-      if (latest > 0.005) {
+      if (latest < 0.995) {
         setShowScrollHint(false);
       } else {
         setShowScrollHint(true);
@@ -354,8 +367,8 @@ const InfinitePath = () => {
       // ----------------------------------------
  
       const diffScroll = latest - latestProgress.current;
-      if (diffScroll > 0.000001)       isMovingUpRef.current = true;
-      else if (diffScroll < -0.000001) isMovingUpRef.current = false;
+      if (diffScroll < -0.000001)      isMovingUpRef.current = true;
+      else if (diffScroll > 0.000001)  isMovingUpRef.current = false;
       const isMovingUp = isMovingUpRef.current;
       latestProgress.current = latest;
  
@@ -432,7 +445,7 @@ const InfinitePath = () => {
   
  
   return (
-    <>
+    <div className="relative">
     {/* ── Flottant Filtres (Mobile) ── */}
     <div className="md:hidden fixed top-[88px] left-6 z-[9999]">
       <button 
@@ -663,7 +676,7 @@ const InfinitePath = () => {
       }}
     >
       <span className="text-sm font-semibold bg-white/90 px-4 py-2 rounded-full shadow-md backdrop-blur-sm border border-gray-100">
-        Scrollez vers le haut
+        Scrollez vers le bas
       </span>
 
       <motion.div
@@ -672,13 +685,13 @@ const InfinitePath = () => {
         className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center shadow-lg border border-secondary"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </motion.div>
     </motion.div>
   )}
 </AnimatePresence>
-    </>
+    </div>
   );
 };
  
