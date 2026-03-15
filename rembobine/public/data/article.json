@@ -120,30 +120,29 @@
   },
   "QHeader":[
     {
-      "Question": "Pas d'idée",
-      "Reponse": 1
+      "Question": "Quel secteur a pu être impacté bien qu'aucune loi n'ait pu être modifiée ?",
+      "Reponse": 2,
+      "Right": "Exactement, le secteur médiatique a pu l'être.",
+      "Wrong": "Malheureusement, c'est peu le cas pour ce domaine."
+      
     },
     {
-      "Question": "La guerre c'est bien ou pas ?",
-      "Reponse": 2
-    },
-    {
-      "Question": "Aujourd'hui dans guerre news, la guerre",
-      "Reponse": 3
-    },
-    {
-      "Question": "Ils sont sympas les Russes ?",
-      "Reponse": 4
+      "Question": "Sur quel secteur l'enquête a-t-elle pu avoir un impact direct sur une ou des “Maisons russes” ?",
+      "Reponse": 4,
+      "Right": "C'est bien ce secteur !",
+      "Wrong": "Cela aurait pu, mais c'est au niveau institutionnel"
     }
   ],
   "Actions": [
     {
       "Base": "Vous pouvez faire une action ! C'est la premiere",
-      "Texteplus": "Wow qu'elle belle premiere action !"
+      "Texteplus": "Vous pouvez partager l'enquête pour remettre le sujet sur le devant de la scène et faire avancer les choses ! Pour cela copiez le message juste en-dessous et partagez le sur vos réseaux.",
+      "Copy": "Je partage cette enquête essentielle sur les “Maisons russes” en Afrique. Elle montre comment la Russie utilise la culture pour étendre son influence. Plus on en parle, plus on peut faire bouger les lignes. 👉 https://www.rembobine.info/afrique-russie-influence-maison-russe"
     },
     {
       "Base": "Vous pouvez faire une action !, c'est la seconde",
-      "Texteplus": "Wow qu'elle belle derniere action !"
+      "Texteplus": "Vous pouvez partager le sujet avec d'autres journaux et/ou chaînes de télé afin qu'ils en fassent un reportage ! Pour cela copiez le message juste en-dessous et envoyez le à leur adresse de contact.",
+      "Copy": "Bonjour, Je vous écris pour attirer votre attention sur un sujet très peu couvert dans les médias : l’expansion des “Maisons russes” en Afrique et leur rôle dans la stratégie d’influence du Kremlin. Une enquête récente montre comment ces structures culturelles servent à diffuser un récit favorable à la Russie tout en marginalisant les voix locales. Ce phénomène mérite une vraie mise en lumière dans vos programmes. Merci d’envisager un reportage ou un décryptage sur ce sujet essentiel."
     }
     
   ]
