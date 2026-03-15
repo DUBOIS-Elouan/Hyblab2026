@@ -53,26 +53,24 @@
         </div>
 
         <div class="tmv-subheader">
-            <a href="https://www.lanouvellerepublique.fr/tmv">
-            <button class="tmv-btn-circle" aria-label="Retour">
+            <button class="tmv-btn-circle" aria-label="Retour" @click="goBack">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M15 18l-6-6 6-6"/>
                 </svg>
             </button>
-            </a>
 
             <div class="tmv-title-wrapper">
-                <h1 class="tmv-title">Les Restos TMV</h1>
+                <h1 class="tmv-title">{{ headerTitle }}</h1>
                 <div class="tmv-breadcrumbs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
-                    <span class="tmv-breadcrumb-text">&gt; TMV &gt; Les Restos TMV</span>
+                    <span class="tmv-breadcrumb-text">{{ breadcrumbText }}</span>
                 </div>
             </div>
 
-            <button class="tmv-btn-circle" aria-label="Partager">
+            <button class="tmv-btn-circle" aria-label="Partager" @click="sharePage">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                     <polyline points="16 6 12 2 8 6"></polyline>
@@ -82,6 +80,94 @@
         </div>
         </header>
 </template>
+
+<script setup>
+import { computed } from "vue"
+import { useRoute, useRouter } from "vue-router"
+import restaurants from "@/constants/restaurants"
+
+const route = useRoute()
+const router = useRouter()
+
+const isDetailPage = computed(() => route.query.detail === "1")
+const isMainView = computed(() =>
+    ["/", "/carte", "/lanouvellerepublique/", "/lanouvellerepublique/carte"].includes(route.path),
+)
+
+const activeRestaurantName = computed(() => {
+    if (!isDetailPage.value) return ""
+
+    const key = route.query.restaurant
+    if (!key) return ""
+
+    const target = String(key)
+    const match = restaurants.find(
+        (restaurant) =>
+            String(restaurant?.id ?? "") === target ||
+            String(restaurant?.name ?? "").toLowerCase() === target.toLowerCase(),
+    )
+
+    return String(match?.name ?? "")
+})
+
+const headerTitle = computed(() => activeRestaurantName.value || "Les Restos TMV")
+
+const breadcrumbText = computed(() => {
+    const basePath = "> TMV > Les Restos TMV"
+
+    if (!activeRestaurantName.value) {
+        return basePath
+    }
+
+    return `${basePath} > ${activeRestaurantName.value}`
+})
+
+const clearDetailQuery = () => {
+    const nextQuery = { ...route.query }
+
+    delete nextQuery.restaurant
+    delete nextQuery.detail
+    delete nextQuery.pick
+
+    return nextQuery
+}
+
+const goBack = async () => {
+    if (isDetailPage.value) {
+        if (window.history.length > 1) {
+            router.back()
+            return
+        }
+
+        await router.replace({
+            path: route.path,
+            query: clearDetailQuery(),
+        })
+        return
+    }
+
+    if (isMainView.value) {
+        window.location.href = "https://www.lanouvellerepublique.fr/tmv"
+        return
+    }
+
+    if (window.history.length > 1) {
+        router.back()
+        return
+    }
+
+    await router.push("/")
+}
+
+const sharePage = async () => {
+  if (navigator.share) {
+    await navigator.share({
+      title: document.title,
+      url: window.location.href
+    })
+  }
+}
+</script>
 
 <style scoped>
 /* ── Header wrapper ── */
