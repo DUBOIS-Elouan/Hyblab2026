@@ -192,6 +192,7 @@ html, body {
 
 /* ==================== BACK PAGE ==================== */
 .page-back {
+  position:relative;
   background: var(--background-color);
   padding: 20px 16px 16px;
   gap: 14px;
@@ -252,14 +253,25 @@ html, body {
 
 /* ==================== BACK LIST ==================== */
 .back-list-container {
+  position: relative;
   flex: 1;
-  background: rgba(255, 200, 200, 0.28);
   border-radius: 18px;
   padding: 10px 12px;
   overflow-y: auto;
   box-sizing: border-box;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.back-list-background {
+  overflow: hidden;
+  display: flex;
+  margin-top: 72%;
+  margin-left: 2%;
+  width: 87%;
+  height: 50%;
+  position: absolute;
+  z-index: 0;
 }
 
 .back-list-container::-webkit-scrollbar {
