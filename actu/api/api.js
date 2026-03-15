@@ -258,15 +258,16 @@ app.get("/create-user", async (req,res)=>{
 
         await ajoutUtilisateur(token);
 
-        return res.cookie("token", token, {
+        res.cookie("token", token, {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
             maxAge: 1000*60*60*24*30
         });
+        return res.json({status:"Token created"});
     }
 
-    return res.json({status:"ok"});
+    return res.json({status:"Already had one token"});
 });
 
 
