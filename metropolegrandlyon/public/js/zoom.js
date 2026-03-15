@@ -36,6 +36,15 @@ const mRoute      = document.querySelector('.m-route');
 const mArbres     = document.querySelector('.m-arbres');
 const mFemme      = document.querySelector('.m-femme');
 
+/*Scène biodiversité*/
+const fond = document.getElementById("fond");
+const arbre1 = document.getElementById("arbre1");
+const arbre2 = document.getElementById("arbre2");
+const mec = document.getElementById('mec');
+const arbreD = document.getElementById("arbreDessin");
+const arbre3 = document.getElementById("arbre3");
+const planter = document.getElementById("planter");
+
 /* ════════════════════════════════════
    REPÈRES SCROLL (px) — tous fixes
    La hauteur du body est déduite ici.
@@ -74,11 +83,22 @@ const sM_zoom2      = sM_femmeFin + 200;  // 11400 — début zoom sur femme+arb
 const sM_zoom2Fin   = sM_zoom2    + 1200; // 12600 — fin zoom
 const sM_fin        = sM_zoom2Fin + 400;  // 13000
 
+/* ── Repères phase 6 ─────────────────────────────
+   sM_fin (13000) : gros plan
+   sDebutSLideDroite     (14500) : début des arbres */
+const scene6 = sM_fin + 500
+const changeFond = sM_fin + 1000;
+const DebutSLideDroite = sM_fin + 2000;
+const FinSLideDroite = sM_fin +10000;
+
 // Le body est exactement assez haut pour atteindre le dernier repère
-document.body.style.height = (sM_fin + window.innerHeight + 200) + 'px';
+document.body.style.height = (FinSLideDroite + window.innerHeight + 200) + 'px';
 
 const departVw = -160;
 const arbreVw  = 94;
+
+
+
 
 /* ════════════════════════════════════
    GIFs — préchargement
@@ -354,7 +374,7 @@ function majScene(s) {
         sceneChantier.style.visibility      = 'visible';
         sceneMaison.style.display           = 'none';
 
-    } else if (s >= sM_zoomFin) {
+    } else if (s >= sM_zoomFin && s < changeFond) {
         /* ── Scène maison ──
            On garde le chantier zoomé à 2.5 en arrière-plan
            (visibility visible, mais sceneMaison par-dessus z-index:40) */
@@ -402,6 +422,10 @@ function majScene(s) {
             sceneMaison.style.transform       = '';
         }
 
+    } else if  (s >= changeFond && s < DebutSLideDroite) {
+        const Femmedis = av(s, changeFond, DebutSLideDroite);
+        mFemme.style.opacity   = -(Femmedis);
+        sceneChantier.style.display  = 'none'; 
     } else {
         /* ── État initial (avant phase 5) ── */
         sceneMaison.style.display  = 'none';
@@ -412,4 +436,37 @@ function majScene(s) {
         mFemme.style.opacity       = 0;
         mFemme.style.transform     = 'translateX(-50%) translateY(0)';
     }
+
+    /* Phase 6 */
+
+    if  (s >= scene6) {
+        fond.style.display = 'block';
+        mec.style.opacity       = 1;
+        arbre1.style.opacity       = 1;
+        arbre2.style.opacity       = 1;
+    } else if  (s >= changeFond && s < DebutSLideDroite) {
+        
+        arbre_slide = av(s,changeFond, DebutSLideDroite-100);
+        arbre1.style.transform = `translateX(${lerp(0, -120, arbre_slide)}vw)`;
+        arbre1.style.opacity = lerp(1,0,arbre_slide);
+
+        arbre2.style.transform = `translateX(${lerp(0, 80, arbre_slide)}vw)`;
+        arbre2.style.opacity = lerp(1,0,arbre_slide);
+
+        mec.style.transform = `translateY(${lerp(0, -10, arbre_slide)}vh)`;
+    } else if (s >= DebutSLideDroite && s < FinSLideDroite) {
+
+        slide_droite = av(s, DebutSLideDroite, FinSLideDroite-50);
+        fond.style.transform = `translateX(${lerp(0, -220, slide_droite)}vw)`;
+        mec.style.transform = `translateX(${lerp(0, -220, slide_droite)}vw)`;
+        arbreD.style.transform = `translateX(${lerp(0, -220, slide_droite)}vw)`;
+        arbre3.style.transform = `translateX(${lerp(0, -220, slide_droite)}vw)`;
+        planter.style.transform = `translateX(${lerp(0, -220, slide_droite)}vw)`;
+    } else {
+        fond.style.display = 'none';
+        mec.style.opacity       = 0;
+        arbre1.style.opacity       = 0;
+        arbre2.style.opacity       = 0;
+    }
+
 }
