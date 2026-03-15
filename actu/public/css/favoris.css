@@ -2,12 +2,12 @@
   --color-bg:            #F5F5F5;
   --color-surface:       #ffffff;
   --color-shelf:         #DF1517;
-  --color-background:rgba(223, 21, 23, 0.60);
+  --color-background:    rgba(223, 21, 23, 0.60);
   --color-title:         #1a1a1a;
   --color-card-title:    #ffffff;
   --color-card-meta:     rgba(255,255,255,0.65);
 
-  --shadow:0 4px 16px rgba(0,0,0,0.35);
+  --shadow:0 4px 16px    rgba(0,0,0,0.35);
 
   --font-display:        'Syne', sans-serif;
   --font-body:           'DM Sans', sans-serif;
@@ -61,11 +61,7 @@ body {
 }
 
 .page-title {
-  font-family: var(--font-display);
-  font-size: 9vw;
-  font-weight: 800;
-  color: var(--color-title);
-  letter-spacing: -0.02em;
+  height: 10%;
 }
 
 /* ── Shelf (scroll container) ── */
@@ -129,28 +125,6 @@ body {
   z-index: 2;
 }
 
-.item-title {
-  font-family: var(--font-display);
-  font-size: 2.6vw;
-  font-weight: 700;
-  color: var(--color-card-title);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.item-desc {
-  font-size: 2.2vw;
-  color: var(--color-card-meta);
-  margin-top: 1%;
-  line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 /* ── Shelf plank ── */
 .base-board {
