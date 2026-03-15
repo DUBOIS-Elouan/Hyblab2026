@@ -45,7 +45,7 @@ const LINKED_RESEARCHERS = [
  */
 export default function ResearcherFooter() {
   return (
-    <>
+    <div className="relative z-20">
       {/* ── Right column: "CHERCHEURS À LA UNE" ──────────────────────────── */}
 
       <p
@@ -117,6 +117,6 @@ export default function ResearcherFooter() {
       >
         DANS LA MÊME THÉMATIQUE
       </p>
-    </>
+    </div>
   );
 }

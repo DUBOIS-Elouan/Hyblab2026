@@ -28,137 +28,255 @@ const DEFAULT_RANGES = {
 
 const ROBOT_SIZE = { width: 206, height: 252 };
 const ROBOT_STAGES = ['robot1', 'robot2', 'robot3'];
-
-function clamp01(value) {
-  return Math.max(0, Math.min(1, value));
-}
+const INTRO_IDLE_DELAY_MS = 6000;
+const INTRO_IDLE_MESSAGE = 'Dive deeper to explore the iceberg.';
+const RESOURCE_IDLE_DELAY_MS = 5000;
+const LEVEL_ENTRY_MESSAGE_MS = 5600;
+const ROBOT_LEVEL_TRIGGER_RATIO = 1.4;
+const ROBOT_POSITION_CONFIG = {
+  robot1: {
+    horizontalAnchor: 'right',
+    xOffset: 200,
+    verticalAnchor: 'bottom',
+    yOffset: 250,
+  },
+  robot2: {
+    horizontalAnchor: 'left',
+    xOffset: 100,
+    verticalAnchor: 'bottom',
+    yOffset: 250,
+  },
+  robot3: {
+    horizontalAnchor: 'right',
+    xOffset: 200,
+    verticalAnchor: 'bottom',
+    yOffset: 250,
+  },
+};
+const LEVEL_ENTRY_MESSAGES = {
+  general: "A la surface de l'iceberg : parfait pour se mettre dans le bain.",
+  journalistique: "Sous la surface, les pistes se croisent et la curiosite s'active.",
+  expert: "En eaux profondes, on entre dans les nuances et le coeur du sujet.",
+};
 
 function lerp(start, end, t) {
   return start + ((end - start) * t);
 }
 
-function cubicBezierPoint(p0, p1, p2, p3, t) {
-  const inv = 1 - t;
-  const invSquared = inv * inv;
-  const tSquared = t * t;
+function getViewport() {
+  return { width: window.innerWidth, height: window.innerHeight };
+}
+
+function resolveRobotPosition(viewport, config) {
+  const sideInset = Math.max(1, viewport.width * 0.008);
+  const leftBaseX = sideInset;
+  const rightBaseX = viewport.width - ROBOT_SIZE.width - sideInset;
+  const topBaseY = 0;
+  const bottomBaseY = viewport.height - ROBOT_SIZE.height;
+
+  const xBase = config.horizontalAnchor === 'left' ? leftBaseX : rightBaseX;
+  const yBase = config.verticalAnchor === 'top' ? topBaseY : bottomBaseY;
 
   return {
-    x: (invSquared * inv * p0.x)
-      + (3 * invSquared * t * p1.x)
-      + (3 * inv * tSquared * p2.x)
-      + (tSquared * t * p3.x),
-    y: (invSquared * inv * p0.y)
-      + (3 * invSquared * t * p1.y)
-      + (3 * inv * tSquared * p2.y)
-      + (tSquared * t * p3.y),
+    x: xBase + config.xOffset,
+    y: Math.max(0, yBase + config.yOffset),
   };
 }
 
-function mixWeights(fromVariant, toVariant, progress) {
-  const weights = { robot1: 0, robot2: 0, robot3: 0 };
-  weights[fromVariant] = 1 - progress;
-  weights[toVariant] = progress;
-  return weights;
-}
+function getAnchorPoints(viewport) {
+  const robot1Position = resolveRobotPosition(viewport, ROBOT_POSITION_CONFIG.robot1);
+  const robot2Position = resolveRobotPosition(viewport, ROBOT_POSITION_CONFIG.robot2);
+  const robot3Position = resolveRobotPosition(viewport, ROBOT_POSITION_CONFIG.robot3);
 
-function getAnchorPoints(ranges) {
   return {
-    start: { x: 432, y: 804 },
-    generalStop: { x: 1460, y: ranges.general.center - 40 },
-    journalisticStop: { x: 240, y: ranges.journalistique.center - 30 },
-    expertStop: { x: 1160, y: ranges.expert.center - 60 },
+    intro: robot1Position,
+    general: robot1Position,
+    journalistique: robot2Position,
+    expert: robot3Position,
   };
 }
 
-function getRobotState(scrollProbeY, ranges) {
-  const anchors = getAnchorPoints(ranges);
+function getLevelFromScroll(scrollProbeY, ranges) {
+  if (scrollProbeY < ranges.general.start) {
+    return 'intro';
+  }
 
-  if (scrollProbeY <= ranges.general.start) {
+  if (scrollProbeY < ranges.journalistique.start) {
+    return 'general';
+  }
+
+  if (scrollProbeY < ranges.expert.start) {
+    return 'journalistique';
+  }
+
+  return 'expert';
+}
+
+function getStageForLevel(level) {
+  if (level === 'intro' || level === 'general') {
+    return 0;
+  }
+
+  if (level === 'journalistique') {
+    return 1;
+  }
+
+  return 2;
+}
+
+function getPositionForLevel(level, viewport) {
+  const anchors = getAnchorPoints(viewport);
+
+  if (level === 'intro' || level === 'general') {
+    return anchors.intro;
+  }
+
+  return anchors[level];
+}
+
+function getPathControlPoints(fromLevel, toLevel, viewport) {
+  const anchors = getAnchorPoints(viewport);
+
+  if (fromLevel === 'intro' && toLevel === 'general') {
+    return [];
+  }
+
+  if (fromLevel === 'general' && toLevel === 'journalistique') {
+    return [
+      { x: anchors.general.x - 280, y: anchors.general.y - 120 },
+      { x: anchors.journalistique.x + 280, y: anchors.journalistique.y - 120 },
+    ];
+  }
+
+  if (fromLevel === 'journalistique' && toLevel === 'expert') {
+    return [
+      { x: anchors.journalistique.x + 280, y: anchors.journalistique.y - 120 },
+      { x: anchors.expert.x - 280, y: anchors.expert.y - 120 },
+    ];
+  }
+
+  if (fromLevel === 'general' && toLevel === 'intro') {
+    return [];
+  }
+
+  if (fromLevel === 'journalistique' && toLevel === 'general') {
+    return [
+      { x: anchors.journalistique.x + 280, y: anchors.journalistique.y - 120 },
+      { x: anchors.general.x - 280, y: anchors.general.y - 120 },
+    ];
+  }
+
+  if (fromLevel === 'expert' && toLevel === 'journalistique') {
+    return [
+      { x: anchors.expert.x - 280, y: anchors.expert.y - 120 },
+      { x: anchors.journalistique.x + 280, y: anchors.journalistique.y - 120 },
+    ];
+  }
+
+  return [];
+}
+
+function getFormWeights(level) {
+  if (level === 'intro' || level === 'general') {
+    return { robot1: 1, robot2: 0, robot3: 0 };
+  }
+
+  if (level === 'journalistique') {
+    return { robot1: 0, robot2: 1, robot3: 0 };
+  }
+
+  return { robot1: 0, robot2: 0, robot3: 1 };
+}
+
+function getFormTransitionState(variant, visible) {
+  if (visible) {
     return {
-      position: anchors.start,
-      weights: { robot1: 1, robot2: 0, robot3: 0 },
-      stage: 0,
+      autoAlpha: 1,
+      scale: 1,
+      x: 0,
+      y: 0,
+      rotate: 0,
     };
   }
 
-  if (scrollProbeY <= ranges.general.end) {
-    const t = clamp01((scrollProbeY - ranges.general.start) / Math.max(1, ranges.general.end - ranges.general.start));
+  if (variant === 'robot2') {
     return {
-      position: cubicBezierPoint(
-        anchors.start,
-        { x: anchors.start.x + 220, y: anchors.start.y + 140 },
-        { x: anchors.generalStop.x - 260, y: anchors.generalStop.y - 160 },
-        anchors.generalStop,
-        t,
-      ),
-      weights: { robot1: 1, robot2: 0, robot3: 0 },
-      stage: 0,
+      autoAlpha: 0,
+      scale: 0.9,
+      x: -80,
+      y: 6,
+      rotate: -10,
     };
   }
 
-  if (scrollProbeY <= ranges.journalistique.start) {
-    const t = clamp01((scrollProbeY - ranges.general.end) / Math.max(1, ranges.journalistique.start - ranges.general.end));
+  if (variant === 'robot3') {
     return {
-      position: cubicBezierPoint(
-        anchors.generalStop,
-        { x: anchors.generalStop.x - 100, y: anchors.generalStop.y + 260 },
-        { x: anchors.journalisticStop.x + 320, y: anchors.journalisticStop.y - 180 },
-        anchors.journalisticStop,
-        t,
-      ),
-      weights: mixWeights('robot1', 'robot2', t),
-      stage: t < 0.5 ? 0 : 1,
-    };
-  }
-
-  if (scrollProbeY <= ranges.journalistique.end) {
-    return {
-      position: anchors.journalisticStop,
-      weights: { robot1: 0, robot2: 1, robot3: 0 },
-      stage: 1,
-    };
-  }
-
-  if (scrollProbeY <= ranges.expert.start) {
-    const t = clamp01((scrollProbeY - ranges.journalistique.end) / Math.max(1, ranges.expert.start - ranges.journalistique.end));
-    return {
-      position: cubicBezierPoint(
-        anchors.journalisticStop,
-        { x: anchors.journalisticStop.x + 160, y: anchors.journalisticStop.y + 320 },
-        { x: anchors.expertStop.x - 260, y: anchors.expertStop.y - 120 },
-        anchors.expertStop,
-        t,
-      ),
-      weights: mixWeights('robot2', 'robot3', t),
-      stage: t < 0.5 ? 1 : 2,
+      autoAlpha: 0,
+      scale: 0.92,
+      x: 0,
+      y: 96,
+      rotate: 0,
     };
   }
 
   return {
-    position: anchors.expertStop,
-    weights: { robot1: 0, robot2: 0, robot3: 1 },
-    stage: 2,
+    autoAlpha: 0,
+    scale: 0.96,
+    x: 0,
+    y: 10,
+    rotate: 0,
   };
 }
 
-export default function Robot({ levelRanges = DEFAULT_RANGES }) {
+function getFormTransitionOptions(variant, visible) {
+  if (visible && variant === 'robot2') {
+    return { duration: 0.5, ease: 'back.out(1.4)' };
+  }
+
+  if (visible && variant === 'robot3') {
+    return { duration: 0.62, ease: 'power3.out' };
+  }
+
+  if (visible) {
+    return { duration: 0.35, ease: 'power2.out' };
+  }
+
+  return { duration: 0.28, ease: 'power2.in' };
+}
+
+export default function Robot({
+  levelRanges = DEFAULT_RANGES,
+  resourcePromptByLevel = {},
+  resourceInteractionTick = 0,
+  pauseResourcePrompt = false,
+}) {
   const [stageIndex, setStageIndex] = useState(0);
+  const [activeLevel, setActiveLevel] = useState('intro');
+  const [showIntroPrompt, setShowIntroPrompt] = useState(false);
+  const [showLevelEntryPrompt, setShowLevelEntryPrompt] = useState(false);
+  const [showResourcePrompt, setShowResourcePrompt] = useState(false);
+  const currentLevelRef = useRef('intro');
+  const introPromptEnabledRef = useRef(true);
+  const moveTimelineRef = useRef(null);
 
   const rootRef = useRef(null);
   const shadowRef = useRef(null);
   const motionRef = useRef(null);
 
+  const robot1LayerRef = useRef(null);
   const robot1FormRef = useRef(null);
   const robot1HeadRef = useRef(null);
   const robot1BodyRef = useRef(null);
   const robot1WheelRef = useRef(null);
 
+  const robot2LayerRef = useRef(null);
   const robot2FormRef = useRef(null);
   const robot2HeadRef = useRef(null);
   const robot2BodyRef = useRef(null);
   const robot2ArmBackRef = useRef(null);
   const robot2ArmFrontRef = useRef(null);
 
+  const robot3LayerRef = useRef(null);
   const robot3FormRef = useRef(null);
   const robot3HeadRef = useRef(null);
   const robot3BodyRef = useRef(null);
@@ -176,9 +294,20 @@ export default function Robot({ levelRanges = DEFAULT_RANGES }) {
     }
 
     const ctx = gsap.context(() => {
-      const forms = [robot1FormRef.current, robot2FormRef.current, robot3FormRef.current].filter(Boolean);
-      gsap.set(forms, { autoAlpha: 0, scale: 0.96, y: 8 });
-      gsap.set(robot1FormRef.current, { autoAlpha: 1, scale: 1, y: 0 });
+      const formLayers = {
+        robot1: robot1LayerRef.current,
+        robot2: robot2LayerRef.current,
+        robot3: robot3LayerRef.current,
+      };
+
+      ROBOT_STAGES.forEach((variant) => {
+        const layer = formLayers[variant];
+        if (!layer) {
+          return;
+        }
+
+        gsap.set(layer, getFormTransitionState(variant, variant === 'robot1'));
+      });
 
       gsap.timeline({
         repeat: -1,
@@ -364,104 +493,274 @@ export default function Robot({ levelRanges = DEFAULT_RANGES }) {
   }, []);
 
   useEffect(() => {
+    if (!introPromptEnabledRef.current || activeLevel !== 'intro') {
+      setShowIntroPrompt(false);
+      return undefined;
+    }
+
+    let timeoutId;
+
+    function restartIdleTimer() {
+      window.clearTimeout(timeoutId);
+      setShowIntroPrompt(false);
+      timeoutId = window.setTimeout(() => {
+        if (currentLevelRef.current === 'intro') {
+          setShowIntroPrompt(true);
+        }
+      }, INTRO_IDLE_DELAY_MS);
+    }
+
+    restartIdleTimer();
+
+    const activityEvents = ['scroll', 'wheel', 'pointerdown', 'touchstart', 'keydown'];
+    activityEvents.forEach((eventName) => {
+      window.addEventListener(eventName, restartIdleTimer);
+    });
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      activityEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, restartIdleTimer);
+      });
+    };
+  }, [activeLevel]);
+
+  useEffect(() => {
+    const levelEntryMessage = LEVEL_ENTRY_MESSAGES[activeLevel];
+
+    if (!levelEntryMessage || pauseResourcePrompt) {
+      setShowLevelEntryPrompt(false);
+      return undefined;
+    }
+
+    setShowLevelEntryPrompt(true);
+
+    const timeoutId = window.setTimeout(() => {
+      if (currentLevelRef.current === activeLevel) {
+        setShowLevelEntryPrompt(false);
+      }
+    }, LEVEL_ENTRY_MESSAGE_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [activeLevel, pauseResourcePrompt]);
+
+  useEffect(() => {
+    const resourcePromptMessage = resourcePromptByLevel[activeLevel];
+
+    if (
+      activeLevel === 'intro'
+      || !resourcePromptMessage
+      || pauseResourcePrompt
+      || showLevelEntryPrompt
+    ) {
+      setShowResourcePrompt(false);
+      return undefined;
+    }
+
+    setShowResourcePrompt(false);
+
+    const timeoutId = window.setTimeout(() => {
+      if (currentLevelRef.current === activeLevel) {
+        setShowResourcePrompt(true);
+      }
+    }, RESOURCE_IDLE_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [activeLevel, pauseResourcePrompt, resourceInteractionTick, resourcePromptByLevel, showLevelEntryPrompt]);
+
+  useEffect(() => {
     const root = rootRef.current;
-    const formRefs = {
-      robot1: robot1FormRef.current,
-      robot2: robot2FormRef.current,
-      robot3: robot3FormRef.current,
+    const formLayerRefs = {
+      robot1: robot1LayerRef.current,
+      robot2: robot2LayerRef.current,
+      robot3: robot3LayerRef.current,
     };
 
     if (!root) {
       return undefined;
     }
 
-    const xTo = gsap.quickTo(root, 'x', { duration: 0.55, ease: 'power2.out' });
-    const yTo = gsap.quickTo(root, 'y', { duration: 0.55, ease: 'power2.out' });
-
-    let rafId = 0;
-
-    function applyRobotState() {
-      rafId = 0;
-      const probeY = window.scrollY + (window.innerHeight * 0.45);
-      const state = getRobotState(probeY, { ...DEFAULT_RANGES, ...levelRanges });
-
-      xTo(state.position.x);
-      yTo(state.position.y);
+    function applyForms(level, animate = false) {
+      const weights = getFormWeights(level);
 
       ROBOT_STAGES.forEach((variant) => {
-        const form = formRefs[variant];
-        if (!form) {
+        const layer = formLayerRefs[variant];
+        if (!layer) {
           return;
         }
 
-        const weight = state.weights[variant];
-        gsap.set(form, {
-          autoAlpha: weight,
-          scale: lerp(0.96, 1, weight),
-          y: lerp(10, 0, weight),
-        });
-      });
+        const visible = weights[variant] > 0.5;
+        const vars = getFormTransitionState(variant, visible);
 
-      setStageIndex(state.stage);
+        if (animate) {
+          gsap.to(layer, {
+            ...vars,
+            ...getFormTransitionOptions(variant, visible),
+            overwrite: 'auto',
+          });
+          return;
+        }
+
+        gsap.set(layer, vars);
+      });
     }
 
-    function requestUpdate() {
-      if (rafId) {
+    function moveToLevel(level, immediate = false) {
+      const viewport = getViewport();
+      const target = getPositionForLevel(level, viewport);
+      const fromLevel = currentLevelRef.current;
+
+      if (moveTimelineRef.current) {
+        moveTimelineRef.current.kill();
+        moveTimelineRef.current = null;
+      }
+
+      if (level !== 'intro') {
+        introPromptEnabledRef.current = false;
+        setShowIntroPrompt(false);
+      }
+
+      setStageIndex(getStageForLevel(level));
+      setActiveLevel(level);
+
+      if (immediate || fromLevel === level) {
+        gsap.set(root, { x: target.x, y: target.y });
+        applyForms(level, false);
+        currentLevelRef.current = level;
         return;
       }
 
-      rafId = window.requestAnimationFrame(applyRobotState);
-    }
+      const controls = getPathControlPoints(fromLevel, level, viewport);
+      const timeline = gsap.timeline({
+        defaults: { ease: 'power2.inOut' },
+        onComplete: () => {
+          moveTimelineRef.current = null;
+          currentLevelRef.current = level;
+        },
+      });
 
-    requestUpdate();
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
-
-    return () => {
-      if (rafId) {
-        window.cancelAnimationFrame(rafId);
+      if (controls[0]) {
+        timeline.to(root, {
+          x: controls[0].x,
+          y: controls[0].y,
+          duration: 0.48,
+        });
       }
 
-      window.removeEventListener('scroll', requestUpdate);
-      window.removeEventListener('resize', requestUpdate);
+      if (controls[1]) {
+        timeline.to(root, {
+          x: controls[1].x,
+          y: controls[1].y,
+          duration: 0.62,
+        });
+      }
+
+      timeline.to(root, {
+        x: target.x,
+        y: target.y,
+        duration: 0.54,
+      });
+
+      applyForms(level, true);
+      moveTimelineRef.current = timeline;
+      currentLevelRef.current = level;
+    }
+
+    function syncRobotWithScroll(immediate = false) {
+      const probeY = window.scrollY + (window.innerHeight * ROBOT_LEVEL_TRIGGER_RATIO);
+      const level = getLevelFromScroll(probeY, { ...DEFAULT_RANGES, ...levelRanges });
+      moveToLevel(level, immediate);
+    }
+
+    function handleResize() {
+      syncRobotWithScroll(true);
+    }
+
+    syncRobotWithScroll(true);
+    window.addEventListener('scroll', syncRobotWithScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (moveTimelineRef.current) {
+        moveTimelineRef.current.kill();
+      }
+
+      window.removeEventListener('scroll', syncRobotWithScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, [levelRanges]);
 
   return (
     <div
       ref={rootRef}
-      className="absolute left-0 top-0"
+      className="fixed left-0 top-0 pointer-events-none z-40"
       style={{ width: ROBOT_SIZE.width, height: ROBOT_SIZE.height }}
     >
-      <div className={`${styles.robotShell} ${styles[`robotShellStage${stageIndex}`] ?? ''}`}>
+      {showLevelEntryPrompt || showResourcePrompt || showIntroPrompt ? (
+        <div
+          className={[
+            styles.robotSpeech,
+            stageIndex === 1 ? styles.robotSpeechMirrored : '',
+          ].filter(Boolean).join(' ')}
+          role="status"
+          aria-live="polite"
+        >
+          {showLevelEntryPrompt
+            ? LEVEL_ENTRY_MESSAGES[activeLevel]
+            : showResourcePrompt
+              ? resourcePromptByLevel[activeLevel]
+              : INTRO_IDLE_MESSAGE}
+        </div>
+      ) : null}
+
+      <div
+        className={[
+          styles.robotShell,
+          styles[`robotShellStage${stageIndex}`] ?? '',
+        ].filter(Boolean).join(' ')}
+      >
         <div ref={shadowRef} className={styles.robotShellShadow} />
         <div className={styles.robotShellHalo} />
         <div className={`${styles.robotShellRing} ${styles.robotShellRingInner}`} />
         <div className={`${styles.robotShellRing} ${styles.robotShellRingOuter}`} />
 
         <div ref={motionRef} className={styles.robotShellMotion}>
-          <div ref={robot1FormRef} className={styles.robotShellForm}>
-            <img ref={robot1BodyRef} src={robot1Body} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot1WheelRef} src={robot1Wheel} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot1HeadRef} src={robot1Head} alt="Robot 1" className={styles.robotShellPart} />
+          <div ref={robot1LayerRef} className={styles.robotShellForm}>
+            <div ref={robot1FormRef} className={styles.robotShellFormInner}>
+              <div className={styles.robotShellMirror}>
+                <img ref={robot1BodyRef} src={robot1Body} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot1WheelRef} src={robot1Wheel} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot1HeadRef} src={robot1Head} alt="Robot 1" className={styles.robotShellPart} />
+              </div>
+            </div>
           </div>
 
-          <div ref={robot2FormRef} className={styles.robotShellForm}>
-            <img ref={robot2ArmBackRef} src={robot2ArmBack} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot2BodyRef} src={robot2LowerBody} alt="" aria-hidden className={styles.robotShellPart} />
-            <img src={robot2UpperBody} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot2ArmFrontRef} src={robot2ArmFront} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot2HeadRef} src={robot2Head} alt="Robot 2" className={styles.robotShellPart} />
+          <div ref={robot2LayerRef} className={styles.robotShellForm}>
+            <div ref={robot2FormRef} className={styles.robotShellFormInner}>
+              <img ref={robot2ArmBackRef} src={robot2ArmBack} alt="" aria-hidden className={styles.robotShellPart} />
+              <img ref={robot2BodyRef} src={robot2LowerBody} alt="" aria-hidden className={styles.robotShellPart} />
+              <img src={robot2UpperBody} alt="" aria-hidden className={styles.robotShellPart} />
+              <img ref={robot2ArmFrontRef} src={robot2ArmFront} alt="" aria-hidden className={styles.robotShellPart} />
+              <img ref={robot2HeadRef} src={robot2Head} alt="Robot 2" className={styles.robotShellPart} />
+            </div>
           </div>
 
-          <div ref={robot3FormRef} className={styles.robotShellForm}>
-            <img ref={robot3ArmBackARef} src={robot3ArmBackA} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot3ArmBackBRef} src={robot3ArmBackB} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot3LegBackRef} src={robot3LegBackB} alt="" aria-hidden className={styles.robotShellPart} />
-            <img src={robot3LegBackA} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot3BodyRef} src={robot3Body} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot3LegFrontRef} src={robot3LegFront} alt="" aria-hidden className={styles.robotShellPart} />
-            <img ref={robot3HeadRef} src={robot3Head} alt="Robot 3" className={styles.robotShellPart} />
+          <div ref={robot3LayerRef} className={styles.robotShellForm}>
+            <div ref={robot3FormRef} className={styles.robotShellFormInner}>
+              <div className={styles.robotShellMirror}>
+                <img ref={robot3ArmBackARef} src={robot3ArmBackA} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot3ArmBackBRef} src={robot3ArmBackB} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot3LegBackRef} src={robot3LegBackB} alt="" aria-hidden className={styles.robotShellPart} />
+                <img src={robot3LegBackA} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot3BodyRef} src={robot3Body} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot3LegFrontRef} src={robot3LegFront} alt="" aria-hidden className={styles.robotShellPart} />
+                <img ref={robot3HeadRef} src={robot3Head} alt="Robot 3" className={styles.robotShellPart} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -43,6 +43,7 @@ body {
   z-index: 1;
   transition: box-shadow 0.3s ease;
   cursor: pointer;
+  isolation: isolate;
 }
 
 .class-resource-card:hover {
@@ -64,9 +65,12 @@ body {
   left: -50px;
   width: 120px;
   height: 120px;
+  z-index: 2;
 }
 
 .class-ressource-contain {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;

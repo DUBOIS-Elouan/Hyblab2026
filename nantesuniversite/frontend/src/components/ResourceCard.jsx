@@ -31,6 +31,7 @@ export default function ResourceCard({
   top,
   description = null,
   onClick,
+  onMouseEnter,
 }) {
   const color = CATEGORY_COLORS[category.toLowerCase()] ?? "#3552ff";
   const label = category.charAt(0).toUpperCase() + category.slice(1);
@@ -41,6 +42,7 @@ export default function ResourceCard({
       className="class-resource-card"
       style={{ left, top }}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
     >
       {/* Pictogram pinned to top-left */}
       <img

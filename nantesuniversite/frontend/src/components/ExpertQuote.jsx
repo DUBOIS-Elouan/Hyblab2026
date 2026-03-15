@@ -47,12 +47,12 @@ export default function ExpertQuote() {
         {expertInfo.quote}
       </p>
 
-      <div className="absolute left-[1270px] top-[364px] w-[24px] h-[24px] bg-[#3552ff]" />
+      <div className="absolute left-[1385px] top-[302px] w-[15px] h-[15px] bg-[#3552ff]" />
 
-      <div ref={attributionRef} className="absolute left-[696px] top-[350px] w-[943px] text-right text-black font-sans">
-        <p className="font-bold text-[36px] mb-0">{expertInfo.full_name}</p>
-        <p className="text-[30px] underline mb-0">{expertInfo.profession}</p>
-        <p className="text-[30px] underline">{expertInfo.position}</p>
+      <div  ref={attributionRef}  className="absolute left-[696px] top-[290px] w-[943px] text-right text-black font-sans">
+        <p className="font-bold text-[25px] mb-0">{expertInfo.full_name}</p>
+        <p className="text-[19px] underline mb-0">{expertInfo.profession}</p>
+        <p className="text-[19px] underline">{expertInfo.position}</p>
       </div>
 
       <div className="absolute left-[1673px] top-[161px]">
