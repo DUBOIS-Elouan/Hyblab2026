@@ -57,7 +57,7 @@ console.log(allBadges.value)
     justify-content: center;
     gap: 0.65rem;
 
-    background-color: #ffffff;
+    background: #fffcf8;
 
     overflow-y: auto;
     overflow-x: hidden;

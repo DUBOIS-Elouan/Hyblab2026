@@ -38,12 +38,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/yumiramen.tours",
-            },
-        ],
+        instagram: "https://www.instagram.com/yumiramen.tours",
+        facebook: "",
         categories: {
             diet: ["vegetarien"],
             cuisine_type: ["asian", "street_food"],
@@ -58,7 +54,7 @@ const restaurants = [
         opening_hours: "Ouvert tous les jours de 11 h à 23 h.",
         latitude: 47.394466363320134,
         longitude: 0.6890796181412185,
-        contact_web: "nobinobi-streetfood.com",
+        contact_web: "https://www.nobinobi-streetfood.com",
         contact_tel: "",
         carte: "Sides entre 3,90 € et 4,90 € ; plats de 8,90 € à 10,90 €.",
         date: "03/12/2025",
@@ -91,12 +87,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/nobinobi_france",
-            },
-        ],
+        instagram: "https://www.instagram.com/nobinobi_france",
+        facebook: "",
         categories: {
             diet: ["vegetarien", "vegan"],
             cuisine_type: ["asian", "street_food"],
@@ -144,12 +136,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/miettes.tours",
-            },
-        ],
+        instagram: "https://www.instagram.com/miettes.tours",
+        facebook: "",
         categories: {
             diet: ["vegetarien", "vegan"],
             cuisine_type: ["traditional"],
@@ -205,12 +193,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/lechalettours",
-            },
-        ],
+        instagram: "https://www.instagram.com/lechalettours",
+        facebook: "",
         categories: {
             diet: ["vegetarien"],
             cuisine_type: ["traditional"],
@@ -266,12 +250,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/toursbouillon",
-            },
-        ],
+        instagram: "https://www.instagram.com/toursbouillon",
+        facebook: "",
         categories: {
             diet: [],
             cuisine_type: ["traditional", "tourangelle"],
@@ -286,7 +266,7 @@ const restaurants = [
         opening_hours: "Ouvert du mardi au vendredi, midi et soir et le samedi de 17 h à 22 h.",
         latitude: 47.395435403653195,
         longitude: 0.6851130460312616,
-        contact_web: "mensa-et-potus.fr",
+        contact_web: "https://www.mensa-et-potus.fr",
         contact_tel: "02.47.05.71.21",
         carte: "menus 4 séquences à 62 €, 6 séquences à 84 €, et 8 séquences à 108 €. À la carte, entrées de 16 à 20 €, plats de 22 à 35 €, desserts de 13 à 18 €. Menu du midi à 25 € (entrée/plat/dessert) ou 23 € (entrée/plat). Tapas entre 6 et 12 €. Vin au verre à partir de 7 €.",
         date: "06/01/2026",
@@ -327,12 +307,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/mensa_et_potus",
-            },
-        ],
+        instagram: "https://www.instagram.com/mensa_et_potus",
+        facebook: "",
         categories: {
             diet: [],
             cuisine_type: ["traditional"],
@@ -347,7 +323,7 @@ const restaurants = [
         opening_hours: "Ouvert tous les jours, de 11 h à 23 h en continu. Terrasse extérieure.",
         latitude: 47.39098316007925,
         longitude: 0.6811306018515754,
-        contact_web: "artisancrepier.com",
+        contact_web: "https://www.artisancrepier.com",
         contact_tel: "02.47.60.15.25",
         carte: "Galettes signatures de 12,90 € à 15,90 € ; galettes tradition à 10,90 € ; galette duo à 19,90 €. Crêpes traditions à 9-10 € en moyenne et tradition à partir de 4,50 €. Formule du midi à 16,90 € (verre de cidre ou jus de pomme + galette et crêpe tradition) ou menu à 22,90 € (verre de cidre ou jus de pommes + galette et crêpe signature). Menu enfant à 9,90 €.",
         date: "03/12/2025",
@@ -380,12 +356,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/latelierartisancrepier",
-            },
-        ],
+        instagram: "https://www.instagram.com/latelierartisancrepier",
+        facebook: "",
         categories: {
             diet: ["vegetarien"],
             cuisine_type: ["traditional"],
@@ -440,12 +412,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/lebistroktours",
-            },
-        ],
+        instagram: "https://www.instagram.com/lebistroktours",
+        facebook: "",
         categories: {
             diet: ["vegetarien"],
             cuisine_type: ["traditional"],
@@ -520,7 +488,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [],
+        instagram: "",
+        facebook: "",
         categories: {
             diet: [],
             cuisine_type: ["street_food"],
@@ -581,12 +550,8 @@ const restaurants = [
                 },
             ],
         },
-        social_media: [
-            {
-                name: "Instagram",
-                link: "https://www.instagram.com/ap_par_anglade_pierre",
-            },
-        ],
+        instagram: "https://www.instagram.com/ap_par_anglade_pierre",
+        facebook: "",
         categories: {
             diet: ["vegetarien", "halal"],
             cuisine_type: ["traditional", "tourangelle", "world_cuisine"],

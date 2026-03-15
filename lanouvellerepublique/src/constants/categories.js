@@ -1,9 +1,9 @@
 export default {
     diet: {
-        "vegan" : "Vegan",
-        "vegetarien" : "Végétarien",
-        "gluten_free" : "Sans gluten",
-        "halal" : "Halal",
+        "vegan" : "Option Vegan",
+        "vegetarien" : "Option Végétarien",
+        "gluten_free" : "Option Sans gluten",
+        "halal" : "Option Halal",
     },
     cuisine_type:{
         "tourangelle" : "Tourangelle",
