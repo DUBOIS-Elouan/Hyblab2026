@@ -513,6 +513,10 @@ function addCitation(box, impactId) {
   switch (impactId) {
     case 1:
       box.className += " jud"; // Change color as desired
+      if (Citations.Judiciaire.length === 0) {
+        box.textContent = "Aucune citation disponible pour cet impact !";
+        return;
+      }
       const randomIndex = Math.floor(
         Math.random() * Citations.Judiciaire.length,
       );
@@ -521,6 +525,10 @@ function addCitation(box, impactId) {
       break;
     case 2:
       box.className += " med"; // Change color as desired
+      if (Citations.Mediatique.length === 0) {
+        box.textContent = "Aucune citation disponible pour cet impact !";
+        return;
+      }
       const randomIndex2 = Math.floor(
         Math.random() * Citations.Mediatique.length,
       );
@@ -529,12 +537,20 @@ function addCitation(box, impactId) {
       break;
     case 3:
       box.className += " pub";
+      if (Citations.Public.length === 0) {
+        box.textContent = "Aucune citation disponible pour cet impact !";
+        return;
+      }
       const randomIndex3 = Math.floor(Math.random() * Citations.Public.length);
       box.textContent = Citations.Public[randomIndex3].citation;
       Citations.Public.splice(randomIndex3, 1);
       break;
     case 4:
       box.className += " inst";
+      if (Citations.Institutionnel.length === 0) {
+        box.textContent = "Aucune citation disponible pour cet impact !";
+        return;
+      }
       const randomIndex4 = Math.floor(
         Math.random() * Citations.Institutionnel.length,
       );
