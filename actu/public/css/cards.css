@@ -126,6 +126,7 @@
 }
 .film > .affiche_back > div:first-of-type p{
     font-size: 14px;
+    color: black;
 }
 .film > .affiche_back > div:first-of-type img{
     user-select: none;
