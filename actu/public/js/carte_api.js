@@ -33,7 +33,7 @@ async function loadClassement(){
     classement = classement.sort((a,b)=>{
         const aRatio = a?.nb_likes/a?.nb_dislikes;
         const bRatio = b?.nb_likes/b?.nb_dislikes;
-        return aRatio-bRatio;
+        return bRatio-aRatio;
     }).map((obj, index) => ({
         ...obj,
         classement: index +1
