@@ -6,6 +6,7 @@ let Public = null;
 let Judiciaire = null;
 let Actions = null;
 let QHeader = null;
+let Citations = null;
 
 let count_institutionnel = 0;
 let count_mediatique = 0;
@@ -94,7 +95,8 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
         // Change question box text and color according to the clicked button
         const textDisplay = document.createElement('p');
         textDisplay.id = "base";
-        let qheader = document.querySelector('.main-question');
+        let qheader = document.querySelector('.main-question-text');
+        console.log(qheader);
         switch (parseInt(value)) {
           case 1:
             box.color = 1;
@@ -305,22 +307,28 @@ function createButtonBox(boxId = "box1", aRow = 1, aColumn = 1) {
         boxNum = Math.floor(Math.random() * boxsFreeList.length);
         theChoosenBox = boxsFreeList[boxNum];
       }
-      let newbox = createButtonBox(`box${theChoosenBox.row}${theChoosenBox.column}`, theChoosenBox.row, theChoosenBox.column)
+
+      if (count_institutionnel <= Institutionnel.length || count_judiciaire <= Judiciaire.length || count_mediatique <= Mediatique.length || count_public <= Public.length) {
+        let newbox = createButtonBox(`box${theChoosenBox.row}${theChoosenBox.column}`, theChoosenBox.row, theChoosenBox.column)
 
 
-      if (box.column > theChoosenBox.column) newbox.className += " animate__animated animate__fadeInRight"
-      if (box.column < theChoosenBox.column) newbox.className += " animate__animated animate__fadeInLeft"
-      if (box.row > theChoosenBox.row) newbox.className += " animate__animated animate__fadeInUp"
-      if (box.row < theChoosenBox.row) newbox.className += " animate__animated animate__fadeInDown"
+        if (box.column > theChoosenBox.column) newbox.className += " animate__animated animate__fadeInRight"
+        if (box.column < theChoosenBox.column) newbox.className += " animate__animated animate__fadeInLeft"
+        if (box.row > theChoosenBox.row) newbox.className += " animate__animated animate__fadeInUp"
+        if (box.row < theChoosenBox.row) newbox.className += " animate__animated animate__fadeInDown"
 
-      replaceBox(theChoosenBox, newbox)
-      newbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        replaceBox(theChoosenBox, newbox)
+        newbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
 
-      box.className = box.className.replace(" animate__animated animate__fadeInRight", ""); // Remove action class if it exists
-      box.className = box.className.replace(" animate__animated animate__fadeInLeft", ""); // Remove action class if it exists
-      box.className = box.className.replace(" animate__animated animate__fadeInUp", ""); // Remove action class if it exists
-      box.className = box.className.replace(" animate__animated animate__fadeInDown", ""); // Remove action class if it exists
+        box.className = box.className.replace(" animate__animated animate__fadeInRight", ""); // Remove action class if it exists
+        box.className = box.className.replace(" animate__animated animate__fadeInLeft", ""); // Remove action class if it exists
+        box.className = box.className.replace(" animate__animated animate__fadeInUp", ""); // Remove action class if it exists
+        box.className = box.className.replace(" animate__animated animate__fadeInDown", ""); // Remove action class if it exists
+      } else {
+        let finale_page = document.querySelector(".finale-page")
+        finale_page.style.display = "block";
+      }
 
 
       box.className += " text-box";
@@ -423,15 +431,27 @@ function addCitation(box, impactId) {
   switch (impactId) {
     case 1:
       box.className += " jud"; // Change color as desired
+      const randomIndex = Math.floor(Math.random() * Citations.Judiciaire.length);
+      box.textContent = Citations.Judiciaire[randomIndex].citation;
+      Citations.Judiciaire.splice(randomIndex, 1);
       break;
     case 2:
       box.className += " med"; // Change color as desired 
+      const randomIndex2 = Math.floor(Math.random() * Citations.Mediatique.length);
+      box.textContent = Citations.Mediatique[randomIndex2].citation;
+      Citations.Mediatique.splice(randomIndex2, 1);
       break;
     case 3:
       box.className += " pub";
+      const randomIndex3 = Math.floor(Math.random() * Citations.Public.length);
+      box.textContent = Citations.Public[randomIndex3].citation;
+      Citations.Public.splice(randomIndex3, 1);
       break;
     case 4:
       box.className += " inst";
+      const randomIndex4 = Math.floor(Math.random() * Citations.Institutionnel.length);
+      box.textContent = Citations.Institutionnel[randomIndex4].citation;
+      Citations.Institutionnel.splice(randomIndex4, 1);
       break;
     default:
       break;
@@ -529,6 +549,7 @@ const initPageProjet = async function () {
   Judiciaire = article.Judiciaire;
   Actions = article.Actions;
   QHeader = article.QHeader;
+  Citations = article.Citations;
 
   addEmptyRow();
 
@@ -538,10 +559,17 @@ const initPageProjet = async function () {
 };
 
 const summary = document.querySelector(".summary");
-const arrow = document.querySelector(".summary-container img");
+const arrow = document.querySelector(".summary-container");
 
 arrow.addEventListener("click", () => {
   summary.classList.toggle("is-open");
+});
+
+const impact_explanation = document.querySelector(".impact-explanation");
+const impact_arrow = document.querySelector(".impact-unfolding");
+
+impact_arrow.addEventListener("click", () => {
+  impact_explanation.classList.toggle("is-open");
 });
 
 const sommet = document.querySelector("#top");
