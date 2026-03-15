@@ -972,3 +972,9 @@ article {
 .step-aides-sociales {
   position: relative; /* contexte de positionnement pour les enfants */
 }
+.step-compact {
+    height: 30dvh;
+}
+.step-moyen {
+    height: 50dvh;
+}
