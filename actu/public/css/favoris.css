@@ -1,17 +1,19 @@
 :root {
   --color-bg:            #F5F5F5;
   --color-surface:       #ffffff;
-  --color-shelf:         #c0392b;
-  --color-shelf-peg:     #a93226;
+  --color-shelf:         #DF1517;
+  --color-background:rgba(223, 21, 23, 0.60);
   --color-title:         #1a1a1a;
   --color-card-title:    #ffffff;
   --color-card-meta:     rgba(255,255,255,0.65);
+
+  --shadow:0 4px 16px rgba(0,0,0,0.35);
 
   --font-display:        'Syne', sans-serif;
   --font-body:           'DM Sans', sans-serif;
 
   --shelf-height:        44%;
-  --shelf-peg-size:      4.5%;
+  --shelf-peg-size:      7.5%;
   --card-radius:         6px;
   --row-gap:             15%;
 }
@@ -104,7 +106,7 @@ body {
   border-radius: var(--card-radius);
   overflow: hidden;
   background: var(--color-surface);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow);
 }
 
 .item-image {
@@ -163,22 +165,20 @@ body {
   z-index: 2;
 
   border-radius: 7.677px;
-  background: rgba(223, 21, 23, 0.60);
-  box-shadow: 0 3.071px 3.071px 1.535px rgba(0, 0, 0, 0.25);
+  background: var(--color-background);
+  box-shadow: var(--shadow);
 
   /* glass effect */
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-card-meta);
+  border-left: 1px solid var(--color-card-meta);
 }
 
 /* Peg dots on each end of the plank */
 .peg {
   width: var(--shelf-peg-size);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--color-shelf-peg);
-  flex-shrink: 0;
-  opacity: 0.7;
+  transform: translateY(15px);
+  fill: rgba(217, 217, 217, 0.40);
+  filter: drop-shadow(0 3.071px 3.071px rgba(0, 0, 0, 0.25));
 }

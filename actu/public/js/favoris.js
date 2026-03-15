@@ -37,8 +37,8 @@ fetch('data/movies.json')
       const baseBoard = document.createElement('div');
       baseBoard.className = 'base-board';
       baseBoard.innerHTML = `
-        <div class="peg left"></div>
-        <div class="peg right"></div>
+        <img class="peg left" src="img/favoris/point.svg"></img>
+        <img class="peg right" src="img/favoris/point.svg"></img>
       `;
 
       displayRow.appendChild(itemsGrid);
