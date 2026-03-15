@@ -37,7 +37,7 @@ const elements = {
   sign: { svg : Object.values(signFiles)}
 };
 
-const ESPACEMENT = 0.33; 
+const ESPACEMENT = 0.20; 
 const OFFSET_DEPART = 0.20; // Décale le premier article pour ne pas qu'il soit au tout début
 export const NB_ARTICLES = 10;
 const NB_PATH = Math.ceil(OFFSET_DEPART + (NB_ARTICLES * ESPACEMENT));
@@ -385,7 +385,7 @@ const InfinitePath = () => {
   return (
     <>
     {/* ── Flottant Filtres (Mobile) ── */}
-    <div className="md:hidden fixed top-[88px] left-6 z-[9999]">
+    <div className="md:hidden fixed top-[88px] left-6 z-[900]">
       <button 
         onClick={() => setIsFilterOpen(!isFilterOpen)}
         className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg pointer-events-auto border border-gray-100 transition-transform active:scale-95"
@@ -438,7 +438,7 @@ const InfinitePath = () => {
           >
             <motion.div
               className="flex flex-col-reverse w-full will-change-transform"
-              style={{ y: pathY, transformStyle: "preserve-3d" }}
+              style={{ y: pathY, transformStyle: "preserve-3d"}}
             >
               {pathList.map((pathObj, i) => (
               <div
@@ -599,7 +599,7 @@ const InfinitePath = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.4 }}
-      className="absolute z-[9999] flex flex-col items-center gap-3 pointer-events-none"
+      className="absolute z-[900] flex flex-col items-center gap-3 pointer-events-none"
       style={{
         left: "20px",
         bottom: "14vh"
