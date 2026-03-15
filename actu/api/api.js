@@ -45,7 +45,7 @@ app.get('/init', async function ( req, res ) {
     // await test1();
     // await Test2Data();
     // await test2();
-    res.json({'Ok':true});
+    return res.json({'Ok':true});
 } );
 
 app.get('/poly', async function ( req, res ) {
@@ -63,19 +63,17 @@ app.get('/poly', async function ( req, res ) {
 
             fs.readFile("./actu/api/BDD/dataActu.json", "utf8", function (err, fileData) {
                 if (err) {
-                    res.json({error:"Les données n'ont pas pu être récupérés !"});
-                    return;
+                    return res.json({error:"Les données n'ont pas pu être récupérés !"});
                 }
-                res.json(JSON.parse(fileData));
+                return res.json(JSON.parse(fileData));
             });
         });
     }else{
         fs.readFile("./actu/api/BDD/dataActu.json", "utf8", function (err, fileData) {
                 if (err) {
-                    res.json({error:"Les données n'ont pas pu être récupérés !"});
-                    return;
+                    return res.json({error:"Les données n'ont pas pu être récupérés !"});
                 }
-                res.json(JSON.parse(fileData));
+                return res.json(JSON.parse(fileData));
         });
     }  
 
@@ -134,7 +132,7 @@ app.get('/film-week', async function ( req, res ) {
         })
     }
     const data = await GetFilmsByDate(lastDateBD);
-    res.json(data);
+    return res.json(data);
 } );
 
 app.get('/film-week-unknown', async function ( req, res ) {
@@ -146,7 +144,7 @@ app.get('/film-week-unknown', async function ( req, res ) {
     }
 
     if(!user){
-        res.status(400).json({ error: 'Utilisateur non identifié' });
+        return res.status(400).json({ error: 'Utilisateur non identifié' });
     }
     
     const lastDate = lastWednesday();
@@ -164,7 +162,7 @@ app.get('/film-week-unknown', async function ( req, res ) {
         })
     }
     const data = await GetFilmsByDateNewByUser(user?.id,lastDateBD);
-    res.json(data);
+    return res.json(data);
 } );
 
 app.get('/film-like', async (req, res) => {
@@ -178,9 +176,9 @@ app.get('/film-like', async (req, res) => {
 
     if(user){
         const films = await GetLikeByUserId(user.id);
-        res.json(films);
+        return res.json(films);
     }else{
-        res.status(401).json({ error: "Utilisateur non authentifié" });
+        return res.status(401).json({ error: "Utilisateur non authentifié" });
     }
 
 });
@@ -191,10 +189,10 @@ app.get('/film-ranking', async (req, res) => {
     const date = await GetLastDate();
     const films = await GetClassement(date);
     if (films){
-        res.json(films);
+        return res.json(films);
     }
     else{
-        res.status(404).json({ error: "Aucun films" });
+        return res.status(404).json({ error: "Aucun films" });
     }
 });
 
@@ -205,10 +203,10 @@ app.get('/film-bestofweek', async (req, res) => {
     const film = await GetFilmsCoupDeCoeurByDate(date);
 
     if (film){
-        res.json(film);
+        return res.json(film);
     }
     else{
-        res.status(401).json({ error: "Aucun film coup de coeur cette semaine" });
+        return res.status(401).json({ error: "Aucun film coup de coeur cette semaine" });
     }
 });
 
@@ -220,7 +218,7 @@ app.get('/topic', function ( req, res ) {
     // Get partner's topic from folder name
     topic = path.basename(path.join(__dirname, '/..'))
     // Send it as a JSON object
-    res.json({'topic':topic});
+    return res.json({'topic':topic});
 } );
 
 
@@ -234,10 +232,10 @@ app.get('/acteur/:id_film', async (req, res) => {
     const acteurs = await GetActeursByFilm(film);
 
     if (acteurs){
-        res.json(acteurs);
+        return res.json(acteurs);
     }
     else{
-        res.status(401).json({ error: "Aucun acteur pour le film " + film});
+        return res.status(401).json({ error: "Aucun acteur pour le film " + film});
     }
 });
 
@@ -260,7 +258,7 @@ app.get("/create-user", async (req,res)=>{
 
         await ajoutUtilisateur(token);
 
-        res.cookie("token", token, {
+        return res.cookie("token", token, {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
@@ -268,7 +266,7 @@ app.get("/create-user", async (req,res)=>{
         });
     }
 
-    res.json({status:"ok"});
+    return res.json({status:"ok"});
 });
 
 
@@ -423,21 +421,21 @@ app.post("/film-like", async(req, res) => {
     }
 
     if(!user){
-        res.status(400).json({ error: 'Utilisateur non identifié' });
+        return res.status(400).json({ error: 'Utilisateur non identifié' });
     }
     if (!nom_film || !real_film){
-        res.status(400).json({ error: 'Champs vide' });
+        return res.status(400).json({ error: 'Champs vide' });
     }
     const film = await GetFilmByNomAndReal(nom_film,real_film);
     if(!film){
-        res.status(400).json({ error: 'Film non identifié' });
+        return res.status(400).json({ error: 'Film non identifié' });
     }
     const filmID = await ajoutFilmAime(film?.id, user?.id);
     if(!filmID){
-        res.status(400).json({error: "Le like n'a pas été pris en compte"});
+        return res.status(400).json({error: "Le like n'a pas été pris en compte"});
     }
     else{
-        res.json({message : "Like inséré avec succès voici son id :" + filmID})
+        return res.json({message : "Like inséré avec succès voici son id :" + filmID})
     }
 });
 
@@ -452,21 +450,21 @@ app.post("/film-unlike", async(req, res) => {
     }
 
     if(!user){
-        res.status(400).json({ error: 'Utilisateur non identifié' });
+        return res.status(400).json({ error: 'Utilisateur non identifié' });
     }
     if (!nom_film || !real_film){
-        res.status(400).json({ error: 'Champs vide' });
+        return res.status(400).json({ error: 'Champs vide' });
     }
     const film = await GetFilmByNomAndReal(nom_film,real_film);
     if(!film){
-        res.status(400).json({ error: 'Film non identifié' });
+        return res.status(400).json({ error: 'Film non identifié' });
     }
     const filmID = await ajoutFilmAimePas(film?.id, user?.id);
     if(!filmID){
-        res.status(400).json({error: "Le non like n'a pas été pris en compte"});
+        return res.status(400).json({error: "Le non like n'a pas été pris en compte"});
     }
     else{
-        res.json({message : "Like inséré avec succès voici son id :" + filmID})
+        return res.json({message : "Like inséré avec succès voici son id :" + filmID})
     }
 });
 
@@ -478,10 +476,10 @@ app.post("/film", async(req, res) => {
 
     const film = await ajoutFilm(nom, affiche, bande_annonce, critique, nb_etoile, description, realisateur, date_sortie);
     if(!film){
-        res.status(400).json({error: "erreur d'insertion"});
+        return res.status(400).json({error: "erreur d'insertion"});
     }
     else{
-        res.json({message : "film insérer avec succès voici son id :" + film})
+        return res.json({message : "film insérer avec succès voici son id :" + film})
     }
 });
 
@@ -491,10 +489,10 @@ app.post("/film-bestofweek", async(req, res) => {
 
     const film = await ajoutFilmCoupDeCoeur(id_film, date);
     if(!film){
-        res.status(400).json({error: "erreur d'insertion"});
+        return res.status(400).json({error: "erreur d'insertion"});
     }
     else{
-        res.json({message : "film insérer avec succès voici son id :" + film})
+        return res.json({message : "film insérer avec succès voici son id :" + film})
     }
 });
 
@@ -504,10 +502,10 @@ app.post("/acteur", async(req, res) => {
 
     const acteur = await ajoutActeur(nom, prenom);
     if(!acteur){
-        res.status(400).json({error: "erreur d'insertion"});
+        return res.status(400).json({error: "erreur d'insertion"});
     }
     else{
-        res.json({message : "acteur insérer avec succès voici son id :" + acteur})
+        return res.json({message : "acteur insérer avec succès voici son id :" + acteur})
     }
 });
 
@@ -517,10 +515,10 @@ app.post("/acteur-film", async(req, res) => {
 
     const acteur = await ajoutFilmActeur(id_film, id_acteur);
     if(!acteur){
-        res.status(400).json({error: "erreur d'insertion"});
+        return res.status(400).json({error: "erreur d'insertion"});
     }
     else{
-        res.json({message : "acteur insérer avec succès voici son id :" + acteur})
+        return res.json({message : "acteur insérer avec succès voici son id :" + acteur})
     }
 });
 
@@ -534,10 +532,10 @@ app.delete("/film-like/id_film", async(res,req)=>{
     const id_utilisateur = await GetUserByToken(token);
     const film = supprimeFilmAime(id_film, id_utilisateur);
     if(!film){
-        res.status(400).json({error: "erreur de suppression"});
+        return res.status(400).json({error: "erreur de suppression"});
     }
     else{
-        res.json({message : "film disliké avec succès "});
+        return res.json({message : "film disliké avec succès "});
     }
 });
 
