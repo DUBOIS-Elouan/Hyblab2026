@@ -1,222 +1,167 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Ouest-France</title>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ouest-France — Intro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
+  <main class="app">
 
-  <div class="sbar">
-    <span class="sbar-time" id="live-time">09:53</span>
-    <div class="sbar-icons">
-      <svg width="16" height="11" viewBox="0 0 16 11" fill="none">
-        <path d="M8 2.5C9.85 2.5 11.5 3.2 12.76 4.34L14.18 2.92C12.56 1.44 10.39 .5 8 .5S3.44 1.44 1.82 2.92L3.24 4.34C4.5 3.2 6.15 2.5 8 2.5z" fill="currentColor"/>
-        <path d="M8 6.5c1.1 0 2.09.45 2.82 1.17L12.24 6.25C11.12 5.17 9.63 4.5 8 4.5s-3.12.67-4.24 1.75L5.18 7.67C5.91 6.95 6.9 6.5 8 6.5z" fill="currentColor"/>
-        <circle cx="8" cy="10" r="1.5" fill="currentColor"/>
-      </svg>
-      <svg width="12" height="11" viewBox="0 0 12 11"><rect x="1" y="4.5" width="2" height="6.5" rx=".5" fill="currentColor"/><rect x="5" y="2.5" width="2" height="8.5" rx=".5" fill="currentColor"/><rect x="9" y=".5" width="2" height="10.5" rx=".5" fill="currentColor"/></svg>
-      <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0" y="1" width="22" height="10" rx="3" stroke="currentColor" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="17" height="7" rx="2" fill="currentColor"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg>
-    </div>
-  </div>
-
-  <div class="scroll-area" id="main-scroll">
-
-    <div class="topnav">
-      <button class="nav-icon-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </button>
-      <button class="nav-icon-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      </button>
-      <div class="pills-row">
-        <button class="pill active">À la une</button>
-        <button class="pill inactive">Agenda</button>
-      </div>
+    <!-- ══ Splash (white logo) ══ -->
+    <div class="splash" id="splash">
+      <img id="splash-logo" src="img/ouest-france-couleur.png" alt="Logo Ouest-France">
     </div>
 
-    <div class="hero" onclick="open360()">
-      <div class="hero-img-placeholder">🕸️</div>
-      <div class="hero-gradient"></div>
-      <div class="hero-content">
-        <div class="hashtag-badge"><span>#</span> Affaire Epstein</div>
-        <div class="source-line"><div class="dot-red"></div><span>Ouest-France</span><span>— Il y a 1 min</span></div>
-        <div class="hero-title">Son appartement reconstitué par IA, Vivez l'expérience 360°</div>
-      </div>
-    </div>
+    <!-- ══ Dark card ══ -->
+    <div class="dark-layer" id="dark-layer">
+      <div class="slides-track" id="slides-track">
 
-    <div class="teaser-grid">
-      <div class="teaser-cell" onclick="openActu()">
-        <div class="teaser-cell-img-ph">🕸️</div>
-        <div class="teaser-gradient"></div>
-        <div class="teaser-content">
-          <div class="teaser-source">Ouest-France — 11h42</div>
-          <div class="teaser-title">Sociétés offshore, mariages arrangés : l'entreprise Epstein</div>
-        </div>
-      </div>
-      <div class="teaser-cell" onclick="openActu()">
-        <div class="teaser-cell-img-ph">👑</div>
-        <div class="teaser-gradient"></div>
-        <div class="teaser-content">
-          <div class="teaser-source">Ouest-France — 14h03</div>
-          <div class="teaser-title">L'arrestation de l'ex-prince Andrew secoue le Royaume-Uni</div>
-        </div>
-      </div>
-    </div>
+        <!-- ════ SLIDE 1 — présentation ════ -->
+        <div class="slide">
+          <div class="slide-inner">
 
-    <a class="art-row" onclick="openArticleDetail('epstein-keir')">
-      <div class="art-row-body">
-        <div class="art-row-source"><div class="dot-red"></div><span>Ouest-France</span><span>— 11/03</span></div>
-        <div class="art-row-title">Affaire Epstein : Keir Starmer avait été prévenu du « risque réputationnel » posé par la nomination de Peter Mandelson</div>
-      </div>
-      <div class="art-row-img">🇬🇧</div>
-    </a>
+            <div class="of-logo">
+              <img src="img/ouest-france-couleur.png" alt="Ouest-France">
+            </div>
 
-    <a class="art-row" onclick="openArticleDetail('epstein-paris')">
-      <div class="art-row-body">
-        <div class="art-row-source"><div class="dot-red"></div><span>Ouest-France</span><span>— 09/03</span></div>
-        <div class="art-row-title">Affaire Epstein : de Paris aux îles Vierges, l'effroyable mécanique Brunel racontée dans une pièce judiciaire</div>
-      </div>
-      <div class="art-row-img">🇫🇷</div>
-    </a>
+            <div class="inner-card">
+              <h1 class="s1-title">L'appartement Epstein&nbsp;:<br>l'enquête à 360°</h1>
 
-    <a class="art-row" onclick="openArticleDetail('epstein-fichiers')">
-      <div class="art-row-body">
-        <div class="art-row-source"><div class="dot-red"></div><span>Ouest-France</span><span>— 05/03</span></div>
-        <div class="art-row-title">Comment consulter les fichiers Epstein ? Trois questions pour comprendre les enjeux</div>
-      </div>
-      <div class="art-row-img">📂</div>
-    </a>
+              <div class="s1-body">
+                <p>Cette expérience immersive vous transporte dans une reconstitution fidèle de l'appartement new-yorkais de Jeffrey Epstein.</p>
+                <p>À travers 18 objets clés, découvrez les mécanismes d'un réseau d'influence planétaire.</p>
+              </div>
 
-    <a class="art-row" onclick="openArticleDetail('epstein-fortune')">
-      <div class="art-row-body">
-        <div class="art-row-source"><div class="dot-red"></div><span>Ouest-France</span><span>— 20/02</span></div>
-        <div class="art-row-title">Prof de maths médiocre issu de la classe moyenne : comment Epstein a-t-il bâti sa fortune ?</div>
-      </div>
-      <div class="art-row-img">💰</div>
-    </a>
+              <div class="s1-pager-wrap">
+                <div class="pager" aria-label="Étape 1 sur 2">
+                  <span class="dot active" id="dot-1"></span>
+                  <span class="dot"        id="dot-2"></span>
+                </div>
+              </div>
 
-  </div><div class="panel" id="panel-search">
-    <div class="search-topbar">
-      <div class="search-bar">
-        <div class="search-input-wrap">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="search-input" id="search-input" type="text"
-            placeholder="Recherche : ville, actualité, fait div…"
-            autocomplete="off" autocorrect="off" spellcheck="false"
-            oninput="doSearch(this.value)"
-          />
-          <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
-        </div>
-      </div>
-      <div class="chips-row">
-        <button class="chip" onclick="setChip(this,'Élections municipales 2026')"><span class="hash">#</span> Élections municipales 2026</button>
-        <button class="chip" onclick="setChip(this,'Budget 2026')"><span class="hash">#</span> Budget 2026</button>
-        <button class="chip gray" onclick="setChip(this,'Epstein')"><span class="hash">#</span> Epstein</button>
-        <button class="chip gray" onclick="setChip(this,'Brunel')"><span class="hash">#</span> Brunel</button>
-        <button class="chip gray" onclick="setChip(this,'Prince Andrew')"><span class="hash">#</span> Andrew</button>
-        <button class="chip gray" onclick="setChip(this,'360')"><span class="hash">#</span> 360°</button>
-      </div>
-    </div>
+              <div class="s1-note-wrap">
+                <div class="note">
+                  Ce décor est une reconstitution, conçue à partir des photos et plan de l'appartement de Jeffrey Epstein, et assisté par IA.
+                </div>
+              </div>
 
-    <div class="search-results" id="search-results">
-      <div class="search-empty" id="search-empty">
-        <div class="big">🔍</div>
-        <p>Entrez un mot-clé ou sélectionnez une suggestion</p>
-      </div>
-    </div>
-  </div>
+              <div class="s1-btn-wrap">
+                <button class="btn-next" id="btn-next">C'est parti !</button>
+              </div>
+            </div>
 
-  <div class="panel" id="panel-article">
-    <div class="art-detail-topbar">
-      <button class="art-detail-back" onclick="closePanel('panel-article')">←</button>
-      <div class="art-detail-name" id="art-detail-name">Jeffrey Epstein</div>
-      <div class="art-detail-plus">+</div>
-    </div>
-    <div class="scroll-area" style="padding-bottom:20px">
-      <div class="art-hero-img" id="art-hero-emoji">🕸️</div>
-      <div class="art-detail-body">
-        <div class="art-detail-source"><div class="dot-red"></div><span>Ouest-France</span><span id="art-date" style="margin-left:4px;color:rgba(255,255,255,.35)">— 11/03</span></div>
-        <h1 class="art-detail-title" id="art-title">Son appartement reconstitué par IA, Vivez l'expérience 360°</h1>
-        <p class="art-detail-lead" id="art-lead">Explorez le 9 East 71st Street, Manhattan, grâce à notre viewer 360° interactif. Cliquez sur les objets pour accéder aux articles du dossier Epstein.</p>
-        <div id="art-cta-zone" style="margin-bottom:20px"></div>
-      </div>
-      <div class="art-detail-related">
-        <div class="section-sep sm">Sur le même sujet</div>
-        <a class="art-row" onclick="openArticleDetail('epstein-keir')">
-          <div class="art-row-body">
-            <div class="art-row-source"><div class="dot-red"></div><span>Ouest-France</span><span>— 11/03</span></div>
-            <div class="art-row-title">Affaire Epstein : Keir Starmer avait été prévenu du risque réputationnel</div>
           </div>
-          <div class="art-row-img">🇬🇧</div>
-        </a>
-        <a class="art-row" onclick="openArticleDetail('epstein-paris')">
-          <div class="art-row-body">
-            <div class="art-row-source"><div class="dot-red"></div><span>Ouest-France</span><span>— 09/03</span></div>
-            <div class="art-row-title">De Paris aux îles Vierges, l'effroyable mécanique Brunel</div>
-          </div>
-          <div class="art-row-img">🇫🇷</div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel" id="panel-actu">
-    <div class="art-detail-topbar">
-      <button class="art-detail-back" onclick="closePanel('panel-actu')">←</button>
-      <div class="art-detail-name">Dossier Epstein</div>
-      <div class="art-detail-plus">+</div>
-    </div>
-    <div class="scroll-area" style="padding-bottom:20px">
-
-      <div class="hero" onclick="open360()" style="cursor:pointer">
-        <div class="hero-img-placeholder">🕸️</div>
-        <div class="hero-gradient"></div>
-        <div class="hero-content">
-          <div class="hashtag-badge"><span>#</span> Interactif · 360°</div>
-          <div class="source-line"><div class="dot-red"></div><span>Ouest-France</span></div>
-          <div class="hero-title">Son appartement reconstitué par IA, Vivez l'expérience 360°</div>
         </div>
-      </div>
+        <!-- /SLIDE 1 -->
 
-      <div id="actu-list"></div>
-    </div>
-  </div>
+        <!-- ════ SLIDE 2 — instructions ════ -->
+        <div class="slide">
+          <div class="slide-inner">
 
-  <div id="ov360">
-    <div class="ov360-bar">
-      <button class="ov360-back" onclick="close360()">← Retour</button>
-      <span class="ov360-title">Appartement Epstein — 360°</span>
-    </div>
-    <iframe id="frame360" src="" allowfullscreen title="Visite 360°"></iframe>
-  </div>
+            <!-- Back arrow + logo row -->
+            <div class="s2-topbar">
+              <button class="btn-back-arrow" id="btn-back" aria-label="Retour">←</button>
+              <div class="of-logo">
+                <img src="img/ouest-france-couleur.png" alt="Ouest-France">
+              </div>
+              <!-- spacer to centre the logo -->
+              <div class="s2-topbar-spacer"></div>
+            </div>
 
-  <nav class="bottom-nav">
-    <button class="nav-item" onclick="closeAllPanels()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-      <span>Le journal</span>
-    </button>
-    <button class="nav-item" onclick="open360()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="13" rx="3"/><path d="M16 2l-4 5-4-5"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/><circle cx="17" cy="14" r="1" fill="currentColor"/></svg>
-      <span>Jeux</span>
-    </button>
-    <button class="nav-item active-tab" onclick="closeAllPanels()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Accueil</span>
-    </button>
-    <button class="nav-item" onclick="openSearch()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Recherche</span>
-    </button>
-    <button class="nav-item" onclick="alert('Mon compte')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>Mon compte</span>
-    </button>
-  </nav>
+            <div class="inner-card">
+              <div class="instruction-img">
+                <img src="img/epst1.png" alt="Aperçu de la scène 360°">
+              </div>
 
-  <script src="js/script.js"></script>
+              <p class="instruction-text">
+                Interagissez avec les objets mis en surbrillance, apprenez en plus avec les articles liés, et consultez votre avancée dans votre dossier de suivi.
+              </p>
+
+              <div class="s2-pager-wrap">
+                <div class="pager" aria-label="Étape 2 sur 2">
+                  <span class="dot"></span>
+                  <span class="dot active"></span>
+                </div>
+              </div>
+
+              <div class="s2-note-wrap">
+                <div class="note">
+                  Ce décor est une reconstitution, conçue à partir des photos et plan de l'appartement de Jeffrey Epstein, et assisté par IA.
+                </div>
+              </div>
+
+              <button class="btn-next" id="btn-start">Commencer</button>
+            </div>
+
+          </div>
+        </div>
+        <!-- /SLIDE 2 -->
+
+      </div><!-- /slides-track -->
+    </div><!-- /dark-layer -->
+
+  </main>
+
+  <script>
+    const track  = document.getElementById('slides-track');
+    const dot1   = document.getElementById('dot-1');
+    const dot2   = document.getElementById('dot-2');
+    let   onSlide2 = false;
+
+    // ── Helpers ───────────────────────────────────────────────
+    function goToSlide1() {
+      track.style.transform = 'translateX(0)';
+      dot1.classList.add('active');
+      dot2.classList.remove('active');
+      onSlide2 = false;
+      // remove the history entry we pushed when entering slide 2
+      history.back();
+    }
+
+    function goToSlide2() {
+      track.style.transform = 'translateX(-50%)';
+      dot1.classList.remove('active');
+      dot2.classList.add('active');
+      onSlide2 = true;
+      // push a history entry so the hardware back button can catch it
+      history.pushState({ slide: 2 }, '');
+    }
+
+    // ── Splash → slide 1 ──────────────────────────────────────
+    setTimeout(() => {
+      document.getElementById('splash').classList.add('hidden');
+      document.getElementById('dark-layer').classList.add('visible');
+    }, 1800);
+
+    // ── Slide 1 → Slide 2 (C'est parti button) ────────────────
+    document.getElementById('btn-next').addEventListener('click', goToSlide2);
+
+    // ── Slide 2 → Slide 1 (UI back arrow) ────────────────────
+    document.getElementById('btn-back').addEventListener('click', () => {
+      if (onSlide2) goToSlide1();
+    });
+
+    // ── Hardware back button (Android / Samsung) ──────────────
+    window.addEventListener('popstate', (e) => {
+      if (onSlide2) {
+        // slide back to 1 without popping again
+        track.style.transform = 'translateX(0)';
+        dot1.classList.add('active');
+        dot2.classList.remove('active');
+        onSlide2 = false;
+      }
+    });
+
+    // ── Slide 2 → viewer (Commencer button) ──────────────────
+    document.getElementById('btn-start').addEventListener('click', () => {
+      window.location.href = 'epstein.html';
+    });
+  </script>
 </body>
 </html>

@@ -1,18 +1,15 @@
 window.Controller = (() => {
-
   let camera, rendererEl;
   let isDragging = false;
   let prevX = 0, prevY = 0;
   let dragStartX = 0, dragStartY = 0;
   let lon = 0, lat = 0;
 
-  const SPEED = 0.3;
+  const SPEED     = 0.3;
   const LAT_LIMIT = 85;
-
-  // Zoom
-  let fov     = 75;
-  const FOV_MIN = 30;
-  const FOV_MAX = 100;
+  const FOV_MIN   = 30;
+  const FOV_MAX   = 100;
+  let fov = 75;
 
   function applyFov() {
     camera.fov = fov;
@@ -26,8 +23,7 @@ window.Controller = (() => {
     // ── Mouse wheel zoom ──────────────────────────────────────
     rendererEl.addEventListener('wheel', e => {
       e.preventDefault();
-      fov += e.deltaY * 0.05;
-      fov  = Math.max(FOV_MIN, Math.min(FOV_MAX, fov));
+      fov = Math.max(FOV_MIN, Math.min(FOV_MAX, fov + e.deltaY * 0.05));
       applyFov();
     }, { passive: false });
 
@@ -49,8 +45,7 @@ window.Controller = (() => {
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
-        fov -= (dist - lastPinchDist) * 0.1;
-        fov  = Math.max(FOV_MIN, Math.min(FOV_MAX, fov));
+        fov = Math.max(FOV_MIN, Math.min(FOV_MAX, fov - (dist - lastPinchDist) * 0.1));
         applyFov();
         lastPinchDist = dist;
       }
@@ -60,8 +55,8 @@ window.Controller = (() => {
       if (e.touches.length < 2) lastPinchDist = null;
     });
 
+    // ── Mouse drag ────────────────────────────────────────────
     rendererEl.addEventListener('mousedown', e => {
-      if (window.Calibrator?.isActive()) return;
       isDragging = true;
       prevX = dragStartX = e.clientX;
       prevY = dragStartY = e.clientY;
@@ -69,10 +64,9 @@ window.Controller = (() => {
     });
 
     window.addEventListener('mousemove', e => {
-      if (!isDragging || window.Calibrator?.isActive()) return;
+      if (!isDragging) return;
       lon -= (e.clientX - prevX) * SPEED;
-      lat += (e.clientY - prevY) * SPEED;
-      lat  = Math.max(-LAT_LIMIT, Math.min(LAT_LIMIT, lat));
+      lat  = Math.max(-LAT_LIMIT, Math.min(LAT_LIMIT, lat + (e.clientY - prevY) * SPEED));
       prevX = e.clientX;
       prevY = e.clientY;
     });
@@ -83,9 +77,8 @@ window.Controller = (() => {
       rendererEl.style.cursor = 'grab';
     });
 
-    // Touch
+    // ── Touch drag ────────────────────────────────────────────
     rendererEl.addEventListener('touchstart', e => {
-      if (window.Calibrator?.isActive()) return;
       const t = e.touches[0];
       isDragging = true;
       prevX = dragStartX = t.clientX;
@@ -93,11 +86,10 @@ window.Controller = (() => {
     }, { passive: true });
 
     window.addEventListener('touchmove', e => {
-      if (!isDragging || window.Calibrator?.isActive()) return;
+      if (!isDragging) return;
       const t = e.touches[0];
       lon -= (t.clientX - prevX) * SPEED;
-      lat += (t.clientY - prevY) * SPEED;
-      lat  = Math.max(-LAT_LIMIT, Math.min(LAT_LIMIT, lat));
+      lat  = Math.max(-LAT_LIMIT, Math.min(LAT_LIMIT, lat + (t.clientY - prevY) * SPEED));
       prevX = t.clientX;
       prevY = t.clientY;
     }, { passive: true });
@@ -107,7 +99,7 @@ window.Controller = (() => {
 
   function update() {
     if (!camera) return;
-    const phi   = THREE.MathUtils.degToRad(90  - lat);
+    const phi   = THREE.MathUtils.degToRad(90 - lat);
     const theta = THREE.MathUtils.degToRad(lon);
     camera.lookAt(
       Math.sin(phi) * Math.cos(theta),
@@ -116,8 +108,8 @@ window.Controller = (() => {
     );
   }
 
-  function dragging()    { return isDragging; }
-  function getDragStart(){ return { x: dragStartX, y: dragStartY }; }
+  function dragging()     { return isDragging; }
+  function getDragStart() { return { x: dragStartX, y: dragStartY }; }
 
   return { init, update, dragging, getDragStart };
 })();

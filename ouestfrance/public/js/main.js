@@ -2,11 +2,11 @@
 //  CONFIG
 // ════════════════════════════════════════════════════════════════
 const CONFIG = {
-  imagePath      : 'img/epstein.png',
-  hoverColor     : 0x00ff88,
-  clickColor     : 0xffd166,
-  hoverOpacity   : 0.35,
-  clickOpacity   : 0.55,
+  imagePath    : 'img/epstein.png',
+  hoverColor   : 0x00ff88,
+  clickColor   : 0xffd166,
+  hoverOpacity : 0.35,
+  clickOpacity : 0.55,
 };
 
 // ════════════════════════════════════════════════════════════════
@@ -31,16 +31,21 @@ new THREE.TextureLoader().load(
     hideLoading();
   },
   xhr => {
-    document.getElementById('loading-bar').style.width =
-      Math.round(xhr.loaded / (xhr.total || 1) * 100) + '%';
+    if (window.ovProgress) {
+      window.ovProgress(Math.round(xhr.loaded / (xhr.total || 1) * 100));
+    }
   },
   () => {
-    const c = document.createElement('canvas'); c.width = 2048; c.height = 1024;
+    // Fallback canvas if image fails to load
+    const c = document.createElement('canvas');
+    c.width = 2048; c.height = 1024;
     const ctx = c.getContext('2d');
-    ctx.fillStyle = '#1a0808'; ctx.fillRect(0, 0, 2048, 1024);
-    ctx.fillStyle = 'rgba(240,160,90,.8)'; ctx.font = 'bold 36px sans-serif';
+    ctx.fillStyle = '#1a0808';
+    ctx.fillRect(0, 0, 2048, 1024);
+    ctx.fillStyle = 'rgba(240,160,90,.8)';
+    ctx.font = 'bold 36px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Image non trouvee -- ' + CONFIG.imagePath, 1024, 512);
+    ctx.fillText('Image non trouvée — ' + CONFIG.imagePath, 1024, 512);
     scene.add(new THREE.Mesh(sphereGeo,
       new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c) })));
     hideLoading();
@@ -99,27 +104,16 @@ function buildPolygonHotspot(id, points, articleData) {
   }
 
   const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position',
-    new THREE.BufferAttribute(new Float32Array(positions), 3));
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
   geo.computeVertexNormals();
 
   const mat = new THREE.MeshBasicMaterial({
-    color       : CONFIG.hoverColor,
-    transparent : true,
-    opacity     : 0,
-    side        : THREE.DoubleSide,
-    depthWrite  : false,
+    color: CONFIG.hoverColor, transparent: true, opacity: 0,
+    side: THREE.DoubleSide, depthWrite: false,
   });
 
   const mesh = new THREE.Mesh(geo, mat);
-  mesh.userData = {
-    id,
-    _isPolygon : true,
-    _centroid  : center.clone(),
-    _mat       : mat,
-    article    : articleData,
-  };
-
+  mesh.userData = { id, _isPolygon: true, _centroid: center.clone(), _mat: mat, article: articleData };
   scene.add(mesh);
   hotspotMeshes.push(mesh);
   return mesh;
@@ -127,23 +121,15 @@ function buildPolygonHotspot(id, points, articleData) {
 
 // ════════════════════════════════════════════════════════════════
 //  LOAD DATA + BUILD HOTSPOTS
-//  POLYGON_ZONES is defined in polygon-zones.js (loaded before this file)
 // ════════════════════════════════════════════════════════════════
 fetch('data/epstein-data.json')
   .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
   .then(data => {
     const polygonIds = POLYGON_ZONES.map(z => z.id);
-
-    // Standard point hotspots — everything not handled as polygon
     buildHotspots(data.hotspots.filter(h => !polygonIds.includes(h.id)));
-
-    // Polygon zones — geometry from polygon-zones.js, article from JSON
     POLYGON_ZONES.forEach(zone => {
       const match = data.hotspots.find(h => h.id === zone.id);
-      if (!match) {
-        console.warn('hotspot "' + zone.id + '" introuvable dans le JSON');
-        return;
-      }
+      if (!match) { console.warn('Hotspot "' + zone.id + '" introuvable dans le JSON'); return; }
       buildPolygonHotspot(zone.id, zone.points, match.article);
     });
   })
@@ -153,53 +139,61 @@ fetch('data/epstein-data.json')
 //  MODULES INIT
 // ════════════════════════════════════════════════════════════════
 Controller.init(camera, renderer);
-ArticlePanel.init();
 Popup.init();
-Calibrator.init(CONFIG.imagePath, renderer);
+
+// ════════════════════════════════════════════════════════════════
+//  PROGRESS TRACKING
+// ════════════════════════════════════════════════════════════════
+const TOTAL_OBJECTS = 18;
+const visitedIds    = new Set();
+// expose for popup.js
+window.TOTAL_OBJECTS = TOTAL_OBJECTS;
+window.visitedIds    = visitedIds;
+
+function markVisited(id) {
+  if (visitedIds.has(id)) return;
+  visitedIds.add(id);
+  const found   = document.getElementById('progress-found');
+  const counter = document.getElementById('progress-counter');
+  if (found) found.textContent = visitedIds.size;
+  // when all visited, make counter tappable to reopen completion
+  if (visitedIds.size >= TOTAL_OBJECTS && counter) {
+    counter.style.cursor       = 'pointer';
+    counter.style.pointerEvents = 'auto';
+    counter.title              = 'Revoir les résultats';
+    counter.addEventListener('click', () => {
+      if (window.openCompletion) window.openCompletion();
+    }, { once: false });
+  }
+  // completion fires when popup is closed, not here
+}
 
 // ════════════════════════════════════════════════════════════════
 //  RAYCASTING + HOVER / CLICK STATE
 // ════════════════════════════════════════════════════════════════
-const raycaster    = new THREE.Raycaster();
-const mouse        = new THREE.Vector2();
-const tempV        = new THREE.Vector3();
-let   hoveredMesh  = null;
-let   activeMesh   = null;
-const readMeshes   = new Set(); // persists yellow "read" state
+const raycaster   = new THREE.Raycaster();
+const mouse       = new THREE.Vector2();
+const tempV       = new THREE.Vector3();
+let   hoveredMesh = null;
+let   activeMesh  = null;
+const readIds = new Set(); // tracks visited by id, not mesh
 
 function setPolygonState(mesh, state) {
   if (!mesh || !mesh.userData._isPolygon) return;
-  const mat     = mesh.userData._mat;
-  const isRead  = readMeshes.has(mesh);
-  if (state === 'idle') {
-    mat.color.setHex(isRead ? CONFIG.clickColor : CONFIG.hoverColor);
-    mat.opacity = isRead ? 0.1 : 0;
-  } else if (state === 'hover') {
-    mat.color.setHex(isRead ? CONFIG.clickColor : CONFIG.hoverColor);
-    mat.opacity = CONFIG.hoverOpacity;
-  } else if (state === 'active') {
-    mat.color.setHex(CONFIG.clickColor);
-    mat.opacity = CONFIG.clickOpacity;
-    readMeshes.add(mesh);
-  }
+  const mat    = mesh.userData._mat;
+  const isRead = readIds.has(mesh.userData.id);
+  if      (state === 'idle')   { mat.color.setHex(isRead ? CONFIG.clickColor : CONFIG.hoverColor); mat.opacity = isRead ? 0.55 : 0; }
+  else if (state === 'hover')  { mat.color.setHex(isRead ? CONFIG.clickColor : CONFIG.hoverColor); mat.opacity = CONFIG.hoverOpacity; }
+  else if (state === 'active') { mat.color.setHex(CONFIG.clickColor); mat.opacity = CONFIG.clickOpacity; readIds.add(mesh.userData.id); }
 }
 
-// ── Shared tap handler (mouse + touch) ───────────────────────
 function handleTap(clientX, clientY) {
   const ds = Controller.getDragStart();
-  if (!Calibrator.isActive() && Math.hypot(clientX - ds.x, clientY - ds.y) > 5) return;
+  if (Math.hypot(clientX - ds.x, clientY - ds.y) > 5) return;
 
   mouse.x =  (clientX / window.innerWidth)  * 2 - 1;
   mouse.y = -(clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-
-  if (Calibrator.isActive()) {
-    const dir   = raycaster.ray.direction.clone().normalize();
-    const phi   = Math.acos(Math.max(-1, Math.min(1, dir.y)));
-    const theta = Math.atan2(dir.x, dir.z);
-    Calibrator.addPoint(phi, theta, clientX, clientY);
-    return;
-  }
 
   const hits = raycaster.intersectObjects(hotspotMeshes);
   if (!hits.length) {
@@ -212,7 +206,12 @@ function handleTap(clientX, clientY) {
     if (activeMesh && activeMesh !== mesh) setPolygonState(activeMesh, 'idle');
     activeMesh = mesh;
     setPolygonState(mesh, 'active');
+    // refresh all sibling meshes sharing the same id (e.g. corde x3)
+    hotspotMeshes.forEach(m => {
+      if (m !== mesh && m.userData.id === mesh.userData.id) setPolygonState(m, 'idle');
+    });
   }
+  if (mesh.userData.id) markVisited(mesh.userData.id);
   Popup.open(mesh.userData);
 }
 
@@ -220,7 +219,7 @@ renderer.domElement.addEventListener('mousemove', e => {
   if (Controller.dragging()) {
     if (hoveredMesh && hoveredMesh !== activeMesh) setPolygonState(hoveredMesh, 'idle');
     hoveredMesh = null;
-    renderer.domElement.style.cursor = Calibrator.isActive() ? 'crosshair' : 'grabbing';
+    renderer.domElement.style.cursor = 'grabbing';
     return;
   }
 
@@ -228,7 +227,7 @@ renderer.domElement.addEventListener('mousemove', e => {
   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
 
-  const hit = raycaster.intersectObjects(hotspotMeshes)[0];
+  const hit     = raycaster.intersectObjects(hotspotMeshes)[0];
   const hitMesh = hit ? hit.object : null;
 
   if (hitMesh !== hoveredMesh) {
@@ -236,8 +235,7 @@ renderer.domElement.addEventListener('mousemove', e => {
     hoveredMesh = hitMesh;
     if (hoveredMesh && hoveredMesh !== activeMesh) setPolygonState(hoveredMesh, 'hover');
     renderer.domElement.style.cursor = hoveredMesh
-      ? 'pointer'
-      : (Calibrator.isActive() ? 'crosshair' : 'grab');
+      ? 'pointer' : 'grab';
   }
 
   if (hoveredMesh && hoveredMesh.userData._isPolygon && hoveredMesh !== activeMesh) {
@@ -245,10 +243,7 @@ renderer.domElement.addEventListener('mousemove', e => {
   }
 });
 
-// Mouse click
-renderer.domElement.addEventListener('click', e => handleTap(e.clientX, e.clientY));
-
-// Touch tap
+renderer.domElement.addEventListener('click',    e => handleTap(e.clientX, e.clientY));
 renderer.domElement.addEventListener('touchend', e => {
   if (Controller.dragging()) return;
   const t = e.changedTouches[0];
@@ -256,7 +251,7 @@ renderer.domElement.addEventListener('touchend', e => {
 }, { passive: true });
 
 // ════════════════════════════════════════════════════════════════
-//  LABELS (point hotspots only)
+//  LABELS (point hotspots)
 // ════════════════════════════════════════════════════════════════
 function updateLabels() {
   HOTSPOTS.forEach(h => {
@@ -264,8 +259,8 @@ function updateLabels() {
     tempV.copy(h._mesh.position).project(camera);
     if (tempV.z > 1) { h._label.style.opacity = '0'; return; }
     h._label.style.opacity = '1';
-    h._label.style.left = ((tempV.x * .5 + .5) * window.innerWidth)  + 'px';
-    h._label.style.top  = ((-tempV.y * .5 + .5) * window.innerHeight) + 'px';
+    h._label.style.left    = ((tempV.x * .5 + .5) * window.innerWidth)  + 'px';
+    h._label.style.top     = ((-tempV.y * .5 + .5) * window.innerHeight) + 'px';
   });
 }
 
@@ -280,16 +275,15 @@ function animate() {
 }
 animate();
 
-// ════════════════════════════════════════════════════════════════
-//  RESIZE
-// ════════════════════════════════════════════════════════════════
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// ════════════════════════════════════════════════════════════════
+//  HIDE LOADING
+// ════════════════════════════════════════════════════════════════
 function hideLoading() {
-  document.getElementById('loading-bar').style.width = '100%';
-  setTimeout(() => document.getElementById('loading').classList.add('hidden'), 400);
+  if (window.ovHide) window.ovHide();
 }
