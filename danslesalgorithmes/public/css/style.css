@@ -942,7 +942,7 @@ article {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
+    width: 90%;
     max-width: 31rem;
     display: flex;
     align-items: center;
@@ -953,7 +953,7 @@ article {
 
 .fraude-indu-container img {
     position: absolute;
-    width: 100%; /* Ajustez le % si l'image est trop grande/petite par rapport au texte */
+    width: 90%; /* Ajustez le % si l'image est trop grande/petite par rapport au texte */
     height: auto;
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
