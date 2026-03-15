@@ -446,26 +446,18 @@ function observer() {
 function updateroue() {
   if (film_cards.length === 0) {
     window.location.href = "podium.html";
+    return;
   }
-  film_cards.forEach((elem, index) => {
-    const angle = (((2 * Math.PI) / film_cards.length) * ((index + nb_tours) % film_cards.length))
 
-    const getAngle = (i) => (((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length))
-    gsap.to(film_cards, {
-      duration: 0.2,
-      y: (i) => {
-        const angle = getAngle(i)
-        return Math.sin(angle) * distance + window.innerHeight / 2
-      },
+  const angles = film_cards.map((_, i) =>
+    ((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length)
+  );
 
-      z: (i) => {
-        const angle = getAngle(i)
-        return Math.cos(angle) * distance
-      },
-
-    })
-
-  })
+  gsap.to(film_cards, {
+    duration: 0.2,
+    y: (i) => Math.sin(angles[i]) * distance + window.innerHeight / 2,
+    z: (i) => Math.cos(angles[i]) * distance
+  });
 }
 
 
