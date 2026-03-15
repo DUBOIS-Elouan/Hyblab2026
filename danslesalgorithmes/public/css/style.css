@@ -969,3 +969,6 @@ article {
 #fraude-indu-animation.state-indus .img-indus {
     opacity: 1;
 }
+.step-aides-sociales {
+  position: relative; /* contexte de positionnement pour les enfants */
+}
