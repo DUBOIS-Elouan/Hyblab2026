@@ -320,20 +320,6 @@ function observer() {
 
         updateroue()
 
-        // const getAngle = (i) => (((2 * Math.PI) / film_cards.length) * ((i + nb_tours) % film_cards.length))
-        // gsap.to(film_cards, {
-        //   duration: 0.2,
-        //   y: (i) => {
-        //     const angle = getAngle(i)
-        //     return Math.sin(angle) * distance + window.innerHeight / 2
-        //   },
-
-        //   z: (i) => {
-        //     const angle = getAngle(i)
-        //     return Math.cos(angle) * distance
-        //   },
-
-        // })
       }
     }
   });
@@ -351,7 +337,7 @@ function observer() {
       decalageX += self.deltaX
 
       if (curentX_film_index == null) {
-        curentX_film_index = get_current_index()//(film_cards.length + (-nb_tours) % film_cards.length) % film_cards.length
+        curentX_film_index = get_current_index()
       }
 
       const curent_elem = film_cards[curentX_film_index]
