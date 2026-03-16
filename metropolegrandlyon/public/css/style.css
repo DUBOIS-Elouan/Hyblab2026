@@ -15,8 +15,7 @@ body {
     margin: 0;
     padding: 0;
     background: #000;
-
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 #loader {
@@ -976,11 +975,6 @@ body {
     bottom: 30vh;
 }
 
-#travaux_int {
-    left: 35vw;
-    bottom: 30vh;
-}
-
 #poubelle_int {
     left: 25vw;
     bottom: 12vh;
@@ -1004,6 +998,7 @@ body {
     overflow: auto;
     justify-content: center;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 .PopUpBloc {
@@ -1021,11 +1016,21 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+#PopUpLien {
+    font-size: 15px;
+    display: block;
+    color: white;
+    white-space: pre-line;
+    max-width: 60vh;
+    overflow-y: auto;
+}
+
 .close {
-    position: absolute;
+    position: relative;
     top: 0px;
     right: 2px;
     font-size: 17px;
+    margin-top: 3vh;
     font-weight: bold;
     color: #333;
     cursor: pointer;
