@@ -203,10 +203,10 @@ const randomSelection = () => {
     cursor: pointer;
 
     font-family: "OpenSans";
-    font-size: 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 700;
-    line-height: 14px;
+    line-height: 13px;
 }
 
 .action-btn--filter {

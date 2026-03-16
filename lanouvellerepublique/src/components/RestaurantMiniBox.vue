@@ -115,7 +115,7 @@ const displayImage = computed(() => {
 
 .div-title {
     display: flex;
-    padding: 8px;
+    padding: 2px 8px 2px;
     justify-content: center;
     align-items: center;
     gap: 7px;
@@ -129,12 +129,12 @@ const displayImage = computed(() => {
     flex: 1 0 0;
 
     color: #e815b2;
-    padding-top: 5px;
+    padding-top: 2px;
     font-family: Lalezar;
-    font-size: 25px;
+    font-size: 20x;
     font-style: normal;
     font-weight: 400;
-    line-height: 27px;
+    line-height: 20px;
 }
 
 .badges-panel {
