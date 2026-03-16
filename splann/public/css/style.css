@@ -357,7 +357,7 @@ h3 {
     bottom: 20vh !important;
 }
 
-.swiper-pagination.hidden {
+.nav-bar-hierarchical.hidden {
   opacity: 0;
   pointer-events: none;
 }
