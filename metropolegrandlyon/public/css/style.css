@@ -15,8 +15,7 @@ body {
     margin: 0;
     padding: 0;
     background: #000;
-    
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 #scene-container {
@@ -28,7 +27,7 @@ body {
 }
 
 #scene {
-    position: absolute; 
+    position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
@@ -948,11 +947,6 @@ body {
     bottom: 30vh;
 }
 
-#travaux_int {
-    left: 35vw;
-    bottom: 30vh;
-}
-
 #poubelle_int {
     left: 25vw;
     bottom: 12vh;
@@ -976,6 +970,7 @@ body {
     overflow: auto;
     justify-content: center;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 .PopUpBloc {
@@ -995,7 +990,7 @@ body {
     padding: 5vw;
     color: white;
     white-space: pre-line;
-    max-height: 70vh;
+    max-height: 60vh;
     overflow-y: auto;
 }
 
@@ -1008,11 +1003,21 @@ body {
     overflow-y: auto;
 }
 
+#PopUpLien {
+    font-size: 15px;
+    display: block;
+    color: white;
+    white-space: pre-line;
+    max-width: 60vh;
+    overflow-y: auto;
+}
+
 .close {
-    position: absolute;
+    position: relative;
     top: 0px;
     right: 2px;
     font-size: 17px;
+    margin-top: 3vh;
     font-weight: bold;
     color: #333;
     cursor: pointer;

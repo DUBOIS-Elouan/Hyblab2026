@@ -17,7 +17,7 @@
   "ville_int": {
     "title": "Aménagement urbain & travaux",
     "text": "La Métropole de Lyon déploie une politique d'aménagement urbain ambitieuse. Elle vise à améliorer la qualité de vie des habitants. Mené sur plusieurs années, l'aménagement urbain compte divers aspects du développement urbain : habitation, déplacement, environnement, équipement public et développement économique.\n\nLe programme d'investissement de la Métropole se concentre à la fois sur l'urbanisation contrôlée et sur la préservation des espaces naturels. Ce programme de \"projets natures\" vise à valoriser les espaces verts tout en soutenant le développement des villes métropolitaines.\n\nLes communes, ainsi que les partenaires privés et publics, réfléchissent avec la Métropole pour mettre en place les projets d'aménagement du territoire. Ces études débouchent sur des schémas de référence ou plans de secteurs, sur des propositions d'évolution réglementaire ou sur un engagement opérationnel de la Métropole de Lyon en tant que maître d'ouvrage.\n\nLes opérations d'aménagement traduisent les politiques métropolitaines de développement au sein d'un projet global issu de ces études préalables. La maîtrise d'ouvrage publique fixe les modalités de mise en œuvre avec les aménageurs publics ou les opérateurs privés.\n\nLa Charte des espaces publics de la Métropole de Lyon est décidée par les services, les élus de la Métropole, les communes et les aménageurs. Elle explique les grands principes de l'aménagement des espaces publics métropolitains (adaptation au dérèglement climatique, rééquilibrage des usages, sécurité pour les usagers...).",
-    "links": []
+    "links": ["https://www.grandlyon.com/metropole/missions-et-competences/cadre-de-vie#section5"]
   },
 
   "metro_int": {
@@ -34,13 +34,13 @@
    "poubelle_int": {
     "title": "Déchets",
     "text": "La Métropole de Lyon collecte et traite les déchets ménagers sur l'ensemble de son territoire. La Métropole sensibilise les habitants à la réduction et au tri des déchets et sur leur valorisation sous forme de recyclage de la matière et de production d'énergie.\n\nPour chaque type de déchet, les modalités de collecte et de traitement sont spécifiques. Certains déchets doivent être apportés en déchèteries, d'autres sont collectés en porte à porte dans des bacs ou sur l'espace public dans des différents lieux de collecte (silos à verre, bornes à compost, bornes textiles...).\n\n- Les emballages et les papiers triés par les habitants sont transportés jusqu'aux deux centres de tri du territoire.\n- Les déchets des bornes à compost sont collectés par les services de la Métropole pour être compostés sur des plateformes industrielles.\n- Les ordures ménagères sont collectées une à 4 fois par semaine en fonction de la densité de l'habitat et du quartier.\n\nLa Métropole de Lyon, avec Ecosystem, collecte à domicile les gros électroménagers et les encombrants gratuitement. En plus des déchèteries classiques, la Métropole organise des déchèteries mobiles à Lyon et Villeurbanne, afin de permettre aux habitants des centres denses de pouvoir jeter leurs encombrants.\n\nPlutôt que de les jeter, vous pouvez aussi donner des objets dont vous n'avez plus l'usage mais qui fonctionnent encore dans l'une des quinze donneries mises en place par la Métropole de Lyon.",
-    "links": []
+    "links": ["https://www.grandlyon.com/metropole/missions-et-competences/gestion-au-quotidien#section2"]
   },
 
   "velo_int": {
     "title": "Transports",
     "text": "La Métropole de Lyon développe des solutions pour que tous les habitants puissent se déplacer, de manière environnementale et économique.\n\nL'Agence des mobilités est une plateforme permettant d'aider toute personne se déplaçant sur le territoire, de façon ponctuelle ou quotidienne. La Métropole de Lyon propose divers modes de déplacement et développe des moyens pour faciliter les trajets quotidiens de ses habitants et des personnes venant travailler sur le territoire. Elle soutient les moyens de déplacements :\n\n- Des transports en commun métropolitains, gérés par SYTRAL Mobilités.\n- Du réseau TER, géré par la région Auvergne-Rhône-Alpes.\n- En voiture avec l'autopartage et le covoiturage.\n- En vélo et à pied.\n\nPour faciliter les déplacements dans les villes du territoire, la Métropole de Lyon agit à :\n\n- Améliorer l'efficacité des transports en commun.\n- Fluidifier et réduire la circulation automobile.\n- Favoriser les modes de transports utilisés par les usagers.\n- Modifier les comportements autour de la mobilité.\n- Offrir aux usagers de nouveaux services.",
-    "links": []
+    "links": ["https://www.grandlyon.com/metropole/missions-et-competences/cadre-de-vie#section1"]
   },
 
   "eau_int": {

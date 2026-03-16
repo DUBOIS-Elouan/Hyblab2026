@@ -289,6 +289,7 @@ function majScene(s) {
             txt.style.opacity = lerp(0, 1, av(s, scrollFinStep1 + 10, scrollFinStep2 - 100));
             txt.style.top = "30vh";
             TXT("nuage_int");
+            txt.style.color = 'white';
         }
 
         ciel.style.transform = `scale(${lerp(3, 1, av(s, 1500, scrollDebutDescente))})`;
@@ -469,6 +470,7 @@ function majScene(s) {
             txt.style.opacity = 1;
             txt.style.top = '10vh';
             txt.style.backgroundColor = 'white';
+            txt.style.color = 'black';
             const scaleZ = lerp(1, 2.5, pZoom2);
             const originY = window.innerHeight + offsetFinal;
             sceneMaison.style.transformOrigin = `50% ${originY}px`;
@@ -549,6 +551,7 @@ function majScene(s) {
         TXT("arbre_int");
         txt.style.color = 'black';
         txt.style.backgroundColor = 'white';
+        txt.style.top = '10vh';
 
         majBio(s);   // maintient les positions finales des éléments bio
         const pFadeOut = av(s, sC_fadeDebut + 500, sC_fadeFin);

@@ -13,6 +13,8 @@ function popUp(id) {
       const PopUpTxt = document.getElementById('PopUpTxt');
       const PopUpTitre = document.getElementById('PopUpTitre');
 
+      const PopUpLien = document.getElementById('PopUpLien');
+
       if (id == "credit"){
         PopUpB.style.backgroundColor =  "rgba(230, 230, 230, 0.7)";
         PopUpTitre.innerHTML = "Crédits";
@@ -34,6 +36,10 @@ function popUp(id) {
         PopUpTitre.innerHTML = data[id]["title"];
         PopUpTxt.innerHTML = data[id]["text"];
         PopUp.style.display = "flex";
+
+        PopUpLien.innerHTML = data[id]["links"]
+          .map(link => `<a href="${link}" target="_blank">${link}</a>`)
+          .join("<br>");;
 
         document.body.style.overflow = "hidden";
       }
