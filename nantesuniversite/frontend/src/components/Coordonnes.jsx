@@ -2,11 +2,11 @@
 
 export default function Coordonnees() {
   return (
-    <div style={{ position: "absolute", top: "4300px", left: "111px" }}>
-      <p style={{ fontSize: "60px", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 4px",color: "#ffffff",fontFamily: "Inter, sans-serif"}}>
+    <div style={{ marginTop: "80px", marginLeft: "90px" }}>
+      <p style={{ fontSize: "50px", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 4px",color: "#ffffff",fontFamily: "Inter, sans-serif"}}>
         Pour aller plus loin
       </p>
-      <p style={{ fontSize: "30px", margin: "0 0 20px", color: "#ffffff" }}>
+      <p style={{ fontSize: "20px", margin: "0 0 20px", color: "#ffffff" }}>
         Découvrez la <strong>Chaire Unesco Relia</strong> de Nantes Université
       </p>
 

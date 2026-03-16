@@ -6,15 +6,21 @@ import ProgressBar from '../components/ProgressBar';
 import IcebergScene from '../components/IcebergScene';
 import { ArrowDown, ArrowUp } from '../components/ScrollArrow';
 import ResearcherFooter from "../components/ResearcherFooter";
-import Coordonnees from '../components/Coordonnes'; 
+import Coordonnees from '../components/Coordonnes';
 import Tableau from '../components/Tableau';
 
 const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 5820;
+const DESIGN_HEIGHT = 5420;
+// Approximate height of the table when fully open (5 rows + header + pagination)
+const TABLE_OPEN_HEIGHT = 420;
 
 export default function ResearcherPage({ scrollProgress = 0 }) {
   const [scale, setScale] = useState(() => window.innerWidth / DESIGN_WIDTH);
   const [scrollY, setScrollY] = useState(0);
+  const [tableOpen, setTableOpen] = useState(true);
+  const [tablePage, setTablePage] = useState(0);
+
+  const offset = tableOpen ? TABLE_OPEN_HEIGHT : 0;
 
   useEffect(() => {
     const onResize = () => setScale(window.innerWidth / DESIGN_WIDTH);
@@ -42,7 +48,7 @@ export default function ResearcherPage({ scrollProgress = 0 }) {
         style={{
           zoom: scale,
           width: DESIGN_WIDTH,
-          height: DESIGN_HEIGHT,
+          height: DESIGN_HEIGHT + offset,
         }}
       >
         <div className="absolute inset-x-0 top-0 h-[1939px]" style={{ background: 'linear-gradient(to bottom, white 0%, #fffbf5 44.231%, #feebc6 100%)' }} />
@@ -51,10 +57,19 @@ export default function ResearcherPage({ scrollProgress = 0 }) {
         <TopicTitle />
         <ExpertQuote />
         <IcebergScene />
-        <Tableau/>
-        <Coordonnees/>
-        <ResearcherFooter />
 
+        {/* Flow section: Tableau + Coordonnees push each other naturally */}
+        <div style={{ position: 'absolute', top: '3800px', left: 0, width: '1920px' }}>
+          <Tableau
+            open={tableOpen}
+            onToggle={() => setTableOpen(p => !p)}
+            page={tablePage}
+            onPageChange={setTablePage}
+          />
+          <Coordonnees />
+        </div>
+
+        <ResearcherFooter offset={offset} />
       </div>
     </>
   );
