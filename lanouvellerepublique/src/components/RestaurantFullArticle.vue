@@ -6,6 +6,7 @@
             :badges="restaurant.categories || {}"
             :coup-de-coeur="restaurant.coupDeCoeur"
             :address="restaurant.address"
+            :catch_phrase="restaurant.article.catch_phrase"
         />
         <div class="badges">
             <div v-for="(badge, index) in allBadges" :key="index" :class="`badge--${badge[1]}`">
