@@ -48,7 +48,7 @@ let entreprises = [
 ];
 restaurerVus();
 
-const pins = {  "Alimentaire" : "./img/pin_Alimentaire.svg", "Tech" : "./img/pin_tech.svg", "Agriculture" : "./img/pin_agriculture.svg",
+const pins = {  "Alimentaire" : "./img/pin_alimentaire.svg", "Tech" : "./img/pin_tech.svg", "Agriculture" : "./img/pin_agriculture.svg",
                 "Art" : "./img/pin_art.svg", "Commerce" : "./img/pin_commerce.svg", "Industrie" : "./img/pin_industrie.svg",
                 "Sante" : "./img/pin_sante.svg",};
 
