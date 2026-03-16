@@ -2,7 +2,7 @@
 
 Porteur de projet : Aurélien Germain
 
-Sujet : Chronique les restaus TMV pour La nouvelle république 
+Sujet : Chronique les restos TMV pour La nouvelle république 
 
 Nom d'équipe : La république galactique
 
