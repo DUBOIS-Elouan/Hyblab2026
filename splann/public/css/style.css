@@ -208,7 +208,27 @@ body{
 .btn-icon:hover {
     opacity: 0.7;
 }
+#btn-export {
+  position: relative;
+}
 
+#btn-export::after {
+  content: 'Export';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: white;
+  opacity: 0.6;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+#btn-download {
+  position: absolute;
+  bottom: 11%;
+  left: 0;
+}
 .icon-flag {
     width: 32px;
     height: 32px;
@@ -359,11 +379,11 @@ h3 {
 }
 /* Last slide image is centered */
 #img-fini{
-    width: 50vw;
+    width: 70vw;
     left: 50vw; /* center the logo, in interaction with the negative margin-left */
     top: 40vh;
     position: absolute;
-    margin-left:-25vw; /* this is half the width */
+    margin-left:-35vw; /* this is half the width */
     margin-top:calc(-25vh * 9 / 16 ); /* margins are relative to the element width... :-( */
 }
 
