@@ -46,15 +46,17 @@ body {
 }
 
 .class-resource-card:hover {
-  animation: floating 1s ease-in-out infinite;
   box-shadow: 0 18px 40px rgba(0,0,0,0.25);
   z-index: 10;
   transition: box-shadow 0.3s ease, z-index 0s;
 }
+.class-resource-card:hover img {
+  animation: floating 1s ease-in-out infinite;
+}
 
 @keyframes floating {
   0%   { transform: translateY(0px)   scale(1.02); }
-  50%  { transform: translateY(-14px) scale(1.02); }
+  50%  { transform: translateY(-10px) scale(1.02); }
   100% { transform: translateY(0px)   scale(1.02); }
 }
 
@@ -154,6 +156,7 @@ body {
   flex: 1;
   overflow: hidden;
   border-radius: 4px;
+  position: relative;
 }
 
 .class-pupop.open {
@@ -200,6 +203,30 @@ body {
   align-items: center;
 }
 
+.popup-spinner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.popup-spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #e5e7eb;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: popupSpin 0.75s linear infinite;
+}
+
+@keyframes popupSpin {
+  to { transform: rotate(360deg); }
+}
+
 .class-pictogramme-openPopup{
   position: absolute;
   top: 16px;
@@ -208,6 +235,42 @@ body {
   height: 60px;
   object-fit: contain;
   animation: floating 1s ease-in-out infinite;
+}
+
+@keyframes sidebar-slide-in {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes sidebar-slide-out {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes sidebar-overlay-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes sidebar-overlay-out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.sidebar-panel.open {
+  animation: sidebar-slide-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.sidebar-panel.close {
+  animation: sidebar-slide-out 0.3s cubic-bezier(0.55, 0, 0.78, 0) forwards;
+}
+
+.sidebar-overlay.open {
+  animation: sidebar-overlay-in 0.35s ease forwards;
+}
+
+.sidebar-overlay.close {
+  animation: sidebar-overlay-out 0.3s ease forwards;
 }
 
 .biographie-portrait{
@@ -251,4 +314,36 @@ body {
   width: 350px;
   height: 250px;
   object-fit: contain;
+}
+.class-all-researchers-title{
+  font-size: 50px;
+  font-weight: bold;
+}
+.class-all-researchers{
+  display: flex;
+  flex-direction: row;
+  padding: 0 0px 20px 0;
+  gap: 20px;
+  width: 100%;
+  /* overflow-x: scroll; */
+  margin: 0 20px;
+}
+.class-all-researchers img{
+  cursor: pointer;
+  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+}
+.class-all-researchers img:hover{
+  transform: translateY(-0.75rem); /* équivalent de -translate-y-3 */
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12));
+}
+
+.custom-element {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+}
+
+.custom-element:hover {
+  transform: translateY(-0.75rem); /* équivalent de -translate-y-3 */
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12));
 }
