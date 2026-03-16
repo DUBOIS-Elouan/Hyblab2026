@@ -1,6 +1,6 @@
 /* ==================== BASE ==================== */
 html, body {
-  color: white;
+  color: var(--background-color);
   background-color: var(--background-color);
   overflow: hidden;
   font-family: sans-serif;
@@ -15,6 +15,7 @@ html, body {
 /* ===================== general color ===================== */
 :root {
   --background-color: #F0F0F0;
+  --background-card:#fff;
   --background-flurry: rgba(255, 255, 255, 0.35);
   --starColor:#FFDD00;
   --color1: #30A1EF;
@@ -103,7 +104,7 @@ html, body {
   height: 36%;
   aspect-ratio: 257 / 208;
   border-radius: 20px;
-  background-color: white;
+  background-color: var(--background-card);
   width: 91%;
   
 }
@@ -114,7 +115,7 @@ html, body {
   height: 100%;
   width: 100%;
   border-radius: 20px;
-  background-color: white;
+  background-color: var(--background-card);
 }
 
 /* ==================== PODIUM BOTTOM (SVG shape) ==================== */
@@ -201,10 +202,13 @@ html, body {
 /* ==================== BACK PAGE ==================== */
 .page-back {
   position:relative;
-  background: var(--background-color);
+  background: var(--background-card);
   padding: 20px 16px 16px;
   gap: 1%;
   overflow: hidden;
+}
+.title.back {
+  margin-top: -2%;
 }
 
 .back-hero {
@@ -273,7 +277,7 @@ html, body {
 .back-list-background {
   overflow: hidden;
   display: flex;
-  margin-top: 85%;
+  margin-top: 78%;
   margin-left: 2%;
   width: 87%;
   height: 50%;

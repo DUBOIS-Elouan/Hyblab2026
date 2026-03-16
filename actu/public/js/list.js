@@ -65,6 +65,11 @@ const MovieList = (() => {
     }
 
     list.innerHTML = '';
+    // Vérifier si la liste est vide et afficher le message d'erreur
+    if (likedMovies.length === 0) {
+      list.innerHTML = '<p class="empty-msg">Quel dommage, il n\'y a pas de films que vous aimez cette semaine !</p>';
+      return;
+    }
 
     let i = likedMovies.length;
 
@@ -143,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function card_apparition(affiche, titre, realisateur, critique, nb_etoile, lien_bande_annonce, lien_article) {
-
 
   const carte = createCard(titre, affiche, "  ", realisateur, critique, nb_etoile, lien_bande_annonce, lien_article)
   document.querySelector("body").appendChild(carte)
