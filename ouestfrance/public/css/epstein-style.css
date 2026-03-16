@@ -165,7 +165,7 @@ canvas:active { cursor: grabbing; }
 }
 
 /* ════════════════════════════════════════════════════════════════
-   POPUP PANEL (bottom drawer — matches screenshot)
+   POPUP PANEL (bottom drawer)
 ════════════════════════════════════════════════════════════════ */
 #popup-backdrop {
   position: fixed; inset: 0; z-index: 500;
@@ -188,14 +188,12 @@ canvas:active { cursor: grabbing; }
 }
 #popup-panel.open { transform: translateY(0); }
 
-/* dark background starts from header-above downward */
 #popup-header-above,
 #popup-object-img-wrap,
 #popup-content {
   background: var(--bg);
 }
 
-/* top bar — × on dark angled right panel, left is transparent over scene */
 #popup-topbar {
   display: flex;
   align-items: stretch;
@@ -206,8 +204,6 @@ canvas:active { cursor: grabbing; }
   border-radius: 16px 16px 0 0;
   background: transparent;
 }
-
-/* right dark panel with diagonal left edge */
 #popup-topbar::after {
   content: '';
   position: absolute;
@@ -232,7 +228,6 @@ canvas:active { cursor: grabbing; }
 }
 #popup-close:hover { opacity: .6; }
 
-/* object image — full width, fixed height */
 #popup-object-img-wrap {
   width: 100%; flex-shrink: 0;
   height: clamp(160px, 44vw, 220px);
@@ -244,7 +239,6 @@ canvas:active { cursor: grabbing; }
   display: block;
 }
 
-/* scrollable content below image */
 #popup-content {
   flex: 1; overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -253,21 +247,15 @@ canvas:active { cursor: grabbing; }
 }
 #popup-content::-webkit-scrollbar { display: none; }
 
-/* tag + title above image */
 #popup-header-above {
   padding: 14px 20px 14px;
   flex-shrink: 0;
 }
 
-/* tag */
 #popup-tag {
-  font-size: 10px; font-weight: 800;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 6px;
+  display: none;
 }
 
-/* object title — large red bold */
 #popup-title {
   font-size: clamp(20px, 6vw, 26px);
   font-weight: 900; line-height: 1.1;
@@ -276,7 +264,6 @@ canvas:active { cursor: grabbing; }
   margin-bottom: 0;
 }
 
-/* description */
 #popup-description {
   font-size: clamp(13px, 3.8vw, 15px);
   font-weight: 400; line-height: 1.55;
@@ -284,14 +271,12 @@ canvas:active { cursor: grabbing; }
   margin-bottom: 24px;
 }
 
-/* article link button — shows full article title */
 #popup-article-btn {
   display: block;
   margin-top: 20px;
   padding: 14px 16px;
   background: rgba(255,255,255,.06);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--of-red);
+  border: 2px solid var(--of-red);
   border-radius: 4px;
   font-family: inherit; font-size: 13px; font-weight: 700;
   line-height: 1.4;
@@ -327,7 +312,6 @@ canvas:active { cursor: grabbing; }
 }
 #credits-sheet.open { transform: translateY(0); }
 
-/* credits top bar with close button */
 #credits-topbar {
   display: flex;
   justify-content: flex-end;
@@ -346,7 +330,6 @@ canvas:active { cursor: grabbing; }
 }
 #credits-close-btn:hover { color: var(--text); }
 
-/* scrollable inner content */
 #credits-inner {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -358,7 +341,6 @@ canvas:active { cursor: grabbing; }
 }
 #credits-inner::-webkit-scrollbar { display: none; }
 
-/* title */
 #credits-title {
   font-size: clamp(26px, 8vw, 34px);
   font-weight: 900; line-height: 1.04;
@@ -366,7 +348,6 @@ canvas:active { cursor: grabbing; }
   color: var(--of-red);
 }
 
-/* HYBLAB box — white */
 #credits-hyblab {
   background: #fff;
   border-radius: 10px;
@@ -378,7 +359,6 @@ canvas:active { cursor: grabbing; }
   height: auto; display: block;
 }
 
-/* team names */
 #credits-team {
   font-size: clamp(10px, 2.8vw, 12px);
   font-weight: 400; line-height: 1.7;
@@ -390,13 +370,11 @@ canvas:active { cursor: grabbing; }
   padding: clamp(12px, 3.5vw, 16px) clamp(14px, 4vw, 20px);
 }
 
-/* partner logos 2×2+1 grid */
 #credits-partners {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(8px, 2.5vw, 12px);
 }
-/* last cell alone on bottom row — centre it */
 .credits-partner-cell:last-child:nth-child(odd) {
   grid-column: 1 / -1;
   max-width: 50%;
@@ -417,7 +395,6 @@ canvas:active { cursor: grabbing; }
   height: auto; object-fit: contain; display: block;
 }
 
-/* open data + CC bottom row */
 #credits-bottom-logos {
   display: flex;
   align-items: center; justify-content: center;
@@ -478,7 +455,6 @@ canvas:active { cursor: grabbing; }
 }
 #completion-sheet.open { transform: translateY(0); }
 
-/* top bar — same diagonal style as popup */
 #completion-topbar {
   display: flex;
   align-items: stretch;
@@ -512,7 +488,6 @@ canvas:active { cursor: grabbing; }
 #completion-back:hover,
 #completion-close:hover { opacity: .6; }
 
-/* scrollable inner */
 #completion-inner {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -524,7 +499,6 @@ canvas:active { cursor: grabbing; }
 }
 #completion-inner::-webkit-scrollbar { display: none; }
 
-/* red title */
 #completion-title {
   font-size: clamp(26px,8vw,36px);
   font-weight: 900; line-height: 1.06;
@@ -532,7 +506,6 @@ canvas:active { cursor: grabbing; }
   color: var(--of-red);
 }
 
-/* body text */
 #completion-body,
 #completion-body2 {
   font-size: clamp(13px,3.8vw,15px);
@@ -540,23 +513,43 @@ canvas:active { cursor: grabbing; }
   color: var(--text-muted);
 }
 
-/* link buttons — white cards */
+/* ════════════════════════════════════════════════════════════════
+   COMPLETION LINK BUTTONS — branded
+════════════════════════════════════════════════════════════════ */
 #completion-links {
   display: flex; flex-direction: column;
   gap: clamp(10px,3vw,14px);
   margin-top: 4px;
 }
+
 .completion-link-btn {
   display: flex; align-items: center; justify-content: center;
-  gap: 10px;
-  background: #fff;
   border-radius: 8px;
   padding: clamp(14px,4vw,18px) clamp(16px,5vw,24px);
   text-decoration: none;
-  transition: opacity .15s;
+  transition: filter .15s, transform .12s;
   -webkit-tap-highlight-color: transparent;
+  border: none;
+  background: #333; /* fallback */
 }
-.completion-link-btn:hover { opacity: .9; }
+.completion-link-btn:hover  { filter: brightness(1.08); }
+.completion-link-btn:active { transform: scale(.97); filter: brightness(.95); }
+
+/* Ouest-France — rouge */
+.completion-link-btn#completion-btn-of {
+  background: #e2001a;
+  border: none;
+}
+.completion-link-btn#completion-btn-of img {
+  filter: brightness(0) invert(1);
+}
+
+/* Jmail — bleu nuit */
+.completion-link-btn#completion-btn-jmail {
+  background: #1a1a2e;
+  border: 1px solid rgba(255,255,255,.15);
+}
+
 .completion-link-btn img {
   height: clamp(22px,6vw,32px);
   width: auto; display: block;
@@ -568,7 +561,7 @@ canvas:active { cursor: grabbing; }
    POPUP IFRAME (video embed)
 ════════════════════════════════════════════════════════════════ */
 #popup-iframe-wrap {
-  display: none;          /* hidden by default — JS sets display:block */
+  display: none;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 8px;

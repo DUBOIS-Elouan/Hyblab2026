@@ -1,6 +1,27 @@
 window.Popup = (() => {
   let _current = null;
 
+  // ── Image preload cache ───────────────────────────────────────
+  // Stores HTMLImageElement objects keyed by src.
+  // Once an Image() is created with a src, the browser caches the
+  // decoded bitmap — reassigning the same src to a visible <img>
+  // will paint instantly from cache instead of re-fetching.
+  const _imgCache = {};
+
+  function preloadImage(src) {
+    if (!src || _imgCache[src]) return;
+    const img = new Image();
+    img.src = src;
+    _imgCache[src] = img;
+  }
+
+  // Called from main.js right after the JSON fetch completes
+  function preloadAll(hotspots) {
+    (hotspots || []).forEach(h => {
+      if (h.article?.objectImage) preloadImage(h.article.objectImage);
+    });
+  }
+
   function init() {
     document.getElementById('popup-close')
       .addEventListener('click', close);
@@ -12,38 +33,45 @@ window.Popup = (() => {
     _current = data;
     const a = data.article || {};
 
-    document.getElementById('popup-tag').textContent         = a.tag         || '';
+    document.getElementById('popup-tag').textContent         = '';
     document.getElementById('popup-title').textContent       = a.title       || '';
     document.getElementById('popup-description').textContent = a.description || '';
 
-    // object image
+    // ── object image ─────────────────────────────────────────────
     const objWrap = document.getElementById('popup-object-img-wrap');
     const objImg  = document.getElementById('popup-object-img');
     if (a.objectImage) {
-      objImg.src = a.objectImage;
-      objImg.alt = a.title || '';
+      // Only update src when it actually changes — avoids re-decode flicker
+      if (objImg.getAttribute('src') !== a.objectImage) {
+        objImg.src = a.objectImage;
+      }
+      objImg.alt            = a.title || '';
       objWrap.style.display = '';
     } else {
       objWrap.style.display = 'none';
+      objImg.removeAttribute('src');
     }
 
-    // iframe (optional — e.g. video)
+    // ── iframe (optional video) ───────────────────────────────────
     const iframeWrap = document.getElementById('popup-iframe-wrap');
     const iframe     = document.getElementById('popup-iframe');
     if (a.iframeSrc) {
-      iframe.src = a.iframeSrc;
+      iframe.src               = a.iframeSrc;
       iframeWrap.style.display = 'block';
     } else {
-      iframe.src = '';
+      iframe.src               = '';
       iframeWrap.style.display = 'none';
     }
 
-    // article button — show exact article name
+    // ── article button ────────────────────────────────────────────
     const btn = document.getElementById('popup-article-btn');
     if (a.link) {
-      btn.href = a.link;
-      btn.textContent = a.articleHeadline || 'Lire l\'article →';
+      btn.href          = a.link;
+      btn.textContent   = a.articleHeadline || 'Lire l\'article →';
       btn.style.display = '';
+      btn.style.background = '#e2001a';
+      btn.style.color      = '#ffffff';
+      btn.style.border     = 'none';
     } else {
       btn.style.display = 'none';
     }
@@ -55,11 +83,14 @@ window.Popup = (() => {
   function close() {
     document.getElementById('popup-panel').classList.remove('open');
     document.getElementById('popup-backdrop').classList.remove('visible');
-    // stop video/iframe on close
+
+    // Stop video on close
     const iframe = document.getElementById('popup-iframe');
     if (iframe) iframe.src = '';
+
     _current = null;
-    // show completion if all objects have been visited
+
+    // Trigger completion sheet if all objects visited
     setTimeout(() => {
       if (window.visitedIds && window.TOTAL_OBJECTS &&
           window.visitedIds.size >= window.TOTAL_OBJECTS &&
@@ -71,5 +102,5 @@ window.Popup = (() => {
 
   function getCurrent() { return _current; }
 
-  return { init, open, close, getCurrent };
+  return { init, open, close, getCurrent, preloadAll, preloadImage };
 })();

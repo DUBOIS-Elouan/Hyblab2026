@@ -32,18 +32,15 @@ new THREE.TextureLoader().load(
   },
   xhr => {
     if (window.ovProgress) {
-      // If server sends Content-Length use it, otherwise fake smooth progress
       if (xhr.total && xhr.total > 0) {
         window.ovProgress(Math.round(xhr.loaded / xhr.total * 100));
       } else {
-        // Asymptotic progress — gets close to 90% but never reaches it until done
         const fakeProgress = Math.round(90 * (1 - Math.exp(-xhr.loaded / 3000000)));
         window.ovProgress(Math.min(fakeProgress, 89));
       }
     }
   },
   () => {
-    // Fallback canvas if image fails to load
     const c = document.createElement('canvas');
     c.width = 2048; c.height = 1024;
     const ctx = c.getContext('2d');
@@ -132,19 +129,17 @@ function buildPolygonHotspot(id, points, articleData) {
 fetch('data/epstein-data.json')
   .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
   .then(data => {
+    // ── Kick off image preloads immediately, before building meshes
+    if (window.Popup && Popup.preloadAll) {
+      Popup.preloadAll(data.hotspots);
+    }
+
     const polygonIds = POLYGON_ZONES.map(z => z.id);
     buildHotspots(data.hotspots.filter(h => !polygonIds.includes(h.id)));
     POLYGON_ZONES.forEach(zone => {
       const match = data.hotspots.find(h => h.id === zone.id);
       if (!match) { console.warn('Hotspot "' + zone.id + '" introuvable dans le JSON'); return; }
       buildPolygonHotspot(zone.id, zone.points, match.article);
-    });
-    // Preload all object images using the already-fetched data
-    data.hotspots.forEach(h => {
-      if (h.article?.objectImage) {
-        const img = new Image();
-        img.src = h.article.objectImage;
-      }
     });
   })
   .catch(err => console.error('Impossible de charger les hotspots :', err));
@@ -160,7 +155,6 @@ Popup.init();
 // ════════════════════════════════════════════════════════════════
 const TOTAL_OBJECTS = 18;
 const visitedIds    = new Set();
-// expose for popup.js
 window.TOTAL_OBJECTS = TOTAL_OBJECTS;
 window.visitedIds    = visitedIds;
 
@@ -170,7 +164,6 @@ function markVisited(id) {
   const found   = document.getElementById('progress-found');
   const counter = document.getElementById('progress-counter');
   if (found) found.textContent = visitedIds.size;
-  // when all visited, make counter tappable to reopen completion
   if (visitedIds.size >= TOTAL_OBJECTS && counter) {
     counter.style.cursor       = 'pointer';
     counter.style.pointerEvents = 'auto';
@@ -179,7 +172,6 @@ function markVisited(id) {
       if (window.openCompletion) window.openCompletion();
     }, { once: false });
   }
-  // completion fires when popup is closed, not here
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -190,7 +182,7 @@ const mouse       = new THREE.Vector2();
 const tempV       = new THREE.Vector3();
 let   hoveredMesh = null;
 let   activeMesh  = null;
-const readIds = new Set(); // tracks visited by id, not mesh
+const readIds     = new Set();
 
 function setPolygonState(mesh, state) {
   if (!mesh || !mesh.userData._isPolygon) return;
@@ -220,7 +212,6 @@ function handleTap(clientX, clientY) {
     if (activeMesh && activeMesh !== mesh) setPolygonState(activeMesh, 'idle');
     activeMesh = mesh;
     setPolygonState(mesh, 'active');
-    // refresh all sibling meshes sharing the same id (e.g. corde x3)
     hotspotMeshes.forEach(m => {
       if (m !== mesh && m.userData.id === mesh.userData.id) setPolygonState(m, 'idle');
     });
@@ -248,8 +239,7 @@ renderer.domElement.addEventListener('mousemove', e => {
     if (hoveredMesh && hoveredMesh !== activeMesh) setPolygonState(hoveredMesh, 'idle');
     hoveredMesh = hitMesh;
     if (hoveredMesh && hoveredMesh !== activeMesh) setPolygonState(hoveredMesh, 'hover');
-    renderer.domElement.style.cursor = hoveredMesh
-      ? 'pointer' : 'grab';
+    renderer.domElement.style.cursor = hoveredMesh ? 'pointer' : 'grab';
   }
 
   if (hoveredMesh && hoveredMesh.userData._isPolygon && hoveredMesh !== activeMesh) {
