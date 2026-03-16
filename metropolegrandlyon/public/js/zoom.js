@@ -61,7 +61,7 @@ const panorama2 = document.getElementById('fond_eau');
 const finScene = document.getElementById('fin-scene');
 const finCiel = document.getElementById('fin-ciel');
 
-sceneCamion.style.display = "none";
+if (sceneCamion) sceneCamion.style.display = "none";
 
 const elsFin = document.querySelectorAll('.el');
 const totalEl = elsFin.length;
@@ -721,6 +721,7 @@ function majCamion(progress) {
         if (finScene) finScene.style.display = 'none';
 
     } else if (progress < 0.90) {
+        /*Pause Déchets*/
         truckX = halfOutX;
         panX = maxPan;
         workerOpacity = 1;
@@ -817,6 +818,7 @@ function majCamion(progress) {
         workerY = 30;
 
     } else if (progress < 1.55) {
+        /*Pause Métro*/
         if (truck) truck.style.display = 'none';
         if (worker) worker.style.display = 'none';
         if (panorama) panorama.style.display = 'none';
@@ -852,7 +854,7 @@ function majCamion(progress) {
         if (metro) {
             metro.style.display = '';
             const panX2 = lerp(0, (maxPan2) / 2 + vw, t);
-            const metroX = lerp(metroW + (vw - metroW) / 2, panX2 + metroW + (vw - metroW) / 2, t);
+            const metroX = lerp(metroW + (vw - metroW) / 2, ((maxPan2) / 2 + vw) + metroW + (vw - metroW) / 2, t);
             metro.style.transform = `translateX(${metroX}px)`;
         }
         if (finCiel) finCiel.style.display = 'none';
@@ -947,8 +949,3 @@ function majCamion(progress) {
         worker.style.transform = `translateX(-50%) translateY(${workerY}%)`;
     }
 }
-
-/* ════════════════════════════════════
-   ÉTAT INITIAL — Scène camion
-════════════════════════════════════ */
-if (sceneCamion) sceneCamion.style.display = 'none';
