@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // 3 --- LOGIQUE POUR L'ANIMATION CIBLE ET FLÉCHETTE ---
       const targetScene = document.querySelector('#target-animation')?.closest('.scene');
 
-      if (targetScene && response.element.closest('.scene') === targetScene) {
+      // On utilise 'contains' au lieu de 'closest' pour inclure les scènes imbriquées
+      if (targetScene && targetScene.contains(response.element)) {
         const targetAnim = document.getElementById('target-animation');
         const sceneSteps = Array.from(targetScene.querySelectorAll('.step'));
         const currentIndex = sceneSteps.indexOf(response.element);
@@ -60,16 +61,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const hitFlechetteIndex = sceneSteps.findIndex(s => s.classList.contains('step-flechette-hit'));
 
         if (currentIndex < showFemmeIndex) {
-          targetAnim.classList.remove('is-visible');
-          targetAnim.classList.remove('is-hit');
+          targetAnim.classList.remove('is-visible', 'is-hit');
         }
         else if (currentIndex >= showFemmeIndex && currentIndex < hitFlechetteIndex) {
           targetAnim.classList.add('is-visible');
           targetAnim.classList.remove('is-hit');
         }
         else if (currentIndex >= hitFlechetteIndex) {
-          targetAnim.classList.add('is-visible');
-          targetAnim.classList.add('is-hit');
+          targetAnim.classList.add('is-visible', 'is-hit');
+        }
+      } else {
+        // Sécurité : si on quitte complètement la grande zone, on masque tout
+        const targetAnim = document.getElementById('target-animation');
+        if (targetAnim) {
+          targetAnim.classList.remove('is-visible', 'is-hit');
         }
       }
 
