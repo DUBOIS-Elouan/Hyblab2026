@@ -22,7 +22,8 @@ const CATEGORY_COLORS = {
   recherche: "#00c9ff",
   biographie:"#ff6c00",
   jeu:"#ff0063",
-  video:"#ff0000"
+  video:"#ff0000",
+  publication:"#00c9ff"
 };
 
 export default function ResourceCard({

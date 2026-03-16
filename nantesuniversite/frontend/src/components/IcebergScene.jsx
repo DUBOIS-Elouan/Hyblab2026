@@ -28,7 +28,8 @@ const PICTOGRAMMES = {
   recherche: rechercheSvg,
   biographie:biographieSvg,
   jeu:jeuSvg,
-  video:videoSvg
+  video:videoSvg,
+  publication:rechercheSvg
 };
 
 // ─── Adjust card positions here ────────────────────────────────────────────
