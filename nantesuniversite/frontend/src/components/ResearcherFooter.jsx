@@ -37,17 +37,6 @@ const LINKED_RESEARCHERS = [
   },
 ];
 
-/**
- * Footer section at the bottom of the researcher page.
- *
- * Left column  : large "AU-DELÀ DE L'ICEBERG" / "OU" / "DANS LA MÊME THÉMATIQUE"
- * Right column : "CHERCHEURS À LA UNE" heading + 3 LinkedResearcherCards
- *
- * Typography:
- *  - Poppins ExtraBold  (Google Font, added in index.css)
- *  - Massilia Bold/Light (brand font — add @font-face in index.css when available;
- *                         falls back to Inter)
- */
 export default function ResearcherFooter() {
   return (
     <>
@@ -70,13 +59,11 @@ export default function ResearcherFooter() {
       ))}
 
       {/* ── Left column: large title block ───────────────────────────────── */}
-
-      {/* "AU-DELÀ DE L'ICEBERG" */}
       <p
         className="absolute not-italic m-0 text-white whitespace-pre-wrap"
         style={{
-          left: '176px',
-          top: '4900px',
+          left: '135px',
+          top: '4850px',
           width: '780px',
           fontSize: '128px',
           lineHeight: '1',
@@ -87,41 +74,6 @@ export default function ResearcherFooter() {
       >
         {`DANS LA MÊME THÉMATIQUE`}
       </p>
-
-      {/* "OU" separator 
-      <p
-        className="absolute not-italic m-0 text-white"
-        style={{
-          left: '431px',
-          top: '5041px',
-          height: '35px',
-          fontSize: '48px',
-          lineHeight: '50px',
-          fontFamily: "'Poppins', Inter, sans-serif",
-          fontWeight: 800,
-          textShadow: '0px 4px 4px rgba(0,0,0,0.25)',
-        }}
-      >
-        OU
-      </p>
-
-       "DANS LA MÊME THÉMATIQUE" *
-      <p
-        className="absolute not-italic m-0 text-white"
-        style={{
-          left: '176px',
-          top: '5130px',
-          width: '978px',
-          height: '435px',
-          fontSize: '110px',
-          lineHeight: '140px',
-          fontFamily: "'Poppins', Inter, sans-serif",
-          fontWeight: 800,
-          textShadow: '0px 4px 4px rgba(0,0,0,0.25)',
-        }}
-      >
-        DANS LA MÊME THÉMATIQUE
-      </p>*/}
     </>
   );
 }
