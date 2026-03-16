@@ -18,6 +18,31 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+#loader {
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(60, 180, 255);
+}
+
+#loader-img {
+    top: 40%;
+    left: 48%;
+    position: absolute;
+    scale: 10;
+}
+
+#loader-text {
+    text-align: center;
+    font-size: 150%;
+    position: absolute;
+    top: 60%;
+    width: 100%
+}
+
 #scene-container {
     position: fixed;
     inset: 0;
@@ -103,14 +128,14 @@ body {
     position: absolute;
     top: 60vh;
     left: 0vw;
-    width:80vw;
+    width: 80vw;
     z-index: 5;
 }
 
 #NuageGIF3 {
     position: absolute;
     top: 45vh;
-    right:0vw;
+    right: 0vw;
     width: 80vw;
     z-index: 5;
 }
@@ -131,10 +156,10 @@ body {
     pointer-events: none;
     width: 80vw;
     height: auto;
-    
+
 }
 
-#TxtInfo p{
+#TxtInfo p {
     width: 80vw;
 }
 

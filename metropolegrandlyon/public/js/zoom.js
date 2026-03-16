@@ -229,14 +229,26 @@ window.addEventListener("scroll", () => {
     timerFleche = setTimeout(montrerFleche, 2000);
 });
 
-(function boucle() {
-    const delta = scrollCible - scrollActuel;
-    scrollActuel = Math.abs(delta) > 0.5
-        ? scrollActuel + Math.sign(delta) * Math.min(Math.abs(delta), VITESSE_MAX)
-        : scrollCible;
-    majScene(scrollActuel);
-    requestAnimationFrame(boucle);
-})();
+setTimeout(() => {
+    // fade out the loader "slide"
+    // and send it to the back (z-index = -1)
+    anime({
+        delay: 1000,
+        targets: '#loader',
+        opacity: '0',
+        'z-index': -1,
+        easing: 'easeOutQuad',
+    });
+    // Init first slide
+    (function boucle() {
+        const delta = scrollCible - scrollActuel;
+        scrollActuel = Math.abs(delta) > 0.5
+            ? scrollActuel + Math.sign(delta) * Math.min(Math.abs(delta), VITESSE_MAX)
+            : scrollCible;
+        majScene(scrollActuel);
+        requestAnimationFrame(boucle);
+    })();
+}, 4000);
 
 /* ════════════════════════════════════
    BOUCLE SCÈNE PRINCIPALE
