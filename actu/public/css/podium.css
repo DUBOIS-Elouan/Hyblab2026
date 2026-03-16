@@ -203,7 +203,7 @@ html, body {
   position:relative;
   background: var(--background-color);
   padding: 20px 16px 16px;
-  gap: 14px;
+  gap: 1%;
   overflow: hidden;
 }
 
@@ -273,7 +273,7 @@ html, body {
 .back-list-background {
   overflow: hidden;
   display: flex;
-  margin-top: 72%;
+  margin-top: 85%;
   margin-left: 2%;
   width: 87%;
   height: 50%;
