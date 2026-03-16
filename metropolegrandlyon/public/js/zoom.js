@@ -213,7 +213,7 @@ function cacherFleche() {
     if (fleche) fleche.classList.remove('visible');
 }
 
-timerFleche = setTimeout(montrerFleche, 2000);
+timerFleche = setTimeout(montrerFleche, 4000);
 
 /* ════════════════════════════════════
    SCROLL LISSÉ
@@ -222,21 +222,42 @@ let scrollCible = 0;
 let scrollActuel = 0;
 const VITESSE_MAX = 18;
 
-window.addEventListener("scroll", () => {
-    scrollCible = window.scrollY;
-    cacherFleche();
-    clearTimeout(timerFleche);
-    timerFleche = setTimeout(montrerFleche, 2000);
-});
+function bloquerScroll(e) { e.preventDefault(); }
 
-(function boucle() {
-    const delta = scrollCible - scrollActuel;
-    scrollActuel = Math.abs(delta) > 0.5
-        ? scrollActuel + Math.sign(delta) * Math.min(Math.abs(delta), VITESSE_MAX)
-        : scrollCible;
-    majScene(scrollActuel);
-    requestAnimationFrame(boucle);
-})();
+window.addEventListener('wheel', bloquerScroll, { passive: false });
+window.addEventListener('touchmove', bloquerScroll, { passive: false });
+
+setTimeout(() => {
+    // fade out the loader "slide"
+    // and send it to the back (z-index = -1)
+    anime({
+        delay: 0,
+        targets: '#loader',
+        opacity: '0',
+        'z-index': -1,
+        easing: 'easeOutQuad',
+    });
+
+    window.removeEventListener('wheel', bloquerScroll);
+    window.removeEventListener('touchmove', bloquerScroll);
+
+    window.addEventListener("scroll", () => {
+        scrollCible = window.scrollY;
+        cacherFleche();
+        clearTimeout(timerFleche);
+        timerFleche = setTimeout(montrerFleche, 2000);
+    });
+
+    // Init first slide
+    (function boucle() {
+        const delta = scrollCible - scrollActuel;
+        scrollActuel = Math.abs(delta) > 0.5
+            ? scrollActuel + Math.sign(delta) * Math.min(Math.abs(delta), VITESSE_MAX)
+            : scrollCible;
+        majScene(scrollActuel);
+        requestAnimationFrame(boucle);
+    })();
+}, 5000);
 
 /* ════════════════════════════════════
    BOUCLE SCÈNE PRINCIPALE
@@ -556,7 +577,7 @@ function majScene(s) {
         majBio(s);   // maintient les positions finales des éléments bio
         const pFadeOut = av(s, sC_fadeDebut + 500, sC_fadeFin);
         sceneBio.style.opacity = lerp(1, 0, pFadeOut);
-        txt.style.opacity = lerp(1, 0, pFadeOut-0.1);
+        txt.style.opacity = lerp(1, 0, pFadeOut - 0.1);
 
         /* Scène camion entre en fondu simultanément */
         if (sceneCamion) {

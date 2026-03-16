@@ -18,6 +18,33 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+#loader {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+
+#loader-img {
+    top: 40%;
+    left: 48%;
+    position: absolute;
+    scale: 10;
+    color: rgba(230, 0, 41);
+}
+
+#loader-text {
+    text-align: center;
+    font-size: 150%;
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    color: rgba(230, 0, 41);
+}
+
 #scene-container {
     position: fixed;
     inset: 0;
@@ -103,14 +130,14 @@ body {
     position: absolute;
     top: 60vh;
     left: 0vw;
-    width:80vw;
+    width: 80vw;
     z-index: 5;
 }
 
 #NuageGIF3 {
     position: absolute;
     top: 45vh;
-    right:0vw;
+    right: 0vw;
     width: 80vw;
     z-index: 5;
 }
@@ -131,10 +158,10 @@ body {
     pointer-events: none;
     width: 80vw;
     height: auto;
-    
+
 }
 
-#TxtInfo p{
+#TxtInfo p {
     width: 80vw;
 }
 
@@ -512,6 +539,7 @@ body {
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.6s ease;
+    width: 400%;
 }
 
 #scroll-fleche.visible {
@@ -521,15 +549,15 @@ body {
 #scroll-fleche span {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1vh;
+    font-size: 3vh;
     letter-spacing: 0.2em;
     color: rgba(255, 0, 0, 0.6);
     text-transform: lowercase;
 }
 
 #scroll-fleche svg {
-    width: 2.4vh;
-    height: 2.4vh;
+    width: 4.8vh;
+    height: 4.8vh;
     animation: rebond 1.4s ease-in-out infinite;
 }
 
