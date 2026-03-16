@@ -44,7 +44,7 @@ export default function ResearcherPage({ scrollProgress = 0 }) {
         }}
       >
         <div className="absolute inset-x-0 top-0 h-[1939px]" style={{ background: 'linear-gradient(to bottom, white 0%, #fffbf5 44.231%, #feebc6 100%)' }} />
-        <div className="absolute inset-x-0 top-[1939px] bottom-0" style={{ background: 'linear-gradient(to bottom, #c4cbff 0%, #0e25ae 24.922%, #0b0e20 100%)' }} />
+        <div className="absolute inset-x-0 top-[1700px] bottom-0" style={{ background: 'linear-gradient(to bottom, #c4cbff 0%, #0e25ae 24.922%, #0b0e20 100%)' }} />
         <Header />
         <TopicTitle />
         <ExpertQuote />
