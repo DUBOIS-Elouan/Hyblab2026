@@ -47,12 +47,8 @@
                                     fill="#E815B2"
                                 />
                             </svg>
-<<<<<<< Updated upstream
                             <p>{{ description.split('.')[0] }}.</p>
-=======
-                            <p>{{ description }}</p>
                             <p class="aurelien">Aurélien</p>
->>>>>>> Stashed changes
                         </div>
                         <div class="localisation">
                             <div v-if="displayBadges.length" class="localisation-badges">
