@@ -4,33 +4,23 @@ import TopicTitle from '../components/TopicTitle';
 import ExpertQuote from '../components/ExpertQuote';
 import ProgressBar from '../components/ProgressBar';
 import IcebergScene from '../components/IcebergScene';
-import ScrollArrow from '../components/ScrollArrow';
+import { ArrowDown, ArrowUp } from '../components/ScrollArrow';
 import ResearcherFooter from "../components/ResearcherFooter";
 import styles from './ResearcherPage.module.css';
-
-const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 6000;
-const WATER_SURFACE_TOP = 1750;
-const UNDERWATER_TRIGGER = 1880;
-const SCROLL_PROBE_RATIO = 0.45;
-const UNDERWATER_PARTICLES = [
-  { left: 124, top: 1960, size: 18, duration: 14, delay: -2, drift: 26 },
-  { left: 336, top: 2320, size: 10, duration: 11, delay: -6, drift: -18 },
-  { left: 522, top: 2700, size: 15, duration: 13, delay: -3, drift: 14 },
-  { left: 714, top: 2140, size: 22, duration: 16, delay: -5, drift: 28 },
-  { left: 936, top: 3030, size: 12, duration: 12, delay: -8, drift: -22 },
-  { left: 1118, top: 2540, size: 16, duration: 15, delay: -4, drift: 24 },
-  { left: 1328, top: 3410, size: 12, duration: 11, delay: -7, drift: -16 },
-  { left: 1494, top: 2250, size: 20, duration: 17, delay: -1, drift: 20 },
-  { left: 1668, top: 2860, size: 14, duration: 13, delay: -9, drift: -14 },
-  { left: 1776, top: 3620, size: 18, duration: 18, delay: -10, drift: 18 },
-];
+import {
+  DESIGN_WIDTH,
+  DESIGN_HEIGHT,
+  UNDERWATER_TRIGGER,
+  SCROLL_PROBE_RATIO,
+  UNDERWATER_PARTICLES,
+} from './ResearcherPage.config';
 
 export default function ResearcherPage({ scrollProgress = 0 }) {
   const [scale, setScale] = useState(() => window.innerWidth / DESIGN_WIDTH);
   const [isUnderwater, setIsUnderwater] = useState(
     () => window.scrollY + (window.innerHeight * SCROLL_PROBE_RATIO) >= UNDERWATER_TRIGGER,
   );
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const onResize = () => setScale(window.innerWidth / DESIGN_WIDTH);
@@ -54,15 +44,20 @@ export default function ResearcherPage({ scrollProgress = 0 }) {
     };
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
       <div className="fixed bottom-[33px] left-[33px] pointer-events-none z-50" style={{ zoom: 0.6 }}>
         <ProgressBar level={scrollProgress} />
       </div>
 
-      <div className="fixed bottom-[33px] right-[60px] z-50">
-        <ScrollArrow direction="up" scale={0.5} />
-      </div>
+      <ArrowDown scale={scale} scrollY={scrollY} />
+      <ArrowUp scrollY={scrollY} />
 
       <div
         className="relative font-sans"

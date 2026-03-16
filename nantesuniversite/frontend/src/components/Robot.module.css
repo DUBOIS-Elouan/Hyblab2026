@@ -51,28 +51,30 @@
 }
 
 .robotShellStage0 .robotShellHalo {
-  opacity: 0.42;
-  transform: translate(-50%, -50%) scale(0.86);
+  opacity: 0;
 }
 
 .robotShellStage1 .robotShellHalo {
-  opacity: 0.62;
-  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
 }
 
 .robotShellStage2 .robotShellHalo {
-  opacity: 0.82;
-  transform: translate(-50%, -50%) scale(1.14);
+  opacity: 0;
 }
 
-.robotShellStage1 .robotShellRingInner,
+.robotShellStage1 .robotShellRingInner {
+  opacity: 0;
+  animation: none;
+}
+
 .robotShellStage2 .robotShellRingInner {
-  animation: driftRing 6s linear infinite;
+  opacity: 0;
+  animation: none;
 }
 
 .robotShellStage2 .robotShellRingOuter {
-  opacity: 0.42;
-  animation: driftRing 8s linear infinite reverse;
+  opacity: 0;
+  animation: none;
 }
 
 .robotShellMotion {

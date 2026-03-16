@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Biography from "./Biography";
 
 export default function Popup({ pictogramme, type, url, title, onClick }) {
   const [animClass, setAnimClass] = useState("open");
@@ -7,7 +8,7 @@ export default function Popup({ pictogramme, type, url, title, onClick }) {
     setAnimClass("close");
     setTimeout(() => {
       onClick();
-    }, 350);
+    }, 200);
   }
 
   function renderContent() {
@@ -27,6 +28,11 @@ export default function Popup({ pictogramme, type, url, title, onClick }) {
       return (
         <iframe title="Video player" src={url} allowFullScreen allow="autoplay" style={{ border: "none", borderRadius: "4px", width: "100%", height: "100%" }}></iframe>
       );
+    }
+    if (type === "biographie"){
+      return (
+        <Biography />
+      )
     }
 
     // type === "web" (default)

@@ -559,16 +559,30 @@ export default function Robot({
       return undefined;
     }
 
-    setShowResourcePrompt(false);
+    let timeoutId;
 
-    const timeoutId = window.setTimeout(() => {
-      if (currentLevelRef.current === activeLevel) {
-        setShowResourcePrompt(true);
-      }
-    }, RESOURCE_IDLE_DELAY_MS);
+    function restartIdleTimer() {
+      window.clearTimeout(timeoutId);
+      setShowResourcePrompt(false);
+      timeoutId = window.setTimeout(() => {
+        if (currentLevelRef.current === activeLevel) {
+          setShowResourcePrompt(true);
+        }
+      }, RESOURCE_IDLE_DELAY_MS);
+    }
+
+    restartIdleTimer();
+
+    const activityEvents = ['scroll', 'wheel', 'pointerdown', 'touchstart', 'keydown'];
+    activityEvents.forEach((eventName) => {
+      window.addEventListener(eventName, restartIdleTimer, { passive: true });
+    });
 
     return () => {
       window.clearTimeout(timeoutId);
+      activityEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, restartIdleTimer);
+      });
     };
   }, [activeLevel, pauseResourcePrompt, resourceInteractionTick, resourcePromptByLevel, showLevelEntryPrompt]);
 

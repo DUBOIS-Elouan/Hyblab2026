@@ -3,6 +3,7 @@
   inset: 0;
   z-index: 12;
   pointer-events: none;
+  contain: paint;
 }
 
 .underwaterVeil,
@@ -17,9 +18,8 @@
 
 .underwaterVeil {
   background:
-    linear-gradient(180deg, rgba(122, 206, 255, 0.06) 0%, rgba(69, 132, 235, 0.18) 18%, rgba(8, 38, 141, 0.26) 100%),
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 44%);
-  backdrop-filter: saturate(0.92) blur(4px);
+    linear-gradient(180deg, rgba(122, 206, 255, 0.10) 0%, rgba(69, 132, 235, 0.26) 18%, rgba(8, 38, 141, 0.36) 100%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 44%);
 }
 
 .depthFade {
@@ -40,9 +40,9 @@
   border-radius: 999px;
   border: 1px solid rgba(219, 247, 255, 0.72);
   background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.85), rgba(202, 243, 255, 0.16) 60%, rgba(202, 243, 255, 0) 100%);
-  box-shadow: 0 0 18px rgba(186, 232, 255, 0.25);
   opacity: 0;
   transform: translate3d(0, 42px, 0) scale(0.92);
+  will-change: transform, opacity;
   animation-name: bubbleFloat;
   animation-timing-function: linear;
   animation-iteration-count: infinite;

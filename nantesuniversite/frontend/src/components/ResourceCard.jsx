@@ -15,12 +15,14 @@
 
 const CATEGORY_COLORS = {
   prix: "#ffc800",
-  article: "#ff0000",
-  conference: "#a900f9",
+  article: "#9C1EF1",
+  conference: "#FF1300",
   livre: "#00c450",
   podcast: "#ff0064",
   recherche: "#00c9ff",
-  biographie:"#ff6c00"
+  biographie:"#ff6c00",
+  jeu:"#ff0063",
+  video:"#ff0000"
 };
 
 export default function ResourceCard({
@@ -33,7 +35,17 @@ export default function ResourceCard({
   onClick,
   onMouseEnter,
 }) {
-  const color = CATEGORY_COLORS[category.toLowerCase()] ?? "#3552ff";
+  //const color = CATEGORY_COLORS[category.split(" ")[0].toLowerCase()] ?? "#3552ff";
+  const isVideoCategory = ["conférence", "podcast", "table ronde"].includes(
+  category.toLowerCase()
+);
+
+const color = isVideoCategory
+  ? "#ff0000"
+  : CATEGORY_COLORS[category.split(" ")[0].toLowerCase()] ?? "#3552ff";
+  
+
+
   const label = category.charAt(0).toUpperCase() + category.slice(1);
 
   return (

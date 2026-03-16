@@ -12,7 +12,7 @@ export default function LinkedResearcherCard({ portrait, name, role, url, top })
   return (
     <div
       className="absolute bg-white rounded-[117.5px] overflow-hidden"
-      style={{ left: '1044px', top: `${top}px`, width: '684px', height: '116px' }}
+      style={{ left: '1044px', top: `${top}px`, width: '684px', height: '130px' }}
     >
       {/* Circular portrait thumbnail */}
       <div
@@ -42,7 +42,7 @@ export default function LinkedResearcherCard({ portrait, name, role, url, top })
           {', '}
           <span
             className="font-normal"
-            style={{ fontFamily: "'Massilia', Inter, sans-serif", fontWeight: 300 }}
+            style={{ fontFamily: "'Massilia', Inter, sans-serif", fontWeight: 300}}
           >
             {role}
           </span>
