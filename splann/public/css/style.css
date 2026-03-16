@@ -375,7 +375,7 @@ h3 {
     width:40vw;
     height: auto;
     position:absolute;
-    top:-40vh;
+    top:-15vh;
 }
 /* Last slide image is centered */
 #img-fini{
@@ -491,7 +491,7 @@ body{
     flex: 1;
     width: 85vw;
     height: 85vw;
-    text-align: justify;
+    text-align: left;
     font-size: 20px;
     position: absolute;
     top: 20vh;
@@ -695,7 +695,7 @@ body{
     position: absolute;
 }
 .bottom-sheet .content {
-    text-align: justify;
+    text-align: left;
     color:white;
     font-size: 30%;
     height: calc(100vh - 80px); /* 100% du sheet moins la handle-bar */
