@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCityByCoordinates } from '../../../utils/coordinate';
 import { findNearestArticles, getLastArticleDistance } from '../../../utils/dist';
 import CityModal from '../components/CityModal';
+import ArticleCountModal from '../components/ArticleCountModal';
 import './Home.css';
 import RoutePoinillee from './../assets/home_illustrations/chemin.svg';
 import TraitJaune from './../assets/home_illustrations/Trait Jaune.svg';
@@ -58,6 +59,11 @@ const Home = () => {
   const [isModalLoading, setIsModalLoading] = useState(false);
   const modalRef = useRef(null);
 
+  // ── Modale ArticleCount ──
+  const articleCountRef = useRef(null);
+  const pendingActionRef = useRef(null);
+  const chosenCountRef = useRef(NB_ARTICLES);
+
   useEffect(() => {
     fetch('/vivant/api/articles')
       .then(r => r.json())
@@ -70,11 +76,22 @@ const Home = () => {
     setActiveBtn(btnId);
     setTimeout(() => {
       setActiveBtn(null);
-      action();
+      // Stocker l'action et ouvrir la modale de sélection d'articles
+      pendingActionRef.current = action;
+      articleCountRef.current?.showModal();
     }, 600);
   };
 
-  const handleGeolocation = () => {
+  // Appelé quand l'utilisateur confirme le nombre d'articles dans la modale
+  const handleArticleCountConfirm = (count) => {
+    chosenCountRef.current = count;
+    if (pendingActionRef.current) {
+      pendingActionRef.current(count);
+      pendingActionRef.current = null;
+    }
+  };
+
+  const handleGeolocation = (nbArticles = NB_ARTICLES) => {
     if (!navigator.geolocation) {
       alert("La géolocalisation n'est pas supportée par votre navigateur.");
       navigate('/carte', { state: { hasCity: false } });
@@ -92,7 +109,7 @@ const Home = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
-          const nearestArticles = findNearestArticles(articles, centre, NB_ARTICLES);
+          const nearestArticles = findNearestArticles(articles, centre, nbArticles);
           const lastDist = getLastArticleDistance(nearestArticles, centre);
           setIsLoadingLocation(false);
           navigate('/carte', {
@@ -104,6 +121,7 @@ const Home = () => {
               articles: nearestArticles,
               allArticles: articles,
               lastArticleDist: lastDist,
+              nbArticles,
             },
           });
         } catch {
@@ -118,7 +136,7 @@ const Home = () => {
     );
   };
 
-  const handleLastArticle = async () => {
+  const handleLastArticle = async (nbArticles = NB_ARTICLES) => {
     if (!articles || articles.length === 0) {
       navigate('/carte', { state: { hasCity: false, articles, allArticles: articles } });
       return;
@@ -145,7 +163,7 @@ const Home = () => {
 
     if (lat !== null && long !== null) {
       const centre = { latitude: lat, longitude: long };
-      const nearestArticles = findNearestArticles(articles, centre, NB_ARTICLES);
+      const nearestArticles = findNearestArticles(articles, centre, nbArticles);
       const lastDist = getLastArticleDistance(nearestArticles, centre);
 
       navigate('/carte', {
@@ -157,6 +175,7 @@ const Home = () => {
           articles: nearestArticles,
           allArticles: articles,
           lastArticleDist: lastDist,
+          nbArticles,
         },
       });
     } else {
@@ -166,11 +185,12 @@ const Home = () => {
   };
 
   const handleCitySubmit = ({ name, lat, lng }) => {
+    const nbArticles = chosenCountRef.current || NB_ARTICLES;
     setCityError('');
     setIsModalLoading(true);
     try {
       const centre = { latitude: lat, longitude: lng };
-      const nearest = findNearestArticles(articles, centre, NB_ARTICLES);
+      const nearest = findNearestArticles(articles, centre, nbArticles);
       const lastDist = getLastArticleDistance(nearest, centre);
 
       setIsModalLoading(false);
@@ -185,6 +205,7 @@ const Home = () => {
           articles: (nearest && nearest.length > 0) ? nearest : articles,
           allArticles: articles,
           lastArticleDist: (nearest && nearest.length > 0) ? lastDist : null,
+          nbArticles,
         },
       });
     } catch (err) {
@@ -306,6 +327,12 @@ const Home = () => {
         navigate('/carte', { state: { hasCity: false, articles, allArticles: articles } });
       }}
       modalRef={modalRef}
+    />
+
+    <ArticleCountModal
+      modalRef={articleCountRef}
+      defaultCount={NB_ARTICLES}
+      onConfirm={handleArticleCountConfirm}
     />
     </>
   );

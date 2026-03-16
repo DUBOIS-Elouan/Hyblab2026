@@ -19,22 +19,21 @@ import path3PointsRaw from './assets/paths/pathPoints/3.svg?raw'
 import path3Points from './assets/paths/pathPoints/3.svg'
 
 import up_straight from './assets/mr_patate/up_straight.svg';
-import up_left from     './assets/mr_patate/up_left.svg';
-import up_right from    './assets/mr_patate/up_right.svg';
+import up_left from './assets/mr_patate/up_left.svg';
+import up_right from './assets/mr_patate/up_right.svg';
 import down_straight from './assets/mr_patate/down_straight.svg';
-import down_left from   './assets/mr_patate/down_left.svg';
-import down_right from  './assets/mr_patate/down_right.svg';
-import right from       './assets/mr_patate/right.svg';
-import left from        './assets/mr_patate/left.svg';
+import down_left from './assets/mr_patate/down_left.svg';
+import down_right from './assets/mr_patate/down_right.svg';
+import right from './assets/mr_patate/right.svg';
+import left from './assets/mr_patate/left.svg';
 
 const treeFiles = import.meta.glob('./assets/elements/tree/*.svg', { eager: true, import: 'default' });
 const milestoneFiles = import.meta.glob('./assets/elements/milestone/*.svg', { eager: true, import: 'default' });
 const signFiles = import.meta.glob('./assets/elements/sign/*.svg', { eager: true, import: 'default' });
 
-const ESPACEMENT = 0.20; 
-const OFFSET_DEPART = 0.20; // Décale le premier article pour ne pas qu'il soit au tout début
+const ESPACEMENT = 0.20;
+const OFFSET_DEPART = 0.15; // Décale le premier article pour ne pas qu'il soit au tout début
 export const NB_ARTICLES = 10;
-const NB_PATH = Math.ceil(OFFSET_DEPART + (NB_ARTICLES * ESPACEMENT));
 
 const dicoPaths = {
   path1: { raw: path1Raw, svg: path1Url, points: path1Points, pointsRaw: path1PointsRaw },
@@ -54,44 +53,52 @@ const posCyclist = {
 };
 
 const elements = {
-  tree: { svg : Object.values(treeFiles), style : 'xl:scale-[95%] scale-[60%] origin-bottom'},
-  milestone:  { svg : Object.values(milestoneFiles), style : 'xl:h-[9vh] h-[5vh] origin-bottom'},
-  sign: { svg : Object.values(signFiles), dotPos: [
-    { x: 91, y: 15}, //sign1
-    { x: 91, y: 15}, //sign2
-    { x: 73, y: 20}, //sign3
-    { x: 83, y: 17}, //sign4
-    { x: 88, y: 38}, //sign5
-  ]}
+  tree: { svg: Object.values(treeFiles), style: 'xl:scale-[95%] scale-[60%] origin-bottom' },
+  milestone: { svg: Object.values(milestoneFiles), style: 'xl:h-[9vh] h-[5vh] origin-bottom' },
+  sign: {
+    svg: Object.values(signFiles), dotPos: [
+      { x: 91, y: 15 }, //sign1
+      { x: 91, y: 15 }, //sign2
+      { x: 73, y: 20 }, //sign3
+      { x: 83, y: 17 }, //sign4
+      { x: 88, y: 38 }, //sign5
+    ]
+  }
 };
 
 const pathOptions = Object.values(dicoPaths);
-const pathList = Array.from({ length: NB_PATH }, () => 
-  pathOptions[Math.floor(Math.random() * pathOptions.length)]
-);
 
 const CategoryList = {
-   "Entrepreneuriat":"#DED491",
-    "Collectifs": "#DE391C",
-    "Service publique": "#BA0650",
-    "Initiative personnelle/quotidienne": "#FFCBC1"
-  };
- 
+  "Entrepreneuriat": "#DED491",
+  "Collectifs": "#DE391C",
+  "Service publique": "#BA0650",
+  "Initiative personnelle/quotidienne": "#FFCBC1"
+};
+
 const InfinitePath = () => {
   const location = useLocation();
   const initialState = location.state || {};
 
+  const nbArticles = initialState.nbArticles ?? NB_ARTICLES;
+
+  const currentPathList = useMemo(() => {
+    const calculatedNbPath = Math.ceil(OFFSET_DEPART + (nbArticles * ESPACEMENT));
+    return Array.from({ length: calculatedNbPath }, () =>
+      pathOptions[Math.floor(Math.random() * pathOptions.length)]
+    );
+  }, [nbArticles]);
+
   const containerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  const SPEED_DESKTOP = 5000;
-  const SPEED_MOBILE  = 5000;
- 
+  const SPEED_DESKTOP = Math.max(2000, 5000 - (nbArticles - 10) * 150);
+  const SPEED_MOBILE = Math.max(2000, 5000 - (nbArticles - 10) * 150);
+
   const dynamicHeight = useMemo(() => {
     const speed = isMobile ? SPEED_MOBILE : SPEED_DESKTOP;
-    const multiplier = Math.max(1, pathList.length / 2);
+    const multiplier = Math.max(1, currentPathList.length / 2);
     return `${multiplier * speed}vh`;
-  }, [isMobile]);
+  }, [isMobile, SPEED_DESKTOP, SPEED_MOBILE, currentPathList.length]);
 
 
 
@@ -109,7 +116,7 @@ const InfinitePath = () => {
     "Collectifs",
     "Service publique"
   ];
-  
+
   const [selectedCats, setSelectedCats] = useState(availableCategories);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -132,22 +139,22 @@ const InfinitePath = () => {
     // 2. On récupère les 10 plus proches si on a une position, sinon les 10 premiers
     let closestArticles = [];
     if (lat !== null && long !== null) {
-      closestArticles = findNearestArticles(filteredAll, { latitude: lat, longitude: long }, NB_ARTICLES);
+      closestArticles = findNearestArticles(filteredAll, { latitude: lat, longitude: long }, nbArticles);
     } else {
-      closestArticles = filteredAll.slice(0, NB_ARTICLES);
+      closestArticles = filteredAll.slice(0, nbArticles);
     }
 
     const signLength = elements.sign.svg.length
 
     return closestArticles.map((article, index) => {
       const globalPos = OFFSET_DEPART + (index * ESPACEMENT);
-      const pathIndex = Math.floor(globalPos) % pathList.length;
+      const pathIndex = Math.floor(globalPos) % currentPathList.length;
       const progress = globalPos % 1;
       const signIdx = Math.floor(Math.random() * signLength)
-      return { 
-        id: article.ID, 
-        pathIndex, 
-        progress, 
+      return {
+        id: article.ID,
+        pathIndex,
+        progress,
         globalPos,
         articleData: {
           nom: article.Title,
@@ -166,42 +173,42 @@ const InfinitePath = () => {
   const pathRefs = useRef([]);
   const [pathsData, setPathsData] = useState([]);
   const [pathsPointsData, setPathsPointsData] = useState([]);
-  
+
   const [cyclistX, setCyclistX] = useState("50%");
   const pathY = useMotionValue("calc(85vh - 100%)");
- 
+
   const latestProgress = useRef(0);
   const isMovingUpRef = useRef(true);
   const currentSvgPos = useRef(posCyclist.up_right);
   const [cyclistSvgPos, setCyclistSvgPos] = useState(posCyclist.up_right);
- 
+
   const [articlePositions, setArticlePositions] = useState({});
   const SignDecalage = 12;
 
   // --- NOUVEAUX STATES POUR L'ARTICLE ACTIF (MOBILE) ---
   const [activeArticleId, setActiveArticleId] = useState(null);
-  const activeArticleIdRef = useRef(null); 
-  
+  const activeArticleIdRef = useRef(null);
+
   // --- INDICATION DE SCROLL ---
   const [showScrollHint, setShowScrollHint] = useState(true);
- 
- 
+
+
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
-    
+
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
- 
+
     const parser = new DOMParser();
-    const extractedPaths = pathList.map(pathObj => {
+    const extractedPaths = currentPathList.map(pathObj => {
       const doc = parser.parseFromString(pathObj.raw, "image/svg+xml");
       const path = doc.getElementById("cyclist-path");
       const svgTag = doc.querySelector("svg");
       const viewBox = svgTag?.getAttribute("viewBox")?.split(" ") || [0, 0, 767.25, 7337.6];
       return {
         d: path?.getAttribute("d"),
-        width:  parseFloat(viewBox[2]),
+        width: parseFloat(viewBox[2]),
         height: parseFloat(viewBox[3])
       };
     });
@@ -209,7 +216,7 @@ const InfinitePath = () => {
     const milestoneLength = elements.milestone.svg.length
     const treeLength = elements.tree.svg.length
 
-    const extractedPoints = pathList.map(pathObj => {
+    const extractedPoints = currentPathList.map(pathObj => {
       const doc = parser.parseFromString(pathObj.pointsRaw, "image/svg+xml");
       const trees = Array.from(doc.getElementsByClassName("cls-1"))
       const milestones = Array.from(doc.getElementsByClassName("cls-3"))
@@ -239,28 +246,28 @@ const InfinitePath = () => {
     });
     setPathsData(extractedPaths)
     setPathsPointsData(extractedPoints)
- 
+
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
- 
+  }, [currentPathList]);
+
   useEffect(() => {
     if (pathsData.length === 0) return;
     const timer = setTimeout(() => {
       const positions = {};
       mapObjectsConfig.forEach(obj => {
         const pathEl = pathRefs.current[obj.pathIndex];
-        const data   = pathsData[obj.pathIndex];
+        const data = pathsData[obj.pathIndex];
         if (!pathEl || !data) return;
- 
+
         const length = pathEl.getTotalLength();
         const pStart = pathEl.getPointAtLength(0);
-        const pEnd   = pathEl.getPointAtLength(length);
+        const pEnd = pathEl.getPointAtLength(length);
         const isBottomToTop = pStart.y > pEnd.y;
         const t = isBottomToTop ? obj.progress : 1 - obj.progress;
         const point = pathEl.getPointAtLength(t * length);
- 
+
         positions[obj.id] = {
-          xPercent: (point.x / data.width)  * 100,
+          xPercent: (point.x / data.width) * 100,
           yPercent: (point.y / data.height) * 100,
         };
       });
@@ -271,15 +278,15 @@ const InfinitePath = () => {
       if (data0 && pathEl0) {
         const length = pathEl0.getTotalLength();
         const pStart = pathEl0.getPointAtLength(0);
-        const pEnd   = pathEl0.getPointAtLength(length);
+        const pEnd = pathEl0.getPointAtLength(length);
         const isBottomToTop = pStart.y > pEnd.y;
-        
+
         // On récupère un point très proche du début (t = 0.005 pour éviter les bords tranchés)
         const t = isBottomToTop ? 0.005 : 0.995;
         const point = pathEl0.getPointAtLength(t * length);
 
         positions['start_city'] = {
-          xPercent: (point.x / data0.width)  * 100,
+          xPercent: (point.x / data0.width) * 100,
           yPercent: (point.y / data0.height) * 100,
         };
       }
@@ -288,12 +295,12 @@ const InfinitePath = () => {
     }, 150);
     return () => clearTimeout(timer);
   }, [pathsData, mapObjectsConfig]);
- 
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
-  
+
   const smoothProgress = useSpring(1, {
     stiffness: 100,
     damping: 50,
@@ -301,7 +308,7 @@ const InfinitePath = () => {
     restDelta: 0.000001,
     restSpeed: 0.000001
   });
-  
+
   useEffect(() => {
     return scrollYProgress.on("change", (v) => smoothProgress.set(v));
   }, [scrollYProgress]);
@@ -312,30 +319,30 @@ const InfinitePath = () => {
     });
   }, [scrollYProgress]);
 
- 
+
   const activeProgress = isMobile ? scrollYProgress : smoothProgress;
- 
+
   useEffect(() => {
     const unsubscribe = activeProgress.on("change", (latest) => {
       if (pathsData.length === 0) return;
 
-      const N = pathList.length;
+      const N = currentPathList.length;
       const globalPos = (1 - latest) * N;
       const maxIndex = Math.max(0, N - 1);
       const index = Math.min(Math.floor(globalPos), maxIndex);
       const localProgress = globalPos - index;
- 
+
       const pathEl = pathRefs.current[index];
-      const data   = pathsData[index];
+      const data = pathsData[index];
       if (!pathEl || !data) return;
- 
+
       const length = pathEl.getTotalLength();
       const pStart = pathEl.getPointAtLength(0);
-      const pEnd   = pathEl.getPointAtLength(length);
+      const pEnd = pathEl.getPointAtLength(length);
       const isDrawnBottomToTop = pStart.y > pEnd.y;
       const t = isDrawnBottomToTop ? localProgress : 1 - localProgress;
       const point = pathEl.getPointAtLength(t * length);
- 
+
       setCyclistX(`${(point.x / data.width) * 100}%`);
 
       if (latest < 0.995) {
@@ -347,7 +354,7 @@ const InfinitePath = () => {
       // --- NOUVEAU : DÉTECTION DE PROXIMITÉ ---
       const ZONE_DETECTION = 0.03; // Zone de sensibilité autour de l'article (tu peux ajuster)
       let foundId = null;
-      
+
       for (let obj of mapObjectsConfig) {
         if (Math.abs(obj.globalPos - globalPos) <= ZONE_DETECTION) {
           foundId = obj.id;
@@ -361,27 +368,27 @@ const InfinitePath = () => {
         setActiveArticleId(foundId);
       }
       // ----------------------------------------
- 
+
       const diffScroll = latest - latestProgress.current;
-      if (diffScroll < -0.000001)      isMovingUpRef.current = true;
-      else if (diffScroll > 0.000001)  isMovingUpRef.current = false;
+      if (diffScroll < -0.000001) isMovingUpRef.current = true;
+      else if (diffScroll > 0.000001) isMovingUpRef.current = false;
       const isMovingUp = isMovingUpRef.current;
       latestProgress.current = latest;
- 
+
       const lp1 = Math.max(localProgress - 0.002, 0);
       const lp2 = Math.min(localProgress + 0.002, 1);
-      const t1  = isDrawnBottomToTop ? lp1 : 1 - lp1;
-      const t2  = isDrawnBottomToTop ? lp2 : 1 - lp2;
+      const t1 = isDrawnBottomToTop ? lp1 : 1 - lp1;
+      const t2 = isDrawnBottomToTop ? lp2 : 1 - lp2;
       const pt1 = pathEl.getPointAtLength(t1 * length);
       const pt2 = pathEl.getPointAtLength(t2 * length);
-      const dx   = pt2.x - pt1.x;
-      const dy   = pt2.y - pt1.y;
+      const dx = pt2.x - pt1.x;
+      const dy = pt2.y - pt1.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       const directionX = dist > 0 ? dx / dist : 0;
-      const absDirX    = Math.abs(directionX);
+      const absDirX = Math.abs(directionX);
       const SEUIL_STRAIGHT = 0.25;
-      const SEUIL_DIAG     = 0.85;
- 
+      const SEUIL_DIAG = 0.85;
+
       let newImage;
       if (absDirX < SEUIL_STRAIGHT) {
         newImage = isMovingUp ? posCyclist.up_straight : posCyclist.down_straight;
@@ -398,11 +405,11 @@ const InfinitePath = () => {
         currentSvgPos.current = newImage;
         setCyclistSvgPos(newImage);
       }
- 
+
       const percentY = ((N - 1 - index) + (point.y / data.height)) / N * 100;
       pathY.set(`calc(85vh - ${percentY}%)`);
     });
- 
+
     return () => unsubscribe();
   }, [activeProgress, pathsData, mapObjectsConfig]);
 
@@ -426,7 +433,7 @@ const InfinitePath = () => {
     const pos2 = nextArticle.globalPos;
 
     const formatDistance = (dist) => {
-      const objDist = (dist < 1) ? {num : Math.round(dist * 1000), unit : "m"} : {num : parseFloat(dist).toFixed(1), unit : "km"}
+      const objDist = (dist < 1) ? { num: Math.round(dist * 1000), unit: "m" } : { num: parseFloat(dist).toFixed(1), unit: "km" }
       return (<><span className="milestone-font">{objDist.num}</span><span className="milestone-font xl:-mt-[0.8vh] -mt-[0.4vh]">{objDist.unit}</span></>)
     }
 
@@ -438,60 +445,60 @@ const InfinitePath = () => {
     return formatDistance(finalDist);
   };
 
-  
- 
+
+
   return (
     <div className="relative">
-    {/* ── Flottant Filtres (Mobile) ── */}
-    <div className="md:hidden fixed top-[88px] left-6 z-[9999]">
-      <button 
-        onClick={() => setIsFilterOpen(!isFilterOpen)}
-        className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg pointer-events-auto border border-gray-100 transition-transform active:scale-95"
-      >
-        {/* Trois petits points alignés */}
-        <div className="flex gap-1">
+      {/* ── Flottant Filtres (Mobile) ── */}
+      <div className="md:hidden fixed top-[88px] left-6 z-[9999]">
+        <button
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg pointer-events-auto border border-gray-100 transition-transform active:scale-95"
+        >
+          {/* Trois petits points alignés */}
+          <div className="flex gap-1">
             {[...Array(3)].map((_, index) => (
               <div key={index} className="w-1.5 h-1.5 bg-black rounded-full"></div>
             ))}
-        </div>
-      </button>
+          </div>
+        </button>
 
-      {isFilterOpen && (
-        <div className="absolute top-14 left-0 bg-[#f7f7f7] rounded-[24px] p-5 shadow-2xl flex flex-col gap-4 w-64 pointer-events-auto origin-top-left border border-gray-100">
-          {Object.entries(CategoryList).map(([cat, color]) => {
-            const isChecked = selectedCats.includes(cat);
-            return (
-              <label 
-                key={cat} 
-                className="flex items-center gap-4 cursor-pointer" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleCategory(cat);
-                }}
-              >
-                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-colors shadow-sm" style={{ backgroundColor: isChecked ? color : 'white' }} >
-                  {isChecked && (
-                    <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  )}
-                </div>
-                <span className="text-[15px] font-medium text-black leading-tight select-none">
-                  {cat.replace('publique', 'public')}
-                </span>
-              </label>
-            );
-          })}
-        </div>
-      )}
-    </div>
+        {isFilterOpen && (
+          <div className="absolute top-14 left-0 bg-[#f7f7f7] rounded-[24px] p-5 shadow-2xl flex flex-col gap-4 w-64 pointer-events-auto origin-top-left border border-gray-100">
+            {Object.entries(CategoryList).map(([cat, color]) => {
+              const isChecked = selectedCats.includes(cat);
+              return (
+                <label
+                  key={cat}
+                  className="flex items-center gap-4 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleCategory(cat);
+                  }}
+                >
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-colors shadow-sm" style={{ backgroundColor: isChecked ? color : 'white' }} >
+                    {isChecked && (
+                      <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </div>
+                  <span className="text-[15px] font-medium text-black leading-tight select-none">
+                    {cat.replace('publique', 'public')}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
-    <div 
-      ref={containerRef} 
-      className={`relative transition-all duration-700 no-scrollbar`} 
-      style={{ height: dynamicHeight }}
-    >
-      <div className="sticky top-0 mask-y-from-75% mask-y-to-90% h-screen overflow-hidden flex justify-center [perspective:1200px]" >
+      <div
+        ref={containerRef}
+        className={`relative transition-all duration-700 no-scrollbar`}
+        style={{ height: dynamicHeight }}
+      >
+        <div className="sticky top-0 mask-y-from-75% mask-y-to-90% h-screen overflow-hidden flex justify-center [perspective:1200px]" >
           <div
             className="xl:w-[50vw] relative w-[100vw] flex-none"
             style={{ transform: "rotateX(50deg)", transformStyle: "preserve-3d" }}
@@ -500,30 +507,30 @@ const InfinitePath = () => {
               className="flex flex-col-reverse w-full will-change-transform"
               style={{ y: pathY, transformStyle: "preserve-3d" }}
             >
-              {pathList.map((pathObj, i) => (
-              <div
-                key={i}
-                className="relative w-full"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <img
-                  src={pathObj.svg}
-                  className="w-full h-full block -mt-1"
-                  alt={`Path ${i}`}
-                />
+              {currentPathList.map((pathObj, i) => (
+                <div
+                  key={i}
+                  className="relative w-full"
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  <img
+                    src={pathObj.svg}
+                    className="w-full h-full block -mt-1"
+                    alt={`Path ${i}`}
+                  />
                   {i === 0 && articlePositions['start_city'] && (
                     <div
                       className="absolute z-10 flex flex-col items-center pointer-events-none"
                       style={{
                         left: `${articlePositions['start_city'].xPercent}%`,
                         top: `${articlePositions['start_city'].yPercent}%`,
-                      transform: "translate(-50%, 50%) rotateX(-50deg) translateZ(10px)",
-                      transformOrigin: "top center",
-                      transformStyle: "preserve-3d"
-                    }}
+                        transform: "translate(-50%, 50%) rotateX(-50deg) translateZ(10px)",
+                        transformOrigin: "top center",
+                        transformStyle: "preserve-3d"
+                      }}
                     >
                       <div className="flex items-center justify-center gap-2 drop-shadow-lg w-full xl:m-5 m-2.5">
-                        
+
                         <div className="xl:p-2.5 p-1.5 rounded-full items-center justify-center bg-[#F6E91E] flex hover:bg-[#E5D813] shrink-0 shadow-sm">
                           <svg className="xl:w-[1.5vw] xl:h-[1.5vw] w-[4vw] h-[4vw] text-black drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
@@ -541,7 +548,7 @@ const InfinitePath = () => {
                   {pathsPointsData[i] && pathsPointsData[i].map((c, index) => {
                     const xPercent = (c.x / c.width) * 100;
                     const yPercent = (c.y / c.height) * 100;
-                    return (  
+                    return (
                       <div
                         key={`${c.type}-${i}-${index}`}
                         className="absolute z-20 pointer-events-none flex justify-center"
@@ -555,147 +562,147 @@ const InfinitePath = () => {
                       >
 
                         {c.type === 'milestone' && (
-                          <div 
+                          <div
                             className="absolute z-30 flex flex-col items-center font-extrabold text-[0.7vh] xl:text-[1.25vh] xl:bottom-[1.9vh] bottom-[1vh]"
                           >
                             {getMilestoneDistance(i, yPercent)}
                           </div>
                         )}
-                        <img 
-                          src={c.svg} 
-                          alt={c.type} 
+                        <img
+                          src={c.svg}
+                          alt={c.type}
                           className={`${c.svgStyle} w-auto object-contain drop-shadow-md`}
                         />
                       </div>
                     );
                   })}
 
-                {mapObjectsConfig
-                  .filter(obj => obj.pathIndex === i)
-                  .map(obj => {
-                    const pos = articlePositions[obj.id];
-                    if (!pos) return null;
-                    const isOnRightSide = pos.xPercent > 50;
-    
-                    const safeLeft = Math.max(10, Math.min(90, pos.xPercent + (isOnRightSide ? SignDecalage : -SignDecalage)));
-                    
-                    return (
-                      <div
-                        key={obj.id}
-                        className={`absolute z-40 flex flex-col items-center`}
-                        style={{
-                          left:            `${safeLeft}%`,
-                          top:             `${pos.yPercent}%`,
-                          transform:       "translate(-50%, -100%) rotateX(-50deg) translateZ(20px)",
-                          transformStyle:  "preserve-3d",
-                          transformOrigin: "center bottom",
-                          willChange:      "transform",
-                        }}
-                      > 
-                        <AnimatePresence mode="wait">
-                          {activeArticleId === obj.id ? (
-                            <motion.div
-                              key={`article-${obj.id}`}
-                              initial={{ opacity: 0.3, scale: 0.5, x: isMobile ? `calc(${50 - safeLeft}vw)` : 0, y: isMobile ? "-10vh" : 0}}
-                              animate={{ opacity: 1,  scale: 1, x: isMobile ? `calc(${50 - safeLeft}vw)` : 0, y: isMobile ? "-10vh" : 0}}
-                              exit={{ opacity: 0.3, scale: 0.5, x: isMobile ? `calc(${50 - safeLeft}vw)` : 0,  y: isMobile ? "-10vh" : 0}}
-                              transition={{ duration: 0.5, ease: "out" }}
-                            >
-                              <ArticlePreview articleData={obj.articleData} />
-                            </motion.div>
-                          ) : (
-                            <motion.div
-                              key={`dot-${obj.id}`}
-                              initial={{ opacity: 0.3, scale: 1, x: isMobile ? `calc(${50 - safeLeft}vw)` : -50, y: isMobile ? "-20vh" : -100}}
-                              animate={{ opacity: 1, scale: 0.25, x: "-50%", y: "-50%" }} 
-                              exit={{ opacity: 0.3, scale: 1, x: isMobile ? `calc(${50 - safeLeft}vw)` : -50, y: isMobile ? "-20vh" : -100}}
-                              className="xl:w-16 xl:h-16 w-10 h-10 rounded-full z-99 border-7 border-white absolute" 
-                              style={{ 
-                                backgroundColor: obj.articleData.category_color,
-                                left: `${obj.dotPos.x}%`,
-                                top: `${obj.dotPos.y}%`,
-                              }}  
-                              transition={{ duration: isMobile ? 1 : 0.33 }}
-                            />
-                          )}
-                        </AnimatePresence>
-                        <img 
-                          src={obj.svg} 
-                          alt="sign"
-                          className="xl:w-[4vw] h-auto w-[7vw] object-contain drop-shadow-sm" 
-                        />
-                      </div>
-                    );
-                  })}
+                  {mapObjectsConfig
+                    .filter(obj => obj.pathIndex === i)
+                    .map(obj => {
+                      const pos = articlePositions[obj.id];
+                      if (!pos) return null;
+                      const isOnRightSide = pos.xPercent > 50;
+
+                      const safeLeft = Math.max(10, Math.min(90, pos.xPercent + (isOnRightSide ? SignDecalage : -SignDecalage)));
+
+                      return (
+                        <div
+                          key={obj.id}
+                          className={`absolute z-40 flex flex-col items-center`}
+                          style={{
+                            left: `${safeLeft}%`,
+                            top: `${pos.yPercent}%`,
+                            transform: "translate(-50%, -100%) rotateX(-50deg) translateZ(20px)",
+                            transformStyle: "preserve-3d",
+                            transformOrigin: "center bottom",
+                            willChange: "transform",
+                          }}
+                        >
+                          <AnimatePresence mode="wait">
+                            {activeArticleId === obj.id ? (
+                              <motion.div
+                                key={`article-${obj.id}`}
+                                initial={{ opacity: 0.3, scale: 0.5, x: isMobile ? `calc(${50 - safeLeft}vw)` : 0, y: isMobile ? "-10vh" : 0 }}
+                                animate={{ opacity: 1, scale: 1, x: isMobile ? `calc(${50 - safeLeft}vw)` : 0, y: isMobile ? "-10vh" : 0 }}
+                                exit={{ opacity: 0.3, scale: 0.5, x: isMobile ? `calc(${50 - safeLeft}vw)` : 0, y: isMobile ? "-10vh" : 0 }}
+                                transition={{ duration: 0.5, ease: "out" }}
+                              >
+                                <ArticlePreview articleData={obj.articleData} />
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key={`dot-${obj.id}`}
+                                initial={{ opacity: 0.3, scale: 1, x: isMobile ? `calc(${50 - safeLeft}vw)` : -50, y: isMobile ? "-20vh" : -100 }}
+                                animate={{ opacity: 1, scale: 0.25, x: "-50%", y: "-50%" }}
+                                exit={{ opacity: 0.3, scale: 1, x: isMobile ? `calc(${50 - safeLeft}vw)` : -50, y: isMobile ? "-20vh" : -100 }}
+                                className="xl:w-16 xl:h-16 w-10 h-10 rounded-full z-99 border-7 border-white absolute"
+                                style={{
+                                  backgroundColor: obj.articleData.category_color,
+                                  left: `${obj.dotPos.x}%`,
+                                  top: `${obj.dotPos.y}%`,
+                                }}
+                                transition={{ duration: isMobile ? 1 : 0.33 }}
+                              />
+                            )}
+                          </AnimatePresence>
+                          <img
+                            src={obj.svg}
+                            alt="sign"
+                            className="xl:w-[4vw] h-auto w-[7vw] object-contain drop-shadow-sm"
+                          />
+                        </div>
+                      );
+                    })}
                   {pathsData[i] && (
-                  <svg
-                    viewBox={`0 0 ${pathsData[i].width} ${pathsData[i].height}`}
-                    preserveAspectRatio="none"
-                    className="absolute inset-0 w-full h-full z-10"
-                  >
-                    <path
-                      ref={el => (pathRefs.current[i] = el)}
-                      d={pathsData[i].d}
-                      fill="none"
-                      style={{ opacity: 0 }}
-                    />
+                    <svg
+                      viewBox={`0 0 ${pathsData[i].width} ${pathsData[i].height}`}
+                      preserveAspectRatio="none"
+                      className="absolute inset-0 w-full h-full z-10"
+                    >
+                      <path
+                        ref={el => (pathRefs.current[i] = el)}
+                        d={pathsData[i].d}
+                        fill="none"
+                        style={{ opacity: 0 }}
+                      />
                     </svg>
                   )}
-                  
+
                 </div>
               ))}
             </motion.div>
- 
-          {/* VÉLO */}
+
+            {/* VÉLO */}
             <motion.div
               className="absolute xl:bottom-[10vh] bottom-[12vh] z-50 xl:w-35 xl:h-35 w-20 h-20 pointer-events-none"
-            style={{
-              left:            cyclistX,
-              transform:       "translateX(-50%) rotateX(-50deg)",
-              transformOrigin: "bottom center"
-            }}
+              style={{
+                left: cyclistX,
+                transform: "translateX(-50%) rotateX(-50deg)",
+                transformOrigin: "bottom center"
+              }}
             >
-            <img
-              src={cyclistSvgPos}
-              className="w-full h-full object-contain relative z-10"
-              alt="vélo"
-            />
-          </motion.div>
+              <img
+                src={cyclistSvgPos}
+                className="w-full h-full object-contain relative z-10"
+                alt="vélo"
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <AnimatePresence>
-  {showScrollHint && (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.4 }}
-      className="absolute z-[9999] flex flex-col items-center gap-3 pointer-events-none"
-      style={{
-        left: "20px",
-        bottom: "14vh"
-      }}
-    >
-      <span className="text-sm font-semibold bg-white/90 px-4 py-2 rounded-full shadow-md backdrop-blur-sm border border-gray-100">
-        Scrollez vers le bas
-      </span>
+      <AnimatePresence>
+        {showScrollHint && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.4 }}
+            className="absolute z-[9999] flex flex-col items-center gap-3 pointer-events-none"
+            style={{
+              left: "20px",
+              bottom: "14vh"
+            }}
+          >
+            <span className="text-sm font-semibold bg-white/90 px-4 py-2 rounded-full shadow-md backdrop-blur-sm border border-gray-100">
+              Scrollez vers le bas
+            </span>
 
-      <motion.div
-        animate={{ y: [0, -10, 0] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center shadow-lg border border-secondary"
-      >
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center shadow-lg border border-secondary"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
- 
+
 export default InfinitePath;
