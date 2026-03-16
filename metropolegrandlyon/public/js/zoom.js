@@ -692,6 +692,7 @@ function majCamion(progress) {
         if (finScene) finScene.style.display = 'none';
 
     } else if (progress < 0.90) {
+        /*Pause Déchets*/
         truckX = halfOutX;
         panX = maxPan;
         workerOpacity = 1;
@@ -785,6 +786,7 @@ function majCamion(progress) {
         workerY = 30;
 
     } else if (progress < 1.55) {
+        /*Pause Métro*/
         if (truck) truck.style.display = 'none';
         if (worker) worker.style.display = 'none';
         if (panorama) panorama.style.display = 'none';
@@ -828,6 +830,7 @@ function majCamion(progress) {
         workerY = 30;
 
     } else if (progress < 1.80) {
+        /*Pause eau et assainissement*/
         if (truck) truck.style.display = 'none';
         if (worker) worker.style.display = 'none';
         if (panorama) panorama.style.display = 'none';
