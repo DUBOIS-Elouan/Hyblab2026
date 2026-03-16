@@ -14,7 +14,7 @@
       {"type" : "paragraph", "content" : "Des ruisseaux protégés, une réserve naturelle… et à quelques kms, une mine à ciel ouvert qui déverse dans la nature des métaux lourds jusqu’à 60 fois supérieures aux valeurs guides."}
       ],
       [{ "type" : "paragraph", "content" : "« La mine d’Imérys utilise la réserve naturelle régionale comme <b>station d’épuration </b>» résument certains riverains de Glomel."},
-      {"type" : "img", "content": "img/mainDraw.jpg"}
+      {"type" : "img", "content": "img/MINE.png"}
       ],
       [{ "type" : "paragraph", "content" : "La présence élevée d’arsenic et de cadmium, deux substances <b>cancérigènes, mutagènes et reprotoxiques </b>, n’a pourtant jamais été signalée aux habitants par Imerys. "},
       { "type" : "paragraph", "content" : "Imérys cache ses impacts réels sous des formules ambiguës, déclarant même n’avoir aucun impact."}
@@ -58,13 +58,14 @@
       [{"type" : "title", "content" : "Dans les côtes d’Armor, Imerys mine la démocratie locale"},
       {"type" : "paragraph", "content" : "Imerys a annoncé vouloir étendre son exploitation, et creuser une nouvelle fosse. Le soutien à Imerys est un enjeu fort des élections municipales et une source de tensions au sein de la population."}
       ],
-      [{ "type" : "paragraph", "content" : "« La population locale se divise donc entre ceux qui défendent les emplois et ceux qui s’opposent aux nuisances de la mine."},
-      {"type" : "img", "content": "img/mainDraw.jpg"}
+      [{ "type" : "paragraph", "content" : "« <b>La population locale se divise</b> donc entre ceux qui défendent les emplois et ceux qui s’opposent aux nuisances de la mine."},
+      {"type" : "img", "content": "img/homme_veste_orange.jpg"}
       ],
-      [{ "type" : "paragraph", "content" : "Imerys soigne son image locale : subventions aux associations, dont celle qui gère la réserve naturelle, et prétend abonder de manière significative aux budgets des collectivités locales pour s’assurer le soutien de la mairie."}
+      [{ "type" : "paragraph", "content" : "Imerys <b>soigne son image locale</b> : subventions aux associations, dont celle qui gère la réserve naturelle, et prétend abonder de manière significative aux budgets des collectivités locales pour <b>s’assurer le soutien de la mairie.</b>"},
+        {"type" : "img", "content": "img/foot.jpg"}
       ],
       [{
-        "type" : "paragraph", "content" : "La multinationale détient aussi 565 hectares, soit 10 % des terres agricoles de la commune, dont une partie est louée à des agriculteurs. Un moyen de pression potentiel."
+        "type" : "paragraph", "content" : "La multinationale détient aussi 565 hectares, soit 10 % des terres agricoles de la commune, dont une partie est louée à des agriculteurs. <b>Un moyen de pression potentiel.</b>"
       },
       {
         "type": "paragraph", "content":"Pour faciliter l’exploitation d’Imerys, rien ne semble impossible : détourner des routes, effacer un hameau, déplacer des lignes électriques ou transférer des milliers de m³ d’eau entre bassins versants."

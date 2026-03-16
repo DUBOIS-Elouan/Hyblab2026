@@ -268,9 +268,7 @@ body{
   letter-spacing: 0.05em;
 }
 #btn-download {
-  position: absolute;
-  bottom: 11%;
-  left: 0;
+    padding-top: 35%;
 }
 .icon-flag {
     width: 32px;
@@ -322,8 +320,9 @@ h3 {
 /* Swiper slider. Need to fill the container */
 #mySwiper {
     width: 100vw;
-    height: 100vh;
+    height: 96vh;
     position: absolute;
+    top: 5vh;
 }
 /* Navigation buttons */
 
@@ -418,7 +417,7 @@ h3 {
     width:40vw;
     height: auto;
     position:absolute;
-    top:-40vh;
+    top:-15vh;
 }
 /* Last slide image is centered */
 #img-fini{
@@ -438,7 +437,7 @@ h3 {
 #bandeau {
     width:100vw;
     position: absolute;
-    bottom: 0vh;
+    bottom: 8vh;
     background-color: white;
     font-size: 20%;
   }
@@ -509,6 +508,7 @@ body{
     font-style: normal;
     font-weight: normal;
     color: black;
+    background-size: 100vw auto;
     
 }
 #instagram-header{
@@ -534,7 +534,7 @@ body{
     flex: 1;
     width: 85vw;
     height: 85vw;
-    text-align: justify;
+    text-align: left;
     font-size: 20px;
     position: absolute;
     top: 20vh;
@@ -695,7 +695,7 @@ body{
 /* Content pour la pop up qui a les infos approfondis des bullets points */
 .bottom-sheet {
   position: absolute;
-  bottom: 30vh;
+  bottom: 35vh;
   left: 2.5vw;
   width: 95vw;
   padding-bottom: 16px;
@@ -738,7 +738,7 @@ body{
     position: absolute;
 }
 .bottom-sheet .content {
-    text-align: justify;
+    text-align: left;
     color:white;
     font-size: 30%;
     height: calc(100vh - 80px); /* 100% du sheet moins la handle-bar */
@@ -817,12 +817,13 @@ body{
 /* ---- Slide d'ouverture vers d'autres articles -----*/
 
 .last-page-content {
-    width: 100vw;
+    width: 94vw;
     flex: 1;
-    padding-top: 3vh;
+    padding-top: 7vh;
     min-height: 0;
+    padding-left: 3%;
+    padding-right: 3%;
 }
-
 .author-credits {
     font-size: 0.7rem;
     color: #666;

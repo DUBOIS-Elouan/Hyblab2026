@@ -41,6 +41,7 @@ const animateSheetText = function(content) {
   content.addEventListener('scroll', updateWords);
   updateWords();
 };
+
 // async init function (because of the awaits on fetches)
 const addExtend = async function(swiper){
   const sheets = document.querySelectorAll('.bottom-sheet');
@@ -66,8 +67,8 @@ const addExtend = async function(swiper){
     let isOpen=false;
     let isDone=false;
 
-
-    
+    let slide =sheet.parentElement
+    slide.addEventListener('scroll', () => {console.log("yes")})
     //pour le téléphone portable
     sheet.addEventListener('scroll', () => {swiper.allowTouchMove = false;});
     sheet.addEventListener('scroll', () => {swiper.allowTouchMove = true;});
