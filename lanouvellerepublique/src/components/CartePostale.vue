@@ -47,9 +47,24 @@
                                     fill="#E815B2"
                                 />
                             </svg>
+<<<<<<< Updated upstream
                             <p>{{ description.split('.')[0] }}.</p>
+=======
+                            <p>{{ description }}</p>
+                            <p class="aurelien">Aurélien</p>
+>>>>>>> Stashed changes
                         </div>
                         <div class="localisation">
+                            <div v-if="displayBadges.length" class="localisation-badges">
+                                <img
+                                    v-for="(badge, i) in displayBadges"
+                                    :key="`back-${badge.key}`"
+                                    class="localisation-badge"
+                                    :src="badge.src"
+                                    :alt="badge.key"
+                                    :style="rotateBadge(i)"
+                                />
+                            </div>
                             <p class="nom">{{ nom }}</p>
                             <p class="adresse">{{ adresse }}</p>
                         </div>
@@ -357,6 +372,27 @@ const adresse = computed(() => props.address)
     font-weight: 400;
     line-height: 20px;
 }
+
+.localisation-badges {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-right: 0.15rem;
+}
+
+.localisation-badge {
+    width: 50px;
+    height: 50px;
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.localisation-badge + .localisation-badge {
+    margin-left: -12px;
+}
+
 .localisation p {
     padding-top: 0.7rem;
     border-bottom: 0.5px solid #e815b2;
@@ -387,6 +423,15 @@ const adresse = computed(() => props.address)
 .retourner-carte svg {
     width: 14px;
     height: 14px;
+}
+
+.aurelien {
+    color: var(--TMV-Rose, #E815B2);
+    font-family: Abordage;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 153.846% */
 }
 
 @media (prefers-reduced-motion: reduce) {
