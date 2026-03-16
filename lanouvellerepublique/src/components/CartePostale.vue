@@ -31,15 +31,17 @@
             </div>
             <div v-else class="carte-dos">
                 <div class="catch-phrase">
+                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.67699 0.805716C5.03778 2.77905 4.69227 5.61905 4.64044 9.32571C4.45378 9.35238 4.16045 9.36571 3.76045 9.36571C3.06712 9.36571 2.38708 9.27238 1.72034 9.08571C1.0536 8.89905 0.480151 8.61905 0 8.24571C0.132793 6.91238 0.39886 5.43238 0.798201 3.80571C1.19754 2.17905 1.77036 0.912382 2.51666 0.00571416C3.02332 -0.0209522 3.57001 0.0457144 4.15674 0.205714C4.77014 0.365715 5.27689 0.565716 5.67699 0.805716ZM11.877 0.805716C11.2378 2.77905 10.8923 5.61905 10.8404 9.32571C10.6538 9.35238 10.3605 9.36571 9.96045 9.36571C9.26712 9.36571 8.58708 9.27238 7.92034 9.08571C7.2536 8.89905 6.68015 8.61905 6.2 8.24571C6.33279 6.91238 6.59886 5.43238 6.9982 3.80571C7.39754 2.17905 7.97036 0.912382 8.71666 0.00571416C9.22332 -0.0209522 9.77001 0.0457144 10.3567 0.205714C10.9701 0.365715 11.4769 0.565716 11.877 0.805716Z" fill="#E815B2"/>
+                    </svg>
                     <p>{{ description }}</p>
                 </div>
                 <div class="localisation">
                     <p class="nom">{{ nom }}</p>
                     <p class="adresse">{{ adresse }}</p>
-                    <p class="code-postal">{{ codePostal }}</p>
                 </div>
             </div>
-            <slot />          
+            <slot />
         </div>
         <div class="retourner-carte" @click="toggleCard">
             <p>Retourner la carte</p>
@@ -73,6 +75,10 @@ const props = defineProps({
         default: false,
     },
     address: {
+        type: String,
+        default: "",
+    },
+    catch_phrase: {
         type: String,
         default: "",
     },
@@ -135,11 +141,6 @@ const displayBadges = computed(() => {
         .filter((badge) => badge.src)
 })
 
-const displayImage = computed(() => {
-    if (!props.image) return ""
-    return encodeURI(String(props.image))
-})
-
 const rotateBadge = (index) => {
     const rotation = index % 2 === 0 ? "-10deg" : "10deg"
     return {
@@ -154,10 +155,9 @@ const toggleCard = () => {
     isFlipped.value = !isFlipped.value
 }
 
-const description = "blabla"
+const description = computed(() => props.catch_phrase)
 const nom = computed(() => props.title)
 const adresse = computed(() => props.address)
-const codePostal = "37000"
 </script>
 
 <style scoped>
@@ -268,13 +268,48 @@ const codePostal = "37000"
     inset: 8px;
 
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
 
     border-radius: 13.179px;
     background-color: #fffcf8;
 
     padding: 8px;
+}
+
+.catch-phrase{
+    margin: 2.5rem 1rem;
+    width: 60%;
+
+    border-right: 0.5px solid #E815B2;
+
+    flex: 1 0 0;
+    color: #000;
+    font-family: Abordage;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+.catch-phrase p {
+    padding: 0.4rem;
+}
+.localisation{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 2.5rem 1rem 2.5rem 0rem;
+    width: 40%;
+
+    color: #000;
+    font-family: Abordage;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+.localisation p {
+    padding-top: 0.7rem;
+    border-bottom: 0.5px solid #E815B2;
 }
 
 .retourner-carte {
