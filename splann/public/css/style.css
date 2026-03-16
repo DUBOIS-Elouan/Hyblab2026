@@ -168,7 +168,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 70px;
     background-color: #000000;
     display: flex;
@@ -178,7 +178,12 @@ body{
     box-sizing: border-box;
     z-index: 2000;
 }
-
+.dessinPrincipale{
+    position: absolute; 
+    width: 100vw; 
+    height: 100vh; 
+    object-fit: cover;
+}
 .logo-splann {
     height: 50px;
     cursor: pointer;
@@ -203,7 +208,27 @@ body{
 .btn-icon:hover {
     opacity: 0.7;
 }
+#btn-export {
+  position: relative;
+}
 
+#btn-export::after {
+  content: 'Export';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: white;
+  opacity: 0.6;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+#btn-download {
+  position: absolute;
+  bottom: 11%;
+  left: 0;
+}
 .icon-flag {
     width: 32px;
     height: 32px;
@@ -214,24 +239,21 @@ body{
     display: block;
 }
 
-p {
-    font-size: 15%;
+h3 {
+    font-size:20%;
 }
 
-h3, h2 {
+#content-slide > h2 {
+    top:20vh;
+    position:absolute;
     font-size:20%;
 }
 
 #topBar {
     background-color: black;
-    height: 10%;
-    top:0%;
+    height: 10vh;
+    top:0vh;
     z-index: 5;
-}
-
-#extended-content {
-    background-color: black;
-    text-decoration-color: white;
 }
 /* -------------- Loader --------------*/
 #loader{
@@ -240,8 +262,8 @@ h3, h2 {
 }
 
 #loader-img{
-    top:40%;
-    left:40%;
+    top:40vh;
+    left:40vw;
     position: absolute;
 }
 
@@ -249,17 +271,18 @@ h3, h2 {
     text-align: center;
     font-size: 25%;
     position: absolute;
-    top:60%;
-    width: 100%
+    top:60vh;
+    width: 100vw
 }
 /* -------------- End of Loader --------------*/
 
 /* Swiper slider. Need to fill the container */
-#mySwiper{
-    width: 100%;
-    height:90%;
+#mySwiper {
+    width: 100vw;
+    height: 100vh;
     position: absolute;
 }
+/* Navigation buttons */
 
 .swiper-button-next,
 .swiper-button-prev {
@@ -270,6 +293,18 @@ h3, h2 {
     position: top;
 }
 
+#content-slide > .swiper-button-next, #title-slide-2 > .swiper-button-next {
+    background: none;
+    color: #000000 !important;
+    border-radius: 4px;
+    position: sticky;
+    right: 2vw !important;
+    position: absolute;
+    width: 3vw;
+    height: auto;
+    animation: slideRight 1.4s ease-in-out infinite;
+}
+
 .swiper-button-next:after,
 .swiper-button-prev:after {
     font-size: 20px;
@@ -277,7 +312,7 @@ h3, h2 {
 
 /* white navigation bullets */
 .swiper-pagination {
-    bottom: 108px !important;
+    bottom: 20vh !important;
 }
 
 .swiper-pagination.hidden {
@@ -289,77 +324,67 @@ h3, h2 {
 }
 .swiper-pagination-bullet-active {
     background-color: red !important;
-    bottom:5% !important;
+    bottom:5vh !important;
 }
 
 /* the slides and the loader should fill the whole 9:16 zone */
 .swiper-wrapper section, #loader{
-    background-color: dodgerblue;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+}
+
+#loader{
+    background-color: #1E1E1E;
 }
 
 #title-slide header{
     font-size: 40%;
-    bottom: 25%;
+    bottom: 25vh;
     position: absolute;
-    margin: 5%;
+    margin: 5vh;
     z-index:2;
-    width: 50%;
+    width: 50vw;
     font-family: 'Albert Sans', sans-serif;
     font-weight: bold;
     color: #FF5262 !important;
 }
 
 .imgPrincipale {
-    width: 100%;
-    height: 125%;
+    width: 100vw;
+    height: 100vh;
     text-align: center;
-    bottom: -25%;
-    left: 0%;
-    margin-top: calc(-7.5% * 9 / 16);
+    bottom: 0vh;
+    left: 0vw;
+    margin-top: calc(-7.5vh * 9 / 16);
     position: absolute;
     z-index: 1;
 }
 
 #credit-slide header{
     text-align: left;
-    width: 100%;
-    top: 10%;
+    width: 100vw;
+    top: 10vh;
     position: absolute;
     font-size: 30%;
     font-family: 'Albert Sans';
     z-index: 2;
 }
 
-.chapeau {
-    font-size:150%;
-    text-align: left;
-    top: 100%;
-    position: absolute;
-}
-
 .logo-splann-slide{
     z-index: 11!important;
-    width:40%;
+    width:40vw;
     height: auto;
     position:absolute;
-    top:-40%;
+    top:-40vh;
 }
 /* Last slide image is centered */
 #img-fini{
-    width: 50%;
-    left: 50%; /* center the logo, in interaction with the negative margin-left */
-    top: 40%;
+    width: 70vw;
+    left: 50vw; /* center the logo, in interaction with the negative margin-left */
+    top: 40vh;
     position: absolute;
-    margin-left:-25%; /* this is half the width */
-    margin-top:calc(-25% * 9 / 16 ); /* margins are relative to the element width... :-( */
-}
-
-main > section{
-    background-image: url('../img/background.svg');
-    background-size: 100% auto; /* background is full width and height is proportional to width */
-    background-position: bottom; /* background is bottom aligned */
+    margin-left:-35vw; /* this is half the width */
+    margin-top:calc(-25vh * 9 / 16 ); /* margins are relative to the element width... :-( */
 }
 
 
@@ -368,9 +393,9 @@ main > section{
 /* so we cannot use % and use em (which are proportional to the size of the */
 /* slide because of body's font size rule at the end of this CSS           */
 #bandeau {
-    width:100%;
+    width:100vw;
     position: absolute;
-    bottom: 0;
+    bottom: 0vh;
     background-color: white;
     font-size: 20%;
   }
@@ -419,7 +444,7 @@ main > section{
 /* When the aspect ratio is smaller that 3/4, display a 3/4 content */
 #container{
     position: fixed; /* To set the size of the container to 100% of the visible viewport height AND for absolute positioning of child elements*/ 
-    height: 100%;   /* even on mobile devices with url or navigation bars */
+    height: 100vh;   /* even on mobile devices with url or navigation bars */
     margin-left: calc((100vw - 100 * 3vh / 4) / 2); /* Add black bands on left and right */
     width: calc(100 * 3vh / 4); /* Force 3/4 aspect ratio */
     margin-top: 70px; /*pour  Pour que le contenu ne soit pas caché sous le header */
@@ -431,6 +456,168 @@ main > section{
 body{
     font-size: calc(15vh * 3 / 4);
 }
+
+#content-slide, #title-slide-2, #instagram-box, #last-slide{
+    position: relative;
+    display: flex; 
+    flex-direction: column;
+    background-image: url("../img/degrade_fond_blanc.png");
+    font-family: "Albert Sans", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: black;
+    
+}
+#instagram-header{
+    width: 75vw;
+    margin-bottom: 40px  ;
+    text-align: left;
+    flex-shrink: 0;
+    font-weight:bold;
+    font-size: 30px;
+
+}
+#instagram-header p{
+    font-size: 20px;
+}
+
+#instagram-detail{
+    align-items: flex-start;
+}
+
+#instagram-content {
+    padding-left: 7vw;
+    min-height: 0;
+    flex: 1;
+    width: 85vw;
+    height: 85vw;
+    text-align: justify;
+    font-size: 20px;
+    position: absolute;
+    top: 20vh;
+}
+#instagram-content p{
+    font-size: 20px;
+    margin-bottom: 10vh;
+}
+.illustration{
+    max-width:42vh;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(231, 101, 101, 0.2);
+}
+/* Swipe hint on the right of the screen */
+.swipe-hint {
+  position: absolute;
+  right: 10px;        /* distance du bord gauche */
+  top: 50vh;          /* milieu vertical */
+  transform: translateY(-50vh);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  animation: trail 1.4s ease-in-out infinite;
+}
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.30s; }
+
+@keyframes trail {
+  0%   { opacity: 0; transform: scale(0.5); }
+  40%  { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+.arrow {
+  width: 30px;
+  animation: slideRight 1.4s ease-in-out infinite;
+}
+
+@keyframes slideRight {
+  0%   { transform: translateX(-6px); opacity: 0.6; }
+  50%  { transform: translateX(6px);  opacity: 1; }
+  100% { transform: translateX(-6px); opacity: 0.6; }
+}
+
+.label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+#titleHighlight, #instagram-content > p > b {
+  font-weight: 700;
+  color: #111;
+  
+  /* Le dégradé remplace le SVG : rouge en bas, transparent en haut */
+  background-image: linear-gradient(
+    to bottom,
+    transparent 45%,
+    rgba(232, 71, 74, 0.45) 45%,
+    rgba(232, 71, 74, 0.55) 100%
+  );
+  background-repeat: no-repeat;
+  
+  /* Démarre à 0% de large, pleine hauteur */
+  background-size: 0% 100%;
+  
+  padding: 0 3px 2px 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  
+  animation: fillHighlight 0.6s ease forwards;
+}
+
+@keyframes fillHighlight {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+
+/* ── TITLE BAR ── */
+.title-bar {
+    margin-top: 10px ;
+    padding-left: 7%;
+    flex-shrink: 0;
+    width: 87vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    background: var(--white);
+    z-index: 50;
+    top: 5vh;
+    position: absolute;
+}
+.title-bar h2 {
+    font-family: "Albert Sans", sans-serif;
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: #8E8E8E;
+    line-height: 1.35;
+    max-width: 76vw;
+}
+.progress-badge {
+    background: #0d0d0d;
+    color: #f5f3ef;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    position: absolute;
+    right: 0vw
+}
+
 
 /* Fill the whole viewport when its aspect ratio is between 9/16 and 3/4 */
 @media screen and (max-aspect-ratio: 3/4) {
@@ -465,70 +652,132 @@ body{
 /* Content pour la pop up qui a les infos approfondis des bullets points */
 .bottom-sheet {
   position: absolute;
-  bottom: 0%;
-  left: 0%;
-  width: 100%;
+  bottom: 30vh;
+  left: 2.5vw;
+  width: 95vw;
   padding-bottom: 16px;
-  background: black;
+  background: #1E1E1E;
   border-radius: 16px 16px 0 0;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
   max-height: 75vh;
   display: flex;
   flex-direction: column;
   z-index: 101;
-  
+
   /* Caché : on ne montre que la barre du haut (60px) */
-  transform: translateY(calc(100% - 60px));
+  transform: translateY(calc(100vh - 60px));
   transition: transform 0.4s ease;
 }
 
 .bottom-sheet.open {
   transform: translateY(0);
+  bottom:0vh;
+}
+
+.bottom-sheet .content .word {
+  display: inline-block;
 }
 
 .handle-bar {
-  color: black;
-  height: 60px;
+  color: #1E1E1E;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
-.bottom-sheet .content {
-  color:white;
-  font-size: large;
-  height: calc(100% - 60px); /* 100% du sheet moins la handle-bar */
-  overflow-y:auto;
-  padding: 16px;
+
+#handle-bar-text{
+    color: white;
+    font-weight: bold;
+    font-size: 40%;
+    top: 5vh;
+    position: absolute;
 }
+.bottom-sheet .content {
+    text-align: justify;
+    color:white;
+    font-size: 30%;
+    height: calc(100vh - 80px); /* 100% du sheet moins la handle-bar */
+    overflow-y:auto;
+    padding: 16px;
+}
+
+.content > p {
+    margin-bottom: 5vh;
+}
+
+.content > p > b {
+    font-weight: bolder;
+    color:#FF5262;
+}
+
+.content > a {
+    color: white;
+    z-index: 10;
+    width: 50vw;
+    display: block;
+    margin-left: 12vw;
+    text-align: center;
+    background: #FF5262;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 9999px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    font-size: 66%;
+    border: 0.5em solid #8e3a3f;
+    position: relative;
+    bottom: 3vh;
+}
+
+#extended-content-title {
+    text-align: center;
+    color: #FF5262;
+    margin-top: 5vh;
+    font-weight: bold;
+    margin-bottom: 10vh;
+    font-size:110%;
+}
+
 .toggle-btn {
-  color: white;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  transition: rotate 0.3s ease;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    transition: rotate 0.3s ease;
+    position: absolute;
+    top: -4vh;
+    width: 100vw;
+    height: auto;
+    left: -2vw;
 }
 
 .bottom-sheet.open .toggle-btn {
   rotate: 180deg;
 }
 
-/* ---- Slide d'ouverture vers d'autres articles -----*/
-
-#last-page {
-    background-color: white !important;
-    color: #1a1a1a;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    box-sizing: border-box;
-    overflow-y: auto;
+.bottom-sheet.done .toggle-btn {
+  rotate: 0deg !important;
 }
 
+#degrade-extended{
+    width: 100vw;
+    bottom: 0%;
+    position: absolute;
+    left: 0vw;
+}
+
+/* ---- Slide d'ouverture vers d'autres articles -----*/
+
 .last-page-content {
-    width: 100%;
-    margin-top: 20px;
+    width: 100vw;
+    flex: 1;
+    padding-top: 3vh;
+    min-height: 0;
 }
 
 .author-credits {
@@ -546,17 +795,6 @@ body{
     font-weight: bold;
 }
 
-#last-page b::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 3px;
-    width: 100%;
-    height: 8px;
-    background-color: #FD707D; 
-    z-index: -1;
-    opacity: 0.8;
-}
 
 .section-title {
     font-size: 1.3rem;
@@ -604,7 +842,7 @@ body{
 
 .card-img {
     width: 80px;
-    height: 100%;
+    height: 100vh;
     background-size: cover;
     background-position: center;
 }
