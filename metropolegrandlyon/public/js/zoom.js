@@ -163,7 +163,7 @@ frames_gif3.forEach(src => { const img = new Image(); img.src = src; });
 /* Préchargement images Bio */
 [
     'img/bio/IMAGE-PARC-FOND.png',
-    'img/bio/écolier_01.png',
+    'img/bio/ecolier_01.png',
     'img/bio/ARBRE_01.png',
     'img/bio/ARBRE_02.png',
     'img/bio/arbre_04.png',
@@ -222,21 +222,42 @@ let scrollCible = 0;
 let scrollActuel = 0;
 const VITESSE_MAX = 18;
 
-window.addEventListener("scroll", () => {
-    scrollCible = window.scrollY;
-    cacherFleche();
-    clearTimeout(timerFleche);
-    timerFleche = setTimeout(montrerFleche, 2000);
-});
+function bloquerScroll(e) { e.preventDefault(); }
 
-(function boucle() {
-    const delta = scrollCible - scrollActuel;
-    scrollActuel = Math.abs(delta) > 0.5
-        ? scrollActuel + Math.sign(delta) * Math.min(Math.abs(delta), VITESSE_MAX)
-        : scrollCible;
-    majScene(scrollActuel);
-    requestAnimationFrame(boucle);
-})();
+window.addEventListener('wheel', bloquerScroll, { passive: false });
+window.addEventListener('touchmove', bloquerScroll, { passive: false });
+
+setTimeout(() => {
+    // fade out the loader "slide"
+    // and send it to the back (z-index = -1)
+    anime({
+        delay: 0,
+        targets: '#loader',
+        opacity: '0',
+        'z-index': -1,
+        easing: 'easeOutQuad',
+    });
+
+    window.removeEventListener('wheel', bloquerScroll);
+    window.removeEventListener('touchmove', bloquerScroll);
+
+    window.addEventListener("scroll", () => {
+        scrollCible = window.scrollY;
+        cacherFleche();
+        clearTimeout(timerFleche);
+        timerFleche = setTimeout(montrerFleche, 2000);
+    });
+
+    // Init first slide
+    (function boucle() {
+        const delta = scrollCible - scrollActuel;
+        scrollActuel = Math.abs(delta) > 0.5
+            ? scrollActuel + Math.sign(delta) * Math.min(Math.abs(delta), VITESSE_MAX)
+            : scrollCible;
+        majScene(scrollActuel);
+        requestAnimationFrame(boucle);
+    })();
+}, 5000);
 
 /* ════════════════════════════════════
    BOUCLE SCÈNE PRINCIPALE
@@ -325,13 +346,13 @@ function majScene(s) {
             ecolier.classList.add("visible");
             ecolier.style.transform = `translateY(${-av(s, scrollDebutEcolier, scrollDebutEcolier + 100) * 30}vh)`;
             TXT("musee_int");
-            txt.style.opacity = lerp(0,1,av(s, scrollDebutEcolier, scrollDebutEcolier + 100))
+            txt.style.opacity = lerp(0, 1, av(s, scrollDebutEcolier, scrollDebutEcolier + 100))
             txt.style.top = "10vh";
         }
-        if (s > scrollDebutEcolier + 200 && s < scrollDebut_pano){
+        if (s > scrollDebutEcolier + 200 && s < scrollDebut_pano) {
             txt.style.opacity = 1;
         }
-        
+
     } else {
         imgVille.style.opacity = '0';
     }
@@ -389,10 +410,10 @@ function majScene(s) {
         toggle(labelApres, arbreDisp);
 
         if (arbreDisp) {
-            if (s <= sM){
+            if (s <= sM) {
                 TXT("ville_int");
             }
-            
+
             txt.style.opacity = 1;
             txt.style.top = '4vh';
 
@@ -412,7 +433,7 @@ function majScene(s) {
             avant.style.transform = `translateY(${tY}%)`;
             apres.style.transform = `translateY(${tY}%)`;
             separateur.style.transform = `translateY(${tY}%)`;
-            txt.style.opacity = lerp(1,0,tY);
+            txt.style.opacity = lerp(1, 0, tY);
 
         } else {
             apres.style.clipPath = 'inset(0 100% 0 0)';
@@ -466,9 +487,9 @@ function majScene(s) {
 
         const pZoom2 = av(s, sM_zoom2, sM_zoom2Fin);
         if (pZoom2 > 0) {
-        txt.style.opacity = 1;
-        txt.style.top = '10vh';
-        txt.style.backgroundColor = 'white';
+            txt.style.opacity = 1;
+            txt.style.top = '10vh';
+            txt.style.backgroundColor = 'white';
             const scaleZ = lerp(1, 2.5, pZoom2);
             const originY = window.innerHeight + offsetFinal;
             sceneMaison.style.transformOrigin = `50% ${originY}px`;
@@ -551,9 +572,9 @@ function majScene(s) {
         txt.style.backgroundColor = 'white';
 
         majBio(s);   // maintient les positions finales des éléments bio
-        const pFadeOut = av(s, sC_fadeDebut+500, sC_fadeFin);
+        const pFadeOut = av(s, sC_fadeDebut + 500, sC_fadeFin);
         sceneBio.style.opacity = lerp(1, 0, pFadeOut);
-        txt.style.opacity = lerp(1, 0, pFadeOut);
+        txt.style.opacity = lerp(1, 0, pFadeOut - 0.1);
 
         /* Scène camion entre en fondu simultanément */
         if (sceneCamion) {
@@ -738,7 +759,7 @@ function majCamion(progress) {
         if (finScene) finScene.style.display = 'none';
 
     } else if (progress < 1.00) {
-        txt.style.opacity=0;
+        txt.style.opacity = 0;
         const t = (progress - 0.90) / 0.10;
         truckX = lerp(halfOutX, halfOutX + truckW / 2, t);
         panX = maxPan;
@@ -905,7 +926,7 @@ function majCamion(progress) {
         workerOpacity = 0;
         workerY = 30;
 
-        for(const int of listInt)  {
+        for (const int of listInt) {
             int.style.display = 'none';
         }
 
@@ -930,10 +951,10 @@ function majCamion(progress) {
             el.style.transform = `translateY(${(1 - t) * 50}px)`;
         });
 
-        for(const int of listInt)  {
+        for (const int of listInt) {
             int.style.display = 'block';
         }
-        
+
 
         truckX = halfOutX + truckW;
         panX = maxPan;
