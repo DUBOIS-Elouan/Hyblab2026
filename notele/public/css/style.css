@@ -327,7 +327,7 @@ main {
 .creditButton{
     /* display: none; */
     position: absolute;
-    bottom: 3%;
+    bottom: 8%;
     left: 3%;
     background-color: #8A38F5;
     color: white;

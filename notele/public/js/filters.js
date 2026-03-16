@@ -38,7 +38,7 @@ function filter(e){
 }
 
 function surprise(){
-    const chosenPinNumber = Math.floor(Math.random() * 15) + 1;
+    const chosenPinNumber = Math.floor(Math.random() * entreprises.length) + 1;
     entreprises.forEach((entreprise) =>{
         const entrepriseDiv = document.getElementById("E"+String(entreprise.id))
         if (entreprise.id == chosenPinNumber){
