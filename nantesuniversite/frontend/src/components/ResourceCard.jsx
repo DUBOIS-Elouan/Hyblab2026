@@ -33,6 +33,7 @@ export default function ResourceCard({
   top,
   description = null,
   onClick,
+  onMouseEnter,
 }) {
   //const color = CATEGORY_COLORS[category.split(" ")[0].toLowerCase()] ?? "#3552ff";
   const isVideoCategory = ["conférence", "podcast", "table ronde"].includes(
@@ -53,6 +54,7 @@ const color = isVideoCategory
       className="class-resource-card"
       style={{ left, top, cursor: onClick ? "pointer" : "default" }}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
     >
       {/* Pictogram pinned to top-left */}
       <img

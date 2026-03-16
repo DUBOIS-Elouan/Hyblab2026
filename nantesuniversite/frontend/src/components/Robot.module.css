@@ -5,30 +5,49 @@
   isolation: isolate;
 }
 
-.robotShellStage0 .robotShellHalo {
-  opacity: 0.42;
-  transform: translate(-50%, -50%) scale(0.86);
+.robotSpeech {
+  position: relative;
+  width: 220px;
+  padding: 14px 16px;
+  border: 1px solid rgba(64, 112, 255, 0.18);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #1530b3;
+  font-size: 15px;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(17, 38, 133, 0.16);
+  backdrop-filter: blur(8px);
+  animation: speechBubbleIn 220ms ease-out;
+  z-index: 5;
 }
 
-.robotShellStage1 .robotShellHalo {
-  opacity: 0.62;
-  transform: translate(-50%, -50%) scale(1);
+.robotSpeech::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  border-right: 1px solid rgba(64, 112, 255, 0.18);
+  border-bottom: 1px solid rgba(64, 112, 255, 0.18);
+  transform: translateY(-50%) rotate(-45deg);
 }
 
-.robotShellStage2 .robotShellHalo {
-  opacity: 0.82;
-  transform: translate(-50%, -50%) scale(1.14);
+.robotSpeechMirrored {
+  /* positioning is handled by the speechRootRef container — only the notch direction changes */
 }
 
-.robotShellStage1 .robotShellRingInner,
-.robotShellStage2 .robotShellRingInner {
-  animation: driftRing 6s linear infinite;
+.robotSpeechMirrored::after {
+  right: auto;
+  left: -8px;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 1px solid rgba(64, 112, 255, 0.18);
+  border-top: 1px solid rgba(64, 112, 255, 0.18);
 }
 
-.robotShellStage2 .robotShellRingOuter {
-  opacity: 0.42;
-  animation: driftRing 8s linear infinite reverse;
-}
 
 .robotShellMotion {
   position: absolute;
@@ -36,8 +55,22 @@
   z-index: 2;
 }
 
-.robotShellHalo,
-.robotShellRing,
+.robotShellForm {
+  position: absolute;
+  inset: 0;
+}
+
+.robotShellFormInner {
+  position: absolute;
+  inset: 0;
+}
+
+.robotShellMirror {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(-1);
+}
+
 .robotShellShadow {
   position: absolute;
   inset: 50% auto auto 50%;
@@ -56,33 +89,6 @@
   z-index: 0;
 }
 
-.robotShellHalo,
-.robotShellRing {
-  border-radius: 999px;
-}
-
-.robotShellHalo {
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(96, 203, 235, 0.36) 0%, rgba(96, 203, 235, 0.08) 55%, rgba(96, 203, 235, 0) 100%);
-  filter: blur(10px);
-  opacity: 0.55;
-}
-
-.robotShellRing {
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  opacity: 0.24;
-}
-
-.robotShellRingInner {
-  width: 110px;
-  height: 110px;
-}
-
-.robotShellRingOuter {
-  width: 148px;
-  height: 148px;
-}
 
 .robotShellPart {
   position: absolute;
@@ -95,12 +101,15 @@
   -webkit-user-drag: none;
 }
 
-@keyframes driftRing {
+
+@keyframes speechBubbleIn {
   from {
-    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0;
+    transform: translate3d(10px, 8px, 0) scale(0.96);
   }
 
   to {
-    transform: translate(-50%, -50%) rotate(360deg);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }

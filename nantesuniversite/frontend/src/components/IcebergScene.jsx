@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -81,14 +81,88 @@ const CARD_POSITIONS = [
 // ───────────────────────────────────────────────────────────────────────────
 
 const cardDocuments = data.researcher.documents;
+const NATURE_ORDER = ["general", "journalistique", "expert"];
+const RESOURCE_PROMPTS_BY_CATEGORY = {
+  article: "Et si on plongeait dans un article ?",
+  biographie: "Et si on faisait connaissance avec cette biographie ?",
+  conference: "On descend d'un niveau avec une conference ?",
+  livre: "Un livre pour aller plus en profondeur, ca vous tente ?",
+  podcast: "Et si on se laissait porter par un podcast ?",
+  prix: "Un prix a explorer, ca vous dit ?",
+  recherche: "On part explorer une recherche un peu plus en profondeur ?",
+};
 
+function normalizeNature(value) {
+  return value?.toLowerCase() ?? '';
+}
+
+const levelRanges = NATURE_ORDER.reduce((ranges, nature) => {
+  const tops = cardDocuments
+    .map((doc, index) => ({
+      nature: normalizeNature(doc.nature),
+      top: CARD_POSITIONS[index]?.top,
+    }))
+    .filter((entry) => entry.nature === nature && entry.top != null)
+    .map((entry) => entry.top);
+
+  if (tops.length === 0) {
+    return ranges;
+  }
+
+  const start = Math.min(...tops);
+  const end = Math.max(...tops);
+
+  ranges[nature] = {
+    start,
+    end,
+    center: Math.round((start + end) / 2),
+  };
+
+  return ranges;
+}, {});
 
 export default function IcebergScene() {
   const containerRef = useRef(null);
   const [openPopup, setOpenPopup] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
+  const [resourceInteractionTick, setResourceInteractionTick] = useState(0);
+
+  const resourcePromptByLevel = useMemo(() => {
+    const categoriesByLevel = NATURE_ORDER.reduce((accumulator, nature) => {
+      accumulator[nature] = [];
+      return accumulator;
+    }, {});
+
+    cardDocuments.forEach((doc) => {
+      const nature = normalizeNature(doc.nature);
+      if (!categoriesByLevel[nature]) {
+        return;
+      }
+
+      const category = doc.category.toLowerCase();
+      if (!categoriesByLevel[nature].includes(category)) {
+        categoriesByLevel[nature].push(category);
+      }
+    });
+
+    return Object.fromEntries(
+      Object.entries(categoriesByLevel).map(([nature, categories]) => {
+        const firstCategory = categories[0];
+        if (!firstCategory) {
+          return [nature, null];
+        }
+
+        return [nature, RESOURCE_PROMPTS_BY_CATEGORY[firstCategory] ?? "On explore cette piste ?"];
+      }),
+    );
+  }, []);
+
+  const registerResourceInteraction = () => {
+    setResourceInteractionTick((current) => current + 1);
+  };
 
   const handleCardClick = (doc) => {
+    registerResourceInteraction();
     setSelectedDoc(doc);
     setOpenPopup(true);
   };
@@ -125,7 +199,7 @@ export default function IcebergScene() {
 
   return (
     <>
-      <div ref={containerRef}>
+      <div ref={containerRef} className="relative z-20">
         <div className="absolute left-[45px] top-[775px] w-[1832px] h-[3200px]">
           <DataIceberg className="w-full h-full" />
         </div>
@@ -147,30 +221,33 @@ export default function IcebergScene() {
             title={doc.title}
             description={doc.description}
             {...CARD_POSITIONS[i]}
+            onMouseEnter={registerResourceInteraction}
             onClick={doc.url ? () => handleCardClick(doc) : undefined}
-          />;
+          />
         })}
       </div>
 
-      <Robot />
+      <Robot
+        levelRanges={levelRanges}
+        resourcePromptByLevel={resourcePromptByLevel}
+        resourceInteractionTick={resourceInteractionTick}
+        pauseResourcePrompt={openPopup}
+      />
 
       {openPopup && selectedDoc ? (
-        <Popup
-          //pictogramme={PICTOGRAMMES[selectedDoc.category.toLowerCase()]}
-          pictogramme={
-  ["conférence", "podcast", "table ronde"].includes(selectedDoc.category.toLowerCase())
-    ? videoSvg
-    : PICTOGRAMMES[selectedDoc.category.split(" ")[0].toLowerCase()]
-}
-
-
-
-
-          type={selectedDoc.type}
-          url={selectedDoc.url}
-          title={selectedDoc.title}
-          onClick={() => setOpenPopup(false)}
-        />
+        <div className="relative z-30">
+          <Popup
+            pictogramme={
+              ["conférence", "podcast", "table ronde"].includes(selectedDoc.category.toLowerCase())
+                ? videoSvg
+                : PICTOGRAMMES[selectedDoc.category.split(" ")[0].toLowerCase()]
+            }
+            type={selectedDoc.type}
+            url={selectedDoc.url}
+            title={selectedDoc.title}
+            onClick={() => setOpenPopup(false)}
+          />
+        </div>
       ) : (
         ""
       )}

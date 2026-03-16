@@ -32,7 +32,7 @@ const LINKED_RESEARCHERS = [
 
 export default function ResearcherFooter({ offset = 0 }) {
   return (
-    <>
+    <div className="relative z-20">
       {/* ── Right column: "CHERCHEURS À LA UNE" ──────────────────────────── */}
       <p
         className="absolute not-italic m-0 text-[#f9f9f9] text-[36px] leading-normal"
@@ -69,6 +69,6 @@ export default function ResearcherFooter({ offset = 0 }) {
 
       {/* ── Site footer ───────────────────────────────────────────────────── */}
       <SiteFooter top={5080 + offset} height={340} />
-    </>
+    </div>
   );
 }
