@@ -35,8 +35,17 @@
                 <div class="card-face card-face--back">
                     <div class="carte-dos">
                         <div class="catch-phrase">
-                            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.67699 0.805716C5.03778 2.77905 4.69227 5.61905 4.64044 9.32571C4.45378 9.35238 4.16045 9.36571 3.76045 9.36571C3.06712 9.36571 2.38708 9.27238 1.72034 9.08571C1.0536 8.89905 0.480151 8.61905 0 8.24571C0.132793 6.91238 0.39886 5.43238 0.798201 3.80571C1.19754 2.17905 1.77036 0.912382 2.51666 0.00571416C3.02332 -0.0209522 3.57001 0.0457144 4.15674 0.205714C4.77014 0.365715 5.27689 0.565716 5.67699 0.805716ZM11.877 0.805716C11.2378 2.77905 10.8923 5.61905 10.8404 9.32571C10.6538 9.35238 10.3605 9.36571 9.96045 9.36571C9.26712 9.36571 8.58708 9.27238 7.92034 9.08571C7.2536 8.89905 6.68015 8.61905 6.2 8.24571C6.33279 6.91238 6.59886 5.43238 6.9982 3.80571C7.39754 2.17905 7.97036 0.912382 8.71666 0.00571416C9.22332 -0.0209522 9.77001 0.0457144 10.3567 0.205714C10.9701 0.365715 11.4769 0.565716 11.877 0.805716Z" fill="#E815B2"/>
+                            <svg
+                                width="12"
+                                height="10"
+                                viewBox="0 0 12 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5.67699 0.805716C5.03778 2.77905 4.69227 5.61905 4.64044 9.32571C4.45378 9.35238 4.16045 9.36571 3.76045 9.36571C3.06712 9.36571 2.38708 9.27238 1.72034 9.08571C1.0536 8.89905 0.480151 8.61905 0 8.24571C0.132793 6.91238 0.39886 5.43238 0.798201 3.80571C1.19754 2.17905 1.77036 0.912382 2.51666 0.00571416C3.02332 -0.0209522 3.57001 0.0457144 4.15674 0.205714C4.77014 0.365715 5.27689 0.565716 5.67699 0.805716ZM11.877 0.805716C11.2378 2.77905 10.8923 5.61905 10.8404 9.32571C10.6538 9.35238 10.3605 9.36571 9.96045 9.36571C9.26712 9.36571 8.58708 9.27238 7.92034 9.08571C7.2536 8.89905 6.68015 8.61905 6.2 8.24571C6.33279 6.91238 6.59886 5.43238 6.9982 3.80571C7.39754 2.17905 7.97036 0.912382 8.71666 0.00571416C9.22332 -0.0209522 9.77001 0.0457144 10.3567 0.205714C10.9701 0.365715 11.4769 0.565716 11.877 0.805716Z"
+                                    fill="#E815B2"
+                                />
                             </svg>
                             <p>{{ description }}</p>
                         </div>
@@ -51,8 +60,20 @@
         </div>
         <div class="retourner-carte" @click="toggleCard">
             <p>Retourner la carte</p>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 1.5L10 3.5M10 3.5L8 5.5M10 3.5H2M4 10.5L2 8.5M2 8.5L4 6.5M2 8.5H10" stroke="#E815B2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M8 1.5L10 3.5M10 3.5L8 5.5M10 3.5H2M4 10.5L2 8.5M2 8.5L4 6.5M2 8.5H10"
+                    stroke="#E815B2"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
             </svg>
         </div>
     </div>
@@ -257,14 +278,14 @@ const adresse = computed(() => props.address)
     gap: 10px;
 
     border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.10);
+    background: #fff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .title {
     padding-top: 8px;
 
-    color: #E815B2;
+    color: #e815b2;
 
     font-family: Lalezar;
     font-size: 40px;
@@ -305,11 +326,11 @@ const adresse = computed(() => props.address)
     padding: 8px;
 }
 
-.catch-phrase{
+.catch-phrase {
     margin: 2.5rem 1rem;
     width: 60%;
 
-    border-right: 0.5px solid #E815B2;
+    border-right: 0.5px solid #e815b2;
 
     flex: 1 0 0;
     color: #000;
@@ -322,7 +343,7 @@ const adresse = computed(() => props.address)
 .catch-phrase p {
     padding: 0.4rem;
 }
-.localisation{
+.localisation {
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -338,7 +359,7 @@ const adresse = computed(() => props.address)
 }
 .localisation p {
     padding-top: 0.7rem;
-    border-bottom: 0.5px solid #E815B2;
+    border-bottom: 0.5px solid #e815b2;
 }
 
 .retourner-carte {
@@ -347,14 +368,14 @@ const adresse = computed(() => props.address)
     border-radius: 30px;
     padding: 12px 40px;
     gap: 5px;
-    background: #FDE8F7;
+    background: #fde8f7;
 
     margin-top: -20px;
     z-index: 1;
 }
 
 .retourner-carte p {
-    color: #E815B2;
+    color: #e815b2;
 
     font-family: "OpenSans";
     font-size: 14px;
