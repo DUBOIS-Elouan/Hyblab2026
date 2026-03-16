@@ -9,7 +9,7 @@ const CONFIG = {
   clickOpacity : 0.55,
 };
 
-// ── Global state — must be set before any module reads them ──
+// ── Global state — set before anything else runs ──
 window._completionShownOnce = false;
 window.TOTAL_OBJECTS        = 18;
 window.visitedIds           = new Set();
@@ -157,12 +157,8 @@ Popup.init();
 // ════════════════════════════════════════════════════════════════
 //  PROGRESS TRACKING
 // ════════════════════════════════════════════════════════════════
-const TOTAL_OBJECTS = 18;
-const visitedIds    = new Set();
-
-window.TOTAL_OBJECTS        = TOTAL_OBJECTS;
-window.visitedIds           = visitedIds;
-window._completionShownOnce = false;
+const TOTAL_OBJECTS = window.TOTAL_OBJECTS;
+const visitedIds    = window.visitedIds;
 
 function markVisited(id) {
   if (visitedIds.has(id)) return;

@@ -77,11 +77,25 @@ window.Popup = (() => {
   function close() {
     document.getElementById('popup-panel').classList.remove('open');
     document.getElementById('popup-backdrop').classList.remove('visible');
+
     // Stop video on close
     const iframe = document.getElementById('popup-iframe');
     if (iframe) iframe.src = '';
     _current = null;
-    // ── NO completion trigger here — handled exclusively by main.js ──
+
+    // ── Auto-open completion sheet once after the last popup closes ──
+    setTimeout(() => {
+      if (
+        window.visitedIds &&
+        window.TOTAL_OBJECTS &&
+        window.visitedIds.size >= window.TOTAL_OBJECTS &&
+        window._completionShownOnce === false &&
+        typeof window.openCompletion === 'function'
+      ) {
+        window._completionShownOnce = true;
+        window.openCompletion();
+      }
+    }, 400);
   }
 
   function getCurrent() { return _current; }
