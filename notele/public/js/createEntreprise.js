@@ -43,7 +43,7 @@ let entreprises = [
   new Entreprise(11,"PME", "Alimentaire", "Six Fumaison", ["Jobs pas comme les autres"],false),
   new Entreprise(12,"PME", "Agriculture", "Domaine Degavre", ["Jobs pas comme les autres"],false),
   new Entreprise(13,"Independant", "Commerce", "Doc Phone", ["Jobs pas comme les autres"],false),
-  new Entreprise(14,"PME", "Tech", "MyQM", ["Plot twist"],false),
+  new Entreprise(14,"PME", "Tech", "MyQM", ["Plot twist","Jobs pas comme les autres"],false),
   new Entreprise(15,"Independant", "Art", "Hélène Création", ["Boss ladies"],false),
 ];
 restaurerVus();
@@ -57,7 +57,7 @@ entreprises.forEach((entreprise) => {
     const entreprise_div = document.createElement("div");
     entreprise_div.id = "E" + String(i);
     entreprise_div.className = "entreprisePin Pin"
-    entreprise_div.onclick = displayScroll;
+    entreprise_div.onclick = () => displayScroll('scrollable_page');;
 
     const entreprise_pin = document.createElement("img");
     entreprise_pin.alt = "Pin entreprise " + entreprise.nom;
@@ -81,6 +81,14 @@ entreprises.forEach((entreprise) => {
   parentDiv.insertBefore(entreprise_div, nextDiv);
   i++;
 });
+
+for (let i = 0; i < entreprises.length ;i++){
+    if (entreprises[i].vu == true){
+        const idTxt = "E" + String(i+1)
+        const pin = document.getElementById(idTxt);
+        pin.style.filter = "brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(2266%) hue-rotate(210deg) brightness(95%) contrast(84%)";
+    }
+}
 
 window.addEventListener("load", () => {
     const pins = document.querySelectorAll(".pin-anim");

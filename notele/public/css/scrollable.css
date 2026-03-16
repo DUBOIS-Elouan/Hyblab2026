@@ -15,11 +15,6 @@
     display: none; /* Chrome/Safari */
 }
 
-.page {
-    height: 100vh;
-    scroll-snap-align: start;
-}
-
 @keyframes slideInRight {
     from { transform: translateX(-30px); opacity: 0; }
     to   { transform: translateX(0); opacity: 1; }

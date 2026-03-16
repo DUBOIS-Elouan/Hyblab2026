@@ -16,7 +16,6 @@
   <script src="js/scrollable.js" defer></script>
   <script src="js/createEntreprise.js" defer></script>
   <script src="js/pinPosition.js" defer></script>
-  <script src="js/appearances.js" defer></script>
   <script src="js/selecteur.js" defer></script>
   <script src="js/filters.js" defer></script>
   <script src="js/company.js" defer></script> 
@@ -26,7 +25,7 @@
 </head>
 <body>
 <header>
-  <img alt="logo LabelEco" src="img/logo_noir.svg" id="logo" draggable="false">
+  <a href="/notele/index.html" id="logoLink"><img alt="logo LabelEco" src="img/logo_noir.svg" id="logo" draggable="false"></a>
   <nav id="filters">
     <div class="selector-wrapper">
       <button class="selector" onclick="toggleDropdown('tailleDropdown', this)">
@@ -63,31 +62,31 @@
     <div id="pinLayer">
       <div class="villePin Pin" id="V1">
         <p>&#9679;</p>
-        <p>Comines</p>
+        <p class="villeName">Comines</p>
       </div>
       <div class="villePin Pin" id="V2">
         <p>&#9679;</p>
-        <p>Mouscron</p>
+        <p class="villeName">Mouscron</p>
       </div>
       <div class="villePin Pin" id="V3">
         <p>&#9679;</p>
-        <p>Tournai</p>
+        <p class="villeName">Tournai</p>
       </div>
       <div class="villePin Pin" id="V4">
         <p>&#9679;</p>
-        <p>Peruwiez</p>
+        <p class="villeName">Peruwiez</p>
       </div>
       <div class="villePin Pin" id="V5">
         <p>&#9679;</p>
-        <p>Lessines</p>
+        <p class="villeName">Lessines</p>
       </div>
       <div class="villePin Pin" id="V6">
         <p>&#9679;</p>
-        <p>Ath</p>
+        <p class="villeName">Ath</p>
       </div>
       <div class="villePin Pin" id="V7">
         <p>&#9679;</p>
-        <p>Enghien</p>
+        <p class="villeName">Enghien</p>
       </div>
     </div>
   </div>
@@ -96,20 +95,21 @@
     <p id="subtitle">à travers + de 150 émissions réalisées par LabelEco</p>
   </aside>
   <nav id="GenZ_filters">
-    <button onclick="filter(event)" id="B1">Plot twist</button>
-    <button onclick="filter(event)" id="B2">Affaire de famille</button>
-    <button onclick="filter(event)" id="B3">Boss ladies<span class="ruban">🎀</span></button>
-    <button onclick="filter(event)" id="B4">Surprise me</button>
-    <button onclick="filter(event)" id="B5">Jobs pas comme les autres</button>
+    <button onclick="filter(event)" id="B1" value="Plot twist">Plot twist</button>
+    <button onclick="filter(event)" id="B2" value="Affaire de famille">Affaire de famille<span class="famille-emoji">👨</span><span class="famille-emoji">👩</span><span class="famille-emoji">👧</span><span class="famille-emoji">👦</span></button>
+    <button onclick="filter(event)" id="B3" value="Boss ladies">Boss ladies<span class="ruban">🎀</span></button>
+    <button onclick="surprise()" id="B4" value="Surprise me">Surprise me</button>
+    <button onclick="filter(event)" id="B5" value="Jobs pas comme les autres">Jobs pas comme les autres</button>
   </nav>
+  <button class="creditButton" onclick="displayScroll('scrollable_page_2')">Credits</button>
 </main>
 <aside id="scrollable_page">
 
   <header class="company-header" id="companyHeader">
-    <a class="company-logo" onclick="hideScroll()" aria-label="Retour à la map" style="cursor: pointer;">
+    <a class="company-logo" onclick="hideScroll('scrollable_page')" aria-label="Retour à la map" style="cursor: pointer;">
       <img src="img/labeleco-blanc.png" alt="Logo Label Eco" draggable="false">
     </a>
-    <a class="company-back" onclick="hideScroll()" style="cursor: pointer;">Retour à la map</a>
+    <a class="company-back" onclick="hideScroll('scrollable_page')" style="cursor: pointer;">Retour à la map</a>
   </header>
 
   <div class="company-page">
@@ -351,7 +351,7 @@
 
             <div class="company-end-popup__actions">
               <a class="company-end-popup__button company-end-popup__button--primary" href="/notele/pagevideo.html">Voir la vidéo</a>
-              <a class="company-end-popup__button company-end-popup__button--primary" onclick="hideScroll(); seePin()">Retour à la carte</a>
+              <a class="company-end-popup__button company-end-popup__button--primary" onclick="hideScroll('scrollable_page')">Retour à la carte</a>
             </div>
           </div>
         </div>
@@ -361,10 +361,9 @@
 </aside>
 <aside id="scrollable_page_2">
   <div class="container">
-
     <div class="header">
-      <img class="logo-img" src="img/labelecoimg.png">
-      <a class="map-btn">Retour à la map</a>
+      <img class="logo-img" src="img/labelecoimg.png" onclick="hideScroll('scrollable_page_2')">
+      <a class="map-btn" onclick="hideScroll('scrollable_page_2')">Retour à la map</a>
     </div>
 
       <h1>Crédits</h1>
@@ -415,7 +414,6 @@
       </div>
 
     </div>
-
   </div>
 </aside>
 </body>

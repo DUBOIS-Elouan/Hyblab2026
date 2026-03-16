@@ -1,33 +1,42 @@
 
 @font-face {
-    font-family: 'Apfel Grotezk';
-    src: url('../data/Polices-Labeleco/Apfel/ApfelGrotezk-Satt.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+    font-family: Apfel;
+    src: url("../data/Polices-Labeleco/Apfel/ApfelGrotezk-Regular.otf");
 }
 
-#scrollable_page_2 *{
-    margin:0;
-    font-family: Apfel Grotezk;
-    /* background:#e5e5e5; fond gris autour */
+@font-face {
+    font-family: ApfelMittel;
+    src: url("../data/Polices-Labeleco/Apfel/ApfelGrotezk-Mittel.otf");
+}
+
+@font-face {
+    font-family: ApfelSatt;
+    src: url("../data/Polices-Labeleco/Apfel/ApfelGrotezk-Satt.otf");
 }
 
 /* page violet = 65% écran */
 #scrollable_page_2{
-    width:65vw;
+    width:65%;
     min-height:100vh;
     position: absolute;
     top: 0;
     left: 0;
-    /* display: none; */
+    display: none;
     background-color:#4b179f;
     color:white;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+
 }
 
-/* contenu interne */
 .container{
-    padding:60px 80px;
+    padding: 15px 80px 0px 15px;
+}
+
+#scrollable_page_2::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 
 /* header */
@@ -35,12 +44,12 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:60px;
 }
 
 .logo-img{
-    height:88px;
+    height: 75px;
     width:auto;
+    cursor: pointer;
     display:block;
 }
 
@@ -51,15 +60,32 @@
     text-decoration:none;
     color:white;
     font-size:14px;
+    cursor: pointer;
 }
 
 /* title */
-h1{
+#scrollable_page_2 h1{
     font-size:70px;
     margin-bottom:50px;
-    font-family: 'Apfel Grotezk', 'IvyStyle Sans', 'Segoe UI', Arial, sans-serif;
+    font-family: ApfelMittel;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+}
+
+#scrollable_page_2 h2{
+    font-size:24px;
+    font-family: Apfel;
+}
+
+#scrollable_page_2 h3{
+    font-size:18px;
+    font-family: Apfel;
+    margin: 25px 0px;
+}
+
+#scrollable_page_2 p{
+    font-size: medium;
+    font-family: Apfel;
 }
 
 /* sections */
