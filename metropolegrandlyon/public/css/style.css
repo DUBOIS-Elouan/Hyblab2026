@@ -1010,23 +1010,8 @@ body {
     position: relative
 }
 
-#PopUpTxt {
-    font-size: 15px;
-    display: block;
-    padding: 5vw;
-    color: white;
-    white-space: pre-line;
-    max-height: 60vh;
-    overflow-y: auto;
-}
-
-#PopUpTitre {
-    font-size: 25px;
-    display: block;
-    color: white;
-    white-space: pre-line;
-    max-width: 60vh;
-    overflow-y: auto;
+#PopUpTxt, #PopUpTitre {
+  font-family: 'Poppins', sans-serif;
 }
 
 #PopUpLien {
