@@ -147,7 +147,7 @@ export default function IcebergScene() {
             title={doc.title}
             description={doc.description}
             {...CARD_POSITIONS[i]}
-            onClick={doc.url ? () => handleCardClick(doc) : undefined}
+            onClick={doc.url || doc.type === "biographie" ? () => handleCardClick(doc) : undefined}
           />;
         })}
       </div>
