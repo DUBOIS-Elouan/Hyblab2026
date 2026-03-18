@@ -168,3 +168,23 @@ body {
   min-width: 48px !important;
   border-radius: 50% !important;
 }
+
+/* Modificateurs pour la vue PC (xl Tailwind = 1280px) */
+@media (min-width: 1280px) {
+  .slider-thumb-image {
+    height: 10vw;
+    min-height: 60px;
+  }
+  .slider-thumb-image::-webkit-slider-runnable-track {
+    margin-top: 4vw;
+  }
+  .slider-thumb-image::-webkit-slider-thumb {
+    margin-top: calc(-3.5vw + 0.75rem);
+    height: 8vw !important;
+    width: 8vw !important;
+  }
+  .slider-thumb-image::-moz-range-thumb {
+    height: 8vw !important;
+    width: 8vw !important;
+  }
+}

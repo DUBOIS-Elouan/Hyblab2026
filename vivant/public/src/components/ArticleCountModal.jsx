@@ -16,7 +16,7 @@ const ArticleCountModal = ({ modalRef, defaultCount = 10, onConfirm }) => {
       ref={modalRef}
       className="modal modal-middle"
     >
-      <div className="modal-box bg-white rounded-[28px] shadow-2xl px-5 py-5 max-w-sm w-[90vw] mx-auto">
+      <div className="modal-box bg-white rounded-[28px] shadow-2xl px-5 py-5 w-[90vw] xl:w-[60vw] mx-auto">
 
         <h3 className="text-lg font-bold text-center mb-1 text-primary">
           Combien d'articles souhaitez-vous explorer ?
