@@ -78,6 +78,7 @@ const CategoryList = {
   "Initiative personnelle/quotidienne": "#FFCBC1"
 };
 
+
 const PathComponent = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const PathComponent = () => {
   }, [nbArticles]);
 
   const containerRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
 
   const SPEED_DESKTOP = Math.max(2000, 5000 - (nbArticles - 10) * 150);
   const SPEED_MOBILE = Math.max(2000, 5500 - (nbArticles - 10) * 150);
@@ -198,7 +199,7 @@ const PathComponent = () => {
     window.scrollTo(0, document.body.scrollHeight);
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
+    // On n'appelle plus checkMobile ici pour éviter un re-render immédiat qui change la hauteur juste avant le scroll
     window.addEventListener("resize", checkMobile);
 
     const run = () => {
@@ -271,7 +272,7 @@ const PathComponent = () => {
       window.removeEventListener("resize", checkMobile);
       if (idleId) cancelIdleCallback(idleId);
     };
-  }, [currentPathList]);
+  }, [currentPathList, isMobile]);
 
   useEffect(() => {
     if (pathsData.length === 0) return;
@@ -344,7 +345,7 @@ const PathComponent = () => {
 
   useEffect(() => {
     return scrollYProgress.on("change", (v) => smoothProgress.set(v));
-  }, [scrollYProgress]);
+  }, [scrollYProgress, smoothProgress]);
 
   useEffect(() => {
     return scrollYProgress.on("change", (latest) => {

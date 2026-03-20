@@ -168,12 +168,12 @@ const Home = () => {
             const el = container.querySelector(`#${id}`) || document.querySelector(`#${id}`);
             if (el) {
               el.style.opacity = '0';
-              if (id.startsWith('tiret')) {
+              if (id.startsWith('tiret') || id.startsWith('btn-')) {
                 el.style.transform = 'scale(0.5)';
                 el.style.transformBox = 'fill-box';
                 el.style.transformOrigin = 'center';
               }
-              el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              el.style.transition = 'opacity 0.8s ease, transform 0.4s ease';
             }
           });
 
@@ -187,7 +187,7 @@ const Home = () => {
                 const el = container.querySelector(`#${id}`) || document.querySelector(`#${id}`);
                 if (el) {
                   el.style.opacity = '1';
-                  if (id.startsWith('tiret')) {
+                  if (id.startsWith('tiret') || id.startsWith('btn-')) {
                     el.style.transform = 'scale(1)';
                   }
                 }
@@ -212,20 +212,19 @@ const Home = () => {
           const veloGroupPc = pcContainer.querySelector('#__velo_pc__');
           if (veloGroupPc) {
             veloGroupPc.style.opacity = '0';
-            veloGroupPc.style.transition = 'opacity 0.4s ease';
+            veloGroupPc.style.transition = 'opacity 0.6s ease';
           }
 
           SEQUENCE_PC.flat().forEach(id => {
-            if (id === '__velo_pc__' || id.startsWith('btn-')) return;
-            const el = pcContainer.querySelector(`#${id}`);
+            const el = pcContainer.querySelector(`#${id}`) || document.querySelector(`#${id}`);
             if (el) {
               el.style.opacity = '0';
-              if (id.startsWith('tiret-pc-')) {
+              if (id.startsWith('tiret-pc-') || id.startsWith('btn-')) {
                 el.style.transform = 'scale(0.5)';
                 el.style.transformBox = 'fill-box';
                 el.style.transformOrigin = 'center';
               }
-              el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             }
           });
 
@@ -239,7 +238,7 @@ const Home = () => {
                 const el = pcContainer.querySelector(`#${id}`) || document.querySelector(`#${id}`);
                 if (el) {
                   el.style.opacity = '1';
-                  if (id.startsWith('tiret-pc-')) {
+                  if (id.startsWith('tiret-pc-') || id.startsWith('btn-')) {
                     el.style.transform = 'scale(1)';
                   }
                 }
