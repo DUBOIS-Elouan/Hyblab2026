@@ -26,5 +26,8 @@
     "sqlite3": "^5.1.7"
   },
   "author": "MPDS",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-plugin-react-compiler": "^1.0.0"
+  }
 }
